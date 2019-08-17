@@ -5,11 +5,14 @@
    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
    <changeSet author="Bernardo" id="initial_tables">
-      <createTable tableName="example_entities">
+      <createTable tableName="paints">
          <column autoIncrement="true" name="id" type="BIGINT">
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
+            <constraints nullable="false" unique="true" />
+         </column>
+         <column name="code" type="VARCHAR(30)">
             <constraints nullable="false" unique="true" />
          </column>
       </createTable>
