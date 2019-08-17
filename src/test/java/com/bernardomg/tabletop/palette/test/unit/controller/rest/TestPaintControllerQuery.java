@@ -155,9 +155,9 @@ public final class TestPaintControllerQuery {
         service = Mockito.mock(PaintService.class);
 
         entities = new ArrayList<>();
-        entities.add(Mockito.mock(PaintOption.class));
-        entities.add(Mockito.mock(PaintOption.class));
-        entities.add(Mockito.mock(PaintOption.class));
+        entities.add(new PaintOption());
+        entities.add(new PaintOption());
+        entities.add(new PaintOption());
 
         captor = ArgumentCaptor.forClass(String.class);
 

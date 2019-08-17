@@ -39,7 +39,7 @@ const requests = {
 };
 
 const Paints = {
-   byCode: (query) => requests.get(`/rest/paint?code=${query}`)
+   all: () => requests.get('/rest/paint')
 };
 
 export default {

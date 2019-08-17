@@ -1,4 +1,7 @@
 import React from 'react';
+
+import PropTypes from 'prop-types';
+
 import deburr from 'lodash/deburr';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
@@ -9,44 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-const suggestions = [
-   { label: 'Afghanistan' },
-   { label: 'Aland Islands' },
-   { label: 'Albania' },
-   { label: 'Algeria' },
-   { label: 'American Samoa' },
-   { label: 'Andorra' },
-   { label: 'Angola' },
-   { label: 'Anguilla' },
-   { label: 'Antarctica' },
-   { label: 'Antigua and Barbuda' },
-   { label: 'Argentina' },
-   { label: 'Armenia' },
-   { label: 'Aruba' },
-   { label: 'Australia' },
-   { label: 'Austria' },
-   { label: 'Azerbaijan' },
-   { label: 'Bahamas' },
-   { label: 'Bahrain' },
-   { label: 'Bangladesh' },
-   { label: 'Barbados' },
-   { label: 'Belarus' },
-   { label: 'Belgium' },
-   { label: 'Belize' },
-   { label: 'Benin' },
-   { label: 'Bermuda' },
-   { label: 'Bhutan' },
-   { label: 'Bolivia, Plurinational State of' },
-   { label: 'Bonaire, Sint Eustatius and Saba' },
-   { label: 'Bosnia and Herzegovina' },
-   { label: 'Botswana' },
-   { label: 'Bouvet Island' },
-   { label: 'Brazil' },
-   { label: 'British Indian Ocean Territory' },
-   { label: 'Brunei Darussalam' }
-];
-
-export default function SuggestionInput() {
+export default function SuggestionInput({ suggestions }) {
    const [anchorEl, setAnchorEl] = React.useState(null);
    const [state, setState] = React.useState({
       single: '',
@@ -99,8 +65,8 @@ export default function SuggestionInput() {
    }
 
    function renderSuggestion(suggestion, { query, isHighlighted }) {
-      const matches = match(suggestion.label, query);
-      const parts = parse(suggestion.label, matches);
+      const matches = match(suggestion, query);
+      const parts = parse(suggestion, matches);
 
       return (
          <MenuItem selected={isHighlighted} component="div">
@@ -123,7 +89,7 @@ export default function SuggestionInput() {
       return inputLength === 0
          ? []
          : suggestions.filter((suggestion) => {
-            const keep = count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+            const keep = count < 5 && suggestion.slice(0, inputLength).toLowerCase() === inputValue;
 
             if (keep) {
                count += 1;
@@ -134,7 +100,7 @@ export default function SuggestionInput() {
    }
 
    function getSuggestionValue(suggestion) {
-      return suggestion.label;
+      return suggestion;
    }
 
    const [stateSuggestions, setSuggestions] = React.useState([]);
@@ -200,3 +166,7 @@ export default function SuggestionInput() {
       </div>
    );
 }
+
+SuggestionInput.propTypes = {
+   suggestions: PropTypes.array.isRequired
+};

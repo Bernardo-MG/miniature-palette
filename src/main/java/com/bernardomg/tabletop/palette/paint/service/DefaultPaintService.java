@@ -34,9 +34,18 @@ public final class DefaultPaintService implements PaintService {
         paints = paintRepository.findByCodeContaining(code);
 
         options = StreamSupport.stream(paints.spliterator(), false)
-                .map((p) -> new PaintOption()).collect(Collectors.toList());
+                .map(this::toPaintOption).collect(Collectors.toList());
 
         return options;
+    }
+
+    private final PaintOption toPaintOption(final Paint paint) {
+        final PaintOption option;
+
+        option = new PaintOption();
+        option.setName(paint.getName());
+
+        return option;
     }
 
 }
