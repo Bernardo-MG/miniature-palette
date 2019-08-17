@@ -6,7 +6,9 @@
    "homepage": "https://github.com/bernardo-mg/miniature-palette",
    "license": "MIT",
    "keywords": [
-      "miniature, palette, painting"
+      "miniature",
+      "palette",
+      "painting"
    ],
    "repository": {
       "type": "git",
