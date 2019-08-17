@@ -56,7 +56,7 @@
          3
       ],
       "arrow-body-style":[
-         "error",
+         "warn",
          "as-needed",
          {
             "requireReturnForObjectLiteral":true
