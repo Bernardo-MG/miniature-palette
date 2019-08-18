@@ -27,11 +27,11 @@ public final class DefaultPaintService implements PaintService {
     }
 
     @Override
-    public final Iterable<PaintOption> findByCode(final String code) {
+    public final Iterable<PaintOption> getAll() {
         final Iterable<Paint> paints;
         final Iterable<PaintOption> options;
 
-        paints = paintRepository.findByCodeContaining(code);
+        paints = paintRepository.findAll();
 
         options = StreamSupport.stream(paints.spliterator(), false)
                 .map(this::toPaintOption).collect(Collectors.toList());

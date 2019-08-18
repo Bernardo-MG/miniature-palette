@@ -36,6 +36,6 @@ import com.bernardomg.tabletop.palette.paint.model.PaintOption;
  */
 public interface PaintService {
 
-    public Iterable<PaintOption> findByCode(final String code);
+    public Iterable<PaintOption> getAll();
 
 }

@@ -27,10 +27,8 @@ package com.bernardomg.tabletop.palette.paint.controller;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.tabletop.palette.paint.model.PaintOption;
@@ -63,21 +61,9 @@ public class PaintController {
         paintService = checkNotNull(service, "The service is required");
     }
 
-    /**
-     * Returns a paginated collection of entities.
-     * 
-     * @param query
-     *            optional query argument
-     * @param page
-     *            pagination data
-     * @return a paginated collection of entities
-     */
     @GetMapping
-    public Iterable<PaintOption> readEntities(
-            @RequestParam(value = "code", required = false,
-                    defaultValue = "") final String query,
-            final Pageable page) {
-        return paintService.findByCode(query);
+    public Iterable<PaintOption> read() {
+        return paintService.getAll();
     }
 
 }

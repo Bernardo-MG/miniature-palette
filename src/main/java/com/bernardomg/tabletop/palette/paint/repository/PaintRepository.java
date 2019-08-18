@@ -35,6 +35,4 @@ import com.bernardomg.tabletop.palette.paint.model.persistence.Paint;
  */
 public interface PaintRepository extends JpaRepository<Paint, Integer> {
 
-    public Iterable<Paint> findByCodeContaining(final String code);
-
 }
