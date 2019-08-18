@@ -99,8 +99,7 @@ public final class TestGlobalExceptionHandler {
 
         service = Mockito.mock(PaintService.class);
 
-        Mockito.when(service.findByCode(ArgumentMatchers.any()))
-                .thenThrow(RuntimeException.class);
+        Mockito.when(service.getAll()).thenThrow(RuntimeException.class);
 
         return new PaintController(service);
     }
