@@ -95,8 +95,12 @@
          "warn"
       ],
       "implicit-arrow-linebreak":[
-         "error",
-         "beside"
+         "warn",
+         "below"
+      ],
+      "function-paren-newline":[
+         "warn",
+         "multiline"
       ],
       "no-trailing-spaces":[
          "error",
