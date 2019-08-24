@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function SuggestionInput({ suggestions }) {
+export default function SuggestionInput({ suggestions, label, placeholder }) {
    const [anchorEl, setAnchorEl] = React.useState(null);
    const [state, setState] = React.useState({
       single: '',
@@ -136,8 +136,8 @@ export default function SuggestionInput({ suggestions }) {
             {...autosuggestProps}
             inputProps={{
                id: 'react-autosuggest-popper',
-               label: 'Country',
-               placeholder: 'With Popper',
+               label,
+               placeholder,
                value: state.popper,
                onChange: handleChange('popper'),
                inputRef: (node) => {
@@ -168,5 +168,7 @@ export default function SuggestionInput({ suggestions }) {
 }
 
 SuggestionInput.propTypes = {
-   suggestions: PropTypes.array.isRequired
+   suggestions: PropTypes.array.isRequired,
+   label: PropTypes.string.isRequired,
+   placeholder: PropTypes.string.isRequired
 };

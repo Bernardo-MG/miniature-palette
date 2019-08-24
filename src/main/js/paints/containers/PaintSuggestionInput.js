@@ -22,6 +22,8 @@ export default function PaintSuggestionInput() {
    return (
       <SuggestionInput
          suggestions={suggestions}
+         label={'paint'}
+         placeholder={'placeholder'}
       />
    );
 }
