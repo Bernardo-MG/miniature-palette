@@ -16,7 +16,7 @@ function Palette() {
    const [color, setColor] = useState('');
 
    function addPalette() {
-      setPalettes(['palette']);
+      setPalettes([color, ...palettes]);
    }
 
    return <React.Fragment>
@@ -27,22 +27,22 @@ function Palette() {
             { 'add' }
          </Button>
       </div>
-      {palettes.map((palette) =>
-         <Table key={palette}>
-            <TableHead>
-               <TableRow>
-                  <TableCell component="th">title</TableCell>
-               </TableRow>
-            </TableHead>
-            <TableBody>
-               <TableRow>
+      <Table>
+         <TableHead>
+            <TableRow>
+               <TableCell component="th">title</TableCell>
+            </TableRow>
+         </TableHead>
+         <TableBody>
+            {palettes.map((palette) =>
+               <TableRow key={palette}>
                   <TableCell scope="row">
-                     {color}
+                     {palette}
                   </TableCell>
                </TableRow>
-            </TableBody>
-         </Table>
-      )}
+            )}
+         </TableBody>
+      </Table>
    </React.Fragment>;
 }
 
