@@ -48,17 +48,7 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCho
    }));
 
    function renderInputComponent(inputProps) {
-      const { inputRef = () => {}, ref, onChange, ...other } = inputProps;
-
-      /**
-       * Handles the value change event.
-       *
-       * @param event value change event
-       */
-      function handleChange(event) {
-         onChange(event);
-         onChoose(event.target.value);
-      }
+      const { inputRef = () => {}, ref, ...other } = inputProps;
 
       return (
          <TextField
@@ -70,7 +60,6 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCho
                }
             }}
             {...other}
-            onChange={handleChange}
          />
       );
    }
@@ -129,6 +118,7 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCho
          ...state,
          [name]: newValue
       });
+      onChoose(newValue);
    };
 
    const classes = useStyles();
