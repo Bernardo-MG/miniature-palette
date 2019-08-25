@@ -131,39 +131,37 @@ export default function SuggestionInput({ suggestions, label, placeholder }) {
    };
 
    return (
-      <div>
-         <Autosuggest
-            {...autosuggestProps}
-            inputProps={{
-               id: 'react-autosuggest-popper',
-               label,
-               placeholder,
-               value: state.popper,
-               onChange: handleChange('popper'),
-               inputRef: (node) => {
-                  setAnchorEl(node);
-               },
-               InputLabelProps: {
-                  shrink: true
-               }
-            }}
-            theme={{
-               suggestionsList: classes.suggestionsList,
-               suggestion: classes.suggestion
-            }}
-            renderSuggestionsContainer={(options) => (
-               <Popper anchorEl={anchorEl} open={Boolean(options.children)}>
-                  <Paper
-                     square
-                     {...options.containerProps}
-                     style={{ width: anchorEl ? anchorEl.clientWidth : undefined }}
-                  >
-                     {options.children}
-                  </Paper>
-               </Popper>
-            )}
-         />
-      </div>
+      <Autosuggest
+         {...autosuggestProps}
+         inputProps={{
+            id: 'react-autosuggest-popper',
+            label,
+            placeholder,
+            value: state.popper,
+            onChange: handleChange('popper'),
+            inputRef: (node) => {
+               setAnchorEl(node);
+            },
+            InputLabelProps: {
+               shrink: true
+            }
+         }}
+         theme={{
+            suggestionsList: classes.suggestionsList,
+            suggestion: classes.suggestion
+         }}
+         renderSuggestionsContainer={(options) => (
+            <Popper anchorEl={anchorEl} open={Boolean(options.children)}>
+               <Paper
+                  square
+                  {...options.containerProps}
+                  style={{ width: anchorEl ? anchorEl.clientWidth : undefined }}
+               >
+                  {options.children}
+               </Paper>
+            </Popper>
+         )}
+      />
    );
 }
 
