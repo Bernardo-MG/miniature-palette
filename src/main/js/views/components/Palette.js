@@ -7,29 +7,37 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import PaintSuggestionInput from 'paints/containers/PaintSuggestionInput';
+
 function Palette() {
 
    const [palettes, setPalettes] = useState([]);
+
+   const [color, setColor] = useState('');
 
    function addPalette() {
       setPalettes(['palette']);
    }
 
    return <React.Fragment>
-      <Button onClick={addPalette}>
-         { 'add' }
-      </Button>
+      <div>
+         <PaintSuggestionInput
+            onChoose={setColor} />
+         <Button onClick={addPalette}>
+            { 'add' }
+         </Button>
+      </div>
       {palettes.map((palette) =>
          <Table key={palette}>
             <TableHead>
                <TableRow>
-                  <TableCell>title</TableCell>
+                  <TableCell component="th">title</TableCell>
                </TableRow>
             </TableHead>
             <TableBody>
                <TableRow>
-                  <TableCell component="th" scope="row">
-                     {palette}
+                  <TableCell scope="row">
+                     {color}
                   </TableCell>
                </TableRow>
             </TableBody>

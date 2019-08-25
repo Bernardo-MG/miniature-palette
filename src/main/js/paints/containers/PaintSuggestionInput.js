@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import SuggestionInput from 'common/components/SuggestionInput';
 
 import api from 'api';
 
-export default function PaintSuggestionInput() {
+export default function PaintSuggestionInput({ onChoose }) {
 
    const [suggestions, setSuggestions] = useState([]);
    const [loaded, setLoaded] = useState(false);
@@ -24,8 +26,11 @@ export default function PaintSuggestionInput() {
          suggestions={suggestions}
          label={'paint'}
          placeholder={'placeholder'}
+         onChoose={onChoose}
       />
    );
 }
 
-PaintSuggestionInput.propTypes = {};
+PaintSuggestionInput.propTypes = {
+   onChoose: PropTypes.func.isRequired
+};

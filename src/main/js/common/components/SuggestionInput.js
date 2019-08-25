@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function SuggestionInput({ suggestions, label, placeholder }) {
+export default function SuggestionInput({ suggestions, label, placeholder, onChoose }) {
    const [anchorEl, setAnchorEl] = React.useState(null);
    const [state, setState] = React.useState({
       single: '',
@@ -48,7 +48,17 @@ export default function SuggestionInput({ suggestions, label, placeholder }) {
    }));
 
    function renderInputComponent(inputProps) {
-      const { inputRef = () => {}, ref, ...other } = inputProps;
+      const { inputRef = () => {}, ref, onChange, ...other } = inputProps;
+
+      /**
+       * Handles the value change event.
+       *
+       * @param event value change event
+       */
+      function handleChange(event) {
+         onChange(event);
+         onChoose(event.target.value);
+      }
 
       return (
          <TextField
@@ -60,6 +70,7 @@ export default function SuggestionInput({ suggestions, label, placeholder }) {
                }
             }}
             {...other}
+            onChange={handleChange}
          />
       );
    }
@@ -168,5 +179,6 @@ export default function SuggestionInput({ suggestions, label, placeholder }) {
 SuggestionInput.propTypes = {
    suggestions: PropTypes.array.isRequired,
    label: PropTypes.string.isRequired,
-   placeholder: PropTypes.string.isRequired
+   placeholder: PropTypes.string.isRequired,
+   onChoose: PropTypes.func.isRequired
 };
