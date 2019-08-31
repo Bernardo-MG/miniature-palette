@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import PaintSuggestionInput from 'paints/containers/PaintSuggestionInput';
 
-function Palette() {
+function PaletteEditor() {
 
    const [palettes, setPalettes] = useState([]);
 
@@ -30,7 +30,7 @@ function Palette() {
       <Table>
          <TableHead>
             <TableRow>
-               <TableCell component="th">title</TableCell>
+               <TableCell component="th">paint</TableCell>
             </TableRow>
          </TableHead>
          <TableBody>
@@ -46,6 +46,6 @@ function Palette() {
    </React.Fragment>;
 }
 
-Palette.propTypes = {};
+PaletteEditor.propTypes = {};
 
-export default Palette;
+export default PaletteEditor;
