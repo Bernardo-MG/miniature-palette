@@ -7,26 +7,25 @@ import Palette from 'paints/components/Palette';
 
 function PaletteEditor() {
 
-   const [palettes, setPalettes] = useState([{ colors: [] }]);
+   const [palettes, setPalettes] = useState([]);
 
-   // const [paletteIndex, setPaletteIndex] = useState(-1);
+   const [paletteIndex, setPaletteIndex] = useState(-1);
 
    const [color, setColor] = useState('');
 
-   // function addPalette() {
-   //    const original = palettes[index];
-   //    const palette = { name: 'palette'+paletteIndex, colors: [] };
-   //    setPalettes([...palettes, palette]);
-   //    setPaletteIndex(paletteIndex + 1);
-   // }
+   function addPalette() {
+      const newPalette = { name: `palette${paletteIndex}`, colors: [] };
+      setPalettes([...palettes, newPalette]);
+      setPaletteIndex(paletteIndex + 1);
+   }
 
    function addColorToCurrent() {
-      const index = 0;
-      const newPalette = palettes[0];
+      const newPalette = palettes[paletteIndex];
       newPalette.colors = [color, ...newPalette.colors];
-      // const palette = { name: 'name', ...original, colors: [color, ...original.colors] };
+
       const newPalettes = [...palettes];
-      newPalettes[index] = newPalette;
+      newPalettes[paletteIndex] = newPalette;
+
       setPalettes(newPalettes);
    }
 
@@ -35,12 +34,17 @@ function PaletteEditor() {
          <PaintSuggestionInput
             onChoose={setColor} />
          <Button onClick={addColorToCurrent}>
-            { 'add' }
+            { 'add_color' }
          </Button>
       </div>
-      {palettes.map((palette) =>
-         <Palette key={palette.name} palette={palette.colors}/>
-      )}
+      <div>
+         <Button onClick={addPalette}>
+            { 'add_palette' }
+         </Button>
+         {palettes.map((palette) =>
+            <Palette key={palette.name} palette={palette.colors}/>
+         )}
+      </div>
    </React.Fragment>;
 }
 
