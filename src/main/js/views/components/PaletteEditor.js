@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 
-import PaintSuggestionInput from 'paints/containers/PaintSuggestionInput';
-import Palette from 'paints/components/Palette';
+import PaletteSelection from 'palette/components/PaletteSelection';
 
 function PaletteEditor() {
 
@@ -31,18 +30,11 @@ function PaletteEditor() {
 
    return <React.Fragment>
       <div>
-         <PaintSuggestionInput
-            onChoose={setColor} />
-         <Button onClick={addColorToCurrent}>
-            { 'add_color' }
-         </Button>
-      </div>
-      <div>
          <Button onClick={addPalette}>
             { 'add_palette' }
          </Button>
          {palettes.map((palette) =>
-            <Palette key={palette.name} palette={palette.colors}/>
+            <PaletteSelection key={palette.name} palette={palette} onClick={addColorToCurrent} onChoose={setColor} />
          )}
       </div>
    </React.Fragment>;
