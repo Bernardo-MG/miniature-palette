@@ -18,7 +18,7 @@ function PaletteSelection({ palette, addPalette }) {
 
    return <React.Fragment>
       <PaintSuggestionInput onWrite={setColor} onPressEnter={addColorToCurrent} />
-      <Palette palette={palette.colors}/>
+      <Palette palette={palette} addPalette={addPalette}/>
    </React.Fragment>;
 }
 
