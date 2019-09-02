@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import IconButton from '@material-ui/core/IconButton';
-
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-
 import PaintSuggestionInput from 'paints/containers/PaintSuggestionInput';
 import Palette from 'palette/components/Palette';
 
@@ -22,9 +18,6 @@ function PaletteSelection({ palette, addPalette }) {
 
    return <React.Fragment>
       <PaintSuggestionInput onWrite={setColor} onPressEnter={addColorToCurrent} />
-      <IconButton onClick={addColorToCurrent}>
-         <AddCircleOutlineIcon />
-      </IconButton>
       <Palette palette={palette.colors}/>
    </React.Fragment>;
 }
