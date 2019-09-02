@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -7,10 +7,20 @@ import Button from '@material-ui/core/Button';
 import PaintSuggestionInput from 'paints/containers/PaintSuggestionInput';
 import Palette from 'palette/components/Palette';
 
-function PaletteSelection({ palette, onChoose, onClick }) {
+function PaletteSelection({ palette, addPalette }) {
+
+   const [color, setColor] = useState('');
+
+   function addColorToCurrent() {
+      const newPalette = { ...palette };
+      newPalette.colors = [...newPalette.colors, color];
+
+      addPalette(newPalette);
+   }
+
    return <React.Fragment>
-      <PaintSuggestionInput onChoose={onChoose} />
-      <Button onClick={onClick}>
+      <PaintSuggestionInput onChoose={setColor} />
+      <Button onClick={addColorToCurrent}>
          { 'add_color' }
       </Button>
       <Palette palette={palette.colors}/>
@@ -18,9 +28,8 @@ function PaletteSelection({ palette, onChoose, onClick }) {
 }
 
 PaletteSelection.propTypes = {
-   palette: PropTypes.array.isRequired,
-   onChoose: PropTypes.func.isRequired,
-   onClick: PropTypes.func.isRequired
+   palette: PropTypes.object.isRequired,
+   addPalette: PropTypes.func.isRequired
 };
 
 export default PaletteSelection;

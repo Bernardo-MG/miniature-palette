@@ -8,33 +8,33 @@ function PaletteEditor() {
 
    const [palettes, setPalettes] = useState([]);
 
-   const [paletteIndex, setPaletteIndex] = useState(-1);
+   const [paletteIndex, setPaletteIndex] = useState(0);
 
-   const [color, setColor] = useState('');
-
-   function addPalette() {
+   function createPalette() {
       const newPalette = { name: `palette${paletteIndex}`, colors: [] };
       setPalettes([...palettes, newPalette]);
       setPaletteIndex(paletteIndex + 1);
    }
 
-   function addColorToCurrent() {
-      const newPalette = { ...palettes[paletteIndex] };
-      newPalette.colors = [color, ...newPalette.colors];
-
+   function addPalette(palette) {
+      let index;
+      palettes.find((pal, i) => {
+         index = i;
+         return pal.name === palette.name;
+      });
       const newPalettes = [...palettes];
-      newPalettes[paletteIndex] = newPalette;
+      newPalettes[index] = palette;
 
       setPalettes(newPalettes);
    }
 
    return <React.Fragment>
       <div>
-         <Button onClick={addPalette}>
+         <Button onClick={createPalette}>
             { 'add_palette' }
          </Button>
          {palettes.map((palette) =>
-            <PaletteSelection key={palette.name} palette={palette} onClick={addColorToCurrent} onChoose={setColor} />
+            <PaletteSelection key={palette.name} palette={palette} addPalette={addPalette} />
          )}
       </div>
    </React.Fragment>;
