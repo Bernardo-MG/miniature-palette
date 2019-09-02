@@ -6,7 +6,7 @@ import SuggestionInput from 'common/components/SuggestionInput';
 
 import api from 'api';
 
-export default function PaintSuggestionInput({ onChoose }) {
+export default function PaintSuggestionInput({ onWrite, onPressEnter }) {
 
    const [suggestions, setSuggestions] = useState([]);
    const [loaded, setLoaded] = useState(false);
@@ -14,6 +14,12 @@ export default function PaintSuggestionInput({ onChoose }) {
    async function loadSuggestions() {
       const read = await api.Paints.all();
       setSuggestions(read.map((paint) => paint.name));
+   }
+
+   function handleKeyPress(event) {
+      if ((event) && (event.key === 'Enter')) {
+         onPressEnter();
+      }
    }
 
    if (!loaded) {
@@ -26,11 +32,13 @@ export default function PaintSuggestionInput({ onChoose }) {
          suggestions={suggestions}
          label={'paint'}
          placeholder={'placeholder'}
-         onChoose={onChoose}
+         onWrite={onWrite}
+         onPressEnter={handleKeyPress}
       />
    );
 }
 
 PaintSuggestionInput.propTypes = {
-   onChoose: PropTypes.func.isRequired
+   onWrite: PropTypes.func.isRequired,
+   onPressEnter: PropTypes.func.isRequired
 };
