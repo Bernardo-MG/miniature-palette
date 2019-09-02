@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import PaletteSelection from 'palette/components/PaletteSelection';
 
@@ -30,12 +32,12 @@ function PaletteEditor() {
 
    return <React.Fragment>
       <div>
-         <Button onClick={createPalette}>
-            { 'add_palette' }
-         </Button>
          {palettes.map((palette) =>
             <PaletteSelection key={palette.name} palette={palette} addPalette={addPalette} />
          )}
+         <IconButton onClick={createPalette}>
+            <AddCircleOutlineIcon />
+         </IconButton>
       </div>
    </React.Fragment>;
 }
