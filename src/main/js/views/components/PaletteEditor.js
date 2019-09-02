@@ -19,7 +19,7 @@ function PaletteEditor() {
    }
 
    function addColorToCurrent() {
-      const newPalette = palettes[paletteIndex];
+      const newPalette = { ...palettes[paletteIndex] };
       newPalette.colors = [color, ...newPalette.colors];
 
       const newPalettes = [...palettes];
