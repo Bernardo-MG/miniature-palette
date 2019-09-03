@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import PaintSuggestionInput from 'paints/containers/PaintSuggestionInput';
 import Palette from 'palette/components/Palette';
 
-function PaletteSelection({ palette, addPalette }) {
+function PaletteSelection({ suggestions, palette, addPalette }) {
 
    const [color, setColor] = useState('');
 
@@ -17,12 +17,13 @@ function PaletteSelection({ palette, addPalette }) {
    }
 
    return <React.Fragment>
-      <PaintSuggestionInput onWrite={setColor} onPressEnter={addColorToCurrent} />
+      <PaintSuggestionInput suggestions={suggestions} onWrite={setColor} onPressEnter={addColorToCurrent} />
       <Palette palette={palette} addPalette={addPalette}/>
    </React.Fragment>;
 }
 
 PaletteSelection.propTypes = {
+   suggestions: PropTypes.array.isRequired,
    palette: PropTypes.object.isRequired,
    addPalette: PropTypes.func.isRequired
 };
