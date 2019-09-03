@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import PaintSuggestionInput from 'paints/containers/PaintSuggestionInput';
 import Palette from 'palette/components/Palette';
+import SuggestionInput from 'common/components/SuggestionInput';
 
 function PaletteSelection({ suggestions, palette, addPalette }) {
 
@@ -17,7 +17,13 @@ function PaletteSelection({ suggestions, palette, addPalette }) {
    }
 
    return <React.Fragment>
-      <PaintSuggestionInput suggestions={suggestions} onWrite={setColor} onPressEnter={addColorToCurrent} />
+      <SuggestionInput
+         suggestions={suggestions}
+         label={'paint'}
+         placeholder={'placeholder'}
+         onWrite={setColor}
+         onPressEnter={addColorToCurrent}
+      />
       <Palette palette={palette} addPalette={addPalette}/>
    </React.Fragment>;
 }
