@@ -20,8 +20,8 @@ function PaletteSelection({ suggestions, palette, addPalette }) {
       <SuggestionInput
          suggestions={suggestions}
          label={'paint'}
-         placeholder={'placeholder'}
-         onWrite={setColor}
+         placeholder={'write_paint'}
+         onChange={setColor}
          onPressEnter={addColorToCurrent}
       />
       <Palette palette={palette} addPalette={addPalette}/>
