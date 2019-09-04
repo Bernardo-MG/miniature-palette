@@ -76,7 +76,7 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCha
          <MenuItem selected={isHighlighted} component="div">
             <div>
                {parts.map((part) => (
-                  <span key={part.text}>
+                  <span key={part.text} style={{ fontWeight: part.highlight ? 500 : 400 }}>
                      {part.text}
                   </span>
                ))}
