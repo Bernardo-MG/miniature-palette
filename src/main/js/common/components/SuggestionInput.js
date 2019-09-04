@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function SuggestionInput({ suggestions, label, placeholder, onChange, onPressEnter }) {
+export default function SuggestionInput({ id, label, placeholder, suggestions, onChange, onPressEnter }) {
 
    const [anchorEl, setAnchorEl] = useState(null);
    const [text, setText] = useState('');
@@ -165,9 +165,10 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCha
 }
 
 SuggestionInput.propTypes = {
-   suggestions: PropTypes.array.isRequired,
+   id: PropTypes.string,
    label: PropTypes.string.isRequired,
    placeholder: PropTypes.string.isRequired,
+   suggestions: PropTypes.array.isRequired,
    onChange: PropTypes.func.isRequired,
    onPressEnter: PropTypes.func.isRequired
 };
