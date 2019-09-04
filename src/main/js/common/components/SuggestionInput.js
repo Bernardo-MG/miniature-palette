@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -13,11 +13,8 @@ import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default function SuggestionInput({ suggestions, label, placeholder, onChange, onPressEnter }) {
-   const [anchorEl, setAnchorEl] = React.useState(null);
-   const [state, setState] = React.useState({
-      single: '',
-      popper: ''
-   });
+   const [anchorEl, setAnchorEl] = useState(null);
+   const [text, setText] = useState('');
 
    const useStyles = makeStyles((theme) => ({
       root: {
@@ -120,11 +117,8 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCha
       setSuggestions([]);
    };
 
-   const handleChange = (name) => (event, { newValue }) => {
-      setState({
-         ...state,
-         [name]: newValue
-      });
+   const handleChange = (event, { newValue }) => {
+      setText(newValue);
       onChange(newValue);
    };
 
@@ -142,16 +136,12 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCha
       <Autosuggest
          {...autosuggestProps}
          inputProps={{
-            id: 'react-autosuggest-popper',
             label,
             placeholder,
-            value: state.popper,
-            onChange: handleChange('popper'),
+            value: text,
+            onChange: handleChange,
             inputRef: (node) => {
                setAnchorEl(node);
-            },
-            InputLabelProps: {
-               shrink: true
             }
          }}
          theme={{
