@@ -13,8 +13,10 @@ import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default function SuggestionInput({ suggestions, label, placeholder, onChange, onPressEnter }) {
+
    const [anchorEl, setAnchorEl] = useState(null);
    const [text, setText] = useState('');
+   const [stateSuggestions, setSuggestions] = React.useState([]);
 
    const useStyles = makeStyles((theme) => ({
       root: {
@@ -107,8 +109,6 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCha
       return suggestion;
    }
 
-   const [stateSuggestions, setSuggestions] = React.useState([]);
-
    const handleSuggestionsFetchRequested = ({ value }) => {
       setSuggestions(getSuggestions(value));
    };
@@ -123,6 +123,7 @@ export default function SuggestionInput({ suggestions, label, placeholder, onCha
    };
 
    const classes = useStyles();
+
    const autosuggestProps = {
       renderInputComponent,
       suggestions: stateSuggestions,
