@@ -42,6 +42,11 @@ const Paints = {
    all: () => requests.get('/rest/paint')
 };
 
+const Palettes = {
+   save: (palette) => requests.post('/rest/palette', palette)
+};
+
 export default {
-   Paints
+   Paints,
+   Palettes
 };

@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import SaveIcon from '@material-ui/icons/Save';
 
 import PaletteSelection from 'palette/components/PaletteSelection';
 
@@ -51,12 +52,19 @@ function PaletteEditor() {
       setPalettes(newPalettes);
    }
 
+   async function savePalette() {
+      await api.Palettes.save(palettes);
+   }
+
    if (!loaded) {
       loadSuggestions();
       setLoaded(true);
    }
 
    return <Paper className={classes.root}>
+      <IconButton onClick={savePalette}>
+         <SaveIcon />
+      </IconButton>
       <Grid container spacing={3}>
          {palettes.map((palette) =>
             <Grid item xs={12} key={palette.name}>
