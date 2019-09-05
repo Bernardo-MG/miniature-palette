@@ -47,7 +47,6 @@ function Palette({ palette, addPalette }) {
 
 Palette.propTypes = {
    palette: PropTypes.array.isRequired,
-   onDelete: PropTypes.func.isRequired,
    addPalette: PropTypes.func.isRequired
 };
 
