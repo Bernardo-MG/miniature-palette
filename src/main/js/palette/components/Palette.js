@@ -46,7 +46,9 @@ function Palette({ palette, addPalette }) {
 }
 
 Palette.propTypes = {
-   palette: PropTypes.array.isRequired,
+   palette: PropTypes.shape({
+      colors: PropTypes.array.isRequired
+   }).isRequired,
    addPalette: PropTypes.func.isRequired
 };
 
