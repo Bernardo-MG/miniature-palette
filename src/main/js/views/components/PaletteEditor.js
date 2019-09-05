@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
 
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
@@ -10,7 +13,15 @@ import PaletteSelection from 'palette/components/PaletteSelection';
 
 import api from 'api';
 
+const useStyles = makeStyles((theme) => ({
+   root: {
+      padding: theme.spacing(3, 2)
+   }
+}));
+
 function PaletteEditor() {
+
+   const classes = useStyles();
 
    const [loaded, setLoaded] = useState(false);
    const [suggestions, setSuggestions] = useState([]);
@@ -45,19 +56,21 @@ function PaletteEditor() {
       setLoaded(true);
    }
 
-   return <Grid container spacing={3}>
-      {palettes.map((palette) =>
-         <Grid item xs={12} key={palette.name}>
-            <PaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} />
-            <Divider />
+   return <Paper className={classes.root}>
+      <Grid container spacing={3}>
+         {palettes.map((palette) =>
+            <Grid item xs={12} key={palette.name}>
+               <PaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} />
+               <Divider />
+            </Grid>
+         )}
+         <Grid item xs={6}>
+            <IconButton onClick={createPalette}>
+               <AddCircleOutlineIcon />
+            </IconButton>
          </Grid>
-      )}
-      <Grid item xs={6}>
-         <IconButton onClick={createPalette}>
-            <AddCircleOutlineIcon />
-         </IconButton>
       </Grid>
-   </Grid>;
+   </Paper>;
 }
 
 PaletteEditor.propTypes = {};
