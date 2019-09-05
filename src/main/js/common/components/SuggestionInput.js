@@ -137,6 +137,7 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
       <Autosuggest
          {...autosuggestProps}
          inputProps={{
+            id,
             label,
             placeholder,
             value: text,
