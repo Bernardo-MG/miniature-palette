@@ -32,8 +32,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.tabletop.palette.paint.model.PaintOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
+import com.bernardomg.tabletop.palette.response.DefaultResponse;
+import com.bernardomg.tabletop.palette.response.Response;
 
 /**
  * Rest controller for palettes.
@@ -63,8 +65,10 @@ public class PaletteController {
     }
 
     @PostMapping
-    public void save(@RequestBody final Iterable<PaintOption> paints) {
-        paletteService.save(paints);
+    public Response save(@RequestBody final Iterable<PaletteOption> palettes) {
+        paletteService.save(palettes);
+
+        return new DefaultResponse();
     }
 
 }

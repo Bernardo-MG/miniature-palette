@@ -4,7 +4,7 @@ package com.bernardomg.tabletop.palette.palette.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.tabletop.palette.paint.model.PaintOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 
 @Service
 public final class DefaultPaletteService implements PaletteService {
@@ -15,7 +15,7 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final void save(final Iterable<PaintOption> paints) {
+    public final void save(final Iterable<PaletteOption> palettes) {
 
     }
 
