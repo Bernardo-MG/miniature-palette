@@ -35,7 +35,7 @@ const requests = {
          (error) => error.message || 'Request failed'
       ),
    get: (url) => superagent.get(`${API_ROOT}${url}`).then((response) => JSON.parse(response.text)),
-   post: (url, body) => superagent.post(`${API_ROOT}${url}`, body).then((response) => JSON.parse(response.text))
+   post: (url, body) => superagent.post(`${API_ROOT}${url}`, body)
 };
 
 const Paints = {
