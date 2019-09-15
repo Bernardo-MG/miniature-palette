@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import PropTypes from 'prop-types';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import Divider from '@material-ui/core/Divider';
@@ -19,6 +21,46 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(3, 2)
    }
 }));
+
+function AddButton({ onClick }) {
+   return <IconButton onClick={onClick}>
+      <AddCircleOutlineIcon />
+   </IconButton>;
+}
+
+AddButton.propTypes = {
+   onClick: PropTypes.func.isRequired
+};
+
+function SaveButton({ onClick }) {
+   return <IconButton onClick={onClick}>
+      <SaveIcon />
+   </IconButton>;
+}
+
+SaveButton.propTypes = {
+   onClick: PropTypes.func.isRequired
+};
+
+function DividedPaletteSelection({ suggestions, palette, addPalette, divide }) {
+   let divider;
+
+   if (divide) {
+      divider = <Divider />;
+   }
+
+   return <React.Fragment>
+      <PaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} />
+      {divider}
+   </React.Fragment>;
+}
+
+DividedPaletteSelection.propTypes = {
+   suggestions: PropTypes.array.isRequired,
+   palette: PropTypes.object.isRequired,
+   addPalette: PropTypes.func.isRequired,
+   divide: PropTypes.bool.isRequired
+};
 
 function PaletteEditor() {
 
@@ -59,20 +101,17 @@ function PaletteEditor() {
    });
 
    return <Paper className={classes.root}>
-      <IconButton onClick={savePalette}>
-         <SaveIcon />
-      </IconButton>
+      <SaveButton onClick={savePalette} />
       <Grid container spacing={3}>
-         {palettes.map((palette) =>
-            <Grid item xs={12} key={palette.name}>
-               <PaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} />
-               <Divider />
-            </Grid>
+         {palettes.map((palette, index) => {
+            const divide = (index + 1) < palettes.length;
+            return <Grid item xs={12} key={palette.name}>
+               <DividedPaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} divide={divide} />
+            </Grid>;
+         }
          )}
          <Grid item xs={6}>
-            <IconButton onClick={createPalette}>
-               <AddCircleOutlineIcon />
-            </IconButton>
+            <AddButton onClick={createPalette} />
          </Grid>
       </Grid>
    </Paper>;
