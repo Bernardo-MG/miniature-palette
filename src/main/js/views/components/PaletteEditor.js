@@ -52,13 +52,8 @@ function PaletteEditor() {
    }
 
    useEffect(() => {
-      async function loadSuggestions() {
-         const read = await api.Paints.all();
-         setSuggestions(read.map((paint) => paint.name));
-      }
-
       if (!loaded) {
-         loadSuggestions();
+         api.Paints.all().then((paints) => setSuggestions(paints.map((paint) => paint.name)));
          setLoaded(true);
       }
    });
