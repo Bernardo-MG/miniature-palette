@@ -24,6 +24,7 @@
 
 package com.bernardomg.tabletop.palette.test.integration.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -36,7 +37,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.bernardomg.tabletop.palette.paint.model.PaintOption;
 import com.bernardomg.tabletop.palette.paint.service.PaintService;
+import com.google.common.collect.Iterables;
 
 /**
  * Integration tests for the {@link ExampleEntityService}.
@@ -49,9 +52,8 @@ import com.bernardomg.tabletop.palette.paint.service.PaintService;
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @WebAppConfiguration
-@ContextConfiguration(locations = { "classpath:context/service.xml",
-        "classpath:context/persistence.xml",
-        "classpath:context/application-context.xml" })
+@ContextConfiguration(
+        locations = { "classpath:context/application-context.xml" })
 @TestPropertySource({ "classpath:config/persistence-access.properties",
         "classpath:config/service.properties" })
 public class ITPaintService {
@@ -70,10 +72,15 @@ public class ITPaintService {
     }
 
     /**
-     * Verifies that searching an existing entity by id returns the expected
-     * entity.
+     * Verifies that the service reads correctly.
      */
     @Test
-    public void testFindByCode() {}
+    public void testRead() {
+        final Iterable<PaintOption> paints;
+
+        paints = service.getAll();
+
+        Assertions.assertEquals(5, Iterables.size(paints));
+    }
 
 }
