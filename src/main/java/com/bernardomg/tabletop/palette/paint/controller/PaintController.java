@@ -35,7 +35,7 @@ import com.bernardomg.tabletop.palette.paint.model.PaintOption;
 import com.bernardomg.tabletop.palette.paint.service.PaintService;
 
 /**
- * Rest controller for the example entities.
+ * Rest controller for paints.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
@@ -44,7 +44,7 @@ import com.bernardomg.tabletop.palette.paint.service.PaintService;
 public class PaintController {
 
     /**
-     * Example entity service.
+     * Paint service.
      */
     private final PaintService paintService;
 

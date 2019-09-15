@@ -21,18 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.tabletop.palette.paint.service;
-
-import com.bernardomg.tabletop.palette.paint.model.PaintOption;
-
 /**
- * Service for paints.
- *
- * @author Bernardo Mart&iacute;nez Garrido
+ * Controllers for the example entity.
  */
-public interface PaintService {
 
-    public Iterable<PaintOption> getAll();
-
-}
+package com.bernardomg.tabletop.palette.palette.controller;

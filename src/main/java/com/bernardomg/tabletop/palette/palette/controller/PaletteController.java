@@ -22,17 +22,49 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.paint.service;
+package com.bernardomg.tabletop.palette.palette.controller;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.tabletop.palette.paint.model.PaintOption;
+import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 
 /**
- * Service for paints.
- *
+ * Rest controller for palettes.
+ * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaintService {
+@RestController
+@RequestMapping("/rest/palette")
+public class PaletteController {
 
-    public Iterable<PaintOption> getAll();
+    /**
+     * Palette service.
+     */
+    private final PaletteService paletteService;
+
+    /**
+     * Constructs a controller with the specified dependencies.
+     * 
+     * @param service
+     *            example entity service
+     */
+    @Autowired
+    public PaletteController(final PaletteService service) {
+        super();
+
+        paletteService = checkNotNull(service, "The service is required");
+    }
+
+    @PostMapping
+    public void save(@RequestBody final Iterable<PaintOption> paints) {
+        paletteService.save(paints);
+    }
 
 }

@@ -22,17 +22,17 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.paint.service;
+package com.bernardomg.tabletop.palette.palette.service;
 
 import com.bernardomg.tabletop.palette.paint.model.PaintOption;
 
 /**
- * Service for paints.
+ * Service for palettes.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaintService {
+public interface PaletteService {
 
-    public Iterable<PaintOption> getAll();
+    public void save(final Iterable<PaintOption> paints);
 
 }

@@ -21,18 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.tabletop.palette.paint.service;
-
-import com.bernardomg.tabletop.palette.paint.model.PaintOption;
-
 /**
- * Service for paints.
- *
- * @author Bernardo Mart&iacute;nez Garrido
+ * Services.
+ * <p>
+ * While in the MVC architecture all the logic seems to be contained inside the
+ * controllers, using an additional layer of services helps to isolate all the
+ * important logic in the application.
  */
-public interface PaintService {
 
-    public Iterable<PaintOption> getAll();
-
-}
+package com.bernardomg.tabletop.palette.palette.service;
