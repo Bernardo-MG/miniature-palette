@@ -47,8 +47,8 @@ function PaletteEditor() {
       setPalettes(newPalettes);
    }
 
-   async function savePalette() {
-      await api.Palettes.save(palettes);
+   function savePalette() {
+      api.Palettes.save(palettes);
    }
 
    useEffect(() => {
