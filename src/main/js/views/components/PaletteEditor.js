@@ -29,11 +29,6 @@ function PaletteEditor() {
    const [palettes, setPalettes] = useState([]);
    const [paletteIndex, setPaletteIndex] = useState(0);
 
-   async function loadSuggestions() {
-      const read = await api.Paints.all();
-      setSuggestions(read.map((paint) => paint.name));
-   }
-
    function createPalette() {
       const newPalette = { name: `palette${paletteIndex}`, colors: [] };
       setPalettes([...palettes, newPalette]);
@@ -57,6 +52,11 @@ function PaletteEditor() {
    }
 
    useEffect(() => {
+      async function loadSuggestions() {
+         const read = await api.Paints.all();
+         setSuggestions(read.map((paint) => paint.name));
+      }
+
       if (!loaded) {
          loadSuggestions();
          setLoaded(true);
