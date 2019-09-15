@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -56,10 +56,12 @@ function PaletteEditor() {
       await api.Palettes.save(palettes);
    }
 
-   if (!loaded) {
-      loadSuggestions();
-      setLoaded(true);
-   }
+   useEffect(() => {
+      if (!loaded) {
+         loadSuggestions();
+         setLoaded(true);
+      }
+   });
 
    return <Paper className={classes.root}>
       <IconButton onClick={savePalette}>
