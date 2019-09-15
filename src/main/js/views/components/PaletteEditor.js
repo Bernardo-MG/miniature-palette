@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
@@ -40,26 +39,6 @@ function SaveButton({ onClick }) {
 
 SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
-};
-
-function DividedPaletteSelection({ suggestions, palette, addPalette, divide }) {
-   let divider;
-
-   if (divide) {
-      divider = <Divider />;
-   }
-
-   return <React.Fragment>
-      <PaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} />
-      {divider}
-   </React.Fragment>;
-}
-
-DividedPaletteSelection.propTypes = {
-   suggestions: PropTypes.array.isRequired,
-   palette: PropTypes.object.isRequired,
-   addPalette: PropTypes.func.isRequired,
-   divide: PropTypes.bool.isRequired
 };
 
 function PaletteEditor() {
@@ -103,10 +82,9 @@ function PaletteEditor() {
    return <Paper className={classes.root}>
       <SaveButton onClick={savePalette} />
       <Grid container spacing={3}>
-         {palettes.map((palette, index) => {
-            const divide = (index + 1) < palettes.length;
+         {palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
-               <DividedPaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} divide={divide} />
+               <PaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} />
             </Grid>;
          }
          )}
