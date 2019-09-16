@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import SaveIcon from '@material-ui/icons/Save';
 
 import PaletteSelection from 'palette/components/PaletteSelection';
@@ -14,7 +14,7 @@ import api from 'api';
 
 function AddButton({ onClick }) {
    return <IconButton onClick={onClick}>
-      <AddCircleOutlineIcon />
+      <NoteAddIcon />
    </IconButton>;
 }
 
