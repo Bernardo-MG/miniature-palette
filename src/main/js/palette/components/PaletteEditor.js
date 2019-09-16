@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
 
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import SaveIcon from '@material-ui/icons/Save';
@@ -14,12 +11,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import PaletteSelection from 'palette/components/PaletteSelection';
 
 import api from 'api';
-
-const useStyles = makeStyles((theme) => ({
-   root: {
-      padding: theme.spacing(3, 2)
-   }
-}));
 
 function AddButton({ onClick }) {
    return <IconButton onClick={onClick}>
@@ -42,8 +33,6 @@ SaveButton.propTypes = {
 };
 
 function PaletteEditor() {
-
-   const classes = useStyles();
 
    const [loaded, setLoaded] = useState(false);
    const [suggestions, setSuggestions] = useState([]);
@@ -79,7 +68,7 @@ function PaletteEditor() {
       }
    });
 
-   return <Paper className={classes.root}>
+   return <React.Fragment>
       <SaveButton onClick={savePalette} />
       <Grid container spacing={3}>
          {palettes.map((palette) => {
@@ -92,7 +81,7 @@ function PaletteEditor() {
             <AddButton onClick={createPalette} />
          </Grid>
       </Grid>
-   </Paper>;
+   </React.Fragment>;
 }
 
 PaletteEditor.propTypes = {};
