@@ -40,7 +40,7 @@ function PaletteEditor() {
    const [paletteIndex, setPaletteIndex] = useState(0);
 
    function createPalette() {
-      const newPalette = { name: `palette${paletteIndex}`, colors: [] };
+      const newPalette = { name: `palette${paletteIndex}`, paints: [] };
       setPalettes([...palettes, newPalette]);
       setPaletteIndex(paletteIndex + 1);
    }

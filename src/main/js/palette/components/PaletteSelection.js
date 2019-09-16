@@ -11,7 +11,7 @@ function PaletteSelection({ suggestions, palette, addPalette }) {
 
    function addColorToCurrent() {
       const newPalette = { ...palette };
-      newPalette.colors = [...newPalette.colors, color];
+      newPalette.paints = [...newPalette.paints, { name: color }];
 
       addPalette(newPalette);
    }

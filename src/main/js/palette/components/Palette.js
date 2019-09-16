@@ -16,7 +16,7 @@ function Palette({ palette, addPalette }) {
 
    function deleteColor(color) {
       const newPalette = { ...palette };
-      newPalette.colors = newPalette.colors.filter((item) => item !== color);
+      newPalette.paints = newPalette.paints.filter((item) => item !== color);
 
       addPalette(newPalette);
    }
@@ -29,10 +29,10 @@ function Palette({ palette, addPalette }) {
          </TableRow>
       </TableHead>
       <TableBody>
-         {palette.colors.map((color) =>
-            <TableRow key={color}>
+         {palette.paints.map((color) =>
+            <TableRow key={color.name}>
                <TableCell scope="row">
-                  {color}
+                  {color.name}
                </TableCell>
                <TableCell scope="row">
                   <IconButton onClick={() => deleteColor(color)}>
@@ -47,7 +47,7 @@ function Palette({ palette, addPalette }) {
 
 Palette.propTypes = {
    palette: PropTypes.shape({
-      colors: PropTypes.array.isRequired
+      paints: PropTypes.array.isRequired
    }).isRequired,
    addPalette: PropTypes.func.isRequired
 };
