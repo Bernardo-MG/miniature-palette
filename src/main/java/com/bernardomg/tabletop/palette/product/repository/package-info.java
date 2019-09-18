@@ -22,7 +22,11 @@
  * SOFTWARE.
  */
 /**
- * Controllers for the example entity.
+ * Repositories.
+ * <p>
+ * Similar to a DAO, a repository is a pattern which allows handling the
+ * persistence layer as if it was a collection, where entities are stored and
+ * read from.
  */
 
-package com.bernardomg.tabletop.palette.paint.controller;
+package com.bernardomg.tabletop.palette.product.repository;

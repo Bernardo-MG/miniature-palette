@@ -1,20 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+<databaseChangeLog
+   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-   <changeSet author="Bernardo" id="initial_tables">
-      <createTable tableName="paints">
-         <column autoIncrement="true" name="id" type="BIGINT">
+   <changeSet author="Bernardo" id="product_tables">
+      <createTable tableName="companies">
+         <column name="id" type="BIGINT" autoIncrement="true">
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
             <constraints nullable="false" unique="true" />
          </column>
-         <column name="code" type="VARCHAR(30)">
+      </createTable>
+      <createTable tableName="brands">
+         <column name="id" type="BIGINT" autoIncrement="true">
+            <constraints primaryKey="true" />
+         </column>
+         <column name="name" type="VARCHAR(30)">
             <constraints nullable="false" unique="true" />
          </column>
+      </createTable>
+      <createTable tableName="products">
+         <column name="id" type="BIGINT" autoIncrement="true">
+            <constraints primaryKey="true" />
+         </column>
+         <column name="name" type="VARCHAR(30)">
+            <constraints nullable="false" />
+         </column>
+         <column name="code" type="VARCHAR(30)">
+            <constraints nullable="false" />
+         </column>
+      </createTable>
+   </changeSet>
+
+   <changeSet author="Bernardo" id="product_relationships">
+      <createTable tableName="company_products">
+         <column name="company" type="BIGINT">
+            <constraints nullable="false"
+               foreignKeyName="fk_product_company_relationship"
+               references="companies(id)" />
+         </column>
+         <column name="product" type="BIGINT">
+            <constraints nullable="false"
+               foreignKeyName="fk_company_product_relationship"
+               references="products(id)" />
+         </column>
+         <column name="code" type="VARCHAR(30)" />
+      </createTable>
+      <createTable tableName="brand_products">
+         <column name="brand" type="BIGINT">
+            <constraints nullable="false"
+               foreignKeyName="fk_product_brand_relationship"
+               references="brands(id)" />
+         </column>
+         <column name="product" type="BIGINT">
+            <constraints nullable="false"
+               foreignKeyName="fk_brand_product_relationship"
+               references="products(id)" />
+         </column>
+         <column name="code" type="VARCHAR(30)" />
       </createTable>
    </changeSet>
 

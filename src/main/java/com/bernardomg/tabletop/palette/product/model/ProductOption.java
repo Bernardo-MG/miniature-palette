@@ -1,5 +1,5 @@
 
-package com.bernardomg.tabletop.palette.paint.model;
+package com.bernardomg.tabletop.palette.product.model;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -8,13 +8,13 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
-public class PaintOption implements Serializable {
+public class ProductOption implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
     private String            name             = "";
 
-    public PaintOption() {
+    public ProductOption() {
         super();
     }
 
@@ -32,7 +32,7 @@ public class PaintOption implements Serializable {
             return false;
         }
 
-        final PaintOption other = (PaintOption) obj;
+        final ProductOption other = (ProductOption) obj;
         return Objects.equals(name, other.name);
     }
 

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.test.integration.service;
+package com.bernardomg.tabletop.palette.test.integration.product.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -37,8 +37,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.bernardomg.tabletop.palette.paint.model.PaintOption;
-import com.bernardomg.tabletop.palette.paint.service.PaintService;
+import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.service.ProductService;
 import com.google.common.collect.Iterables;
 
 /**
@@ -56,18 +56,18 @@ import com.google.common.collect.Iterables;
         locations = { "classpath:context/application-context.xml" })
 @TestPropertySource({ "classpath:config/persistence-access.properties",
         "classpath:config/service.properties" })
-public class ITPaintService {
+public class ITProductService {
 
     /**
      * Service being tested.
      */
     @Autowired
-    private PaintService service;
+    private ProductService service;
 
     /**
      * Default constructor.
      */
-    public ITPaintService() {
+    public ITProductService() {
         super();
     }
 
@@ -76,7 +76,7 @@ public class ITPaintService {
      */
     @Test
     public void testRead() {
-        final Iterable<PaintOption> paints;
+        final Iterable<ProductOption> paints;
 
         paints = service.getAll();
 

@@ -1,18 +1,20 @@
 
 package com.bernardomg.tabletop.palette.palette.model;
 
-import java.util.ArrayList;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteOption {
+public class PaintOption implements Serializable {
 
-    private String                name;
+    private static final long serialVersionUID = -7040753038901687866L;
 
-    private Iterable<PaintOption> paints = new ArrayList<>();
+    private String            name             = "";
 
-    public PaletteOption() {
+    public PaintOption() {
         super();
     }
 
@@ -30,7 +32,7 @@ public class PaletteOption {
             return false;
         }
 
-        final PaletteOption other = (PaletteOption) obj;
+        final PaintOption other = (PaintOption) obj;
         return Objects.equals(name, other.name);
     }
 
@@ -38,27 +40,18 @@ public class PaletteOption {
         return name;
     }
 
-    public Iterable<PaintOption> getPaints() {
-        return paints;
-    }
-
     @Override
     public final int hashCode() {
         return Objects.hash(name);
     }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public void setPaints(final Iterable<PaintOption> paints) {
-        this.paints = paints;
+    public void setName(final String value) {
+        name = checkNotNull(value, "Received a null pointer as name");
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name)
-                .add("paints", paints).toString();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

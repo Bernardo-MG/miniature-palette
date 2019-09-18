@@ -30,4 +30,4 @@
  * instances of these objects would never be returned to the view.
  */
 
-package com.bernardomg.tabletop.palette.paint.model.persistence;
+package com.bernardomg.tabletop.palette.product.model.persistence;

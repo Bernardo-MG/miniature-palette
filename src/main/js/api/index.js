@@ -38,8 +38,8 @@ const requests = {
    post: (url, body) => superagent.post(`${API_ROOT}${url}`, body).then((response) => JSON.parse(response.text))
 };
 
-const Paints = {
-   all: () => requests.get('/rest/paint')
+const Products = {
+   all: () => requests.get('/rest/product')
 };
 
 const Palettes = {
@@ -47,6 +47,6 @@ const Palettes = {
 };
 
 export default {
-   Paints,
-   Palettes
+   Palettes,
+   Products
 };

@@ -27,9 +27,15 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 
-INSERT INTO paints (name, code) VALUES
-   ('paint_01', 'code_01'),
-   ('paint_02', 'code_02'),
-   ('paint_03', 'code_03'),
-   ('paint_04', 'code_04'),
-   ('paint_05', 'code_05');
+INSERT INTO products (name, code) VALUES
+   ('White', '70.951'),
+   ('Foundation White', '70.919'),
+   ('Gloss White', '70.842'),
+   ('Offwhite', '70.820'),
+   ('Ivory', '70.918');
+
+INSERT INTO companies (name) VALUES
+   ('Acrylicos Vallejo');
+
+INSERT INTO brands (name) VALUES
+   ('Model Color');

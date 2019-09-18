@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.paint.controller;
+package com.bernardomg.tabletop.palette.product.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.tabletop.palette.paint.model.PaintOption;
-import com.bernardomg.tabletop.palette.paint.service.PaintService;
+import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.service.ProductService;
 
 /**
  * Rest controller for paints.
@@ -40,13 +40,13 @@ import com.bernardomg.tabletop.palette.paint.service.PaintService;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RestController
-@RequestMapping("/rest/paint")
-public class PaintController {
+@RequestMapping("/rest/product")
+public class ProductController {
 
     /**
      * Paint service.
      */
-    private final PaintService paintService;
+    private final ProductService paintService;
 
     /**
      * Constructs a controller with the specified dependencies.
@@ -55,14 +55,14 @@ public class PaintController {
      *            example entity service
      */
     @Autowired
-    public PaintController(final PaintService service) {
+    public ProductController(final ProductService service) {
         super();
 
         paintService = checkNotNull(service, "The service is required");
     }
 
     @GetMapping
-    public Iterable<PaintOption> read() {
+    public Iterable<ProductOption> read() {
         return paintService.getAll();
     }
 

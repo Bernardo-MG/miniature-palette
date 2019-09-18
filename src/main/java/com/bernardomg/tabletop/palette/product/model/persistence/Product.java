@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.paint.model.persistence;
+package com.bernardomg.tabletop.palette.product.model.persistence;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -46,9 +46,9 @@ import com.google.common.base.MoreObjects;
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-@Entity(name = "Paint")
-@Table(name = "paints")
-public class Paint implements Serializable {
+@Entity(name = "Product")
+@Table(name = "products")
+public class Product implements Serializable {
 
     /**
      * Serialization ID.
@@ -79,7 +79,7 @@ public class Paint implements Serializable {
     /**
      * Constructs an example entity.
      */
-    public Paint() {
+    public Product() {
         super();
     }
 
@@ -97,7 +97,7 @@ public class Paint implements Serializable {
             return false;
         }
 
-        final Paint other = (Paint) obj;
+        final Product other = (Product) obj;
         return Objects.equals(id, other.id);
     }
 

@@ -29,4 +29,4 @@
  * important logic in the application.
  */
 
-package com.bernardomg.tabletop.palette.paint.service;
+package com.bernardomg.tabletop.palette.product.service;

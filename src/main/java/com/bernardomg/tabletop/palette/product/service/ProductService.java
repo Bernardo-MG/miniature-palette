@@ -21,12 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * Repositories.
- * <p>
- * Similar to a DAO, a repository is a pattern which allows handling the
- * persistence layer as if it was a collection, where entities are stored and
- * read from.
- */
 
-package com.bernardomg.tabletop.palette.paint.repository;
+package com.bernardomg.tabletop.palette.product.service;
+
+import com.bernardomg.tabletop.palette.product.model.ProductOption;
+
+/**
+ * Service for paints.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ */
+public interface ProductService {
+
+    public Iterable<ProductOption> getAll();
+
+}

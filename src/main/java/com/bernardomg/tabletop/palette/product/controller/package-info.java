@@ -21,18 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.tabletop.palette.paint.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.bernardomg.tabletop.palette.paint.model.persistence.Paint;
-
 /**
- * Spring-JPA repository for {@link Paint}.
- *
- * @author Bernardo Mart&iacute;nez Garrido
+ * Controllers for the example entity.
  */
-public interface PaintRepository extends JpaRepository<Paint, Integer> {
 
-}
+package com.bernardomg.tabletop.palette.product.controller;

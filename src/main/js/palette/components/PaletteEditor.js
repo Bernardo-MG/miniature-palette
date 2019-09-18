@@ -63,7 +63,7 @@ function PaletteEditor() {
 
    useEffect(() => {
       if (!loaded) {
-         api.Paints.all().then((paints) => setSuggestions(paints.map((paint) => paint.name)));
+         api.Products.all().then((products) => setSuggestions(products.map((product) => product.name)));
          setLoaded(true);
       }
    });

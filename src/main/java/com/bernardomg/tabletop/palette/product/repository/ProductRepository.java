@@ -22,17 +22,17 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.paint.service;
+package com.bernardomg.tabletop.palette.product.repository;
 
-import com.bernardomg.tabletop.palette.paint.model.PaintOption;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.tabletop.palette.product.model.persistence.Product;
 
 /**
- * Service for paints.
+ * Spring-JPA repository for {@link Product}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaintService {
-
-    public Iterable<PaintOption> getAll();
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 }
