@@ -73,6 +73,9 @@ public class Paint implements Serializable {
     @Column(name = "name", nullable = false, unique = true)
     private String            name             = "";
 
+    @Column(name = "palette_id", nullable = false)
+    private Integer           paletteId;
+
     /**
      * Constructs an example entity.
      */
@@ -114,6 +117,10 @@ public class Paint implements Serializable {
         return name;
     }
 
+    public Integer getPaletteId() {
+        return paletteId;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hash(id);
@@ -125,6 +132,10 @@ public class Paint implements Serializable {
 
     public void setName(final String value) {
         name = checkNotNull(value, "Received a null pointer as name");
+    }
+
+    public void setPaletteId(final Integer palette_id) {
+        paletteId = palette_id;
     }
 
     @Override

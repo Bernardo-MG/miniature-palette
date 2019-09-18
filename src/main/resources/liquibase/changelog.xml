@@ -80,6 +80,11 @@
          <column name="name" type="VARCHAR(30)">
             <constraints nullable="false" unique="true" />
          </column>
+         <column name="palette_id" type="BIGINT">
+            <constraints nullable="false"
+               foreignKeyName="fk_paint_palette_relationship"
+               references="palettes(id)" />
+         </column>
       </createTable>
    </changeSet>
 
