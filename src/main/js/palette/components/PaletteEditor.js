@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import SaveIcon from '@material-ui/icons/Save';
+import TextField from '@material-ui/core/TextField';
 
 import PaletteSelection from 'palette/components/PaletteSelection';
 
@@ -36,7 +37,7 @@ function PaletteEditor() {
 
    const [loaded, setLoaded] = useState(false);
    const [suggestions, setSuggestions] = useState([]);
-   // const [name, setName] = useState('palettes');
+   const [name, setName] = useState('palettes');
    const [palettes, setPalettes] = useState([]);
    const [paletteIndex, setPaletteIndex] = useState(0);
 
@@ -58,8 +59,12 @@ function PaletteEditor() {
       setPalettes(newPalettes);
    }
 
+   function handleNameChange(event) {
+      setName(event.target.value);
+   }
+
    function savePalette() {
-      api.Palettes.save({ name: 'palettes', palettes });
+      api.Palettes.save({ name, palettes });
    }
 
    useEffect(() => {
@@ -70,7 +75,14 @@ function PaletteEditor() {
    });
 
    return <React.Fragment>
-      <SaveButton onClick={savePalette} />
+      <Grid container spacing={3}>
+         <Grid item xs={6}>
+            <TextField value={name} onChange={handleNameChange} />
+         </Grid>
+         <Grid item xs={6}>
+            <SaveButton onClick={savePalette} />
+         </Grid>
+      </Grid>
       <Grid container spacing={3}>
          {palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
