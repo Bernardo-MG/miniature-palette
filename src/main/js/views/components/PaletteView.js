@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 
-import PaletteEditor from 'palette/components/PaletteEditor';
+import PaletteGroup from 'palette/components/PaletteGroup';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -17,7 +17,7 @@ function PaletteView() {
    const classes = useStyles();
 
    return <Paper className={classes.root}>
-      <PaletteEditor />
+      <PaletteGroup />
    </Paper>;
 }
 

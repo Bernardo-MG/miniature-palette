@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Palette from 'palette/components/Palette';
 import SuggestionInput from 'common/components/SuggestionInput';
 
-function PaletteSelection({ suggestions, palette, addPalette }) {
+function PaletteInput({ suggestions, palette, addPalette }) {
 
    const [color, setColor] = useState('');
 
@@ -28,10 +28,10 @@ function PaletteSelection({ suggestions, palette, addPalette }) {
    </React.Fragment>;
 }
 
-PaletteSelection.propTypes = {
+PaletteInput.propTypes = {
    suggestions: PropTypes.array.isRequired,
    palette: PropTypes.object.isRequired,
    addPalette: PropTypes.func.isRequired
 };
 
-export default PaletteSelection;
+export default PaletteInput;

@@ -9,7 +9,7 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 
-import PaletteSelection from 'palette/components/PaletteSelection';
+import PaletteInput from 'palette/components/PaletteInput';
 
 import api from 'api';
 
@@ -33,7 +33,7 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteEditor() {
+function PaletteGroup() {
 
    const [loaded, setLoaded] = useState(false);
    const [suggestions, setSuggestions] = useState([]);
@@ -86,7 +86,7 @@ function PaletteEditor() {
       <Grid container spacing={3}>
          {palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
-               <PaletteSelection suggestions={suggestions} palette={palette} addPalette={addPalette} />
+               <PaletteInput suggestions={suggestions} palette={palette} addPalette={addPalette} />
             </Grid>;
          }
          )}
@@ -97,6 +97,6 @@ function PaletteEditor() {
    </React.Fragment>;
 }
 
-PaletteEditor.propTypes = {};
+PaletteGroup.propTypes = {};
 
-export default PaletteEditor;
+export default PaletteGroup;
