@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
@@ -35,10 +36,11 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final void save(final Iterable<PaletteOption> palettes) {
-        checkNotNull(palettes, "No palettes received");
+    public final void save(final PaletteGroup paletteGroup) {
+        checkNotNull(paletteGroup, "No palettes received");
 
-        StreamSupport.stream(palettes.spliterator(), false).forEach(this::save);
+        StreamSupport.stream(paletteGroup.getPalettes().spliterator(), false)
+                .forEach(this::save);
     }
 
     private final void save(final PaletteOption palette) {

@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
@@ -65,8 +66,8 @@ public class PaletteController {
     }
 
     @PostMapping
-    public Response save(@RequestBody final Iterable<PaletteOption> palettes) {
-        paletteService.save(palettes);
+    public Response save(@RequestBody final PaletteGroup paletteGroup) {
+        paletteService.save(paletteGroup);
 
         return new DefaultResponse();
     }

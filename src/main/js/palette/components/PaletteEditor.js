@@ -36,6 +36,7 @@ function PaletteEditor() {
 
    const [loaded, setLoaded] = useState(false);
    const [suggestions, setSuggestions] = useState([]);
+   // const [name, setName] = useState('palettes');
    const [palettes, setPalettes] = useState([]);
    const [paletteIndex, setPaletteIndex] = useState(0);
 
@@ -58,7 +59,7 @@ function PaletteEditor() {
    }
 
    function savePalette() {
-      api.Palettes.save(palettes);
+      api.Palettes.save({ name: 'palettes', palettes });
    }
 
    useEffect(() => {

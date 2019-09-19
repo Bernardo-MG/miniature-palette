@@ -24,6 +24,7 @@
 
 package com.bernardomg.tabletop.palette.palette.service;
 
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 
 /**
@@ -33,6 +34,6 @@ import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
  */
 public interface PaletteService {
 
-    public void save(final Iterable<PaletteOption> palettes);
+    public void save(final PaletteGroup paletteGroup);
 
 }
