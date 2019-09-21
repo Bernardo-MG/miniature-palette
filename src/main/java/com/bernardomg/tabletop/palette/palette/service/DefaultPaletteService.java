@@ -57,6 +57,7 @@ public final class DefaultPaletteService implements PaletteService {
 
             StreamSupport
                     .stream(paletteGroup.getPalettes().spliterator(), false)
+                    .filter((g) -> StringUtils.isNotBlank(g.getName()))
                     .forEach(this::save);
         }
     }
@@ -72,7 +73,9 @@ public final class DefaultPaletteService implements PaletteService {
 
         paintEntities = StreamSupport
                 .stream(palette.getPaints().spliterator(), false)
-                .map(this::toEntity).collect(Collectors.toList());
+                .map(this::toEntity)
+                .filter((p) -> StringUtils.isNotBlank(p.getName()))
+                .collect(Collectors.toList());
         paintEntities.stream().forEach((p) -> p.setPaletteId(saved.getId()));
         paintRepository.saveAll(paintEntities);
     }
