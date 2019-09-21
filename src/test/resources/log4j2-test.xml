@@ -27,8 +27,8 @@
 
       <!-- Queries logs -->
 
-      <logger name="org.hibernate.SQL" level="trace" additivity="false">
-         <AppenderRef ref="file" />
+      <logger name="org.hibernate.SQL" level="all" additivity="false">
+         <AppenderRef ref="console" />
       </logger>
 
       <!-- Root -->

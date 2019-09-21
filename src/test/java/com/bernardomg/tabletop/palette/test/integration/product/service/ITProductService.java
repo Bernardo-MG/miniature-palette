@@ -33,6 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -50,12 +52,14 @@ import com.google.common.collect.Iterables;
  */
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+        SqlScriptsTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 @TestPropertySource({ "classpath:config/persistence-access.properties",
         "classpath:config/service.properties" })
+@Sql({ "/db/paints.sql" })
 public class ITProductService {
 
     /**
@@ -76,11 +80,11 @@ public class ITProductService {
      */
     @Test
     public void testRead() {
-        final Iterable<ProductOption> paints;
+        final Iterable<ProductOption> products;
 
-        paints = service.getAll();
+        products = service.getAll();
 
-        Assertions.assertEquals(5, Iterables.size(paints));
+        Assertions.assertEquals(5, Iterables.size(products));
     }
 
 }
