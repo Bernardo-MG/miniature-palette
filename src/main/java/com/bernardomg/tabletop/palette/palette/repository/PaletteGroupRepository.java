@@ -22,17 +22,18 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.palette.service;
+package com.bernardomg.tabletop.palette.palette.repository;
 
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 
 /**
- * Service for palettes.
+ * Spring-JPA repository for {@link PaletteGroup}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaletteService {
-
-    public void save(final PaletteGroupOption paletteGroup);
+public interface PaletteGroupRepository
+        extends JpaRepository<PaletteGroup, Integer> {
 
 }

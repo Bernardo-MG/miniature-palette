@@ -7,40 +7,58 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroup;
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
+import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
+import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
 
 @Service
 public final class DefaultPaletteService implements PaletteService {
 
-    private final PaintRepository   paintRepository;
+    private final PaintRepository        paintRepository;
 
-    private final PaletteRepository paletteRepository;
+    private final PaletteRepository      paletteRepository;
+
+    private final PaletteGroupRepository paletteGroupRepository;
 
     @Autowired
     public DefaultPaletteService(final PaintRepository paintRepo,
-            final PaletteRepository paletteRepo) {
+            final PaletteRepository paletteRepo,
+            final PaletteGroupRepository paletteGroupRepo) {
         super();
 
         paintRepository = checkNotNull(paintRepo, "The repository is required");
         paletteRepository = checkNotNull(paletteRepo,
                 "The repository is required");
+        paletteGroupRepository = checkNotNull(paletteGroupRepo,
+                "The repository is required");
     }
 
     @Override
-    public final void save(final PaletteGroup paletteGroup) {
+    public final void save(final PaletteGroupOption paletteGroup) {
+        final PaletteGroup group;
+
         checkNotNull(paletteGroup, "No palettes received");
 
-        StreamSupport.stream(paletteGroup.getPalettes().spliterator(), false)
-                .forEach(this::save);
+        if (StringUtils.isNotBlank(paletteGroup.getName())) {
+            group = new PaletteGroup();
+            group.setName(paletteGroup.getName());
+
+            paletteGroupRepository.save(group);
+
+            StreamSupport
+                    .stream(paletteGroup.getPalettes().spliterator(), false)
+                    .forEach(this::save);
+        }
     }
 
     private final void save(final PaletteOption palette) {

@@ -6,13 +6,13 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteGroup {
+public class PaletteGroupOption {
 
     private String                  name;
 
     private Iterable<PaletteOption> palettes = new ArrayList<>();
 
-    public PaletteGroup() {
+    public PaletteGroupOption() {
         super();
     }
 
@@ -30,7 +30,7 @@ public class PaletteGroup {
             return false;
         }
 
-        final PaletteGroup other = (PaletteGroup) obj;
+        final PaletteGroupOption other = (PaletteGroupOption) obj;
         return Objects.equals(name, other.name);
     }
 

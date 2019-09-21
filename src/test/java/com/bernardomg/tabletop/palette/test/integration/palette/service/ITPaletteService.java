@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.tabletop.palette.test.integration.product.service;
+package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,19 +30,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.product.model.ProductOption;
-import com.bernardomg.tabletop.palette.product.service.ProductService;
-import com.google.common.collect.Iterables;
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
+import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
+import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
+import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
+import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
+import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 
 /**
  * Integration tests for the {@link ExampleEntityService}.
@@ -54,39 +59,79 @@ import com.google.common.collect.Iterables;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        SqlScriptsTestExecutionListener.class })
+        SqlScriptsTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 @TestPropertySource({ "classpath:config/persistence-access.properties",
         "classpath:config/service.properties" })
-@Sql({ "/db/paints.sql" })
 @Transactional
-public class ITProductService {
+@Rollback
+public class ITPaletteService {
+
+    @Autowired
+    private PaletteRepository      paletteRepository;
+
+    @Autowired
+    private PaletteGroupRepository paletteGroupRepository;
+
+    @Autowired
+    private PaintRepository        paintRepository;
 
     /**
      * Service being tested.
      */
     @Autowired
-    private ProductService service;
+    private PaletteService         service;
 
     /**
      * Default constructor.
      */
-    public ITProductService() {
+    public ITPaletteService() {
         super();
     }
 
-    /**
-     * Verifies that the service reads correctly.
-     */
     @Test
-    public void testRead() {
-        final Iterable<ProductOption> products;
+    public void testSave_NoPalettes_Count() {
+        final PaletteGroupOption paletteGroup;
 
-        products = service.getAll();
+        paletteGroup = new PaletteGroupOption();
+        paletteGroup.setName("palette");
 
-        Assertions.assertEquals(5, Iterables.size(products));
+        service.save(paletteGroup);
+
+        Assertions.assertEquals(1, paletteGroupRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testSave_NoPalettes_Created() {
+        final PaletteGroupOption paletteGroup;
+        final PaletteGroup group;
+
+        paletteGroup = new PaletteGroupOption();
+        paletteGroup.setName("palette");
+
+        service.save(paletteGroup);
+
+        group = paletteGroupRepository.findAll().iterator().next();
+
+        Assertions.assertEquals("palette", group.getName());
+    }
+
+    @Test
+    public void testSave_Empty_Count() {
+        final PaletteGroupOption paletteGroup;
+
+        paletteGroup = new PaletteGroupOption();
+
+        service.save(paletteGroup);
+
+        Assertions.assertEquals(0, paletteGroupRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
 }

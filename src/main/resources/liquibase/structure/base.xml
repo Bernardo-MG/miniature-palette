@@ -65,6 +65,14 @@
    </changeSet>
 
    <changeSet author="Bernardo" id="palette_tables">
+      <createTable tableName="paletteGroups">
+         <column name="id" type="BIGINT" autoIncrement="true">
+            <constraints primaryKey="true" />
+         </column>
+         <column name="name" type="VARCHAR(30)">
+            <constraints nullable="false" unique="true" />
+         </column>
+      </createTable>
       <createTable tableName="palettes">
          <column name="id" type="BIGINT" autoIncrement="true">
             <constraints primaryKey="true" />

@@ -17,18 +17,18 @@
    </Appenders>
 
    <Loggers>
-      <Logger name="com.bernardomg.tabletop" level="debug" additivity="false">
+      <Logger name="com.bernardomg.tabletop" level="off" additivity="false">
          <AppenderRef ref="file" />
       </Logger>
 
-      <logger name="org.eclipse.jetty" level="trace" additivity="false">
+      <logger name="org.eclipse.jetty" level="off" additivity="false">
          <AppenderRef ref="file" />
       </logger>
 
       <!-- Queries logs -->
 
-      <logger name="org.hibernate.SQL" level="all" additivity="false">
-         <AppenderRef ref="console" />
+      <logger name="org.hibernate.SQL" level="off" additivity="false">
+         <AppenderRef ref="file" />
       </logger>
 
       <!-- Root -->
