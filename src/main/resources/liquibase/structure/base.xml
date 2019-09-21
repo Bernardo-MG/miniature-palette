@@ -78,7 +78,7 @@
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
-            <constraints nullable="false" unique="true" />
+            <constraints nullable="false" />
          </column>
       </createTable>
       <createTable tableName="paints">
@@ -86,7 +86,7 @@
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
-            <constraints nullable="false" unique="true" />
+            <constraints nullable="false" />
          </column>
          <column name="palette_id" type="BIGINT">
             <constraints nullable="false"

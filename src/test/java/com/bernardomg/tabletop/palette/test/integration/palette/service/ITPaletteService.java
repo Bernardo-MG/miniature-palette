@@ -309,7 +309,7 @@ public class ITPaletteService {
     }
 
     @Test
-    public void testSave_RepeatName() {
+    public void testSave_RepeatGroupName() {
         final PaletteGroupOption paletteGroup;
 
         paletteGroup = new PaletteGroupOption();
@@ -320,6 +320,73 @@ public class ITPaletteService {
 
         Assertions.assertEquals(2, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testSave_RepeatPaintName() {
+        final PaletteGroupOption paletteGroup;
+        final Collection<PaletteOption> palettes;
+        final PaletteOption palette;
+        final Collection<PaintOption> paints;
+        final PaintOption paintA;
+        final PaintOption paintB;
+
+        paintA = new PaintOption();
+        paintA.setName("paint");
+
+        paintB = new PaintOption();
+        paintB.setName("paint");
+
+        paints = new ArrayList<>();
+        paints.add(paintA);
+        paints.add(paintB);
+
+        palette = new PaletteOption();
+        palette.setName("palette");
+        palette.setPaints(paints);
+
+        palettes = new ArrayList<>();
+        palettes.add(palette);
+
+        paletteGroup = new PaletteGroupOption();
+        paletteGroup.setName("group");
+
+        paletteGroup.setPalettes(palettes);
+
+        service.save(paletteGroup);
+
+        Assertions.assertEquals(1, paletteGroupRepository.count());
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(2, paintRepository.count());
+    }
+
+    @Test
+    public void testSave_RepeatPaletteName() {
+        final PaletteGroupOption paletteGroup;
+        final Collection<PaletteOption> palettes;
+        final PaletteOption paletteA;
+        final PaletteOption paletteB;
+
+        paletteA = new PaletteOption();
+        paletteA.setName("palette");
+
+        paletteB = new PaletteOption();
+        paletteB.setName("palette");
+
+        palettes = new ArrayList<>();
+        palettes.add(paletteA);
+        palettes.add(paletteB);
+
+        paletteGroup = new PaletteGroupOption();
+        paletteGroup.setName("group");
+
+        paletteGroup.setPalettes(palettes);
+
+        service.save(paletteGroup);
+
+        Assertions.assertEquals(1, paletteGroupRepository.count());
+        Assertions.assertEquals(2, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
