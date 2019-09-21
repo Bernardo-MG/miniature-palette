@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroup;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
 import com.bernardomg.tabletop.palette.response.Response;

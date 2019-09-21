@@ -25,7 +25,6 @@
 package com.bernardomg.tabletop.palette.palette.service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroup;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 
 /**
  * Service for palettes.
