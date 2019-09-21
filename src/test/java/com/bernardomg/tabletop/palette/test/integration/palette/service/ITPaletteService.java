@@ -42,7 +42,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
-import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
 import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
@@ -71,13 +70,13 @@ import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 public class ITPaletteService {
 
     @Autowired
-    private PaletteRepository      paletteRepository;
+    private PaintRepository        paintRepository;
 
     @Autowired
     private PaletteGroupRepository paletteGroupRepository;
 
     @Autowired
-    private PaintRepository        paintRepository;
+    private PaletteRepository      paletteRepository;
 
     /**
      * Service being tested.
@@ -90,6 +89,33 @@ public class ITPaletteService {
      */
     public ITPaletteService() {
         super();
+    }
+
+    @Test
+    public void testSave_Empty_Count() {
+        final PaletteGroupOption paletteGroup;
+
+        paletteGroup = new PaletteGroupOption();
+
+        service.save(paletteGroup);
+
+        Assertions.assertEquals(0, paletteGroupRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testSave_EmptyName() {
+        final PaletteGroupOption paletteGroup;
+
+        paletteGroup = new PaletteGroupOption();
+        paletteGroup.setName("");
+
+        service.save(paletteGroup);
+
+        Assertions.assertEquals(0, paletteGroupRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -122,14 +148,16 @@ public class ITPaletteService {
     }
 
     @Test
-    public void testSave_Empty_Count() {
+    public void testSave_RepeatName() {
         final PaletteGroupOption paletteGroup;
 
         paletteGroup = new PaletteGroupOption();
+        paletteGroup.setName("palette");
 
         service.save(paletteGroup);
+        service.save(paletteGroup);
 
-        Assertions.assertEquals(0, paletteGroupRepository.count());
+        Assertions.assertEquals(2, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }

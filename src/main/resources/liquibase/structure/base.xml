@@ -70,7 +70,7 @@
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
-            <constraints nullable="false" unique="true" />
+            <constraints nullable="false" />
          </column>
       </createTable>
       <createTable tableName="palettes">
