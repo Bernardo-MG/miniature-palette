@@ -65,7 +65,7 @@
    </changeSet>
 
    <changeSet author="Bernardo" id="palette_tables">
-      <createTable tableName="paletteGroups">
+      <createTable tableName="palette_groups">
          <column name="id" type="BIGINT" autoIncrement="true">
             <constraints primaryKey="true" />
          </column>

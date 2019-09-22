@@ -47,7 +47,7 @@ import com.google.common.base.MoreObjects;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Entity(name = "PaletteGroup")
-@Table(name = "paletteGroups")
+@Table(name = "palette_groups")
 public class PaletteGroup implements Serializable {
 
     /**
