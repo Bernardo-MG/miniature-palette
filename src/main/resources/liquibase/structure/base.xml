@@ -23,7 +23,7 @@
          </column>
       </createTable>
       <createTable tableName="products">
-         <column name="id" type="BIGINT" autoIncrement="true">
+         <column name="id" type="BIGINT">
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
@@ -33,6 +33,9 @@
             <constraints nullable="false" />
          </column>
       </createTable>
+      <addUniqueConstraint tableName="products"
+         columnNames="name, code"
+         constraintName="products_unique_name_code" />
    </changeSet>
 
    <changeSet author="Bernardo" id="product_relationships">

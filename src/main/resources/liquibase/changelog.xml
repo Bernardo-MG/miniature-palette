@@ -8,7 +8,7 @@
    <include file="structure/base.xml" relativeToChangelogFile="true"/>
 
    <changeSet author="Bernardo" id="initial_data">
-      <sqlFile encoding="utf8" path="populate/initial.sql"
+      <sqlFile encoding="utf8" path="populate/vallejo.sql"
          relativeToChangelogFile="true" stripComments="true" />
    </changeSet>
 
