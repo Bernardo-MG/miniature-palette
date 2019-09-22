@@ -39,7 +39,7 @@ const requests = {
 };
 
 const Products = {
-   all: () => requests.get('/rest/product')
+   all: () => requests.get('/rest/product').then((response) => response.content)
 };
 
 const Palettes = {

@@ -65,10 +65,12 @@ public class PaletteController {
     }
 
     @PostMapping
-    public Response save(@RequestBody final PaletteGroupOption paletteGroup) {
+    public Response<PaletteGroupOption>
+            save(@RequestBody final PaletteGroupOption paletteGroup) {
         paletteService.save(paletteGroup);
 
-        return new DefaultResponse();
+        // TODO: Return the new data
+        return new DefaultResponse<PaletteGroupOption>();
     }
 
 }

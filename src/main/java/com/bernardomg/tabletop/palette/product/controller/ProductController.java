@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.tabletop.palette.product.model.ProductOption;
 import com.bernardomg.tabletop.palette.product.service.ProductService;
+import com.bernardomg.tabletop.palette.response.DefaultResponse;
+import com.bernardomg.tabletop.palette.response.Response;
 
 /**
  * Rest controller for paints.
@@ -62,8 +64,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public Iterable<ProductOption> read() {
-        return paintService.getAll();
+    public Response<Iterable<ProductOption>> read() {
+        final Iterable<ProductOption> read;
+
+        read = paintService.getAll();
+
+        return new DefaultResponse<>(read);
     }
 
 }
