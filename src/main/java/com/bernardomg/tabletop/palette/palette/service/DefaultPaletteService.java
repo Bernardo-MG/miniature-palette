@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
 
 @Service
 public final class DefaultPaletteService implements PaletteService {
+
+    private static final Logger          LOGGER = LoggerFactory
+            .getLogger(DefaultPaletteService.class);
 
     private final PaintRepository        paintRepository;
 
@@ -46,6 +51,7 @@ public final class DefaultPaletteService implements PaletteService {
     @Override
     public final void save(final PaletteGroupOption paletteGroup) {
         final PaletteGroup group;
+        final PaletteGroup saved;
 
         checkNotNull(paletteGroup, "No palettes received");
 
@@ -53,30 +59,36 @@ public final class DefaultPaletteService implements PaletteService {
             group = new PaletteGroup();
             group.setName(paletteGroup.getName());
 
-            paletteGroupRepository.save(group);
+            saved = paletteGroupRepository.save(group);
 
             StreamSupport
                     .stream(paletteGroup.getPalettes().spliterator(), false)
-                    .filter((g) -> StringUtils.isNotBlank(g.getName()))
-                    .forEach(this::save);
+                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
+                    .forEach((p) -> save(p, saved.getId()));
+        } else {
+            LOGGER.debug("Empty name. The Palette group is not saved");
         }
     }
 
-    private final void save(final PaletteOption palette) {
+    private final void save(final PaletteOption palette,
+            final Integer groupId) {
         final Palette entity;
         final Palette saved;
         final Collection<Paint> paintEntities;
 
         entity = toEntity(palette);
+        entity.setGroupId(groupId);
 
         saved = paletteRepository.save(entity);
 
+        // Paints are mapped to entities
         paintEntities = StreamSupport
                 .stream(palette.getPaints().spliterator(), false)
-                .map(this::toEntity)
                 .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                .collect(Collectors.toList());
+                .map(this::toEntity).collect(Collectors.toList());
+        // The palette id is set
         paintEntities.stream().forEach((p) -> p.setPaletteId(saved.getId()));
+
         paintRepository.saveAll(paintEntities);
     }
 

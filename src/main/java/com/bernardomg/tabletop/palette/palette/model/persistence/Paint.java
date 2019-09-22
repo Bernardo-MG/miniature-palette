@@ -134,8 +134,8 @@ public class Paint implements Serializable {
         name = checkNotNull(value, "Received a null pointer as name");
     }
 
-    public void setPaletteId(final Integer palette_id) {
-        paletteId = palette_id;
+    public void setPaletteId(final Integer id) {
+        paletteId = id;
     }
 
     @Override
