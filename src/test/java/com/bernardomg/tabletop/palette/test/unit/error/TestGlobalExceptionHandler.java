@@ -28,7 +28,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,8 +37,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.palette.controller.error.GlobalExceptionHandler;
-import com.bernardomg.tabletop.palette.paint.controller.PaintController;
-import com.bernardomg.tabletop.palette.paint.service.PaintService;
+import com.bernardomg.tabletop.palette.product.controller.ProductController;
+import com.bernardomg.tabletop.palette.product.service.ProductService;
 import com.bernardomg.tabletop.palette.test.config.UrlConfig;
 
 /**
@@ -94,15 +93,14 @@ public final class TestGlobalExceptionHandler {
      * 
      * @return a mocked controller
      */
-    private final PaintController getController() {
-        final PaintService service; // Mocked service
+    private final ProductController getController() {
+        final ProductService service; // Mocked service
 
-        service = Mockito.mock(PaintService.class);
+        service = Mockito.mock(ProductService.class);
 
-        Mockito.when(service.findByCode(ArgumentMatchers.any()))
-                .thenThrow(RuntimeException.class);
+        Mockito.when(service.getAll()).thenThrow(RuntimeException.class);
 
-        return new PaintController(service);
+        return new ProductController(service);
     }
 
     /**
@@ -115,7 +113,7 @@ public final class TestGlobalExceptionHandler {
      * @return a request builder for posting the form data
      */
     private final RequestBuilder getFormRequest() {
-        return MockMvcRequestBuilders.get(UrlConfig.PAINT);
+        return MockMvcRequestBuilders.get(UrlConfig.PRODUCT);
     }
 
 }

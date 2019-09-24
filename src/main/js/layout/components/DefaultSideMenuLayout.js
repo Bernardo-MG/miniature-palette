@@ -2,9 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import sideLinks from 'config/links';
+import { injectIntl, intlShape } from 'react-intl';
 
-import { title } from 'config/app';
+import sideLinks from 'layout/links';
 
 import SideMenuLayout from 'layout/components/SideMenuLayout';
 
@@ -13,8 +13,8 @@ import SideMenuLayout from 'layout/components/SideMenuLayout';
  * 
  * It contains a navigation bar on the left side, and the view on the rest of the screen.
  */
-function DefaultSideMenuLayout({ children }) {
-   return <SideMenuLayout links={ sideLinks } title={ title }>{ children }</SideMenuLayout>;
+function DefaultSideMenuLayout({ children, intl }) {
+   return <SideMenuLayout links={ sideLinks } title={ intl.formatMessage({ id: 'app.name' }) }>{ children }</SideMenuLayout>;
 }
 
 DefaultSideMenuLayout.propTypes = {
@@ -23,14 +23,7 @@ DefaultSideMenuLayout.propTypes = {
       PropTypes.array,
       PropTypes.object
    ]),
-   links: PropTypes.arrayOf(
-      PropTypes.shape({
-         text: PropTypes.string,
-         link: PropTypes.string,
-         id: PropTypes.string
-      })
-   ),
-   title: PropTypes.string
+   intl: intlShape.isRequired
 };
 
-export default DefaultSideMenuLayout;
+export default injectIntl(DefaultSideMenuLayout);

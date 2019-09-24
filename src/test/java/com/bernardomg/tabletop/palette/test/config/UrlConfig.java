@@ -32,9 +32,9 @@ package com.bernardomg.tabletop.palette.test.config;
 public final class UrlConfig {
 
     /**
-     * Entities REST URL.
+     * Products REST URL.
      */
-    public static final String PAINT = "/rest/paint";
+    public static final String PRODUCT = "/rest/product";
 
     /**
      * Default constructor to avoid initialization.

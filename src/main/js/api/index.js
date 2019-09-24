@@ -38,16 +38,15 @@ const requests = {
    post: (url, body) => superagent.post(`${API_ROOT}${url}`, body).then((response) => JSON.parse(response.text))
 };
 
-const Entities = {
-   create: (name) => requests.post('/rest/entity', { name }),
-   byTitle: (query, page, perPage) => requests.get(`/rest/entity?query=${query}&&page=${page}&&size=${perPage}`)
+const Products = {
+   all: () => requests.get('/rest/product').then((response) => response.content)
 };
 
-const Report = {
-   download: () => requests.download('/rest/entity/pdf', 'report.pdf')
+const Palettes = {
+   save: (palette) => requests.post('/rest/palette', palette)
 };
 
 export default {
-   Entities,
-   Report
+   Palettes,
+   Products
 };
