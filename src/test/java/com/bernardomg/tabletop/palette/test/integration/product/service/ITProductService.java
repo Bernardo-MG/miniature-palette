@@ -30,13 +30,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,14 +58,17 @@ import com.google.common.collect.Iterables;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        SqlScriptsTestExecutionListener.class })
+        SqlScriptsTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 @TestPropertySource({ "classpath:config/persistence-access.properties",
         "classpath:config/service.properties" })
-@Sql({ "/db/paints.sql" })
 @Transactional
+@Rollback(true)
+@Sql(scripts = { "/db/paints.sql" },
+        config = @SqlConfig(transactionMode = TransactionMode.ISOLATED))
 public class ITProductService {
 
     /**

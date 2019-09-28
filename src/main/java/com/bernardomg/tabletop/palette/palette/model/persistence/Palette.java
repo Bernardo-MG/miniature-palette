@@ -74,7 +74,7 @@ public class Palette implements Serializable {
      * tests.
      */
     @Column(name = "name", nullable = false, unique = true)
-    private String name = "";
+    private String            name             = "";
 
     /**
      * Constructs an example entity.

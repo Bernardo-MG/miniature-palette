@@ -27,6 +27,7 @@ package com.bernardomg.tabletop.palette.palette.controller;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +63,15 @@ public class PaletteController {
         super();
 
         paletteService = checkNotNull(service, "The service is required");
+    }
+
+    @GetMapping
+    public Response<Iterable<PaletteGroupOption>> read() {
+        final Iterable<PaletteGroupOption> read;
+
+        read = paletteService.getAll();
+
+        return new DefaultResponse<>(read);
     }
 
     @PostMapping

@@ -33,6 +33,8 @@ import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
  */
 public interface PaletteService {
 
+    public Iterable<PaletteGroupOption> getAll();
+
     public void save(final PaletteGroupOption paletteGroup);
 
 }

@@ -49,6 +49,16 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
+    public final Iterable<PaletteGroupOption> getAll() {
+        final Collection<PaletteGroup> groups;
+
+        groups = paletteGroupRepository.findAll();
+
+        return groups.stream().map(this::toPaletteGroupOption)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public final void save(final PaletteGroupOption paletteGroup) {
         final PaletteGroup group;
         final PaletteGroup saved;
@@ -108,6 +118,16 @@ public final class DefaultPaletteService implements PaletteService {
         entity.setName(palette.getName());
 
         return entity;
+    }
+
+    private final PaletteGroupOption
+            toPaletteGroupOption(final PaletteGroup group) {
+        final PaletteGroupOption option;
+
+        option = new PaletteGroupOption();
+        option.setName(group.getName());
+
+        return option;
     }
 
 }
