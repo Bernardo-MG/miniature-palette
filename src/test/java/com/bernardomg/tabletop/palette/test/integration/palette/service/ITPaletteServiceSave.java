@@ -72,7 +72,7 @@ import com.bernardomg.tabletop.palette.palette.service.PaletteService;
         "classpath:config/service.properties" })
 @Transactional
 @Rollback
-public class ITPaletteService {
+public class ITPaletteServiceSave {
 
     @Autowired
     private PaintRepository        paintRepository;
@@ -92,7 +92,7 @@ public class ITPaletteService {
     /**
      * Default constructor.
      */
-    public ITPaletteService() {
+    public ITPaletteServiceSave() {
         super();
     }
 
