@@ -26,3 +26,10 @@ export const failure = (payload) => {
       payload
    };
 };
+
+export const setLoaded = (payload) => {
+   return {
+      type: types.SET_LOADED,
+      payload
+   };
+};

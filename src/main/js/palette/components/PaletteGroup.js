@@ -16,9 +16,9 @@ import PaletteInput from 'palette/components/PaletteInput';
 
 import api from 'api';
 
-import { read } from 'products/actions';
+import { read, setLoaded } from 'products/actions';
 
-import { selectSuggestions } from 'products/selectors';
+import { selectSuggestions, selectLoaded } from 'products/selectors';
 
 function AddButton({ onClick }) {
    return <IconButton onClick={onClick}>
@@ -40,9 +40,8 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteGroup({ load, suggestions }) {
+function PaletteGroup({ load, setLoad, suggestions, loaded }) {
 
-   const [loaded, setLoaded] = useState(false);
    const [name, setName] = useState('palettes');
    const [palettes, setPalettes] = useState([]);
    const [paletteIndex, setPaletteIndex] = useState(0);
@@ -76,7 +75,7 @@ function PaletteGroup({ load, suggestions }) {
    useEffect(() => {
       if (!loaded) {
          load();
-         setLoaded(true);
+         setLoad(true);
       }
    });
 
@@ -105,18 +104,22 @@ function PaletteGroup({ load, suggestions }) {
 
 PaletteGroup.propTypes = {
    load: PropTypes.func.isRequired,
-   suggestions: PropTypes.array.isRequired
+   setLoad: PropTypes.func.isRequired,
+   suggestions: PropTypes.array.isRequired,
+   loaded: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {
    return {
-      suggestions: selectSuggestions(state)
+      suggestions: selectSuggestions(state),
+      loaded: selectLoaded(state)
    };
 };
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      load: bindActionCreators(read, dispatch)
+      load: bindActionCreators(read, dispatch),
+      setLoad: bindActionCreators(setLoaded, dispatch)
    };
 };
 
