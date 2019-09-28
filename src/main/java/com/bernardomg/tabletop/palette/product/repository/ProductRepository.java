@@ -43,7 +43,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             + " JOIN BrandProduct bp ON p.id = bp.product"
             + " JOIN Brand b ON b.id = bp.brand"
             + " JOIN CompanyBrand cb ON cb.brand = bp.brand"
-            + " JOIN Company c ON c.id = cb.company")
+            + " JOIN Company c ON c.id = cb.company" + " ORDER BY p.name ASC")
     public List<ProductOption> findAllOptions();
 
 }

@@ -7,10 +7,9 @@ export const setProducts = (payload) => {
    };
 };
 
-export const read = (payload) => {
+export const read = () => {
    return {
-      type: types.READ_PRODUCTS,
-      payload
+      type: types.READ_PRODUCTS
    };
 };
 
