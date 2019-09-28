@@ -92,10 +92,12 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
       const inputValue = deburr(value.trim()).toLowerCase();
       const inputLength = inputValue.length;
       let count = 0;
+      let result;
 
-      return inputLength === 0
-         ? []
-         : suggestions.filter((suggestion) => {
+      if (inputLength === 0) {
+         result = [];
+      } else {
+         result = suggestions.filter((suggestion) => {
             const keep = count < 5 && suggestion.slice(0, inputLength).toLowerCase() === inputValue;
 
             if (keep) {
@@ -104,6 +106,9 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
 
             return keep;
          });
+      }
+
+      return result;
    }
 
    function getSuggestionValue(suggestion) {
