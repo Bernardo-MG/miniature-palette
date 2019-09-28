@@ -30,8 +30,8 @@ public class ProductOption implements Serializable {
 
         code = checkNotNull(cd, "Received a null pointer as code");
         name = checkNotNull(nm, "Received a null pointer as name");
-        brand = checkNotNull(br, "Received a null pointer as brand");
-        company = checkNotNull(cp, "Received a null pointer as company");
+        brand = br;
+        company = cp;
     }
 
     @Override
