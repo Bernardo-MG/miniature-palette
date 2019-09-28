@@ -12,7 +12,11 @@ public class ProductOption implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
+    private String            brand            = "";
+
     private String            code             = "";
+
+    private String            company          = "";
 
     private String            name             = "";
 
@@ -20,11 +24,14 @@ public class ProductOption implements Serializable {
         super();
     }
 
-    public ProductOption(final String c, final String n) {
+    public ProductOption(final String cd, final String nm, final String br,
+            final String cp) {
         super();
 
-        code = checkNotNull(c, "Received a null pointer as code");
-        name = checkNotNull(n, "Received a null pointer as name");
+        code = checkNotNull(cd, "Received a null pointer as code");
+        name = checkNotNull(nm, "Received a null pointer as name");
+        brand = checkNotNull(br, "Received a null pointer as brand");
+        company = checkNotNull(cp, "Received a null pointer as company");
     }
 
     @Override
@@ -45,8 +52,16 @@ public class ProductOption implements Serializable {
         return Objects.equals(name, other.name);
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
     public String getCode() {
         return code;
+    }
+
+    public String getCompany() {
+        return company;
     }
 
     public String getName() {
@@ -58,8 +73,16 @@ public class ProductOption implements Serializable {
         return Objects.hash(name);
     }
 
+    public void setBrand(final String brand) {
+        this.brand = brand;
+    }
+
     public void setCode(final String value) {
         code = checkNotNull(value, "Received a null pointer as code");
+    }
+
+    public void setCompany(final String company) {
+        this.company = company;
     }
 
     public void setName(final String value) {

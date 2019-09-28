@@ -31,9 +31,9 @@ public final class DefaultPaletteService implements PaletteService {
 
     private final PaintRepository        paintRepository;
 
-    private final PaletteRepository      paletteRepository;
-
     private final PaletteGroupRepository paletteGroupRepository;
+
+    private final PaletteRepository      paletteRepository;
 
     @Autowired
     public DefaultPaletteService(final PaintRepository paintRepo,
