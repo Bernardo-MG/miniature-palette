@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
+import { bindActionCreators, connect } from 'redux';
+
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -12,6 +14,10 @@ import TextField from '@material-ui/core/TextField';
 import PaletteInput from 'palette/components/PaletteInput';
 
 import api from 'api';
+
+import { read } from 'products/actions';
+
+import { selectSuggestions } from 'products/selectors';
 
 function AddButton({ onClick }) {
    return <IconButton onClick={onClick}>
@@ -33,10 +39,9 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteGroup() {
+function PaletteGroup({ load, suggestions }) {
 
    const [loaded, setLoaded] = useState(false);
-   const [suggestions, setSuggestions] = useState([]);
    const [name, setName] = useState('palettes');
    const [palettes, setPalettes] = useState([]);
    const [paletteIndex, setPaletteIndex] = useState(0);
@@ -69,7 +74,7 @@ function PaletteGroup() {
 
    useEffect(() => {
       if (!loaded) {
-         api.Products.all().then((products) => setSuggestions(products.map((product) => product.name)));
+         load();
          setLoaded(true);
       }
    });
@@ -97,6 +102,24 @@ function PaletteGroup() {
    </React.Fragment>;
 }
 
-PaletteGroup.propTypes = {};
+PaletteGroup.propTypes = {
+   load: PropTypes.func.isRequired,
+   suggestions: PropTypes.array.isRequired
+};
 
-export default PaletteGroup;
+const mapStateToProps = (state) => {
+   return {
+      suggestions: selectSuggestions(state)
+   };
+};
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      action: bindActionCreators(read, dispatch)
+   };
+};
+
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(PaletteGroup);
