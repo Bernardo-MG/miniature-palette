@@ -44,6 +44,7 @@ public final class DefaultProductService implements ProductService {
 
         option = new ProductOption();
         option.setName(paint.getName());
+        option.setCode(paint.getCode());
 
         return option;
     }

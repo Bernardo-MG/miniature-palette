@@ -12,6 +12,8 @@ public class ProductOption implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
+    private String            code             = "";
+
     private String            name             = "";
 
     public ProductOption() {
@@ -36,6 +38,10 @@ public class ProductOption implements Serializable {
         return Objects.equals(name, other.name);
     }
 
+    public String getCode() {
+        return code;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,6 +49,10 @@ public class ProductOption implements Serializable {
     @Override
     public final int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void setCode(final String value) {
+        code = checkNotNull(value, "Received a null pointer as code");
     }
 
     public void setName(final String value) {
