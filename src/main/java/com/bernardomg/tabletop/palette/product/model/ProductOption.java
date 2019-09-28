@@ -20,6 +20,13 @@ public class ProductOption implements Serializable {
         super();
     }
 
+    public ProductOption(final String c, final String n) {
+        super();
+
+        code = checkNotNull(c, "Received a null pointer as code");
+        name = checkNotNull(n, "Received a null pointer as name");
+    }
+
     @Override
     public final boolean equals(final Object obj) {
         if (this == obj) {

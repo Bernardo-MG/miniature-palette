@@ -24,8 +24,12 @@
 
 package com.bernardomg.tabletop.palette.product.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.bernardomg.tabletop.palette.product.model.ProductOption;
 import com.bernardomg.tabletop.palette.product.model.persistence.Product;
 
 /**
@@ -34,5 +38,8 @@ import com.bernardomg.tabletop.palette.product.model.persistence.Product;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+    @Query("SELECT new com.bernardomg.tabletop.palette.product.model.ProductOption(p.code, p.name) FROM Product p")
+    public List<ProductOption> findAllOptions();
 
 }
