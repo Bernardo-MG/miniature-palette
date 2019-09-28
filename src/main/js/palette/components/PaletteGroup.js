@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,10 +12,6 @@ import TextField from '@material-ui/core/TextField';
 import PaletteInput from 'palette/components/PaletteInput';
 
 import api from 'api';
-
-import { read, setLoaded } from 'products/actions';
-
-import { selectSuggestions, selectLoaded } from 'products/selectors';
 
 function AddButton({ onClick }) {
    return <IconButton onClick={onClick}>
@@ -40,7 +33,7 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteGroup({ load, setLoad, suggestions, loaded }) {
+function PaletteGroup() {
 
    const [name, setName] = useState('palettes');
    const [palettes, setPalettes] = useState([]);
@@ -72,13 +65,6 @@ function PaletteGroup({ load, setLoad, suggestions, loaded }) {
       api.Palettes.save({ name, palettes });
    }
 
-   useEffect(() => {
-      if (!loaded) {
-         load();
-         setLoad(true);
-      }
-   });
-
    return <React.Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
@@ -91,7 +77,7 @@ function PaletteGroup({ load, setLoad, suggestions, loaded }) {
       <Grid container spacing={3}>
          {palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
-               <PaletteInput suggestions={suggestions} palette={palette} addPalette={addPalette} />
+               <PaletteInput palette={palette} addPalette={addPalette} />
             </Grid>;
          }
          )}
@@ -102,28 +88,6 @@ function PaletteGroup({ load, setLoad, suggestions, loaded }) {
    </React.Fragment>;
 }
 
-PaletteGroup.propTypes = {
-   load: PropTypes.func.isRequired,
-   setLoad: PropTypes.func.isRequired,
-   suggestions: PropTypes.array.isRequired,
-   loaded: PropTypes.bool.isRequired
-};
+PaletteGroup.propTypes = {};
 
-const mapStateToProps = (state) => {
-   return {
-      suggestions: selectSuggestions(state),
-      loaded: selectLoaded(state)
-   };
-};
-
-const mapDispatchToProps = (dispatch) => {
-   return {
-      load: bindActionCreators(read, dispatch),
-      setLoad: bindActionCreators(setLoaded, dispatch)
-   };
-};
-
-export default connect(
-   mapStateToProps,
-   mapDispatchToProps
-)(PaletteGroup);
+export default PaletteGroup;
