@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { bindActionCreators, connect } from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -115,7 +116,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      action: bindActionCreators(read, dispatch)
+      load: bindActionCreators(read, dispatch)
    };
 };
 

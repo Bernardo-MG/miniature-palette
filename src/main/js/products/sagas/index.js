@@ -16,8 +16,8 @@ export function* read() {
 }
 
 export function* saveProducts(action) {
-   const normalized = normalize(action.payload.docs, [product]);
-   yield put(setProducts(normalized.entities.books));
+   const normalized = normalize(action.payload, [product]);
+   yield put(setProducts(normalized.entities.products));
 }
 
 export const productSagas = [
