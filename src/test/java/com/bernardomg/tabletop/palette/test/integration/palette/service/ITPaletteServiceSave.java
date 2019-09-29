@@ -40,8 +40,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
@@ -64,12 +64,11 @@ import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         SqlScriptsTestExecutionListener.class,
-        TransactionalTestExecutionListener.class })
-@WebAppConfiguration
+        TransactionalTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class })
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-@TestPropertySource({ "classpath:config/persistence-access.properties",
-        "classpath:config/service.properties" })
+@TestPropertySource({ "classpath:config/persistence-access.properties" })
 @Transactional
 @Rollback
 public class ITPaletteServiceSave {
