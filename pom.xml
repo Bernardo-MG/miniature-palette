@@ -243,30 +243,6 @@
                      <stopPort>9999</stopPort>
                      <stopWait>5</stopWait>
                   </configuration>
-                  <executions>
-                     <execution>
-                        <id>start-jetty-it</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                           <goal>start</goal>
-                        </goals>
-                        <configuration>
-                           <scanIntervalSeconds>0</scanIntervalSeconds>
-                           <daemon>true</daemon>
-                           <useTestScope>true</useTestScope>
-                           <webApp>
-                              <overrideDescriptor>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</overrideDescriptor>
-                           </webApp>
-                        </configuration>
-                     </execution>
-                     <execution>
-                        <id>stop-jetty-it</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                           <goal>stop</goal>
-                        </goals>
-                     </execution>
-                  </executions>
                </plugin>
             </plugins>
          </build>
@@ -284,27 +260,6 @@
                   <groupId>org.apache.tomcat.maven</groupId>
                   <artifactId>tomcat7-maven-plugin</artifactId>
                   <version>${plugin.tomcat7.version}</version>
-                  <executions>
-                     <execution>
-                        <id>start-tomcat-it</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                           <goal>run</goal>
-                        </goals>
-                        <configuration>
-                           <fork>true</fork>
-                           <useTestClasspath>true</useTestClasspath>
-                           <warSourceDirectory>${project.build.directory}/${project.build.finalName}/</warSourceDirectory>
-                        </configuration>
-                     </execution>
-                     <execution>
-                        <id>stop-tomcat-it</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                           <goal>shutdown</goal>
-                        </goals>
-                     </execution>
-                  </executions>
                </plugin>
             </plugins>
          </build>
