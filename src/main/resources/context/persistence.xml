@@ -16,6 +16,9 @@
       http://www.springframework.org/schema/tx
       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+   <!-- Imports -->
+   <import resource="classpath:context/atomikos.xml" />
+
    <!-- ============================= CONFIGURATION ============================= -->
 
    <!-- Repositories -->
@@ -55,10 +58,33 @@
       <property name="entityManagerFactory" ref="entityManagerFactory" />
    </bean>
 
+   <!-- Atomikos -->
+   <bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+      init-method="init" destroy-method="shutdownForce">
+      <constructor-arg>
+         <!-- IMPORTANT: specify all Atomikos properties here -->
+         <props>
+            <prop key="com.atomikos.icatch.service">com.atomikos.icatch.standalone.UserTransactionServiceFactory</prop>
+         </props>
+      </constructor-arg>
+   </bean>
+ 
+   <bean id="AtomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+      init-method="init" destroy-method="close" depends-on="userTransactionService">
+      <!-- IMPORTANT: disable startup because the userTransactionService above does this -->
+      <property name="startupTransactionService" value="false"/>
+      <property name="forceShutdown" value="false" />
+   </bean> 
+ 
+   <bean id="AtomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"
+      depends-on="userTransactionService">
+      <property name="transactionTimeout" value="300" />
+   </bean>
+
    <!-- Transaction manager -->
-   <bean id="transactionManager" class="${jpa.transactionManager.class}">
-      <property name="entityManagerFactory" ref="entityManagerFactory" />
-      <property name="dataSource" ref="dataSource" />
+   <bean id="transactionManager" class="${jpa.transactionManager.class}" depends-on="userTransactionService">
+      <property name="transactionManager" ref="AtomikosTransactionManager" /> 
+      <property name="userTransaction" ref="AtomikosUserTransaction" /> 
    </bean>
 
    <!-- Activates transactionality -->
