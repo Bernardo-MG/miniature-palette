@@ -17,7 +17,7 @@
       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
    <!-- Imports -->
-   <import resource="classpath:context/atomikos.xml" />
+   <!-- <import resource="classpath:context/atomikos.xml" /> -->
    <import resource="classpath:context/persistence-versioning.xml" />
 
    <!-- ============================= CONFIGURATION ============================= -->
@@ -60,10 +60,14 @@
    </bean>
 
    <!-- Transaction manager -->
-   <bean id="transactionManager" class="${jpa.transactionManager.class}" depends-on="userTransactionService">
+   <bean id="transactionManager" class="${jpa.transactionManager.class}">
+      <property name="entityManagerFactory" ref="entityManagerFactory" />
+      <property name="dataSource" ref="dataSource" />
+   </bean>
+   <!-- <bean id="transactionManager" class="${jpa.transactionManager.class}" depends-on="userTransactionService">
       <property name="transactionManager" ref="AtomikosTransactionManager" /> 
       <property name="userTransaction" ref="AtomikosUserTransaction" /> 
-   </bean>
+   </bean> -->
 
    <!-- Activates transactionality -->
    <tx:annotation-driven transaction-manager="transactionManager" />
