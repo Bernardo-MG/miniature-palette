@@ -33,10 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -63,12 +60,9 @@ import com.google.common.collect.Iterables;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-@TestPropertySource({ "classpath:config/persistence-access.properties",
-        "classpath:config/service.properties" })
 @Transactional
-@Rollback(true)
-@Sql(scripts = { "/db/paints.sql" },
-        config = @SqlConfig(transactionMode = TransactionMode.ISOLATED))
+@Rollback
+@Sql({ "/db/paints.sql" })
 public class ITProductService {
 
     /**

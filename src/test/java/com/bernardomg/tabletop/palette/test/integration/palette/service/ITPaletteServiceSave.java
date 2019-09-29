@@ -36,7 +36,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -68,7 +67,6 @@ import com.bernardomg.tabletop.palette.palette.service.PaletteService;
         DirtiesContextTestExecutionListener.class })
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-@TestPropertySource({ "classpath:config/persistence-access.properties" })
 @Transactional
 @Rollback
 public class ITPaletteServiceSave {
