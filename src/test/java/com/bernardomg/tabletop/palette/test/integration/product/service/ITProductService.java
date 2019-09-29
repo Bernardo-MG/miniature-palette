@@ -37,6 +37,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +57,8 @@ import com.google.common.collect.Iterables;
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         SqlScriptsTestExecutionListener.class,
-        TransactionalTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
