@@ -19,6 +19,7 @@
    <!-- Imports -->
    <!-- <import resource="classpath:context/atomikos.xml" /> -->
    <import resource="classpath:context/persistence-versioning.xml" />
+   <import resource="classpath:context/persistence-aop.xml" />
 
    <!-- ============================= CONFIGURATION ============================= -->
 

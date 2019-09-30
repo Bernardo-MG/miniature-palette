@@ -34,8 +34,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -63,9 +61,8 @@ import com.google.common.collect.Iterables;
 // @ContextConfiguration(
 // locations = { "classpath:context/application-context.xml" })
 // @Transactional
-// @Rollback(true)
-// @Sql(scripts = { "/db/palette_group.sql" },
-// config = @SqlConfig(transactionMode = TransactionMode.ISOLATED))
+// @Rollback
+// @Sql({ "/db/palette_group.sql" })
 public class ITPaletteServiceRead {
 
     /**
