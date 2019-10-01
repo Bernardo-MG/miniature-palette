@@ -48,11 +48,11 @@ import com.google.common.collect.Iterables;
  */
 @RunWith(JUnitPlatform.class)
 @SpringJUnitConfig
-@ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
 @Transactional
 @Rollback
 @Sql({ "/db/paints.sql" })
+@ContextConfiguration(
+        locations = { "classpath:context/application-context.xml" })
 public class ITProductService {
 
     /**

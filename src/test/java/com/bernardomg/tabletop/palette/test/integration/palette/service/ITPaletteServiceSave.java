@@ -55,10 +55,10 @@ import com.bernardomg.tabletop.palette.palette.service.PaletteService;
  */
 @RunWith(JUnitPlatform.class)
 @SpringJUnitConfig
-@ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
 @Transactional
 @Rollback
+@ContextConfiguration(
+        locations = { "classpath:context/application-context.xml" })
 public class ITPaletteServiceSave {
 
     @Autowired
