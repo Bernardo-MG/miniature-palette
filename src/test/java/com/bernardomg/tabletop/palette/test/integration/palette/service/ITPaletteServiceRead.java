@@ -26,19 +26,13 @@ package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
@@ -52,17 +46,13 @@ import com.google.common.collect.Iterables;
  * the example entities repository, these tests are for verifying everything is
  * set up correctly and working.
  */
-// @RunWith(JUnitPlatform.class)
-// @ExtendWith(SpringExtension.class)
-// @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-// SqlScriptsTestExecutionListener.class,
-// TransactionalTestExecutionListener.class,
-// DirtiesContextTestExecutionListener.class })
-// @ContextConfiguration(
-// locations = { "classpath:context/application-context.xml" })
-// @Transactional
-// @Rollback
-// @Sql({ "/db/palette_group.sql" })
+@RunWith(JUnitPlatform.class)
+@SpringJUnitConfig
+@ContextConfiguration(
+        locations = { "classpath:context/application-context.xml" })
+@Transactional
+@Rollback
+@Sql({ "/db/palette_group.sql" })
 public class ITPaletteServiceRead {
 
     /**

@@ -25,6 +25,16 @@
          <AppenderRef ref="console" />
       </logger>
 
+      <!-- Spring Framework -->
+      <Logger name="org.springframework" level="debug" additivity="false">
+         <AppenderRef ref="console" />
+      </Logger>
+
+      <!-- Hikari -->
+      <Logger name="com.zaxxer.hikari" level="off" additivity="false">
+         <AppenderRef ref="console" />
+      </Logger>
+
       <!-- Queries logs -->
 
       <logger name="org.hibernate.SQL" level="off" additivity="false">

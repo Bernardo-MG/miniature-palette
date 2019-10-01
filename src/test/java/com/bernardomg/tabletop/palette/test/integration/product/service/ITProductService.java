@@ -26,20 +26,13 @@ package com.bernardomg.tabletop.palette.test.integration.product.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.product.model.ProductOption;
@@ -54,12 +47,7 @@ import com.google.common.collect.Iterables;
  * set up correctly and working.
  */
 @RunWith(JUnitPlatform.class)
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        SqlScriptsTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class })
-@WebAppConfiguration
+@SpringJUnitConfig
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 @Transactional
