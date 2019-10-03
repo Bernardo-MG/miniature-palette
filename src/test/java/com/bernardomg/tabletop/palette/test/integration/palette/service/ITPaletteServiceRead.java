@@ -50,7 +50,6 @@ import com.google.common.collect.Iterables;
 @SpringJUnitConfig
 @Transactional
 @Rollback
-@Sql({ "/db/palette_group.sql" })
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 public class ITPaletteServiceRead {
@@ -69,12 +68,22 @@ public class ITPaletteServiceRead {
     }
 
     @Test
+    @Sql({ "/db/palette_group.sql" })
     public void testRead() {
         final Iterable<PaletteGroupOption> read;
 
         read = service.getAll();
 
         Assertions.assertEquals(1, Iterables.size(read));
+    }
+
+    @Test
+    public void testRead_Empty() {
+        final Iterable<PaletteGroupOption> read;
+
+        read = service.getAll();
+
+        Assertions.assertEquals(0, Iterables.size(read));
     }
 
 }
