@@ -27,7 +27,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bernardomg.tabletop.palette.palette.model.PaintOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.google.common.collect.Iterables;
 
@@ -60,22 +62,71 @@ public class ITPaletteServiceRead {
     }
 
     @Test
-    @Sql({ "/db/palette_group.sql" })
-    public void testRead() {
-        final Iterable<PaletteGroupOption> read;
-
-        read = service.getAll();
-
-        Assertions.assertEquals(1, Iterables.size(read));
-    }
-
-    @Test
     public void testRead_Empty() {
         final Iterable<PaletteGroupOption> read;
 
         read = service.getAll();
 
         Assertions.assertEquals(0, Iterables.size(read));
+    }
+
+    @Test
+    @Sql({ "/db/palette_group.sql", "/db/palette.sql", "/db/paint.sql" })
+    public void testRead_Full() {
+        final Iterable<PaletteGroupOption> read;
+        final PaletteGroupOption group;
+        final PaletteOption palette;
+        final PaintOption paint;
+
+        read = service.getAll();
+
+        Assertions.assertEquals(1, Iterables.size(read));
+
+        group = read.iterator().next();
+        Assertions.assertEquals("Group1", group.getName());
+        Assertions.assertEquals(1, Iterables.size(group.getPalettes()));
+
+        palette = group.getPalettes().iterator().next();
+        Assertions.assertEquals("Palette1", palette.getName());
+        Assertions.assertEquals(1, Iterables.size(palette.getPaints()));
+
+        paint = palette.getPaints().iterator().next();
+        Assertions.assertEquals("Paint1", paint.getName());
+    }
+
+    @Test
+    @Sql({ "/db/palette_group.sql" })
+    public void testRead_Group() {
+        final Iterable<PaletteGroupOption> read;
+        final PaletteGroupOption group;
+
+        read = service.getAll();
+
+        Assertions.assertEquals(1, Iterables.size(read));
+
+        group = read.iterator().next();
+        Assertions.assertEquals("Group1", group.getName());
+        Assertions.assertEquals(0, Iterables.size(group.getPalettes()));
+    }
+
+    @Test
+    @Sql({ "/db/palette_group.sql", "/db/palette.sql" })
+    public void testRead_Group_Palette() {
+        final Iterable<PaletteGroupOption> read;
+        final PaletteGroupOption group;
+        final PaletteOption palette;
+
+        read = service.getAll();
+
+        Assertions.assertEquals(1, Iterables.size(read));
+
+        group = read.iterator().next();
+        Assertions.assertEquals("Group1", group.getName());
+        Assertions.assertEquals(1, Iterables.size(group.getPalettes()));
+
+        palette = group.getPalettes().iterator().next();
+        Assertions.assertEquals("Palette1", palette.getName());
+        Assertions.assertEquals(0, Iterables.size(palette.getPaints()));
     }
 
 }

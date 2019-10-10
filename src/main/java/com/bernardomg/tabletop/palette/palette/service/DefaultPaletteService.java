@@ -19,6 +19,11 @@ package com.bernardomg.tabletop.palette.palette.service;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -63,14 +68,49 @@ public final class DefaultPaletteService implements PaletteService {
                 "The repository is required");
     }
 
+    private final List<PaletteOption>
+            toPaletteOptions(final List<Palette> palettes) {
+        return palettes.stream().map(this::toPaletteOption)
+                .collect(Collectors.toList());
+    }
+
+    private final PaletteOption toPaletteOption(final Palette palette) {
+        final PaletteOption option;
+
+        option = new PaletteOption();
+        option.setName(palette.getName());
+
+        return option;
+    }
+
     @Override
     public final Iterable<PaletteGroupOption> getAll() {
         final Collection<PaletteGroup> groups;
+        final Collection<Integer> groupIds;
+        final Collection<Palette> allPalettes;
+        final Map<Integer, List<Palette>> groupPalettes;
+        final Map<Integer, List<PaletteOption>> groupPaletteOptions;
+        final Collection<PaletteGroupOption> result;
 
         groups = paletteGroupRepository.findAll();
-
-        return groups.stream().map(this::toPaletteGroupOption)
+        groupIds = groups.stream().map(PaletteGroup::getId)
                 .collect(Collectors.toList());
+
+        allPalettes = paletteRepository.findAllByGroupId(groupIds);
+        groupPalettes = allPalettes.stream()
+                .collect(Collectors.groupingBy(Palette::getGroupId));
+
+        groupPaletteOptions = groupPalettes.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        e -> toPaletteOptions(e.getValue())));
+
+        result = groups.stream()
+                .map((g) -> toPaletteGroupOption(g,
+                        groupPaletteOptions.getOrDefault(g.getId(),
+                                Collections.emptyList())))
+                .collect(Collectors.toList());
+
+        return result;
     }
 
     @Override
@@ -135,12 +175,13 @@ public final class DefaultPaletteService implements PaletteService {
         return entity;
     }
 
-    private final PaletteGroupOption
-            toPaletteGroupOption(final PaletteGroup group) {
+    private final PaletteGroupOption toPaletteGroupOption(
+            final PaletteGroup group, final Iterable<PaletteOption> palettes) {
         final PaletteGroupOption option;
 
         option = new PaletteGroupOption();
         option.setName(group.getName());
+        option.setPalettes(palettes);
 
         return option;
     }
