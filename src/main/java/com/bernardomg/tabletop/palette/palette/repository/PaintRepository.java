@@ -16,6 +16,9 @@
 
 package com.bernardomg.tabletop.palette.palette.repository;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
@@ -26,5 +29,7 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public interface PaintRepository extends JpaRepository<Paint, Integer> {
+
+    public List<Paint> findAllByPaletteId(final Collection<Integer> ids);
 
 }

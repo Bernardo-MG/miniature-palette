@@ -22,8 +22,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -68,21 +66,6 @@ public final class DefaultPaletteService implements PaletteService {
                 "The repository is required");
     }
 
-    private final List<PaletteOption>
-            toPaletteOptions(final List<Palette> palettes) {
-        return palettes.stream().map(this::toPaletteOption)
-                .collect(Collectors.toList());
-    }
-
-    private final PaletteOption toPaletteOption(final Palette palette) {
-        final PaletteOption option;
-
-        option = new PaletteOption();
-        option.setName(palette.getName());
-
-        return option;
-    }
-
     @Override
     public final Iterable<PaletteGroupOption> getAll() {
         final Collection<PaletteGroup> groups;
@@ -90,6 +73,10 @@ public final class DefaultPaletteService implements PaletteService {
         final Collection<Palette> allPalettes;
         final Map<Integer, List<Palette>> groupPalettes;
         final Map<Integer, List<PaletteOption>> groupPaletteOptions;
+        final Collection<Integer> paletteIds;
+        final Collection<Paint> allPaints;
+        final Map<Integer, List<Paint>> palettePaints;
+        final Map<Integer, List<PaintOption>> palettePaintOptions;
         final Collection<PaletteGroupOption> result;
 
         groups = paletteGroupRepository.findAll();
@@ -97,12 +84,23 @@ public final class DefaultPaletteService implements PaletteService {
                 .collect(Collectors.toList());
 
         allPalettes = paletteRepository.findAllByGroupId(groupIds);
+        paletteIds = allPalettes.stream().map(Palette::getId)
+                .collect(Collectors.toList());
+
+        allPaints = paintRepository.findAllByPaletteId(paletteIds);
+
+        palettePaints = allPaints.stream()
+                .collect(Collectors.groupingBy(Paint::getPaletteId));
+        palettePaintOptions = palettePaints.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        e -> toPaintOptions(e.getValue())));
+
         groupPalettes = allPalettes.stream()
                 .collect(Collectors.groupingBy(Palette::getGroupId));
-
         groupPaletteOptions = groupPalettes.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey,
-                        e -> toPaletteOptions(e.getValue())));
+                        e -> toPaletteOptions(e.getValue(),
+                                palettePaintOptions)));
 
         result = groups.stream()
                 .map((g) -> toPaletteGroupOption(g,
@@ -175,8 +173,23 @@ public final class DefaultPaletteService implements PaletteService {
         return entity;
     }
 
+    private final PaintOption toPaintOption(final Paint paint) {
+        final PaintOption option;
+
+        option = new PaintOption();
+        option.setName(paint.getName());
+
+        return option;
+    }
+
+    private final List<PaintOption> toPaintOptions(final List<Paint> paints) {
+        return paints.stream().map(this::toPaintOption)
+                .collect(Collectors.toList());
+    }
+
     private final PaletteGroupOption toPaletteGroupOption(
-            final PaletteGroup group, final Iterable<PaletteOption> palettes) {
+            final PaletteGroup group,
+            final Collection<PaletteOption> palettes) {
         final PaletteGroupOption option;
 
         option = new PaletteGroupOption();
@@ -184,6 +197,27 @@ public final class DefaultPaletteService implements PaletteService {
         option.setPalettes(palettes);
 
         return option;
+    }
+
+    private final PaletteOption toPaletteOption(final Palette palette,
+            final List<PaintOption> paintOptions) {
+        final PaletteOption option;
+
+        option = new PaletteOption();
+        option.setName(palette.getName());
+        option.setPaints(paintOptions);
+
+        return option;
+    }
+
+    private final List<PaletteOption> toPaletteOptions(
+            final List<Palette> palettes,
+            final Map<Integer, List<PaintOption>> palettePaintOptions) {
+        return palettes.stream()
+                .map((p) -> toPaletteOption(p,
+                        palettePaintOptions.getOrDefault(p.getId(),
+                                Collections.emptyList())))
+                .collect(Collectors.toList());
     }
 
 }
