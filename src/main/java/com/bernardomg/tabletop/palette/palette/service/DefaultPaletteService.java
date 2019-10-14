@@ -80,11 +80,11 @@ public final class DefaultPaletteService implements PaletteService {
         groupIds = groups.stream().map(PaletteGroup::getId)
                 .collect(Collectors.toList());
 
-        allPalettes = paletteRepository.findAllByGroupId(groupIds);
+        allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
         paletteIds = allPalettes.stream().map(Palette::getId)
                 .collect(Collectors.toList());
 
-        allPaints = paintRepository.findAllByPaletteId(paletteIds);
+        allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
 
         palettePaintOptions = getPaintOptions(allPaints);
         groupPaletteOptions = getPaletteOptions(allPalettes,

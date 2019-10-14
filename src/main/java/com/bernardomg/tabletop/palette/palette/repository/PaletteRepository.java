@@ -30,6 +30,6 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
  */
 public interface PaletteRepository extends JpaRepository<Palette, Integer> {
 
-    public List<Palette> findAllByGroupId(final Collection<Integer> ids);
+    public List<Palette> findAllByGroupIdIn(final Collection<Integer> ids);
 
 }
