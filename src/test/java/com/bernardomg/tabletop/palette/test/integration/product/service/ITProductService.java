@@ -42,7 +42,7 @@ import com.google.common.collect.Iterables;
 @SpringJUnitConfig
 @Transactional
 @Rollback
-@Sql({ "/db/paints.sql" })
+@Sql({ "/db/products.sql" })
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 public class ITProductService {

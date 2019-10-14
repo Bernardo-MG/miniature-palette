@@ -71,8 +71,9 @@ public class ITPaletteServiceRead {
     }
 
     @Test
-    @Sql({ "/db/palette_group.sql", "/db/palette.sql", "/db/paint.sql" })
-    public void testRead_Full() {
+    @Sql({ "/db/palette_group_simple.sql", "/db/palette_simple.sql",
+            "/db/paint_simple.sql" })
+    public void testRead_Full_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
         final PaletteOption palette;
@@ -95,8 +96,8 @@ public class ITPaletteServiceRead {
     }
 
     @Test
-    @Sql({ "/db/palette_group.sql" })
-    public void testRead_Group() {
+    @Sql({ "/db/palette_group_simple.sql" })
+    public void testRead_Group_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
 
@@ -110,8 +111,8 @@ public class ITPaletteServiceRead {
     }
 
     @Test
-    @Sql({ "/db/palette_group.sql", "/db/palette.sql" })
-    public void testRead_Group_Palette() {
+    @Sql({ "/db/palette_group_simple.sql", "/db/palette_simple.sql" })
+    public void testRead_Group_Palette_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
         final PaletteOption palette;
