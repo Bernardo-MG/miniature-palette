@@ -5,7 +5,7 @@ const palette = (state = { palettes: {} }, action) => {
    case types.SET_PALETTES:
       return {
          ...state,
-         palettes: { ...state.groups, ...action.payload }
+         palettes: { ...action.payload }
       };
    default:
       return state;
