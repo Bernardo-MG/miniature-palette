@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -29,7 +29,8 @@ function PaletteGroupList({ load, palettes }) {
 }
 
 PaletteGroupList.propTypes = {
-   load: PropTypes.func.isRequired
+   load: PropTypes.func.isRequired,
+   palettes: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => {
