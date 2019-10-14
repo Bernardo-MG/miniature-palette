@@ -15,12 +15,12 @@ export function* read() {
    }
 }
 
-export function* saveProducts(action) {
+export function* storeProducts(action) {
    const normalized = normalize(action.payload, [product]);
    yield put(setProducts(normalized.entities.products));
 }
 
 export const productSagas = [
    takeLatest(READ_PRODUCTS, read),
-   takeLatest(READ_PRODUCTS_SUCCESS, saveProducts)
+   takeLatest(READ_PRODUCTS_SUCCESS, storeProducts)
 ];

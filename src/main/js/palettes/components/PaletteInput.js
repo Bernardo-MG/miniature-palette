@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Palette from 'palette/components/Palette';
+import Palette from 'palettes/components/Palette';
 import SuggestionInput from 'common/components/SuggestionInput';
 
 import { selectSuggestions, selectLoaded } from 'products/selectors';

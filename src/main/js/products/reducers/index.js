@@ -7,7 +7,7 @@ const product = (state = { products: {}, loaded: false }, action) => {
          ...state,
          products: { ...state.products, ...action.payload }
       };
-   case types.SET_LOADED:
+   case types.SET_PRODUCTS_LOADED:
       return {
          ...state,
          loaded: action.payload

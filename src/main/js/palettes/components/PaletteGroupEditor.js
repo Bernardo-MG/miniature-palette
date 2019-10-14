@@ -9,7 +9,7 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 
-import PaletteInput from 'palette/components/PaletteInput';
+import PaletteInput from 'palettes/components/PaletteInput';
 
 import api from 'api';
 

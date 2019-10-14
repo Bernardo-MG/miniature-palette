@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 
-import PaletteGroupList from 'palette/components/PaletteGroupList';
+import PaletteGroupList from 'palettes/components/PaletteGroupList';
 
 const useStyles = makeStyles((theme) => ({
    root: {

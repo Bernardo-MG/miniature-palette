@@ -29,7 +29,7 @@ export const failure = (payload) => {
 
 export const setLoaded = (payload) => {
    return {
-      type: types.SET_LOADED,
+      type: types.SET_PRODUCTS_LOADED,
       payload
    };
 };

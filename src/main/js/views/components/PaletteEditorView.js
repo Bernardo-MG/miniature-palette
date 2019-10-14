@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 
-import PaletteGroupEditor from 'palette/components/PaletteGroupEditor';
+import PaletteGroupEditor from 'palettes/components/PaletteGroupEditor';
 
 const useStyles = makeStyles((theme) => ({
    root: {
