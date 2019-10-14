@@ -17,7 +17,10 @@ export function* read() {
 
 export function* storePalettes(action) {
    const normalized = normalize(action.payload, [palette]);
-   yield put(setPalettes(normalized.entities.palettes));
+   console.log(normalized);
+   if (normalized.entities.palettes) {
+      yield put(setPalettes(normalized.entities.palettes));
+   }
 }
 
 export const paletteSagas = [
