@@ -16,6 +16,8 @@
 
 package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
@@ -71,6 +73,60 @@ public class ITPaletteServiceRead {
     }
 
     @Test
+    @Sql({ "/db/palette_group_big.sql" })
+    public void testRead_Full_Big() {
+        final Iterable<PaletteGroupOption> read;
+        final PaletteGroupOption group;
+        final Iterator<PaletteOption> palettes;
+        Iterator<PaintOption> paints;
+        PaletteOption palette;
+        PaintOption paint;
+
+        read = service.getAll();
+
+        Assertions.assertEquals(1, Iterables.size(read));
+
+        group = read.iterator().next();
+        Assertions.assertEquals("Group1", group.getName());
+        Assertions.assertEquals(3, Iterables.size(group.getPalettes()));
+
+        palettes = group.getPalettes().iterator();
+
+        // First palette
+        palette = palettes.next();
+        Assertions.assertEquals("Palette1", palette.getName());
+        Assertions.assertEquals(1, Iterables.size(palette.getPaints()));
+
+        paints = palette.getPaints().iterator();
+        paint = paints.next();
+        Assertions.assertEquals("Paint1", paint.getName());
+
+        // Second palette
+        palette = palettes.next();
+        Assertions.assertEquals("Palette2", palette.getName());
+        Assertions.assertEquals(2, Iterables.size(palette.getPaints()));
+
+        paints = palette.getPaints().iterator();
+        paint = paints.next();
+        Assertions.assertEquals("Paint2", paint.getName());
+        paint = paints.next();
+        Assertions.assertEquals("Paint3", paint.getName());
+
+        // Third palette
+        palette = palettes.next();
+        Assertions.assertEquals("Palette3", palette.getName());
+        Assertions.assertEquals(3, Iterables.size(palette.getPaints()));
+
+        paints = palette.getPaints().iterator();
+        paint = paints.next();
+        Assertions.assertEquals("Paint4", paint.getName());
+        paint = paints.next();
+        Assertions.assertEquals("Paint5", paint.getName());
+        paint = paints.next();
+        Assertions.assertEquals("Paint6", paint.getName());
+    }
+
+    @Test
     @Sql({ "/db/palette_group_simple.sql", "/db/palette_simple.sql",
             "/db/paint_simple.sql" })
     public void testRead_Full_Simple() {
@@ -96,21 +152,6 @@ public class ITPaletteServiceRead {
     }
 
     @Test
-    @Sql({ "/db/palette_group_simple.sql" })
-    public void testRead_Group_Simple() {
-        final Iterable<PaletteGroupOption> read;
-        final PaletteGroupOption group;
-
-        read = service.getAll();
-
-        Assertions.assertEquals(1, Iterables.size(read));
-
-        group = read.iterator().next();
-        Assertions.assertEquals("Group1", group.getName());
-        Assertions.assertEquals(0, Iterables.size(group.getPalettes()));
-    }
-
-    @Test
     @Sql({ "/db/palette_group_simple.sql", "/db/palette_simple.sql" })
     public void testRead_Group_Palette_Simple() {
         final Iterable<PaletteGroupOption> read;
@@ -128,6 +169,21 @@ public class ITPaletteServiceRead {
         palette = group.getPalettes().iterator().next();
         Assertions.assertEquals("Palette1", palette.getName());
         Assertions.assertEquals(0, Iterables.size(palette.getPaints()));
+    }
+
+    @Test
+    @Sql({ "/db/palette_group_simple.sql" })
+    public void testRead_Group_Simple() {
+        final Iterable<PaletteGroupOption> read;
+        final PaletteGroupOption group;
+
+        read = service.getAll();
+
+        Assertions.assertEquals(1, Iterables.size(read));
+
+        group = read.iterator().next();
+        Assertions.assertEquals("Group1", group.getName());
+        Assertions.assertEquals(0, Iterables.size(group.getPalettes()));
     }
 
 }
