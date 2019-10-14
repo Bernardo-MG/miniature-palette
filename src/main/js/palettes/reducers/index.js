@@ -1,11 +1,11 @@
 import * as types from 'palettes/actions/types';
 
-const palette = (state = { palettes: [] }, action) => {
+const palette = (state = { palettes: {} }, action) => {
    switch (action.type) {
    case types.SET_PALETTES:
       return {
          ...state,
-         palettes: [...action.payload]
+         palettes: { ...action.payload }
       };
    default:
       return state;

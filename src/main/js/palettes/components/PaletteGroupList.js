@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { selectPalettes } from 'palettes/selectors';
+import { selectPaletteOptions } from 'palettes/selectors';
 
 import { readPalettes } from 'palettes/actions';
 
@@ -35,7 +35,7 @@ PaletteGroupList.propTypes = {
 
 const mapStateToProps = (state) => {
    return {
-      palettes: selectPalettes(state)
+      palettes: selectPaletteOptions(state)
    };
 };
 
