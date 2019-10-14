@@ -33,7 +33,7 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteGroup() {
+function PaletteGroupEditor() {
 
    const [name, setName] = useState('palettes');
    const [palettes, setPalettes] = useState([]);
@@ -88,6 +88,6 @@ function PaletteGroup() {
    </React.Fragment>;
 }
 
-PaletteGroup.propTypes = {};
+PaletteGroupEditor.propTypes = {};
 
-export default PaletteGroup;
+export default PaletteGroupEditor;

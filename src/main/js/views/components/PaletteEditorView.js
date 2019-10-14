@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 
-import PaletteGroup from 'palette/components/PaletteGroup';
+import PaletteGroupEditor from 'palette/components/PaletteGroupEditor';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-function PaletteView() {
+function PaletteEditorView() {
 
    const classes = useStyles();
 
    return <Paper className={classes.root}>
-      <PaletteGroup />
+      <PaletteGroupEditor />
    </Paper>;
 }
 
-PaletteView.propTypes = {};
+PaletteEditorView.propTypes = {};
 
-export default PaletteView;
+export default PaletteEditorView;
