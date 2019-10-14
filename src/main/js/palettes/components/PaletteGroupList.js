@@ -9,11 +9,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { selectPalettes } from 'palettes/selectors';
+
 import { readPalettes } from 'palettes/actions';
 
-function PaletteGroupList({ load }) {
-
-   const [palettes] = useState([]);
+function PaletteGroupList({ load, palettes }) {
 
    useEffect(() => {
       load();
@@ -32,8 +32,10 @@ PaletteGroupList.propTypes = {
    load: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => {
-   return {};
+const mapStateToProps = (state) => {
+   return {
+      palettes: selectPalettes(state)
+   };
 };
 
 const mapDispatchToProps = (dispatch) => {
