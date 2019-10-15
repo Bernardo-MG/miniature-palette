@@ -35,7 +35,7 @@ SaveButton.propTypes = {
 
 function PaletteGroupEditor() {
 
-   const [name, setName] = useState('palettes');
+   const [name, setName] = useState('palette');
    const [palettes, setPalettes] = useState([]);
    const [paletteIndex, setPaletteIndex] = useState(0);
 
