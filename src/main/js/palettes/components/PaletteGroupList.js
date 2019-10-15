@@ -17,7 +17,7 @@ function PaletteGroupList({ load, palettes }) {
 
    useEffect(() => {
       load();
-   });
+   }, []);
 
    return <List>
       {palettes.map((palette) =>
