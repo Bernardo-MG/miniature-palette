@@ -50,8 +50,7 @@ function PaletteInput({ palette, addPalette }) {
 
 PaletteInput.propTypes = {
    palette: PropTypes.object.isRequired,
-   addPalette: PropTypes.func.isRequired,
-   suggestions: PropTypes.array.isRequired
+   addPalette: PropTypes.func.isRequired
 };
 
 export default PaletteInput;
