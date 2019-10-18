@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import Palette from 'palettes/components/Palette';
 import SuggestionInput from 'common/components/SuggestionInput';
@@ -12,7 +11,14 @@ import { selectSuggestions, selectLoaded } from 'products/selectors';
 
 import { read, setLoaded } from 'products/actions';
 
-function PaletteInput({ suggestions, palette, addPalette, load, setLoad, loaded }) {
+function PaletteInput({ palette, addPalette }) {
+
+   const suggestions = useSelector(selectSuggestions);
+   const loaded = useSelector(selectLoaded);
+
+   const dispatch = useDispatch();
+   const load = () => dispatch(read());
+   const setLoad = (input) => dispatch(setLoaded(input));
 
    const [color, setColor] = useState('');
 
@@ -45,27 +51,7 @@ function PaletteInput({ suggestions, palette, addPalette, load, setLoad, loaded 
 PaletteInput.propTypes = {
    palette: PropTypes.object.isRequired,
    addPalette: PropTypes.func.isRequired,
-   load: PropTypes.func.isRequired,
-   setLoad: PropTypes.func.isRequired,
-   suggestions: PropTypes.array.isRequired,
-   loaded: PropTypes.bool.isRequired
+   suggestions: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state) => {
-   return {
-      suggestions: selectSuggestions(state),
-      loaded: selectLoaded(state)
-   };
-};
-
-const mapDispatchToProps = (dispatch) => {
-   return {
-      load: bindActionCreators(read, dispatch),
-      setLoad: bindActionCreators(setLoaded, dispatch)
-   };
-};
-
-export default connect(
-   mapStateToProps,
-   mapDispatchToProps
-)(PaletteInput);
+export default PaletteInput;

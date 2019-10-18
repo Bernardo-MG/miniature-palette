@@ -34,6 +34,7 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
         className="MuiInputBase-input MuiInput-input"
         disabled={false}
         id="testSuggestionInput"
+        onAnimationStart={[Function]}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
