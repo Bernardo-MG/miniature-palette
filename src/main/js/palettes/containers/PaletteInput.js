@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
-import Palette from 'palettes/components/Palette';
+import PaletteEditor from 'palettes/components/PaletteEditor';
 import SuggestionInput from 'common/components/SuggestionInput';
 
 import { selectSuggestions, selectLoaded } from 'products/selectors';
@@ -44,7 +44,7 @@ function PaletteInput({ palette, addPalette }) {
          onChange={setColor}
          onPressEnter={addColorToCurrent}
       />
-      <Palette palette={palette} addPalette={addPalette}/>
+      <PaletteEditor palette={palette} addPalette={addPalette}/>
    </React.Fragment>;
 }
 

@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-function Palette({ palette, addPalette }) {
+function PaletteEditor({ palette, addPalette }) {
 
    function deleteColor(color) {
       const newPalette = { ...palette };
@@ -45,11 +45,11 @@ function Palette({ palette, addPalette }) {
    </Table>;
 }
 
-Palette.propTypes = {
+PaletteEditor.propTypes = {
    palette: PropTypes.shape({
       paints: PropTypes.array.isRequired
    }).isRequired,
    addPalette: PropTypes.func.isRequired
 };
 
-export default Palette;
+export default PaletteEditor;

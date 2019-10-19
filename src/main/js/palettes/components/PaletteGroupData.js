@@ -4,21 +4,21 @@ import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
 
-import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
-import Palette from 'palettes/components/Palette';
+import PaletteData from 'palettes/components/PaletteData';
 
 function PaletteGroupData({ group }) {
    return <React.Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
-            <TextField value={group.name} />
+            <Typography>{group.name}</Typography>
          </Grid>
       </Grid>
       <Grid container spacing={3}>
          {group.palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
-               <Palette palette={palette} />
+               <PaletteData palette={palette} />
             </Grid>;
          }
          )}
