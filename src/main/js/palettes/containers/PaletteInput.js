@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+
 import SuggestionInput from 'common/components/SuggestionInput';
 
 import { selectSuggestions, selectLoaded } from 'products/selectors';
@@ -35,13 +39,22 @@ function PaletteInput({ palette, addPalette }) {
       }
    });
 
-   return <SuggestionInput
-      suggestions={suggestions}
-      label={'paint'}
-      placeholder={'write_paint'}
-      onChange={setColor}
-      onPressEnter={addColorToCurrent}
-   />;
+   return <Grid container spacing={3}>
+      <Grid item xs={6}>
+         <SuggestionInput
+            suggestions={suggestions}
+            label={'paint'}
+            placeholder={'write_paint'}
+            onChange={setColor}
+            onPressEnter={addColorToCurrent}
+         />
+      </Grid>
+      <Grid item xs={6}>
+         <IconButton onClick={addColorToCurrent}>
+            <NoteAddIcon />
+         </IconButton>
+      </Grid>
+   </Grid>;
 }
 
 PaletteInput.propTypes = {
