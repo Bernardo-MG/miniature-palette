@@ -8,6 +8,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { IntlProvider } from 'react-intl';
 
+import { SnackbarProvider } from 'notistack';
+
 import { DevMonitor } from 'development';
 
 /**
@@ -18,12 +20,14 @@ import { DevMonitor } from 'development';
 const Root = ({ store, language, i18nMessages }) => (
    <IntlProvider locale={language} defaultLocale='en' messages={i18nMessages}>
       <Provider store={store}>
-         <React.Fragment>
-            <Router>
-               {routes}
-            </Router>
-            <DevMonitor />
-         </React.Fragment>
+         <SnackbarProvider autoHideDuration={1000}>
+            <React.Fragment>
+               <Router>
+                  {routes}
+               </Router>
+               <DevMonitor />
+            </React.Fragment>
+         </SnackbarProvider>
       </Provider>
    </IntlProvider>
 );

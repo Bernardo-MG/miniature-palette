@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
+
+import { useSnackbar } from 'notistack';
 
 import PaletteInput from 'palettes/containers/PaletteInput';
 
@@ -35,9 +36,17 @@ SaveButton.propTypes = {
 
 function PaletteGroupEditor() {
 
+   const { enqueueSnackbar } = useSnackbar();
+
    const [name, setName] = useState('palette');
    const [palettes, setPalettes] = useState([]);
    const [paletteIndex, setPaletteIndex] = useState(0);
+
+   function clean() {
+      setName('');
+      setPalettes([]);
+      setPaletteIndex(0);
+   }
 
    function createPalette() {
       const newPalette = { name: `palette${paletteIndex}`, paints: [] };
@@ -63,6 +72,8 @@ function PaletteGroupEditor() {
 
    function savePalette() {
       api.Palettes.save({ name, palettes });
+      enqueueSnackbar('saved_message', { variant: 'success' });
+      clean();
    }
 
    return <React.Fragment>
