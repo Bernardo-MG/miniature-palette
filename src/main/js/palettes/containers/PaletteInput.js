@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
-import PaletteEditor from 'palettes/components/PaletteEditor';
 import SuggestionInput from 'common/components/SuggestionInput';
 
 import { selectSuggestions, selectLoaded } from 'products/selectors';
@@ -36,16 +35,13 @@ function PaletteInput({ palette, addPalette }) {
       }
    });
 
-   return <React.Fragment>
-      <SuggestionInput
-         suggestions={suggestions}
-         label={'paint'}
-         placeholder={'write_paint'}
-         onChange={setColor}
-         onPressEnter={addColorToCurrent}
-      />
-      <PaletteEditor palette={palette} addPalette={addPalette}/>
-   </React.Fragment>;
+   return <SuggestionInput
+      suggestions={suggestions}
+      label={'paint'}
+      placeholder={'write_paint'}
+      onChange={setColor}
+      onPressEnter={addColorToCurrent}
+   />;
 }
 
 PaletteInput.propTypes = {
