@@ -54,7 +54,7 @@ function PaletteGroupEditor() {
       setPaletteIndex(paletteIndex + 1);
    }
 
-   function addPalette(palette) {
+   function handleAddPalette(palette) {
       let index;
       palettes.find((pal, i) => {
          index = i;
@@ -70,7 +70,7 @@ function PaletteGroupEditor() {
       setName(event.target.value);
    }
 
-   function savePalette() {
+   function handleSavePalette() {
       api.Palettes.save({ name, palettes });
       enqueueSnackbar('saved_message', { variant: 'success' });
       clean();
@@ -82,13 +82,13 @@ function PaletteGroupEditor() {
             <TextField value={name} onChange={handleNameChange} />
          </Grid>
          <Grid item xs={6}>
-            <SaveButton onClick={savePalette} />
+            <SaveButton onClick={handleSavePalette} />
          </Grid>
       </Grid>
       <Grid container spacing={3}>
          {palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
-               <PaletteInput palette={palette} addPalette={addPalette} />
+               <PaletteInput palette={palette} addPalette={handleAddPalette} />
             </Grid>;
          }
          )}
