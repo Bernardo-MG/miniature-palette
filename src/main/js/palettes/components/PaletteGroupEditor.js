@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { useSnackbar } from 'notistack';
 
-import PaletteEditor from 'palettes/components/PaletteEditor';
+import PaletteEditor from 'palettes/containers/PaletteEditor';
 
 import api from 'api';
 
