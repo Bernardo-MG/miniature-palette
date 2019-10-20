@@ -2,15 +2,13 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 function PaletteEditor({ palette, addPalette }) {
 
@@ -21,28 +19,18 @@ function PaletteEditor({ palette, addPalette }) {
       addPalette(newPalette);
    }
 
-   return <Table>
-      <TableHead>
-         <TableRow>
-            <TableCell component="th">paint</TableCell>
-            <TableCell component="th"></TableCell>
-         </TableRow>
-      </TableHead>
-      <TableBody>
-         {palette.paints.map((color) =>
-            <TableRow key={color.name}>
-               <TableCell scope="row">
-                  {color.name}
-               </TableCell>
-               <TableCell scope="row">
-                  <IconButton onClick={() => deleteColor(color)}>
-                     <HighlightOffIcon />
-                  </IconButton>
-               </TableCell>
-            </TableRow>
-         )}
-      </TableBody>
-   </Table>;
+   return <List>
+      {palette.paints.map((color) =>
+         <ListItem key={color.name}>
+            <ListItemText primary={color.name} secondary={color.code} />
+            <ListItemSecondaryAction>
+               <IconButton edge="end" aria-label="delete" onClick={() => deleteColor(color)}>
+                  <DeleteIcon />
+               </IconButton>
+            </ListItemSecondaryAction>
+         </ListItem>
+      )}
+   </List>;
 }
 
 PaletteEditor.propTypes = {
