@@ -87,7 +87,7 @@ function PaletteGroupEditor() {
       </Grid>
       <Grid container spacing={3}>
          {palettes.map((palette) => {
-            return <Grid item xs={12} key={palette.name}>
+            return <Grid item xs={8} key={palette.name}>
                <PaletteEditor palette={palette} addPalette={handleAddPalette} />
             </Grid>;
          }

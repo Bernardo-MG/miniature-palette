@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import PaletteEditorList from 'palettes/components/PaletteEditorList';
-import PaintInput from 'palettes/components/PaintInput';
 
 import { useSuggestions } from 'suggestions';
 
@@ -16,8 +15,7 @@ function PaletteEditor({ palette, addPalette }) {
 
    return <Card>
       <CardContent>
-         <PaintInput palette={palette} addPalette={addPalette} suggestions={suggestions} />
-         <PaletteEditorList palette={palette} addPalette={addPalette}/>
+         <PaletteEditorList palette={palette} addPalette={addPalette} suggestions={suggestions}/>
       </CardContent>
    </Card>;
 }
