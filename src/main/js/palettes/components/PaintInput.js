@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -10,18 +8,7 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 
 import SuggestionInput from 'common/components/SuggestionInput';
 
-import { selectSuggestions, selectLoaded } from 'products/selectors';
-
-import { read, setLoaded } from 'products/actions';
-
-function PaintInput({ palette, addPalette }) {
-
-   const suggestions = useSelector(selectSuggestions);
-   const loaded = useSelector(selectLoaded);
-
-   const dispatch = useDispatch();
-   const load = () => dispatch(read());
-   const setLoad = (input) => dispatch(setLoaded(input));
+function PaintInput({ palette, addPalette, suggestions }) {
 
    const [color, setColor] = useState('');
 
@@ -31,13 +18,6 @@ function PaintInput({ palette, addPalette }) {
 
       addPalette(newPalette);
    }
-
-   useEffect(() => {
-      if (!loaded) {
-         setLoad(true);
-         load();
-      }
-   });
 
    return <Grid container spacing={3}>
       <Grid item xs={6}>
@@ -58,8 +38,9 @@ function PaintInput({ palette, addPalette }) {
 }
 
 PaintInput.propTypes = {
+   addPalette: PropTypes.func.isRequired,
    palette: PropTypes.object.isRequired,
-   addPalette: PropTypes.func.isRequired
+   suggestions: PropTypes.array.isRequired
 };
 
 export default PaintInput;
