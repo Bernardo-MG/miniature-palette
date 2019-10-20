@@ -19,6 +19,55 @@ import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 
+function MainAppBar({ onOpen, title }) {
+   return <AppBar position='relative'>
+      <Toolbar>
+         <IconButton color='inherit' aria-label='Open drawer' onClick={onOpen} edge='start'>
+            <MenuIcon />
+         </IconButton>
+         <Typography variant='h6' color='inherit' noWrap>
+            { title }
+         </Typography>
+      </Toolbar>
+   </AppBar>;
+}
+
+MainAppBar.propTypes = {
+   title: PropTypes.string.isRequired,
+   onOpen: PropTypes.func.isRequired
+};
+
+function SideMenu({ links, onClose, open }) {
+
+   const linkItems = links.map((link) => <ListItem button key={link.id} >
+      <Link to={link.link}><ListItemText primary={ link.text } /></Link>
+   </ListItem>);
+
+   return <Drawer variant='persistent' anchor='left' open={open}>
+      <div>
+         <IconButton onClick={onClose}>
+            <ChevronLeftIcon />
+         </IconButton>
+      </div>
+      <Divider />
+      <List>
+         { linkItems }
+      </List>
+   </Drawer>;
+}
+
+SideMenu.propTypes = {
+   links: PropTypes.arrayOf(
+      PropTypes.shape({
+         text: PropTypes.string,
+         link: PropTypes.string,
+         id: PropTypes.string
+      })
+   ),
+   onClose: PropTypes.func.isRequired,
+   open: PropTypes.bool.isRequired
+};
+
 /**
  * Base layout for the application. This will frame all the views.
  * 
@@ -36,32 +85,9 @@ function SideMenuLayout({ children, links, title }) {
       setOpen(false);
    }
 
-   const linkItems = links.map((link) => <ListItem button key={link.id} >
-      <Link to={link.link}><ListItemText primary={ link.text } /></Link>
-   </ListItem>);
-
    return <Fragment>
-      <AppBar position='relative'>
-         <Toolbar>
-            <IconButton color='inherit' aria-label='Open drawer' onClick={handleDrawerOpen} edge='start'>
-               <MenuIcon />
-            </IconButton>
-            <Typography variant='h6' color='inherit' noWrap>
-               { title }
-            </Typography>
-         </Toolbar>
-      </AppBar>
-      <Drawer variant='persistent' anchor='left' open={open}>
-         <div>
-            <IconButton onClick={handleDrawerClose}>
-               <ChevronLeftIcon />
-            </IconButton>
-         </div>
-         <Divider />
-         <List>
-            { linkItems }
-         </List>
-      </Drawer>
+      <MainAppBar title={title} onOpen={handleDrawerOpen} />
+      <SideMenu links={links} onClose={handleDrawerClose} open={open} />
       <main>
          <Container>
             <Box pt={2}>
