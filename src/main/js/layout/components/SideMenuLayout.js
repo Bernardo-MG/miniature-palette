@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -40,7 +40,7 @@ function SideMenuLayout({ children, links, title }) {
       <Link to={link.link}><ListItemText primary={ link.text } /></Link>
    </ListItem>);
 
-   return <React.Fragment>
+   return <Fragment>
       <AppBar position='relative'>
          <Toolbar>
             <IconButton color='inherit' aria-label='Open drawer' onClick={handleDrawerOpen} edge='start'>
@@ -69,7 +69,7 @@ function SideMenuLayout({ children, links, title }) {
             </Box>
          </Container>
       </main>
-   </React.Fragment>;
+   </Fragment>;
 }
 
 SideMenuLayout.propTypes = {

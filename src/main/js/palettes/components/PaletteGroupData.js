@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import PaletteData from 'palettes/components/PaletteData';
 
 function PaletteGroupData({ group }) {
-   return <React.Fragment>
+   return <Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
             <Typography>{group.name}</Typography>
@@ -23,7 +23,7 @@ function PaletteGroupData({ group }) {
          }
          )}
       </Grid>
-   </React.Fragment>;
+   </Fragment>;
 }
 
 PaletteGroupData.propTypes = {

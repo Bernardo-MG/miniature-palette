@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -21,12 +21,12 @@ const Root = ({ store, language, i18nMessages }) => (
    <IntlProvider locale={language} defaultLocale='en' messages={i18nMessages}>
       <Provider store={store}>
          <SnackbarProvider autoHideDuration={1000}>
-            <React.Fragment>
+            <Fragment>
                <Router>
                   {routes}
                </Router>
                <DevMonitor />
-            </React.Fragment>
+            </Fragment>
          </SnackbarProvider>
       </Provider>
    </IntlProvider>

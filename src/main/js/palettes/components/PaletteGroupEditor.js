@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -77,7 +77,7 @@ function PaletteGroupEditor() {
       clean();
    }
 
-   return <React.Fragment>
+   return <Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
             <TextField value={name} onChange={handleNameChange} />
@@ -98,7 +98,7 @@ function PaletteGroupEditor() {
             <AddButton onClick={createPalette} />
          </Grid>
       </Grid>
-   </React.Fragment>;
+   </Fragment>;
 }
 
 PaletteGroupEditor.propTypes = {};
