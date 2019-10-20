@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
-function PaletteEditor({ palette, addPalette }) {
+function PaletteEditorList({ palette, addPalette }) {
 
    function deleteColor(color) {
       const newPalette = { ...palette };
@@ -33,11 +33,11 @@ function PaletteEditor({ palette, addPalette }) {
    </List>;
 }
 
-PaletteEditor.propTypes = {
+PaletteEditorList.propTypes = {
    palette: PropTypes.shape({
       paints: PropTypes.array.isRequired
    }).isRequired,
    addPalette: PropTypes.func.isRequired
 };
 
-export default PaletteEditor;
+export default PaletteEditorList;
