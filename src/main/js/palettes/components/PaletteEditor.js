@@ -14,8 +14,7 @@ import { selectSuggestions, selectLoaded } from 'products/selectors';
 
 import { read, setLoaded } from 'products/actions';
 
-function PaletteEditor({ palette, addPalette }) {
-
+function useSuggestions() {
    const suggestions = useSelector(selectSuggestions);
    const loaded = useSelector(selectLoaded);
 
@@ -29,6 +28,13 @@ function PaletteEditor({ palette, addPalette }) {
          load();
       }
    });
+
+   return suggestions;
+}
+
+function PaletteEditor({ palette, addPalette }) {
+
+   const suggestions = useSuggestions();
 
    return <Card>
       <CardContent>
