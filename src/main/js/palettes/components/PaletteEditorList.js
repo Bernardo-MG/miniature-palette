@@ -13,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import PaintInput from 'palettes/components/PaintInput';
 
-function PaletteEditorList({ palette, addPalette, suggestions }) {
+function PaletteEditorList({ palette, addPalette, suggestions, handleColorChangeAt }) {
 
    function addColor() {
       const newPalette = { ...palette };
@@ -33,10 +33,10 @@ function PaletteEditorList({ palette, addPalette, suggestions }) {
       <IconButton onClick={addColor}>
          <AddCircleIcon />
       </IconButton>
-      {palette.paints.map((color) =>
+      {palette.paints.map((color, index) =>
          <ListItem key={color.name}>
             <ListItemText>
-               <PaintInput palette={palette} addPalette={addPalette} suggestions={suggestions} />
+               <PaintInput onChange={(value) => handleColorChangeAt(index, value)} addPalette={addPalette} suggestions={suggestions} />
             </ListItemText>
             <ListItemSecondaryAction>
                <IconButton edge="end" aria-label="delete" onClick={() => deleteColor(color)}>
@@ -53,7 +53,8 @@ PaletteEditorList.propTypes = {
    palette: PropTypes.shape({
       paints: PropTypes.array.isRequired
    }).isRequired,
-   suggestions: PropTypes.array.isRequired
+   suggestions: PropTypes.array.isRequired,
+   handleColorChangeAt: PropTypes.func.isRequired
 };
 
 export default PaletteEditorList;

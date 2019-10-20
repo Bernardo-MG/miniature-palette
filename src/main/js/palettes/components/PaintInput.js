@@ -1,32 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 
 import SuggestionInput from 'common/components/SuggestionInput';
 
-function PaintInput({ palette, addPalette, suggestions }) {
-
-   const [color, setColor] = useState('');
-
-   function addColor() {
-      const newPalette = { ...palette };
-      newPalette.paints = [...newPalette.paints, { name: color }];
-
-      addPalette(newPalette);
-   }
-
+function PaintInput({ onChange, suggestions }) {
    return <SuggestionInput
       suggestions={suggestions}
       label={'paint'}
       placeholder={'write_paint'}
-      onChange={setColor}
-      onPressEnter={addColor}
+      onChange={onChange}
    />;
 }
 
 PaintInput.propTypes = {
-   addPalette: PropTypes.func.isRequired,
-   palette: PropTypes.object.isRequired,
+   onChange: PropTypes.func.isRequired,
    suggestions: PropTypes.array.isRequired
 };
 

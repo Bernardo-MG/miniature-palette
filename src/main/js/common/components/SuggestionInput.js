@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function SuggestionInput({ id, label, placeholder, suggestions, onChange, onPressEnter }) {
+export default function SuggestionInput({ id, label, placeholder, suggestions, onChange }) {
 
    const [anchorEl, setAnchorEl] = useState(null);
    const [text, setText] = useState('');
@@ -50,12 +50,6 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
    function renderInputComponent(inputProps) {
       const { inputRef = () => {}, ref, ...other } = inputProps;
 
-      function handleKeyPress(event) {
-         if ((event) && (event.key === 'Enter')) {
-            onPressEnter(event);
-         }
-      }
-
       return (
          <TextField
             fullWidth
@@ -65,7 +59,6 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
                   inputRef(node);
                }
             }}
-            onKeyPress={handleKeyPress}
             {...other}
          />
       );
@@ -176,6 +169,5 @@ SuggestionInput.propTypes = {
    label: PropTypes.string.isRequired,
    placeholder: PropTypes.string.isRequired,
    suggestions: PropTypes.array.isRequired,
-   onChange: PropTypes.func.isRequired,
-   onPressEnter: PropTypes.func.isRequired
+   onChange: PropTypes.func.isRequired
 };
