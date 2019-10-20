@@ -2,7 +2,7 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 
 import PaletteGroupEditor from 'palettes/components/PaletteGroupEditor';
 
@@ -16,9 +16,9 @@ function PaletteEditorView() {
 
    const classes = useStyles();
 
-   return <Paper className={classes.root}>
+   return <Box className={classes.root}>
       <PaletteGroupEditor />
-   </Paper>;
+   </Box>;
 }
 
 PaletteEditorView.propTypes = {};

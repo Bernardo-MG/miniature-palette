@@ -5,13 +5,12 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import PaletteEditorList from 'palettes/components/PaletteEditorList';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 
 import { useSnackbar } from 'notistack';
 
-import PaletteInput from 'palettes/containers/PaletteInput';
+import PaletteEditor from 'palettes/components/PaletteEditor';
 
 import api from 'api';
 
@@ -89,8 +88,7 @@ function PaletteGroupEditor() {
       <Grid container spacing={3}>
          {palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
-               <PaletteInput palette={palette} addPalette={handleAddPalette} />
-               <PaletteEditorList palette={palette} addPalette={handleAddPalette}/>
+               <PaletteEditor palette={palette} addPalette={handleAddPalette} />
             </Grid>;
          }
          )}
