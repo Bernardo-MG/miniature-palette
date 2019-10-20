@@ -80,6 +80,14 @@ function PaletteGroupEditor() {
       palettes[i].paints[index] = { name: color };
    }
 
+   function handleColorDeleteAt(i, index) {
+      const newPalettes = [...palettes];
+      const updated = palettes[i].paints.splice(index, 1);
+      newPalettes.paints = updated;
+
+      setPalettes(newPalettes);
+   }
+
    return <Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
@@ -92,7 +100,9 @@ function PaletteGroupEditor() {
       <Grid container spacing={3}>
          {palettes.map((palette, index) => {
             return <Grid item xs={8} key={palette.name}>
-               <PaletteEditor palette={palette} addPalette={handleAddPalette} handleColorChangeAt={(i, c) => handleColorChangeAt(index, i, c)} />
+               <PaletteEditor palette={palette} addPalette={handleAddPalette}
+                  handleColorChangeAt={(i, c) => handleColorChangeAt(index, i, c)}
+                  handleColorDeleteAt={(i) => handleColorDeleteAt(index, i)} />
             </Grid>;
          }
          )}
