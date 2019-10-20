@@ -54,18 +54,6 @@ function PaletteGroupEditor() {
       setPaletteIndex(paletteIndex + 1);
    }
 
-   function handleAddPalette(palette) {
-      let index;
-      palettes.find((pal, i) => {
-         index = i;
-         return pal.name === palette.name;
-      });
-      const newPalettes = [...palettes];
-      newPalettes[index] = palette;
-
-      setPalettes(newPalettes);
-   }
-
    function handleNameChange(event) {
       setName(event.target.value);
    }
@@ -76,6 +64,14 @@ function PaletteGroupEditor() {
       clean();
    }
 
+   function handleAddColor(i) {
+      const newPalettes = [...palettes];
+      const updated = [...palettes[i].paints, { name: '' }];
+      newPalettes[i].paints = updated;
+
+      setPalettes(newPalettes);
+   }
+
    function handleColorChangeAt(i, index, color) {
       palettes[i].paints[index] = { name: color };
    }
@@ -83,7 +79,7 @@ function PaletteGroupEditor() {
    function handleColorDeleteAt(i, index) {
       const newPalettes = [...palettes];
       const updated = palettes[i].paints.splice(index, 1);
-      newPalettes.paints = updated;
+      newPalettes[i].paints = updated;
 
       setPalettes(newPalettes);
    }
@@ -100,7 +96,8 @@ function PaletteGroupEditor() {
       <Grid container spacing={3}>
          {palettes.map((palette, index) => {
             return <Grid item xs={8} key={palette.name}>
-               <PaletteEditor palette={palette} addPalette={handleAddPalette}
+               <PaletteEditor palette={palette}
+                  handleAddColor={() => handleAddColor(index)}
                   handleColorChangeAt={(i, c) => handleColorChangeAt(index, i, c)}
                   handleColorDeleteAt={(i) => handleColorDeleteAt(index, i)} />
             </Grid>;

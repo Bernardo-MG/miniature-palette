@@ -9,13 +9,14 @@ import PaletteEditorList from 'palettes/components/PaletteEditorList';
 
 import { useSuggestions } from 'suggestions';
 
-function PaletteEditor({ palette, addPalette, handleColorChangeAt, handleColorDeleteAt }) {
+function PaletteEditor({ palette, handleAddColor, handleColorChangeAt, handleColorDeleteAt }) {
 
    const suggestions = useSuggestions();
 
    return <Card>
       <CardContent>
-         <PaletteEditorList palette={palette} addPalette={addPalette} suggestions={suggestions}
+         <PaletteEditorList palette={palette} suggestions={suggestions}
+            handleAddColor={handleAddColor}
             handleColorChangeAt={handleColorChangeAt}
             handleColorDeleteAt={handleColorDeleteAt} />
       </CardContent>
@@ -26,7 +27,7 @@ PaletteEditor.propTypes = {
    palette: PropTypes.shape({
       paints: PropTypes.array.isRequired
    }).isRequired,
-   addPalette: PropTypes.func.isRequired,
+   handleAddColor: PropTypes.func.isRequired,
    handleColorChangeAt: PropTypes.func.isRequired,
    handleColorDeleteAt: PropTypes.func.isRequired
 };

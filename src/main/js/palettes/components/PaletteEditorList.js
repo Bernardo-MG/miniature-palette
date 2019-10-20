@@ -13,23 +13,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import PaintInput from 'palettes/components/PaintInput';
 
-function PaletteEditorList({ palette, addPalette, suggestions, handleColorChangeAt, handleColorDeleteAt }) {
-
-   function addColor() {
-      const newPalette = { ...palette };
-      newPalette.paints = [...newPalette.paints, { name: '' }];
-
-      addPalette(newPalette);
-   }
-
+function PaletteEditorList({ palette, suggestions, handleAddColor, handleColorChangeAt, handleColorDeleteAt }) {
    return <List>
-      <IconButton onClick={addColor}>
+      <IconButton onClick={handleAddColor}>
          <AddCircleIcon />
       </IconButton>
       {palette.paints.map((color, index) =>
          <ListItem key={color.name}>
             <ListItemText>
-               <PaintInput onChange={(value) => handleColorChangeAt(index, value)} addPalette={addPalette} suggestions={suggestions} />
+               <PaintInput onChange={(value) => handleColorChangeAt(index, value)} suggestions={suggestions} />
             </ListItemText>
             <ListItemSecondaryAction>
                <IconButton edge="end" aria-label="delete" onClick={() => handleColorDeleteAt(index)}>
@@ -42,11 +34,11 @@ function PaletteEditorList({ palette, addPalette, suggestions, handleColorChange
 }
 
 PaletteEditorList.propTypes = {
-   addPalette: PropTypes.func.isRequired,
    palette: PropTypes.shape({
       paints: PropTypes.array.isRequired
    }).isRequired,
    suggestions: PropTypes.array.isRequired,
+   handleAddColor: PropTypes.func.isRequired,
    handleColorChangeAt: PropTypes.func.isRequired,
    handleColorDeleteAt: PropTypes.func.isRequired
 };
