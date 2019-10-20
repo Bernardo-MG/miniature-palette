@@ -6,12 +6,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import PaletteEditorList from 'palettes/components/PaletteEditorList';
-import PaletteInput from 'palettes/containers/PaletteInput';
+import PaintInput from 'palettes/containers/PaintInput';
 
 function PaletteEditor({ palette, addPalette }) {
    return <Card>
       <CardContent>
-         <PaletteInput palette={palette} addPalette={addPalette} />
+         <PaintInput palette={palette} addPalette={addPalette} />
          <PaletteEditorList palette={palette} addPalette={addPalette}/>
       </CardContent>
    </Card>;

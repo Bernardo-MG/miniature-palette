@@ -14,7 +14,7 @@ import { selectSuggestions, selectLoaded } from 'products/selectors';
 
 import { read, setLoaded } from 'products/actions';
 
-function PaletteInput({ palette, addPalette }) {
+function PaintInput({ palette, addPalette }) {
 
    const suggestions = useSelector(selectSuggestions);
    const loaded = useSelector(selectLoaded);
@@ -57,9 +57,9 @@ function PaletteInput({ palette, addPalette }) {
    </Grid>;
 }
 
-PaletteInput.propTypes = {
+PaintInput.propTypes = {
    palette: PropTypes.object.isRequired,
    addPalette: PropTypes.func.isRequired
 };
 
-export default PaletteInput;
+export default PaintInput;
