@@ -20,7 +20,7 @@ const Root = ({ store, language, i18nMessages }) => (
             <Router>
                {routes}
             </Router>
-         <SnackbarProvider>
+         </SnackbarProvider>
       </Provider>
    </IntlProvider>
 );
