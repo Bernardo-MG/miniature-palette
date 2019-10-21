@@ -14,12 +14,11 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
     aria-controls="react-autowhatever-1"
     className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
     onKeyDown={[Function]}
-    onKeyPress={[Function]}
     style={Object {}}
   >
     <label
-      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
-      data-shrink={false}
+      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+      data-shrink={true}
       htmlFor="testSuggestionInput"
     >
       label
@@ -34,13 +33,14 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
         className="MuiInputBase-input MuiInput-input"
         disabled={false}
         id="testSuggestionInput"
+        onAnimationStart={[Function]}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
         placeholder="placeholder"
         required={false}
         type="text"
-        value=""
+        value="value"
       />
     </div>
   </div>

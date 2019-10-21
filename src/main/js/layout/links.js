@@ -1,14 +1,19 @@
 
 const sideLinks = [
    {
-      text: 'Index',
+      text: 'index',
       link: '/',
       id: 'index'
    },
    {
-      text: 'Palette',
-      link: '/palette',
-      id: 'palette'
+      text: 'create_palette',
+      link: '/palette/edit',
+      id: 'create_palette'
+   },
+   {
+      text: 'view_palette',
+      link: '/palette/view',
+      id: 'view_palette'
    }
 ];
 

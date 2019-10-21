@@ -8,15 +8,19 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { IntlProvider } from 'react-intl';
 
+import { SnackbarProvider } from 'notistack';
+
 /**
  * Production root application.
  */
 const Root = ({ store, language, i18nMessages }) => (
    <IntlProvider locale={language} defaultLocale='en' messages={i18nMessages}>
       <Provider store={store}>
-         <Router>
-            {routes}
-         </Router>
+         <SnackbarProvider>
+            <Router>
+               {routes}
+            </Router>
+         </SnackbarProvider>
       </Provider>
    </IntlProvider>
 );

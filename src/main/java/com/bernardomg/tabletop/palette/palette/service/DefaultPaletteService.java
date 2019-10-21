@@ -1,9 +1,27 @@
+/**
+ * Copyright 2018 the original author or authors
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 
 package com.bernardomg.tabletop.palette.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -31,9 +49,9 @@ public final class DefaultPaletteService implements PaletteService {
 
     private final PaintRepository        paintRepository;
 
-    private final PaletteRepository      paletteRepository;
-
     private final PaletteGroupRepository paletteGroupRepository;
+
+    private final PaletteRepository      paletteRepository;
 
     @Autowired
     public DefaultPaletteService(final PaintRepository paintRepo,
@@ -46,6 +64,32 @@ public final class DefaultPaletteService implements PaletteService {
                 "The repository is required");
         paletteGroupRepository = checkNotNull(paletteGroupRepo,
                 "The repository is required");
+    }
+
+    @Override
+    public final Iterable<PaletteGroupOption> getAll() {
+        final Collection<PaletteGroup> groups;
+        final Collection<Integer> groupIds;
+        final Collection<Palette> allPalettes;
+        final Map<Integer, List<PaletteOption>> groupPaletteOptions;
+        final Collection<Integer> paletteIds;
+        final Collection<Paint> allPaints;
+        final Map<Integer, List<PaintOption>> palettePaintOptions;
+
+        groups = paletteGroupRepository.findAll();
+        groupIds = groups.stream().map(PaletteGroup::getId)
+                .collect(Collectors.toList());
+
+        allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+        paletteIds = allPalettes.stream().map(Palette::getId)
+                .collect(Collectors.toList());
+
+        allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
+
+        palettePaintOptions = getPaintOptions(allPaints);
+        groupPaletteOptions = getPaletteOptions(allPalettes,
+                palettePaintOptions);
+        return getPaletteGroupOptions(groups, groupPaletteOptions);
     }
 
     @Override
@@ -68,6 +112,38 @@ public final class DefaultPaletteService implements PaletteService {
         } else {
             LOGGER.debug("Empty name. The Palette group is not saved");
         }
+    }
+
+    private final Map<Integer, List<PaintOption>>
+            getPaintOptions(final Collection<Paint> paints) {
+        final Map<Integer, List<Paint>> palettePaints;
+
+        palettePaints = paints.stream()
+                .collect(Collectors.groupingBy(Paint::getPaletteId));
+        return palettePaints.entrySet().stream().collect(Collectors
+                .toMap(Map.Entry::getKey, e -> toPaintOptions(e.getValue())));
+    }
+
+    private final Collection<PaletteGroupOption> getPaletteGroupOptions(
+            final Collection<PaletteGroup> groups,
+            final Map<Integer, List<PaletteOption>> groupPaletteOptions) {
+        return groups.stream()
+                .map((g) -> toPaletteGroupOption(g,
+                        groupPaletteOptions.getOrDefault(g.getId(),
+                                Collections.emptyList())))
+                .collect(Collectors.toList());
+    }
+
+    private final Map<Integer, List<PaletteOption>> getPaletteOptions(
+            final Collection<Palette> allPalettes,
+            final Map<Integer, List<PaintOption>> palettePaintOptions) {
+        final Map<Integer, List<Palette>> groupPalettes;
+
+        groupPalettes = allPalettes.stream()
+                .collect(Collectors.groupingBy(Palette::getGroupId));
+        return groupPalettes.entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                e -> toPaletteOptions(e.getValue(), palettePaintOptions)));
     }
 
     private final void save(final PaletteOption palette,
@@ -108,6 +184,53 @@ public final class DefaultPaletteService implements PaletteService {
         entity.setName(palette.getName());
 
         return entity;
+    }
+
+    private final PaintOption toPaintOption(final Paint paint) {
+        final PaintOption option;
+
+        option = new PaintOption();
+        option.setName(paint.getName());
+
+        return option;
+    }
+
+    private final List<PaintOption> toPaintOptions(final List<Paint> paints) {
+        return paints.stream().map(this::toPaintOption)
+                .collect(Collectors.toList());
+    }
+
+    private final PaletteGroupOption toPaletteGroupOption(
+            final PaletteGroup group,
+            final Collection<PaletteOption> palettes) {
+        final PaletteGroupOption option;
+
+        option = new PaletteGroupOption();
+        option.setName(group.getName());
+        option.setPalettes(palettes);
+
+        return option;
+    }
+
+    private final PaletteOption toPaletteOption(final Palette palette,
+            final List<PaintOption> paintOptions) {
+        final PaletteOption option;
+
+        option = new PaletteOption();
+        option.setName(palette.getName());
+        option.setPaints(paintOptions);
+
+        return option;
+    }
+
+    private final List<PaletteOption> toPaletteOptions(
+            final List<Palette> palettes,
+            final Map<Integer, List<PaintOption>> palettePaintOptions) {
+        return palettes.stream()
+                .map((p) -> toPaletteOption(p,
+                        palettePaintOptions.getOrDefault(p.getId(),
+                                Collections.emptyList())))
+                .collect(Collectors.toList());
     }
 
 }

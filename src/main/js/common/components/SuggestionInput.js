@@ -13,10 +13,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function SuggestionInput({ id, label, placeholder, suggestions, onChange, onPressEnter }) {
+export default function SuggestionInput({ id, label, placeholder, suggestions, onChange, initial }) {
 
+   let initialText;
+   if (initial) {
+      initialText = initial;
+   } else {
+      initialText = '';
+   }
    const [anchorEl, setAnchorEl] = useState(null);
-   const [text, setText] = useState('');
+   const [text, setText] = useState(initialText);
    const [stateSuggestions, setSuggestions] = React.useState([]);
 
    const useStyles = makeStyles((theme) => ({
@@ -50,12 +56,6 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
    function renderInputComponent(inputProps) {
       const { inputRef = () => {}, ref, ...other } = inputProps;
 
-      function handleKeyPress(event) {
-         if ((event) && (event.key === 'Enter')) {
-            onPressEnter(event);
-         }
-      }
-
       return (
          <TextField
             fullWidth
@@ -65,7 +65,6 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
                   inputRef(node);
                }
             }}
-            onKeyPress={handleKeyPress}
             {...other}
          />
       );
@@ -92,10 +91,12 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
       const inputValue = deburr(value.trim()).toLowerCase();
       const inputLength = inputValue.length;
       let count = 0;
+      let result;
 
-      return inputLength === 0
-         ? []
-         : suggestions.filter((suggestion) => {
+      if (inputLength === 0) {
+         result = [];
+      } else {
+         result = suggestions.filter((suggestion) => {
             const keep = count < 5 && suggestion.slice(0, inputLength).toLowerCase() === inputValue;
 
             if (keep) {
@@ -104,6 +105,9 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
 
             return keep;
          });
+      }
+
+      return result;
    }
 
    function getSuggestionValue(suggestion) {
@@ -172,5 +176,5 @@ SuggestionInput.propTypes = {
    placeholder: PropTypes.string.isRequired,
    suggestions: PropTypes.array.isRequired,
    onChange: PropTypes.func.isRequired,
-   onPressEnter: PropTypes.func.isRequired
+   initial: PropTypes.string.isRequired
 };

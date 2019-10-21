@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -7,6 +7,8 @@ import routes from 'routes';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { IntlProvider } from 'react-intl';
+
+import { SnackbarProvider } from 'notistack';
 
 import { DevMonitor } from 'development';
 
@@ -18,12 +20,14 @@ import { DevMonitor } from 'development';
 const Root = ({ store, language, i18nMessages }) => (
    <IntlProvider locale={language} defaultLocale='en' messages={i18nMessages}>
       <Provider store={store}>
-         <React.Fragment>
-            <Router>
-               {routes}
-            </Router>
-            <DevMonitor />
-         </React.Fragment>
+         <SnackbarProvider autoHideDuration={1000}>
+            <Fragment>
+               <Router>
+                  {routes}
+               </Router>
+               <DevMonitor />
+            </Fragment>
+         </SnackbarProvider>
       </Provider>
    </IntlProvider>
 );

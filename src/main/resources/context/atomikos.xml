@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:util="http://www.springframework.org/schema/util"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context 
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/util 
+      http://www.springframework.org/schema/util/spring-util.xsd
+      http://www.springframework.org/schema/data/jpa
+      http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+   <!-- Atomikos -->
+   <bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+      init-method="init" destroy-method="shutdownForce">
+      <constructor-arg>
+         <!-- IMPORTANT: specify all Atomikos properties here -->
+         <props>
+            <prop key="com.atomikos.icatch.service">com.atomikos.icatch.standalone.UserTransactionServiceFactory</prop>
+         </props>
+      </constructor-arg>
+   </bean>
+ 
+   <bean id="AtomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+      init-method="init" destroy-method="close" depends-on="userTransactionService">
+      <!-- IMPORTANT: disable startup because the userTransactionService above does this -->
+      <property name="startupTransactionService" value="false"/>
+      <property name="forceShutdown" value="false" />
+   </bean> 
+ 
+   <bean id="AtomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"
+      depends-on="userTransactionService">
+      <property name="transactionTimeout" value="300" />
+   </bean>
+
+</beans>

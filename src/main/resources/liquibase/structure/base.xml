@@ -7,7 +7,7 @@
 
    <changeSet author="Bernardo" id="product_tables">
       <createTable tableName="companies">
-         <column name="id" type="BIGINT" autoIncrement="true">
+         <column name="id" type="BIGINT">
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
@@ -15,7 +15,7 @@
          </column>
       </createTable>
       <createTable tableName="brands">
-         <column name="id" type="BIGINT" autoIncrement="true">
+         <column name="id" type="BIGINT">
             <constraints primaryKey="true" />
          </column>
          <column name="name" type="VARCHAR(30)">
@@ -39,19 +39,6 @@
    </changeSet>
 
    <changeSet author="Bernardo" id="product_relationships">
-      <createTable tableName="company_products">
-         <column name="company" type="BIGINT">
-            <constraints nullable="false"
-               foreignKeyName="fk_product_company_relationship"
-               references="companies(id)" />
-         </column>
-         <column name="product" type="BIGINT">
-            <constraints nullable="false"
-               foreignKeyName="fk_company_product_relationship"
-               references="products(id)" />
-         </column>
-         <column name="code" type="VARCHAR(30)" />
-      </createTable>
       <createTable tableName="brand_products">
          <column name="brand" type="BIGINT">
             <constraints nullable="false"
@@ -62,6 +49,19 @@
             <constraints nullable="false"
                foreignKeyName="fk_brand_product_relationship"
                references="products(id)" />
+         </column>
+         <column name="code" type="VARCHAR(30)" />
+      </createTable>
+      <createTable tableName="company_brands">
+         <column name="company" type="BIGINT">
+            <constraints nullable="false"
+               foreignKeyName="fk_product_company_relationship"
+               references="companies(id)" />
+         </column>
+         <column name="brand" type="BIGINT">
+            <constraints nullable="false"
+               foreignKeyName="fk_company_brand_relationship"
+               references="brands(id)" />
          </column>
          <column name="code" type="VARCHAR(30)" />
       </createTable>
