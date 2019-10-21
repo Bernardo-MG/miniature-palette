@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,17 +24,17 @@ function PaletteEditor({ palette, handleNameChange, handleAddColor, handleColorC
          title={
             <TextField value={palette.name} label="palette_name" onChange={handleNameChange} />
          }
-         action={
-            <IconButton aria-label="add" onClick={handleAddColor}>
-               <AddCircleIcon />
-            </IconButton>
-         }
       />
       <CardContent>
          <PaletteEditorList palette={palette} suggestions={suggestions}
             handleColorChangeAt={handleColorChangeAt}
             handleColorDeleteAt={handleColorDeleteAt} />
       </CardContent>
+      <CardActions>
+         <IconButton aria-label="add" onClick={handleAddColor}>
+            <AddCircleIcon />
+         </IconButton>
+      </CardActions>
    </Card>;
 }
 
