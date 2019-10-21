@@ -8,16 +8,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import PaintInput from 'palettes/components/PaintInput';
 
-function PaletteEditorList({ palette, suggestions, handleAddColor, handleColorChangeAt, handleColorDeleteAt }) {
+function PaletteEditorList({ palette, suggestions, handleColorChangeAt, handleColorDeleteAt }) {
    return <List>
-      <IconButton onClick={handleAddColor}>
-         <AddCircleIcon />
-      </IconButton>
       {palette.paints.map((color, index) =>
          <ListItem key={color.name + index}>
             <ListItemText>
@@ -38,7 +34,6 @@ PaletteEditorList.propTypes = {
       paints: PropTypes.array.isRequired
    }).isRequired,
    suggestions: PropTypes.array.isRequired,
-   handleAddColor: PropTypes.func.isRequired,
    handleColorChangeAt: PropTypes.func.isRequired,
    handleColorDeleteAt: PropTypes.func.isRequired
 };

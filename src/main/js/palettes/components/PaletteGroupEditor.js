@@ -38,7 +38,7 @@ function PaletteGroupEditor() {
 
    const { enqueueSnackbar } = useSnackbar();
 
-   const [name, setName] = useState('palette');
+   const [name, setName] = useState('');
    const [palettes, setPalettes] = useState([]);
 
    function clean() {
@@ -58,8 +58,7 @@ function PaletteGroupEditor() {
 
    function handleCreatePalette() {
       const newPalettes = JSON.parse(JSON.stringify(palettes));
-      const palettesCount = newPalettes.length;
-      const newPalette = { name: `palette${palettesCount}`, paints: [] };
+      const newPalette = { name: '', paints: [] };
       newPalettes.push(newPalette);
 
       setPalettes(newPalettes);
@@ -83,10 +82,17 @@ function PaletteGroupEditor() {
       setPalettes(newPalettes);
    }
 
+   function handleGroupNameChange(i, event) {
+      const newPalettes = JSON.parse(JSON.stringify(palettes));
+      newPalettes[i].name = event.target.value;
+
+      setPalettes(newPalettes);
+   }
+
    return <Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
-            <TextField value={name} onChange={handleNameChange} />
+            <TextField value={name} label="palette_name" onChange={handleNameChange} />
          </Grid>
          <Grid item xs={6}>
             <SaveButton onClick={handleSavePalette} />
@@ -96,6 +102,7 @@ function PaletteGroupEditor() {
          {palettes.map((palette, index) => {
             return <Grid item xs={8} key={index}>
                <PaletteEditor palette={palette}
+                  handleNameChange={(e) => handleGroupNameChange(index, e)}
                   handleAddColor={() => handleAddColor(index)}
                   handleColorChangeAt={(i, c) => handleColorChangeAt(index, i, c)}
                   handleColorDeleteAt={(i) => handleColorDeleteAt(index, i)} />
