@@ -12,7 +12,7 @@ describe('<SuggestionInput />', () => {
                placeholder='placeholder'
                suggestions={ ['a', 'b', 'c'] }
                onChange={ () => 'action' }
-               onPressEnter={ () => 'action' } />)
+               initial='value' />)
          .toJSON();
       expect(tree).toMatchSnapshot();
    })

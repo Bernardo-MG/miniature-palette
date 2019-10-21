@@ -19,9 +19,9 @@ function PaletteEditorList({ palette, suggestions, handleAddColor, handleColorCh
          <AddCircleIcon />
       </IconButton>
       {palette.paints.map((color, index) =>
-         <ListItem key={color.name}>
+         <ListItem key={index}>
             <ListItemText>
-               <PaintInput onChange={(value) => handleColorChangeAt(index, value)} suggestions={suggestions} />
+               <PaintInput onChange={(value) => handleColorChangeAt(index, value)} suggestions={suggestions} value={color.name} />
             </ListItemText>
             <ListItemSecondaryAction>
                <IconButton edge="end" aria-label="delete" onClick={() => handleColorDeleteAt(index)}>

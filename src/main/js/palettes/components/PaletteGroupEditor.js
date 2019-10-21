@@ -40,22 +40,10 @@ function PaletteGroupEditor() {
 
    const [name, setName] = useState('palette');
    const [palettes, setPalettes] = useState([]);
-   const [paletteIndex, setPaletteIndex] = useState(0);
 
    function clean() {
       setName('');
       setPalettes([]);
-      setPaletteIndex(0);
-   }
-
-   function createPalette() {
-      const newPalette = { name: `palette${paletteIndex}`, paints: [] };
-      setPalettes([...palettes, newPalette]);
-      setPaletteIndex(paletteIndex + 1);
-   }
-
-   function handleNameChange(event) {
-      setName(event.target.value);
    }
 
    function handleSavePalette() {
@@ -64,22 +52,33 @@ function PaletteGroupEditor() {
       clean();
    }
 
+   function handleNameChange(event) {
+      setName(event.target.value);
+   }
+
+   function handleCreatePalette() {
+      const newPalettes = JSON.parse(JSON.stringify(palettes));
+      const palettesCount = newPalettes.length;
+      const newPalette = { name: `palette${palettesCount}`, paints: [] };
+      newPalettes.push(newPalette);
+
+      setPalettes(newPalettes);
+   }
+
    function handleAddColor(i) {
-      const newPalettes = [...palettes];
-      const updated = [...palettes[i].paints, { name: '' }];
-      newPalettes[i].paints = updated;
+      const newPalettes = JSON.parse(JSON.stringify(palettes));
+      newPalettes[i].paints.push({ name: '' });
 
       setPalettes(newPalettes);
    }
 
    function handleColorChangeAt(i, index, color) {
-      palettes[i].paints[index] = { name: color };
+      palettes[i].paints[index].name = color;
    }
 
    function handleColorDeleteAt(i, index) {
-      const newPalettes = [...palettes];
-      const updated = palettes[i].paints.splice(index, 1);
-      newPalettes[i].paints = updated;
+      const newPalettes = JSON.parse(JSON.stringify(palettes));
+      newPalettes[i].paints.splice(index, 1);
 
       setPalettes(newPalettes);
    }
@@ -95,7 +94,7 @@ function PaletteGroupEditor() {
       </Grid>
       <Grid container spacing={3}>
          {palettes.map((palette, index) => {
-            return <Grid item xs={8} key={palette.name}>
+            return <Grid item xs={8} key={index}>
                <PaletteEditor palette={palette}
                   handleAddColor={() => handleAddColor(index)}
                   handleColorChangeAt={(i, c) => handleColorChangeAt(index, i, c)}
@@ -104,7 +103,7 @@ function PaletteGroupEditor() {
          }
          )}
          <Grid item xs={6}>
-            <AddButton onClick={createPalette} />
+            <AddButton onClick={handleCreatePalette} />
          </Grid>
       </Grid>
    </Fragment>;

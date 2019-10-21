@@ -13,10 +13,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function SuggestionInput({ id, label, placeholder, suggestions, onChange }) {
+export default function SuggestionInput({ id, label, placeholder, suggestions, onChange, initial }) {
 
+   let initialText;
+   if (initial) {
+      initialText = initial;
+   } else {
+      initialText = '';
+   }
    const [anchorEl, setAnchorEl] = useState(null);
-   const [text, setText] = useState('');
+   const [text, setText] = useState(initialText);
    const [stateSuggestions, setSuggestions] = React.useState([]);
 
    const useStyles = makeStyles((theme) => ({
@@ -169,5 +175,6 @@ SuggestionInput.propTypes = {
    label: PropTypes.string.isRequired,
    placeholder: PropTypes.string.isRequired,
    suggestions: PropTypes.array.isRequired,
-   onChange: PropTypes.func.isRequired
+   onChange: PropTypes.func.isRequired,
+   initial: PropTypes.string.isRequired
 };
