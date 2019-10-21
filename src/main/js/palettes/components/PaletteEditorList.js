@@ -19,7 +19,7 @@ function PaletteEditorList({ palette, suggestions, handleAddColor, handleColorCh
          <AddCircleIcon />
       </IconButton>
       {palette.paints.map((color, index) =>
-         <ListItem key={index}>
+         <ListItem key={color.name + index}>
             <ListItemText>
                <PaintInput onChange={(value) => handleColorChangeAt(index, value)} suggestions={suggestions} value={color.name} />
             </ListItemText>
