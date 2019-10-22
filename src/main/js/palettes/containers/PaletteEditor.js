@@ -10,12 +10,13 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import PaletteEditorList from 'palettes/components/PaletteEditorList';
 
 import { useSuggestions } from 'suggestions';
 
-function PaletteEditor({ palette, onNameChange, onAddColor, onColorChange, onColorDelete }) {
+function PaletteEditor({ palette, onNameChange, onDelete, onAddColor, onColorChange, onColorDelete }) {
 
    const suggestions = useSuggestions();
 
@@ -23,6 +24,11 @@ function PaletteEditor({ palette, onNameChange, onAddColor, onColorChange, onCol
       <CardHeader
          title={
             <TextField value={palette.name} label="palette_name" onChange={onNameChange} />
+         }
+         action={
+            <IconButton aria-label="delete" onClick={onDelete}>
+               <DeleteIcon />
+            </IconButton>
          }
       />
       <CardContent>
@@ -43,6 +49,7 @@ PaletteEditor.propTypes = {
       name: PropTypes.string.isRequired,
       paints: PropTypes.array.isRequired
    }).isRequired,
+   onDelete: PropTypes.func.isRequired,
    onNameChange: PropTypes.func.isRequired,
    onAddColor: PropTypes.func.isRequired,
    onColorChange: PropTypes.func.isRequired,

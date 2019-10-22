@@ -64,6 +64,13 @@ function PaletteGroupEditor() {
       setPalettes(newPalettes);
    }
 
+   function handleDeletePalette(index) {
+      const newPalettes = JSON.parse(JSON.stringify(palettes));
+      newPalettes.splice(index, 1);
+
+      setPalettes(newPalettes);
+   }
+
    function handleAddColor(i) {
       const newPalettes = JSON.parse(JSON.stringify(palettes));
       newPalettes[i].paints.push({ name: '' });
@@ -103,6 +110,7 @@ function PaletteGroupEditor() {
             return <Grid item xs={8} key={index}>
                <PaletteEditor palette={palette}
                   onNameChange={(e) => handleGroupNameChange(index, e)}
+                  onDelete={() => handleDeletePalette(index)}
                   onAddColor={() => handleAddColor(index)}
                   onColorChange={(i, c) => handleColorChangeAt(index, i, c)}
                   onColorDelete={(i) => handleColorDeleteAt(index, i)} />
