@@ -15,23 +15,23 @@ import PaletteEditorList from 'palettes/components/PaletteEditorList';
 
 import { useSuggestions } from 'suggestions';
 
-function PaletteEditor({ palette, handleNameChange, handleAddColor, handleColorChangeAt, handleColorDeleteAt }) {
+function PaletteEditor({ palette, onNameChange, onAddColor, onColorChange, onColorDelete }) {
 
    const suggestions = useSuggestions();
 
    return <Card>
       <CardHeader
          title={
-            <TextField value={palette.name} label="palette_name" onChange={handleNameChange} />
+            <TextField value={palette.name} label="palette_name" onChange={onNameChange} />
          }
       />
       <CardContent>
          <PaletteEditorList palette={palette} suggestions={suggestions}
-            handleColorChangeAt={handleColorChangeAt}
-            handleColorDeleteAt={handleColorDeleteAt} />
+            onColorChange={onColorChange}
+            onColorDelete={onColorDelete} />
       </CardContent>
       <CardActions>
-         <IconButton aria-label="add" onClick={handleAddColor}>
+         <IconButton aria-label="add" onClick={onAddColor}>
             <AddCircleIcon />
          </IconButton>
       </CardActions>
@@ -43,10 +43,10 @@ PaletteEditor.propTypes = {
       name: PropTypes.string.isRequired,
       paints: PropTypes.array.isRequired
    }).isRequired,
-   handleNameChange: PropTypes.func.isRequired,
-   handleAddColor: PropTypes.func.isRequired,
-   handleColorChangeAt: PropTypes.func.isRequired,
-   handleColorDeleteAt: PropTypes.func.isRequired
+   onNameChange: PropTypes.func.isRequired,
+   onAddColor: PropTypes.func.isRequired,
+   onColorChange: PropTypes.func.isRequired,
+   onColorDelete: PropTypes.func.isRequired
 };
 
 export default PaletteEditor;

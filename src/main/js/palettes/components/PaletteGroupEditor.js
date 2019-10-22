@@ -102,10 +102,10 @@ function PaletteGroupEditor() {
          {palettes.map((palette, index) => {
             return <Grid item xs={8} key={index}>
                <PaletteEditor palette={palette}
-                  handleNameChange={(e) => handleGroupNameChange(index, e)}
-                  handleAddColor={() => handleAddColor(index)}
-                  handleColorChangeAt={(i, c) => handleColorChangeAt(index, i, c)}
-                  handleColorDeleteAt={(i) => handleColorDeleteAt(index, i)} />
+                  onNameChange={(e) => handleGroupNameChange(index, e)}
+                  onAddColor={() => handleAddColor(index)}
+                  onColorChange={(i, c) => handleColorChangeAt(index, i, c)}
+                  onColorDelete={(i) => handleColorDeleteAt(index, i)} />
             </Grid>;
          }
          )}
