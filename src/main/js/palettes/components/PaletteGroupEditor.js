@@ -56,26 +56,31 @@ function PaletteGroupEditor() {
       setName(event.target.value);
    }
 
-   function handleCreatePalette() {
+   function updatePalettes(func) {
       const newPalettes = JSON.parse(JSON.stringify(palettes));
-      const newPalette = { name: '', paints: [] };
-      newPalettes.push(newPalette);
+
+      func(newPalettes);
 
       setPalettes(newPalettes);
+   }
+
+   function handleCreatePalette() {
+      updatePalettes((newPalettes) => {
+         const newPalette = { name: '', paints: [] };
+         newPalettes.push(newPalette);
+      });
    }
 
    function handleDeletePalette(index) {
-      const newPalettes = JSON.parse(JSON.stringify(palettes));
-      newPalettes.splice(index, 1);
-
-      setPalettes(newPalettes);
+      updatePalettes((newPalettes) => {
+         newPalettes.splice(index, 1);
+      });
    }
 
    function handleAddColor(i) {
-      const newPalettes = JSON.parse(JSON.stringify(palettes));
-      newPalettes[i].paints.push({ name: '' });
-
-      setPalettes(newPalettes);
+      updatePalettes((newPalettes) => {
+         newPalettes[i].paints.push({ name: '' });
+      });
    }
 
    function handleColorChangeAt(i, index, color) {
@@ -83,14 +88,14 @@ function PaletteGroupEditor() {
    }
 
    function handleColorDeleteAt(i, index) {
-      const newPalettes = JSON.parse(JSON.stringify(palettes));
-      newPalettes[i].paints.splice(index, 1);
-
-      setPalettes(newPalettes);
+      updatePalettes((newPalettes) => {
+         newPalettes[i].paints.splice(index, 1);
+      });
    }
 
    function handleGroupNameChange(i, event) {
       const newPalettes = JSON.parse(JSON.stringify(palettes));
+
       newPalettes[i].name = event.target.value;
 
       setPalettes(newPalettes);
