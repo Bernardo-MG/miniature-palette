@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { useSnackbar } from 'notistack';
 
-import PaletteEditor from 'palettes/containers/PaletteEditor';
+import SuggestedPaletteEditor from 'palettes/containers/SuggestedPaletteEditor';
 
 import api from 'api';
 
@@ -113,7 +113,7 @@ function PaletteGroupEditor() {
       <Grid container spacing={3}>
          {palettes.map((palette, index) => {
             return <Grid item xs={8} key={index}>
-               <PaletteEditor palette={palette}
+               <SuggestedPaletteEditor palette={palette}
                   onNameChange={(e) => handleGroupNameChange(index, e)}
                   onDelete={() => handleDeletePalette(index)}
                   onAddColor={() => handleAddColor(index)}

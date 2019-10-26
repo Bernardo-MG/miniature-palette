@@ -7,18 +7,44 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import PaletteEditorList from 'palettes/components/PaletteEditorList';
+import PaintInput from 'palettes/components/PaintInput';
 
-import { useSuggestions } from 'suggestions';
+function PaletteEditorList({ palette, suggestions, onColorChange, onColorDelete }) {
+   return <List>
+      {palette.paints.map((color, index) =>
+         <ListItem key={color.name + index}>
+            <ListItemText>
+               <PaintInput onChange={(value) => onColorChange(index, value)} suggestions={suggestions} value={color.name} />
+            </ListItemText>
+            <ListItemSecondaryAction>
+               <IconButton edge="end" aria-label="delete" onClick={() => onColorDelete(index)}>
+                  <DeleteIcon />
+               </IconButton>
+            </ListItemSecondaryAction>
+         </ListItem>
+      )}
+   </List>;
+}
 
-function PaletteEditor({ palette, onNameChange, onDelete, onAddColor, onColorChange, onColorDelete }) {
+PaletteEditorList.propTypes = {
+   palette: PropTypes.shape({
+      paints: PropTypes.array.isRequired
+   }).isRequired,
+   suggestions: PropTypes.array.isRequired,
+   onColorChange: PropTypes.func.isRequired,
+   onColorDelete: PropTypes.func.isRequired
+};
 
-   const suggestions = useSuggestions();
+function PaletteEditor({ palette, suggestions, onNameChange, onDelete, onAddColor, onColorChange, onColorDelete }) {
 
    return <Card>
       <CardHeader
@@ -49,6 +75,7 @@ PaletteEditor.propTypes = {
       name: PropTypes.string.isRequired,
       paints: PropTypes.array.isRequired
    }).isRequired,
+   suggestions: PropTypes.array.isRequired,
    onDelete: PropTypes.func.isRequired,
    onNameChange: PropTypes.func.isRequired,
    onAddColor: PropTypes.func.isRequired,
