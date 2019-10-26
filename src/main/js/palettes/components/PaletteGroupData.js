@@ -18,6 +18,7 @@ function PaletteGroupData({ group }) {
       <Grid container spacing={3}>
          {group.palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
+               <Typography>{palette.name}</Typography>
                <PaletteData palette={palette} />
             </Grid>;
          }

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
+import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,14 +20,22 @@ function PaletteGroupList() {
       paletteData = <PaletteGroupData key={selected.name} group={selected} />;
    }
 
-   return <List>
-      {palettes.map((palette) =>
-         <ListItem button key={palette.name} onClick={() => setSelected(palette)}>
-            <ListItemText primary={palette.name}/>
-         </ListItem>
-      )}
-      {paletteData}
-   </List>;
+   return <Fragment>
+      <Grid container spacing={3}>
+         <List>
+            {palettes.map((palette) =>
+               <ListItem button key={palette.name} onClick={() => setSelected(palette)}>
+                  <ListItemText primary={palette.name}/>
+               </ListItem>
+            )}
+         </List>
+      </Grid>
+      <Grid container spacing={3}>
+         <Card>
+            {paletteData}
+         </Card>
+      </Grid>
+   </Fragment>;
 }
 
 PaletteGroupList.propTypes = {};

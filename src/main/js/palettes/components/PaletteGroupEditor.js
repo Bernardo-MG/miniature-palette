@@ -104,7 +104,7 @@ function PaletteGroupEditor() {
    return <Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
-            <TextField value={name} label="palette_name" onChange={handleNameChange} />
+            <TextField value={name} label="group_name" onChange={handleNameChange} />
          </Grid>
          <Grid item xs={6}>
             <SaveButton onClick={handleSavePalette} />
