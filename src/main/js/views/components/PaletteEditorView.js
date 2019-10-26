@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 
-import PaletteGroupEditor from 'palettes/components/PaletteGroupEditor';
+import SuggestedPaletteGroupEditor from 'palettes/containers/SuggestedPaletteGroupEditor';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -17,7 +17,7 @@ function PaletteEditorView() {
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <PaletteGroupEditor />
+      <SuggestedPaletteGroupEditor />
    </Box>;
 }
 

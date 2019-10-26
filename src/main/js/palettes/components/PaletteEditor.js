@@ -61,7 +61,6 @@ PaletteEditorList.propTypes = {
 };
 
 function PaletteEditor({ palette, suggestions, onNameChange, onDelete, onAddColor, onColorChange, onColorDelete }) {
-
    return <Card>
       <CardHeader
          title={

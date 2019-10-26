@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { useSnackbar } from 'notistack';
 
-import SuggestedPaletteEditor from 'palettes/containers/SuggestedPaletteEditor';
+import PaletteEditor from 'palettes/components/PaletteEditor';
 
 import api from 'api';
 
@@ -34,7 +34,7 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteGroupEditor() {
+function PaletteGroupEditor({ suggestions }) {
 
    const { enqueueSnackbar } = useSnackbar();
 
@@ -113,7 +113,9 @@ function PaletteGroupEditor() {
       <Grid container spacing={3}>
          {palettes.map((palette, index) => {
             return <Grid item xs={8} key={index}>
-               <SuggestedPaletteEditor palette={palette}
+               <PaletteEditor
+                  palette={palette}
+                  suggestions={suggestions}
                   onNameChange={(e) => handleGroupNameChange(index, e)}
                   onDelete={() => handleDeletePalette(index)}
                   onAddColor={() => handleAddColor(index)}
@@ -129,6 +131,8 @@ function PaletteGroupEditor() {
    </Fragment>;
 }
 
-PaletteGroupEditor.propTypes = {};
+PaletteGroupEditor.propTypes = {
+   suggestions: PropTypes.array.isRequired
+};
 
 export default PaletteGroupEditor;
