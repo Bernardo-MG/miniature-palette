@@ -16,7 +16,23 @@ import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import PaintInput from 'palettes/components/PaintInput';
+import SuggestionInput from 'common/components/SuggestionInput';
+
+function PaintInput({ onChange, suggestions, value }) {
+   return <SuggestionInput
+      suggestions={suggestions}
+      label={'paint'}
+      placeholder={'write_paint'}
+      onChange={onChange}
+      initial={value}
+   />;
+}
+
+PaintInput.propTypes = {
+   onChange: PropTypes.func.isRequired,
+   suggestions: PropTypes.array.isRequired,
+   value: PropTypes.string.isRequired
+};
 
 function PaletteEditorList({ palette, suggestions, onColorChange, onColorDelete }) {
    return <List>
