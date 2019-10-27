@@ -34,7 +34,7 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteGroupEditor({ suggestions }) {
+function PaletteGroupForm({ suggestions }) {
 
    const { enqueueSnackbar } = useSnackbar();
 
@@ -46,14 +46,14 @@ function PaletteGroupEditor({ suggestions }) {
       setPalettes([]);
    }
 
-   function handleSavePalette() {
+   function handleSave() {
       api.Palettes.save({ name, palettes });
       enqueueSnackbar('saved_message', { variant: 'success' });
       clean();
    }
 
-   function handleNameChange(event) {
-      setName(event.target.value);
+   function handleNameChange(value) {
+      setName(value);
    }
 
    function updatePalettes(func) {
@@ -64,7 +64,7 @@ function PaletteGroupEditor({ suggestions }) {
       setPalettes(newPalettes);
    }
 
-   function handleCreatePalette() {
+   function handleAddPalette() {
       updatePalettes((newPalettes) => {
          const newPalette = { name: '', paints: [] };
          newPalettes.push(newPalette);
@@ -93,10 +93,10 @@ function PaletteGroupEditor({ suggestions }) {
       });
    }
 
-   function handleGroupNameChange(i, event) {
+   function handlePaletteNameChange(i, value) {
       const newPalettes = JSON.parse(JSON.stringify(palettes));
 
-      newPalettes[i].name = event.target.value;
+      newPalettes[i].name = value;
 
       setPalettes(newPalettes);
    }
@@ -104,35 +104,35 @@ function PaletteGroupEditor({ suggestions }) {
    return <Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
-            <TextField value={name} label="group_name" onChange={handleNameChange} />
+            <TextField value={name} label="group_name" onChange={(event) => handleNameChange(event.target.value)} />
          </Grid>
          <Grid item xs={6}>
-            <SaveButton onClick={handleSavePalette} />
+            <SaveButton onClick={handleSave} />
          </Grid>
       </Grid>
       <Grid container spacing={3}>
-         {palettes.map((palette, index) => {
-            return <Grid item xs={8} key={index}>
+         {palettes.map((palette, paletteIndex) => {
+            return <Grid item xs={8} key={paletteIndex}>
                <PaletteEditor
                   palette={palette}
                   suggestions={suggestions}
-                  onNameChange={(e) => handleGroupNameChange(index, e)}
-                  onDelete={() => handleDeletePalette(index)}
-                  onAddColor={() => handleAddColor(index)}
-                  onColorChange={(i, c) => handleColorChangeAt(index, i, c)}
-                  onColorDelete={(i) => handleColorDeleteAt(index, i)} />
+                  onNameChange={(value) => handlePaletteNameChange(paletteIndex, value)}
+                  onDelete={() => handleDeletePalette(paletteIndex)}
+                  onAddColor={() => handleAddColor(paletteIndex)}
+                  onColorChange={(index, value) => handleColorChangeAt(paletteIndex, index, value)}
+                  onColorDelete={(index) => handleColorDeleteAt(paletteIndex, index)} />
             </Grid>;
          }
          )}
          <Grid item xs={6}>
-            <AddButton onClick={handleCreatePalette} />
+            <AddButton onClick={handleAddPalette} />
          </Grid>
       </Grid>
    </Fragment>;
 }
 
-PaletteGroupEditor.propTypes = {
+PaletteGroupForm.propTypes = {
    suggestions: PropTypes.array.isRequired
 };
 
-export default PaletteGroupEditor;
+export default PaletteGroupForm;

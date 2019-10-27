@@ -64,7 +64,7 @@ function PaletteEditor({ palette, suggestions, onNameChange, onDelete, onAddColo
    return <Card>
       <CardHeader
          title={
-            <TextField value={palette.name} label="palette_name" onChange={onNameChange} />
+            <TextField value={palette.name} label="palette_name" onChange={(event) => onNameChange(event.target.value)} />
          }
          action={
             <IconButton aria-label="delete" onClick={onDelete}>
