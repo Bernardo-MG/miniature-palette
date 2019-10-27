@@ -53,7 +53,7 @@ function PaletteEditorList({ palette, suggestions, onColorChange, onColorDelete 
 
 PaletteEditorList.propTypes = {
    palette: PropTypes.shape({
-      paints: PropTypes.array.isRequired
+      paints: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired })).isRequired
    }).isRequired,
    suggestions: PropTypes.array.isRequired,
    onColorChange: PropTypes.func.isRequired,
@@ -88,7 +88,7 @@ function PaletteEditor({ palette, suggestions, onNameChange, onDelete, onAddColo
 PaletteEditor.propTypes = {
    palette: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      paints: PropTypes.array.isRequired
+      paints: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired })).isRequired
    }).isRequired,
    suggestions: PropTypes.array.isRequired,
    onDelete: PropTypes.func.isRequired,
