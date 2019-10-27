@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -8,11 +8,7 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 
-import { useSnackbar } from 'notistack';
-
 import PaletteEditor from 'palettes/components/PaletteEditor';
-
-import api from 'api';
 
 function AddButton({ onClick }) {
    return <IconButton onClick={onClick}>
@@ -34,80 +30,14 @@ SaveButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function PaletteGroupForm({ suggestions }) {
-
-   const { enqueueSnackbar } = useSnackbar();
-
-   const [name, setName] = useState('');
-   const [palettes, setPalettes] = useState([]);
-
-   function clean() {
-      setName('');
-      setPalettes([]);
-   }
-
-   function handleSave() {
-      api.Palettes.save({ name, palettes });
-      enqueueSnackbar('saved_message', { variant: 'success' });
-      clean();
-   }
-
-   function handleNameChange(value) {
-      setName(value);
-   }
-
-   function updatePalettes(func) {
-      const newPalettes = JSON.parse(JSON.stringify(palettes));
-
-      func(newPalettes);
-
-      setPalettes(newPalettes);
-   }
-
-   function handleAddPalette() {
-      updatePalettes((newPalettes) => {
-         const newPalette = { name: '', paints: [] };
-         newPalettes.push(newPalette);
-      });
-   }
-
-   function handleDeletePalette(index) {
-      updatePalettes((newPalettes) => {
-         newPalettes.splice(index, 1);
-      });
-   }
-
-   function handleAddColor(i) {
-      updatePalettes((newPalettes) => {
-         newPalettes[i].paints.push({ name: '' });
-      });
-   }
-
-   function handleColorChangeAt(i, index, color) {
-      palettes[i].paints[index].name = color;
-   }
-
-   function handleColorDeleteAt(i, index) {
-      updatePalettes((newPalettes) => {
-         newPalettes[i].paints.splice(index, 1);
-      });
-   }
-
-   function handlePaletteNameChange(i, value) {
-      const newPalettes = JSON.parse(JSON.stringify(palettes));
-
-      newPalettes[i].name = value;
-
-      setPalettes(newPalettes);
-   }
-
+function PaletteGroupForm({ name, palettes, suggestions, onSave, onNameChange, onPaletteNameChange, onAddPalette, onDeletePalette, onAddColor, onDeleteColor, onChangeColor }) {
    return <Fragment>
       <Grid container spacing={3}>
          <Grid item xs={6}>
-            <TextField value={name} label="group_name" onChange={(event) => handleNameChange(event.target.value)} />
+            <TextField value={name} label="group_name" onChange={(event) => onNameChange(event.target.value)} />
          </Grid>
          <Grid item xs={6}>
-            <SaveButton onClick={handleSave} />
+            <SaveButton onClick={onSave} />
          </Grid>
       </Grid>
       <Grid container spacing={3}>
@@ -116,23 +46,33 @@ function PaletteGroupForm({ suggestions }) {
                <PaletteEditor
                   palette={palette}
                   suggestions={suggestions}
-                  onNameChange={(value) => handlePaletteNameChange(paletteIndex, value)}
-                  onDelete={() => handleDeletePalette(paletteIndex)}
-                  onAddColor={() => handleAddColor(paletteIndex)}
-                  onColorChange={(index, value) => handleColorChangeAt(paletteIndex, index, value)}
-                  onColorDelete={(index) => handleColorDeleteAt(paletteIndex, index)} />
+                  onNameChange={(value) => onPaletteNameChange(paletteIndex, value)}
+                  onDelete={() => onDeletePalette(paletteIndex)}
+                  onAddColor={() => onAddColor(paletteIndex)}
+                  onColorChange={(index, value) => onChangeColor(paletteIndex, index, value)}
+                  onColorDelete={(index) => onDeleteColor(paletteIndex, index)} />
             </Grid>;
          }
          )}
          <Grid item xs={6}>
-            <AddButton onClick={handleAddPalette} />
+            <AddButton onClick={onAddPalette} />
          </Grid>
       </Grid>
    </Fragment>;
 }
 
 PaletteGroupForm.propTypes = {
-   suggestions: PropTypes.array.isRequired
+   name: PropTypes.string.isRequired,
+   palettes: PropTypes.array.isRequired,
+   suggestions: PropTypes.array.isRequired,
+   onSave: PropTypes.func.isRequired,
+   onNameChange: PropTypes.func.isRequired,
+   onPaletteNameChange: PropTypes.func.isRequired,
+   onAddPalette: PropTypes.func.isRequired,
+   onDeletePalette: PropTypes.func.isRequired,
+   onAddColor: PropTypes.func.isRequired,
+   onDeleteColor: PropTypes.func.isRequired,
+   onChangeColor: PropTypes.func.isRequired
 };
 
 export default PaletteGroupForm;
