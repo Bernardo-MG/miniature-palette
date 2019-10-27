@@ -3,6 +3,7 @@ import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -26,12 +27,12 @@ PaletteData.propTypes = {
 };
 
 function PaletteGroupData({ group }) {
-   return <Fragment>
-      <Grid container spacing={3}>
-         <Grid item xs={6}>
+   return <Card>
+      <CardHeader
+         title={
             <Typography>{group.name}</Typography>
-         </Grid>
-      </Grid>
+         }
+      />
       <Grid container spacing={3}>
          {group.palettes.map((palette) => {
             return <Grid item xs={12} key={palette.name}>
@@ -41,7 +42,7 @@ function PaletteGroupData({ group }) {
          }
          )}
       </Grid>
-   </Fragment>;
+   </Card>;
 }
 
 PaletteGroupData.propTypes = {
@@ -51,34 +52,36 @@ PaletteGroupData.propTypes = {
    })
 };
 
-function PaletteGroupList({ palettes }) {
+function PaletteGroupList({ groups }) {
    const [selected, setSelected] = useState(null);
    let paletteData;
 
    if (selected) {
-      paletteData = <PaletteGroupData key={selected.name} group={selected} />;
+      paletteData = <PaletteGroupData group={selected} />;
+   } else {
+      paletteData = null;
    }
 
    return <Fragment>
+      { /* List of groups */ }
       <Grid container spacing={3}>
          <List>
-            {palettes.map((palette) =>
+            {groups.map((palette) =>
                <ListItem button key={palette.name} onClick={() => setSelected(palette)}>
                   <ListItemText primary={palette.name}/>
                </ListItem>
             )}
          </List>
       </Grid>
+      { /* Selected group */ }
       <Grid container spacing={3}>
-         <Card>
-            {paletteData}
-         </Card>
+         { paletteData }
       </Grid>
    </Fragment>;
 }
 
 PaletteGroupList.propTypes = {
-   palettes: PropTypes.array.isRequired
+   groups: PropTypes.array.isRequired
 };
 
 export default PaletteGroupList;
