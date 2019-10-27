@@ -32,6 +32,7 @@ SaveButton.propTypes = {
 
 function PaletteGroupForm({ name, palettes, suggestions, onSave, onNameChange, onPaletteNameChange, onAddPalette, onDeletePalette, onAddColor, onDeleteColor, onChangeColor }) {
    return <Fragment>
+      { /* Header */ }
       <Grid container spacing={3}>
          <Grid item xs={6}>
             <TextField value={name} label="group_name" onChange={(event) => onNameChange(event.target.value)} />
@@ -40,6 +41,7 @@ function PaletteGroupForm({ name, palettes, suggestions, onSave, onNameChange, o
             <SaveButton onClick={onSave} />
          </Grid>
       </Grid>
+      { /* List of palettes */ }
       <Grid container spacing={3}>
          {palettes.map((palette, paletteIndex) => {
             return <Grid item xs={8} key={paletteIndex}>
