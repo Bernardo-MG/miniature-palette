@@ -6,10 +6,13 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
+
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 function PaletteGroupData({ group }) {
    return <Fragment>
@@ -50,23 +53,25 @@ function PaletteGroupList({ groups }) {
    let paletteData;
 
    if (selected) {
-      paletteData = <PaletteGroupData group={selected} />;
+      // Selected group
+      paletteData = <Fragment>
+         <IconButton edge="end" aria-label="delete" onClick={() => setSelected(null)}>
+            <ArrowBackIcon />
+         </IconButton>
+         <PaletteGroupData group={selected} />
+      </Fragment>;
    } else {
-      paletteData = null;
+      // List of groups
+      paletteData = <List>
+         {groups.map((palette) =>
+            <ListItem button key={palette.name} onClick={() => setSelected(palette)}>
+               <ListItemText primary={palette.name}/>
+            </ListItem>
+         )}
+      </List>;
    }
 
    return <Fragment>
-      { /* List of groups */ }
-      <Grid container spacing={3}>
-         <List>
-            {groups.map((palette) =>
-               <ListItem button key={palette.name} onClick={() => setSelected(palette)}>
-                  <ListItemText primary={palette.name}/>
-               </ListItem>
-            )}
-         </List>
-      </Grid>
-      { /* Selected group */ }
       <Grid container spacing={3}>
          { paletteData }
       </Grid>
