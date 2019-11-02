@@ -23,7 +23,7 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
-public class ProductOption implements Serializable {
+public class ProductInfo implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
@@ -35,11 +35,11 @@ public class ProductOption implements Serializable {
 
     private String            name             = "";
 
-    public ProductOption() {
+    public ProductInfo() {
         super();
     }
 
-    public ProductOption(final String cd, final String nm, final String br,
+    public ProductInfo(final String cd, final String nm, final String br,
             final String cp) {
         super();
 
@@ -63,7 +63,7 @@ public class ProductOption implements Serializable {
             return false;
         }
 
-        final ProductOption other = (ProductOption) obj;
+        final ProductInfo other = (ProductInfo) obj;
         return Objects.equals(name, other.name);
     }
 
@@ -85,19 +85,19 @@ public class ProductOption implements Serializable {
 
     @Override
     public final int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, code);
     }
 
-    public void setBrand(final String brand) {
-        this.brand = brand;
+    public void setBrand(final String value) {
+        brand = checkNotNull(value, "Received a null pointer as brand");
     }
 
     public void setCode(final String value) {
         code = checkNotNull(value, "Received a null pointer as code");
     }
 
-    public void setCompany(final String company) {
-        this.company = company;
+    public void setCompany(final String value) {
+        company = checkNotNull(value, "Received a null pointer as company");
     }
 
     public void setName(final String value) {
@@ -106,7 +106,9 @@ public class ProductOption implements Serializable {
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name).toString();
+        return MoreObjects.toStringHelper(this).add("name", name)
+                .add("code", code).add("company", company).add("brand", brand)
+                .toString();
     }
 
 }

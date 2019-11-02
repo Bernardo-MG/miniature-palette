@@ -27,7 +27,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.model.ProductInfo;
 import com.bernardomg.tabletop.palette.product.service.ProductService;
 import com.google.common.collect.Iterables;
 
@@ -65,7 +65,7 @@ public class ITProductService {
      */
     @Test
     public void testRead() {
-        final Iterable<ProductOption> products;
+        final Iterable<ProductInfo> products;
 
         products = service.getAll();
 

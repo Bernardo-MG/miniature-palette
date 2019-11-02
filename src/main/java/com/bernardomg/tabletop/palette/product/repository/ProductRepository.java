@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.model.ProductInfo;
 import com.bernardomg.tabletop.palette.product.model.persistence.Product;
 
 /**
@@ -37,6 +37,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             + " LEFT JOIN CompanyBrand cb ON cb.brand = bp.brand"
             + " LEFT JOIN Company c ON c.id = cb.company"
             + " ORDER BY p.name ASC")
-    public List<ProductOption> findAllOptions();
+    public List<ProductInfo> findAllOptions();
 
 }

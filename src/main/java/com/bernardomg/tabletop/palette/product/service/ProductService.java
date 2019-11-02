@@ -16,7 +16,7 @@
 
 package com.bernardomg.tabletop.palette.product.service;
 
-import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.model.ProductInfo;
 
 /**
  * Service for paints.
@@ -25,6 +25,6 @@ import com.bernardomg.tabletop.palette.product.model.ProductOption;
  */
 public interface ProductService {
 
-    public Iterable<ProductOption> getAll();
+    public Iterable<ProductInfo> getAll();
 
 }
