@@ -1,7 +1,7 @@
 import * as types from 'notifications/actions/types';
 
 const defaultState = {
-   notifications: {}
+   notifications: []
 };
 
 const notification = (state = defaultState, action) => {
