@@ -56,6 +56,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         final HttpHeaders headers;
         final HttpStatus status;
 
+        LOGGER.error(ex.getMessage(), ex);
+
         status = HttpStatus.INTERNAL_SERVER_ERROR;
         headers = new HttpHeaders();
         return handleExceptionInternal(ex, null, headers, status, request);
@@ -67,8 +69,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             final HttpStatus status, final WebRequest request) {
         final Response<String> response;
         final String message;
-
-        LOGGER.error(ex.getMessage(), ex);
 
         if (ex.getMessage() == null) {
             message = "";
