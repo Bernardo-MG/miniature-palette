@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+
 import { useSnackbar } from 'notistack';
 
 import { useSuggestions } from 'suggestions';
+
+import { notifySuccess } from 'notifications/actions';
 
 import api from 'api';
 
@@ -17,6 +21,8 @@ function PaletteGroupEditor() {
    const [name, setName] = useState('');
    const [palettes, setPalettes] = useState([]);
 
+   const dispatch = useDispatch();
+
    function clean() {
       setName('');
       setPalettes([]);
@@ -26,6 +32,7 @@ function PaletteGroupEditor() {
       api.Palettes.save({ name, palettes });
       enqueueSnackbar('saved_message', { variant: 'success' });
       clean();
+      dispatch(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
    }
 
    function handleNameChange(value) {
