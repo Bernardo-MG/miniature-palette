@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE xml>
-<Configuration status="WARN">
+<Configuration status="WARN" shutdownHook="disable">
 
    <Properties>
       <Property name="filename">testing.log</Property>
@@ -17,7 +17,7 @@
    </Appenders>
 
    <Loggers>
-      <Logger name="com.bernardomg.tabletop" level="error" additivity="false">
+      <Logger name="com.bernardomg" level="error" additivity="false">
          <AppenderRef ref="console" />
       </Logger>
 
