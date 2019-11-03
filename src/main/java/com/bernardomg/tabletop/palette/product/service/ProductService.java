@@ -25,6 +25,6 @@ import com.bernardomg.tabletop.palette.product.model.ProductInfo;
  */
 public interface ProductService {
 
-    public Iterable<ProductInfo> getAll();
+    public Iterable<? extends ProductInfo> getAll();
 
 }

@@ -56,8 +56,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public Response<Iterable<ProductInfo>> read() {
-        final Iterable<ProductInfo> read;
+    public Response<Iterable<? extends ProductInfo>> read() {
+        final Iterable<? extends ProductInfo> read;
 
         read = paintService.getAll();
 

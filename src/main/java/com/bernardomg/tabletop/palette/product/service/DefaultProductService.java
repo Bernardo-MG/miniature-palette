@@ -38,7 +38,7 @@ public final class DefaultProductService implements ProductService {
     }
 
     @Override
-    public final Iterable<ProductInfo> getAll() {
+    public final Iterable<? extends ProductInfo> getAll() {
         return paintRepository.findAllOptions();
     }
 

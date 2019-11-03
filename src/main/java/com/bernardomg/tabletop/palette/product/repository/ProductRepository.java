@@ -16,12 +16,12 @@
 
 package com.bernardomg.tabletop.palette.product.repository;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.bernardomg.tabletop.palette.product.model.ProductInfo;
+import com.bernardomg.tabletop.palette.product.model.DefaultProductInfo;
 import com.bernardomg.tabletop.palette.product.model.persistence.Product;
 
 /**
@@ -31,12 +31,12 @@ import com.bernardomg.tabletop.palette.product.model.persistence.Product;
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query("SELECT new com.bernardomg.tabletop.palette.product.model.ProductInfo(p.code, p.name, b.name, c.name) FROM Product p"
+    @Query("SELECT new com.bernardomg.tabletop.palette.product.model.DefaultProductInfo(p.code, p.name, b.name, c.name) FROM Product p"
             + " LEFT JOIN BrandProduct bp ON p.id = bp.product"
             + " LEFT JOIN Brand b ON b.id = bp.brand"
             + " LEFT JOIN CompanyBrand cb ON cb.brand = bp.brand"
             + " LEFT JOIN Company c ON c.id = cb.company"
             + " ORDER BY p.name ASC")
-    public List<ProductInfo> findAllOptions();
+    public Collection<DefaultProductInfo> findAllOptions();
 
 }

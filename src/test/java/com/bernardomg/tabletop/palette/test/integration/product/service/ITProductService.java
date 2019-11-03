@@ -65,7 +65,7 @@ public class ITProductService {
      */
     @Test
     public void testRead() {
-        final Iterable<ProductInfo> products;
+        final Iterable<? extends ProductInfo> products;
 
         products = service.getAll();
 
