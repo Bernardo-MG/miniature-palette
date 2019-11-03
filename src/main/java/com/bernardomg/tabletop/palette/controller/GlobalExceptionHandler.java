@@ -16,11 +16,14 @@
 
 package com.bernardomg.tabletop.palette.controller;
 
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -61,6 +64,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         status = HttpStatus.INTERNAL_SERVER_ERROR;
         headers = new HttpHeaders();
         return handleExceptionInternal(ex, null, headers, status, request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            final MethodArgumentNotValidException ex, final HttpHeaders headers,
+            final HttpStatus status, final WebRequest request) {
+        final Iterable<String> errors;
+        final Response<Iterable<String>> response;
+
+        errors = ex.getBindingResult().getFieldErrors().stream()
+                .map(x -> x.getDefaultMessage()).collect(Collectors.toList());
+
+        response = new DefaultResponse<>(errors, false);
+
+        return super.handleExceptionInternal(ex, response, headers, status,
+                request);
     }
 
     @Override
