@@ -1,6 +1,6 @@
-import { useSelector, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
@@ -51,11 +51,14 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
       storeDisplayed(key);
    });
 
-   return children;
+   return <Fragment>{children}</Fragment>;
 }
 
 Notificator.propTypes = {
-   children: PropTypes.array,
+   children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
+   ]),
    enqueueSnackbar: PropTypes.func,
    closeSnackbar: PropTypes.func
 };
