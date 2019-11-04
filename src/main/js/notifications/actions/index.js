@@ -8,3 +8,10 @@ export const notifySuccess = (key, message) => {
       message
    };
 };
+
+export const removeNotification = (key) => {
+   return {
+      type: types.DELETE_NOTIFICATION,
+      key
+   };
+};

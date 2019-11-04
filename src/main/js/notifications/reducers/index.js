@@ -18,6 +18,11 @@ const notification = (state = defaultState, action) => {
             }
          ]
       };
+   case types.DELETE_NOTIFICATION:
+      return {
+         ...state,
+         notifications: state.notifications.filter((notif) => notif.key !== action.key)
+      };
    default:
       return state;
    }

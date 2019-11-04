@@ -1,58 +1,63 @@
-import React, { useState } from 'react';
+import { useSelector, useState } from 'react';
 
-import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
 
-import { SnackbarProvider } from 'notistack';
+import PropTypes from 'prop-types';
+
+import { withSnackbar } from 'notistack';
 
 import { selectNotifications } from 'notifications/selectors';
 
-import api from 'api';
+import { removeNotification } from 'notifications/actions';
 
-import PaletteGroupForm from 'palettes/components/PaletteGroupForm';
-
-function Notificator({ children }) {
+function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
 
    const [displayed, setDisplayed] = useState([]);
-   const { enqueueSnackbar } = useSnackbar();
 
    const notifications = useSelector(selectNotifications);
 
-   storeDisplayed = (id) => {
-      setDisplayed([...displayed, id]);
-   };
+   const dispatch = useDispatch();
 
-   removeDisplayed = (id) => {
-      setDisplayed(displayed.filter(key => id !== key));
+   function storeDisplayed(id) {
+      setDisplayed([...displayed, id]);
+   }
+
+   function removeDisplayed(id) {
+      setDisplayed(displayed.filter((key) => id !== key));
    }
 
    notifications.forEach(({ key, message, options = {}, dismissed = false }) => {
       if (dismissed) {
-          this.props.closeSnackbar(key)
-          return
+         closeSnackbar(key);
+         return;
       }
       // Do nothing if snackbar is already displayed
       if (this.displayed.includes(key)) return;
       // Display snackbar using notistack
-      this.props.enqueueSnackbar(message, {
-          key,
-          ...options,
-          onClose: (event, reason, key) => {
-              if (options.onClose) {
-                  options.onClose(event, reason, key);
-              }
-          },
-          onExited: (event, key) => {
-              this.props.removeSnackbar(key);
-              this.removeDisplayed(key)
-          }
+      enqueueSnackbar(message, {
+         key,
+         ...options,
+         onClose: (event, reason, k) => {
+            if (options.onClose) {
+               options.onClose(event, reason, k);
+            }
+         },
+         onExited: (event, k) => {
+            dispatch(removeNotification(k));
+            removeDisplayed(key);
+         }
       });
       // Keep track of snackbars that we've displayed
-      this.storeDisplayed(key);
+      storeDisplayed(key);
    });
 
-   return <SnackbarProvider>{children}</SnackbarProvider>;
+   return children;
 }
 
-Notificator.propTypes = {};
+Notificator.propTypes = {
+   children: PropTypes.array,
+   enqueueSnackbar: PropTypes.func,
+   closeSnackbar: PropTypes.func
+};
 
-export default Notificator;
+export default withSnackbar(Notificator);
