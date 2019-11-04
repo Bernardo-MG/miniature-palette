@@ -10,6 +10,8 @@ import { IntlProvider } from 'react-intl';
 
 import { SnackbarProvider } from 'notistack';
 
+import Notificator from 'notifications/containers/Notificator';
+
 /**
  * Production root application.
  */
@@ -17,9 +19,11 @@ const Root = ({ store, language, i18nMessages }) => (
    <IntlProvider locale={language} defaultLocale='en' messages={i18nMessages}>
       <Provider store={store}>
          <SnackbarProvider>
-            <Router>
-               {routes}
-            </Router>
+            <Notificator>
+               <Router>
+                  {routes}
+               </Router>
+            </Notificator>
          </SnackbarProvider>
       </Provider>
    </IntlProvider>

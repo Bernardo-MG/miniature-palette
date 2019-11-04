@@ -32,7 +32,7 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
          return;
       }
       // Do nothing if snackbar is already displayed
-      if (this.displayed.includes(key)) return;
+      if (displayed.includes(key)) return;
       // Display snackbar using notistack
       enqueueSnackbar(message, {
          key,
