@@ -13,7 +13,7 @@ const notification = (state = defaultState, action) => {
             ...state.notifications,
             {
                key: action.key,
-               type: action.type,
+               variation: action.variation,
                message: action.message
             }
          ]

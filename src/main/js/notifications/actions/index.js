@@ -3,7 +3,7 @@ import * as types from 'notifications/actions/types';
 export const notifySuccess = (key, message) => {
    return {
       type: types.ADD_NOTIFICATION,
-      type: 'success',
+      variation: 'success',
       key,
       message
    };
