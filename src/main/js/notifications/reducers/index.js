@@ -6,7 +6,7 @@ const defaultState = {
 
 const notification = (state = defaultState, action) => {
    switch (action.type) {
-   case types.NOTIFY:
+   case types.ADD_NOTIFICATION:
       return {
          ...state,
          notifications: [
