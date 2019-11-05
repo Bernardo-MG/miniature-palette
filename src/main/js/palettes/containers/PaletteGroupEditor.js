@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { useSnackbar } from 'notistack';
-
 import { useSuggestions } from 'suggestions';
 
 import { notifySuccess } from 'notifications/actions';
@@ -15,8 +13,6 @@ import PaletteGroupForm from 'palettes/components/PaletteGroupForm';
 function PaletteGroupEditor() {
 
    const suggestions = useSuggestions();
-
-   const { enqueueSnackbar } = useSnackbar();
 
    const [name, setName] = useState('');
    const [palettes, setPalettes] = useState([]);
@@ -30,7 +26,6 @@ function PaletteGroupEditor() {
 
    function handleSave() {
       api.Palettes.save({ name, palettes });
-      enqueueSnackbar('saved_message', { variant: 'success' });
       clean();
       dispatch(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
    }
