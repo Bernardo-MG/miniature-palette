@@ -10,6 +10,8 @@ import { selectNotifications } from 'notifications/selectors';
 
 import { removeNotification } from 'notifications/actions';
 
+import Button from '@material-ui/core/Button';
+
 function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
 
    const [displayed, setDisplayed] = useState([]);
@@ -24,6 +26,10 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
 
    function removeDisplayed(id) {
       setDisplayed(displayed.filter((key) => id !== key));
+   }
+
+   function dismiss(k) {
+      return <Button onClick={() => closeSnackbar(k)}>dismiss</Button>;
    }
 
    notifications.forEach(({ key, message, variant, options = {}, dismissed = false }) => {
@@ -46,7 +52,8 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
          onExited: (event, k) => {
             dispatch(removeNotification(k));
             removeDisplayed(key);
-         }
+         },
+         action: dismiss
       });
       // Keep track of snackbars that we've displayed
       storeDisplayed(key);
