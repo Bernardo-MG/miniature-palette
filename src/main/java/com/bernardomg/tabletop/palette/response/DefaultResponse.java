@@ -34,6 +34,13 @@ public class DefaultResponse<T> implements Response<T> {
         content = checkNotNull(cont, "Missing content");
     }
 
+    public DefaultResponse(final T cont, final Boolean success) {
+        super();
+
+        content = checkNotNull(cont, "Missing content");
+        successful = checkNotNull(success, "Missing successful status");
+    }
+
     @Override
     public T getContent() {
         return content;

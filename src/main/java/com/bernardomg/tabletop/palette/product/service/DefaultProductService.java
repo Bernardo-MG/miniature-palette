@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.model.ProductInfo;
 import com.bernardomg.tabletop.palette.product.repository.ProductRepository;
 
 @Service
@@ -38,7 +38,7 @@ public final class DefaultProductService implements ProductService {
     }
 
     @Override
-    public final Iterable<ProductOption> getAll() {
+    public final Iterable<? extends ProductInfo> getAll() {
         return paintRepository.findAllOptions();
     }
 

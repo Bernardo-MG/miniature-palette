@@ -2,9 +2,9 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 
-import PaletteGroupList from 'palettes/containers/PaletteGroupList';
+import PaletteGroupListing from 'palettes/containers/PaletteGroupListing';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -16,9 +16,9 @@ function PaletteListView() {
 
    const classes = useStyles();
 
-   return <Paper className={classes.root}>
-      <PaletteGroupList />
-   </Paper>;
+   return <Box className={classes.root}>
+      <PaletteGroupListing />
+   </Box>;
 }
 
 PaletteListView.propTypes = {};

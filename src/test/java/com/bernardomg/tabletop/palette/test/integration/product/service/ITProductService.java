@@ -16,6 +16,8 @@
 
 package com.bernardomg.tabletop.palette.test.integration.product.service;
 
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
@@ -27,7 +29,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.model.ProductInfo;
 import com.bernardomg.tabletop.palette.product.service.ProductService;
 import com.google.common.collect.Iterables;
 
@@ -42,7 +44,6 @@ import com.google.common.collect.Iterables;
 @SpringJUnitConfig
 @Transactional
 @Rollback
-@Sql({ "/db/products.sql" })
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 public class ITProductService {
@@ -60,16 +61,55 @@ public class ITProductService {
         super();
     }
 
-    /**
-     * Verifies that the service reads correctly.
-     */
     @Test
-    public void testRead() {
-        final Iterable<ProductOption> products;
+    @Sql({ "/db/products.sql", "/db/brands.sql", "/db/companies.sql",
+            "/db/relationships.sql" })
+    public void testRead_FullData() {
+        final ProductInfo product;
+
+        product = service.getAll().iterator().next();
+
+        Assertions.assertEquals("Foundation White", product.getName());
+        Assertions.assertEquals("70.919", product.getCode());
+        Assertions.assertEquals("Model Color", product.getBrand());
+        Assertions.assertEquals("Acrylicos Vallejo", product.getCompany());
+    }
+
+    @Test
+    @Sql({ "/db/products.sql" })
+    public void testRead_OnlyProducts() {
+        final Iterable<? extends ProductInfo> products;
 
         products = service.getAll();
 
         Assertions.assertEquals(5, Iterables.size(products));
+    }
+
+    @Test
+    @Sql({ "/db/products.sql" })
+    public void testRead_OnlyProducts_NoJoinedData() {
+        final Iterable<? extends ProductInfo> products;
+
+        products = service.getAll();
+
+        for (final ProductInfo product : products) {
+            Assertions.assertNull(product.getCompany());
+            Assertions.assertNull(product.getBrand());
+        }
+    }
+
+    @Test
+    @Sql({ "/db/products.sql" })
+    public void testRead_Order() {
+        final Iterator<? extends ProductInfo> products;
+
+        products = service.getAll().iterator();
+
+        Assertions.assertEquals("Foundation White", products.next().getName());
+        Assertions.assertEquals("Gloss White", products.next().getName());
+        Assertions.assertEquals("Ivory", products.next().getName());
+        Assertions.assertEquals("Offwhite", products.next().getName());
+        Assertions.assertEquals("White", products.next().getName());
     }
 
 }

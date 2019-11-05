@@ -18,6 +18,8 @@ package com.bernardomg.tabletop.palette.palette.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,7 +70,7 @@ public class PaletteController {
 
     @PostMapping
     public Response<PaletteGroupOption>
-            save(@RequestBody final PaletteGroupOption paletteGroup) {
+            save(@RequestBody @Valid final PaletteGroupOption paletteGroup) {
         paletteService.save(paletteGroup);
 
         // TODO: Return the new data

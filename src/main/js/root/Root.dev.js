@@ -12,6 +12,8 @@ import { SnackbarProvider } from 'notistack';
 
 import { DevMonitor } from 'development';
 
+import Notificator from 'notifications/containers/Notificator';
+
 /**
  * Development root application.
  * 
@@ -21,12 +23,14 @@ const Root = ({ store, language, i18nMessages }) => (
    <IntlProvider locale={language} defaultLocale='en' messages={i18nMessages}>
       <Provider store={store}>
          <SnackbarProvider autoHideDuration={1000}>
-            <Fragment>
-               <Router>
-                  {routes}
-               </Router>
-               <DevMonitor />
-            </Fragment>
+            <Notificator>
+               <Fragment>
+                  <Router>
+                     {routes}
+                  </Router>
+                  <DevMonitor />
+               </Fragment>
+            </Notificator>
          </SnackbarProvider>
       </Provider>
    </IntlProvider>

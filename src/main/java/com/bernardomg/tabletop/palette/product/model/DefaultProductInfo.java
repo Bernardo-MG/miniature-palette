@@ -23,7 +23,7 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
-public class ProductOption implements Serializable {
+public class DefaultProductInfo implements Serializable, ProductInfo {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
@@ -35,18 +35,18 @@ public class ProductOption implements Serializable {
 
     private String            name             = "";
 
-    public ProductOption() {
+    public DefaultProductInfo() {
         super();
     }
 
-    public ProductOption(final String cd, final String nm, final String br,
-            final String cp) {
+    public DefaultProductInfo(final String code, final String name,
+            final String brand, final String company) {
         super();
 
-        code = checkNotNull(cd, "Received a null pointer as code");
-        name = checkNotNull(nm, "Received a null pointer as name");
-        brand = br;
-        company = cp;
+        this.code = checkNotNull(code, "Received a null pointer as code");
+        this.name = checkNotNull(name, "Received a null pointer as name");
+        this.brand = brand;
+        this.company = company;
     }
 
     @Override
@@ -63,50 +63,60 @@ public class ProductOption implements Serializable {
             return false;
         }
 
-        final ProductOption other = (ProductOption) obj;
+        final DefaultProductInfo other = (DefaultProductInfo) obj;
         return Objects.equals(name, other.name);
     }
 
+    @Override
     public String getBrand() {
         return brand;
     }
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public String getCompany() {
         return company;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, code);
     }
 
-    public void setBrand(final String brand) {
-        this.brand = brand;
+    @Override
+    public void setBrand(final String value) {
+        brand = checkNotNull(value, "Received a null pointer as brand");
     }
 
+    @Override
     public void setCode(final String value) {
         code = checkNotNull(value, "Received a null pointer as code");
     }
 
-    public void setCompany(final String company) {
-        this.company = company;
+    @Override
+    public void setCompany(final String value) {
+        company = checkNotNull(value, "Received a null pointer as company");
     }
 
+    @Override
     public void setName(final String value) {
         name = checkNotNull(value, "Received a null pointer as name");
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name).toString();
+        return MoreObjects.toStringHelper(this).add("name", name)
+                .add("code", code).add("company", company).add("brand", brand)
+                .toString();
     }
 
 }

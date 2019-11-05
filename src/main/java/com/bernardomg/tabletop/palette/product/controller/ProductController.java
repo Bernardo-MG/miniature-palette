@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.tabletop.palette.product.model.ProductOption;
+import com.bernardomg.tabletop.palette.product.model.ProductInfo;
 import com.bernardomg.tabletop.palette.product.service.ProductService;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
 import com.bernardomg.tabletop.palette.response.Response;
@@ -56,8 +56,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public Response<Iterable<ProductOption>> read() {
-        final Iterable<ProductOption> read;
+    public Response<Iterable<? extends ProductInfo>> read() {
+        final Iterable<? extends ProductInfo> read;
 
         read = paintService.getAll();
 

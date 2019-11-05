@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.bernardomg.tabletop.palette.controller.error.GlobalExceptionHandler;
+import com.bernardomg.tabletop.palette.controller.GlobalExceptionHandler;
 import com.bernardomg.tabletop.palette.product.controller.ProductController;
 import com.bernardomg.tabletop.palette.product.service.ProductService;
 import com.bernardomg.tabletop.palette.test.config.UrlConfig;
