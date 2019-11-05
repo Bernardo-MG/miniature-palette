@@ -26,7 +26,7 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
       setDisplayed(displayed.filter((key) => id !== key));
    }
 
-   notifications.forEach(({ key, message, options = {}, dismissed = false }) => {
+   notifications.forEach(({ key, message, variant, options = {}, dismissed = false }) => {
       if (dismissed) {
          closeSnackbar(key);
          return;
@@ -37,6 +37,7 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
       enqueueSnackbar(message, {
          key,
          ...options,
+         variant,
          onClose: (event, reason, k) => {
             if (options.onClose) {
                options.onClose(event, reason, k);
