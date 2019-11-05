@@ -10,7 +10,9 @@ import { selectNotifications } from 'notifications/selectors';
 
 import { removeNotification } from 'notifications/actions';
 
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
 
@@ -29,7 +31,7 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
    }
 
    function dismiss(k) {
-      return <Button onClick={() => closeSnackbar(k)}>dismiss</Button>;
+      return <IconButton onClick={() => closeSnackbar(k)}><HighlightOffIcon /></IconButton>;
    }
 
    notifications.forEach(({ key, message, variant, options = {}, dismissed = false }) => {
