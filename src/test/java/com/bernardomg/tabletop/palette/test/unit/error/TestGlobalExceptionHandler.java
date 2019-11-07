@@ -76,11 +76,11 @@ public final class TestGlobalExceptionHandler {
      * response is returned.
      */
     @Test
-    public final void testSendFormData_ErrorResponse() throws Exception {
+    public final void testSendFormData_UnhandledError() throws Exception {
         mockMvc.perform(getFormRequest())
                 .andExpect(MockMvcResultMatchers.status().is5xxServerError())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.successful",
-                        Matchers.equalTo(false)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("failure")));
     }
 
     /**

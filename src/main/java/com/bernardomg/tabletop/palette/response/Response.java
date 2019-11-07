@@ -20,6 +20,6 @@ public interface Response<T> {
 
     public T getContent();
 
-    public Boolean getSuccessful();
+    public ResponseStatus getStatus();
 
 }
