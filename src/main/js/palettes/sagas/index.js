@@ -5,8 +5,9 @@ import { palette } from 'palettes/schema';
 
 import * as types from 'palettes/actions/types';
 
-import { readSuccess, readFailure, setPalettes, saveSuccess, saveFailure } from 'palettes/actions';
+import { readSuccess, setPalettes, saveSuccess, saveFailure } from 'palettes/actions';
 import { notifySuccess, notifyWarning } from 'notifications/actions';
+import { requestFailure } from 'requests/actions';
 
 export function* read() {
    let response;
@@ -14,7 +15,7 @@ export function* read() {
       response = yield call(api.Palettes.all);
       yield put(readSuccess(response));
    } catch (err) {
-      yield put(readFailure(err));
+      yield put(requestFailure(err));
    }
 }
 

@@ -18,6 +18,15 @@ export const notifyWarning = (key, message) => {
    };
 };
 
+export const notifyError = (key, message) => {
+   return {
+      type: types.ADD_NOTIFICATION,
+      variant: 'error',
+      key,
+      message
+   };
+};
+
 export const removeNotification = (key) => {
    return {
       type: types.DELETE_NOTIFICATION,

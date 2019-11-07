@@ -20,13 +20,6 @@ export const readSuccess = (payload) => {
    };
 };
 
-export const readFailure = (payload) => {
-   return {
-      type: types.READ_PALETTES_FAILURE,
-      payload
-   };
-};
-
 export const savePalettes = (payload) => {
    return {
       type: types.SAVE_PALETTES,
