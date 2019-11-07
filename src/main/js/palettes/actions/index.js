@@ -13,16 +13,37 @@ export const readPalettes = () => {
    };
 };
 
-export const success = (payload) => {
+export const readSuccess = (payload) => {
    return {
       type: types.READ_PALETTES_SUCCESS,
       payload
    };
 };
 
-export const failure = (payload) => {
+export const readFailure = (payload) => {
    return {
       type: types.READ_PALETTES_FAILURE,
+      payload
+   };
+};
+
+export const savePalettes = (payload) => {
+   return {
+      type: types.SAVE_PALETTES,
+      payload
+   };
+};
+
+export const saveSuccess = (payload) => {
+   return {
+      type: types.SAVE_PALETTES_SUCCESS,
+      payload
+   };
+};
+
+export const saveFailure = (payload) => {
+   return {
+      type: types.SAVE_PALETTES_FAILURE,
       payload
    };
 };

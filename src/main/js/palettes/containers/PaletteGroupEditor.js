@@ -6,7 +6,7 @@ import { useSuggestions } from 'suggestions';
 
 import { notifySuccess } from 'notifications/actions';
 
-import api from 'api';
+import { savePalettes } from 'palettes/actions';
 
 import PaletteGroupForm from 'palettes/components/PaletteGroupForm';
 
@@ -25,7 +25,7 @@ function PaletteGroupEditor() {
    }
 
    function handleSave() {
-      api.Palettes.save({ name, palettes });
+      dispatch(savePalettes({ name, palettes }));
       clean();
       dispatch(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
    }
