@@ -1,9 +1,12 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { READ_PALETTES, READ_PALETTES_SUCCESS, SAVE_PALETTES } from 'palettes/actions/types';
-import { readSuccess, readFailure, setPalettes, saveSuccess, saveFailure } from 'palettes/actions';
 import api from 'api';
 import { normalize } from 'normalizr';
 import { palette } from 'palettes/schema';
+
+import * as types from 'palettes/actions/types';
+
+import { readSuccess, readFailure, setPalettes, saveSuccess, saveFailure } from 'palettes/actions';
+import { notifySuccess } from 'notifications/actions';
 
 export function* read() {
    let response;
@@ -32,8 +35,13 @@ export function* save(action) {
    }
 }
 
+export function* notifySaved() {
+   yield put(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
+}
+
 export const paletteSagas = [
-   takeLatest(READ_PALETTES, read),
-   takeLatest(READ_PALETTES_SUCCESS, storePalettes),
-   takeLatest(SAVE_PALETTES, save)
+   takeLatest(types.READ_PALETTES, read),
+   takeLatest(types.READ_PALETTES_SUCCESS, storePalettes),
+   takeLatest(types.SAVE_PALETTES, save),
+   takeLatest(types.SAVE_PALETTES_SUCCESS, notifySaved)
 ];

@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import { useSuggestions } from 'suggestions';
 
-import { notifySuccess } from 'notifications/actions';
-
 import { savePalettes } from 'palettes/actions';
 
 import PaletteGroupForm from 'palettes/components/PaletteGroupForm';
@@ -27,7 +25,6 @@ function PaletteGroupEditor() {
    function handleSave() {
       dispatch(savePalettes({ name, palettes }));
       clean();
-      dispatch(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
    }
 
    function handleNameChange(value) {
