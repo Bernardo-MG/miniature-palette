@@ -5,13 +5,19 @@ import * as types from 'requests/actions/types';
 import { notifyError } from 'notifications/actions';
 
 export function* notifyFailure(action) {
-   let message = 'Request failure';
+   if (Array.isArray(action.payload.content)) {
+      for (let index = 0; index < action.payload.content.length; index += 1) {
+         yield put(notifyError(new Date().getTime() + Math.random(), action.payload.content[index]));
+      }
+   } else {
+      let message = 'Request failure';
 
-   if (action.payload.message) {
-      message = action.payload.message;
+      if (action.payload.message) {
+         message = action.payload.message;
+      }
+
+      yield put(notifyError(new Date().getTime() + Math.random(), message));
    }
-   console.log(action.payload);
-   yield put(notifyError(new Date().getTime() + Math.random(), message));
 }
 
 export const requestSagas = [
