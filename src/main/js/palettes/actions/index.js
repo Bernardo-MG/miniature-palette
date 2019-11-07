@@ -33,10 +33,3 @@ export const saveSuccess = (payload) => {
       payload
    };
 };
-
-export const saveFailure = (payload) => {
-   return {
-      type: types.SAVE_PALETTES_FAILURE,
-      payload
-   };
-};

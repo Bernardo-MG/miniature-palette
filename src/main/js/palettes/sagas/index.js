@@ -5,8 +5,8 @@ import { palette } from 'palettes/schema';
 
 import * as types from 'palettes/actions/types';
 
-import { readSuccess, setPalettes, saveSuccess, saveFailure } from 'palettes/actions';
-import { notifySuccess, notifyWarning } from 'notifications/actions';
+import { readSuccess, setPalettes, saveSuccess } from 'palettes/actions';
+import { notifySuccess } from 'notifications/actions';
 import { requestFailure } from 'requests/actions';
 
 export function* read() {
@@ -30,9 +30,13 @@ export function* save(action) {
    let response;
    try {
       response = yield call(api.Palettes.save, action.payload);
-      yield put(saveSuccess(response));
+      if (response.status === 'success') {
+         yield put(saveSuccess(response));
+      } else {
+         yield put(requestFailure(response));
+      }
    } catch (err) {
-      yield put(saveFailure(err));
+      yield put(requestFailure(err));
    }
 }
 
@@ -40,14 +44,9 @@ export function* notifySaved() {
    yield put(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
 }
 
-export function* notifySaveFailure() {
-   yield put(notifyWarning(new Date().getTime() + Math.random(), 'not_saved_message'));
-}
-
 export const paletteSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.READ_PALETTES_SUCCESS, storePalettes),
    takeLatest(types.SAVE_PALETTES, save),
-   takeLatest(types.SAVE_PALETTES_SUCCESS, notifySaved),
-   takeLatest(types.SAVE_PALETTES_FAILURE, notifySaveFailure)
+   takeLatest(types.SAVE_PALETTES_SUCCESS, notifySaved)
 ];
