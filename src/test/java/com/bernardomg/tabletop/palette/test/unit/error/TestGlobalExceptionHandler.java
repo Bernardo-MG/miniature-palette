@@ -16,6 +16,7 @@
 
 package com.bernardomg.tabletop.palette.test.unit.error;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
@@ -67,7 +68,6 @@ public final class TestGlobalExceptionHandler {
         mockMvc = MockMvcBuilders.standaloneSetup(getController())
                 .setCustomArgumentResolvers(
                         new PageableHandlerMethodArgumentResolver())
-                .alwaysExpect(MockMvcResultMatchers.status().is5xxServerError())
                 .setControllerAdvice(exceptionHandler).build();
     }
 
@@ -77,7 +77,10 @@ public final class TestGlobalExceptionHandler {
      */
     @Test
     public final void testSendFormData_ErrorResponse() throws Exception {
-        mockMvc.perform(getFormRequest());
+        mockMvc.perform(getFormRequest())
+                .andExpect(MockMvcResultMatchers.status().is5xxServerError())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successful",
+                        Matchers.equalTo(false)));
     }
 
     /**
