@@ -6,7 +6,7 @@ import { palette } from 'palettes/schema';
 import * as types from 'palettes/actions/types';
 
 import { readSuccess, readFailure, setPalettes, saveSuccess, saveFailure } from 'palettes/actions';
-import { notifySuccess } from 'notifications/actions';
+import { notifySuccess, notifyWarning } from 'notifications/actions';
 
 export function* read() {
    let response;
@@ -39,9 +39,14 @@ export function* notifySaved() {
    yield put(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
 }
 
+export function* notifySaveFailure() {
+   yield put(notifyWarning(new Date().getTime() + Math.random(), 'not_saved_message'));
+}
+
 export const paletteSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.READ_PALETTES_SUCCESS, storePalettes),
    takeLatest(types.SAVE_PALETTES, save),
-   takeLatest(types.SAVE_PALETTES_SUCCESS, notifySaved)
+   takeLatest(types.SAVE_PALETTES_SUCCESS, notifySaved),
+   takeLatest(types.SAVE_PALETTES_FAILURE, notifySaveFailure)
 ];

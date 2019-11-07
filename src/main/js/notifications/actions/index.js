@@ -9,6 +9,15 @@ export const notifySuccess = (key, message) => {
    };
 };
 
+export const notifyWarning = (key, message) => {
+   return {
+      type: types.ADD_NOTIFICATION,
+      variant: 'warning',
+      key,
+      message
+   };
+};
+
 export const removeNotification = (key) => {
    return {
       type: types.DELETE_NOTIFICATION,
