@@ -22,7 +22,7 @@ import Notificator from 'notifications/containers/Notificator';
 const Root = ({ store, language, i18nMessages }) => (
    <IntlProvider locale={language} defaultLocale='en' messages={i18nMessages}>
       <Provider store={store}>
-         <SnackbarProvider autoHideDuration={1000}>
+         <SnackbarProvider>
             <Notificator>
                <Fragment>
                   <Router>
