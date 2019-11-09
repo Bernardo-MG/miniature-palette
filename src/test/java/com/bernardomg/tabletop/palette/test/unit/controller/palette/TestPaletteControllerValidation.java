@@ -138,6 +138,37 @@ public final class TestPaletteControllerValidation {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    public final void testSendFormData_ValidName_EmptyPalettes()
+            throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"name\":\"abcd\", \"palettes\":[]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testSendFormData_ValidName_PaletteEmptyName()
+            throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"name\":\"abcd\", \"palettes\":[{\"name\":\"\"}]}");
+
+        // FIXME: Should reject the request
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
     /**
      * Returns a controller with mocked dependencies.
      * 
