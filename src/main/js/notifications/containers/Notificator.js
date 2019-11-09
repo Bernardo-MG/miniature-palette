@@ -38,27 +38,29 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
       if (dismissed) {
          closeSnackbar(key);
          return;
+      } else if (displayed.includes(key)) {
+         // Do nothing if snackbar is already displayed
+         return;
+      } else {
+         // Display snackbar using notistack
+         enqueueSnackbar(message, {
+            key,
+            ...options,
+            variant,
+            onClose: (event, reason, k) => {
+               if (options.onClose) {
+                  options.onClose(event, reason, k);
+               }
+            },
+            onExited: (event, k) => {
+               dispatch(removeNotification(k));
+               removeDisplayed(key);
+            },
+            action: dismiss
+         });
+         // Keep track of snackbars that we've displayed
+         storeDisplayed(key);
       }
-      // Do nothing if snackbar is already displayed
-      if (displayed.includes(key)) return;
-      // Display snackbar using notistack
-      enqueueSnackbar(message, {
-         key,
-         ...options,
-         variant,
-         onClose: (event, reason, k) => {
-            if (options.onClose) {
-               options.onClose(event, reason, k);
-            }
-         },
-         onExited: (event, k) => {
-            dispatch(removeNotification(k));
-            removeDisplayed(key);
-         },
-         action: dismiss
-      });
-      // Keep track of snackbars that we've displayed
-      storeDisplayed(key);
    });
 
    return <Fragment>{children}</Fragment>;
