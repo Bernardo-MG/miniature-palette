@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.unit.error;
+package com.bernardomg.tabletop.palette.test.unit.controller.error;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
