@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,25 +34,28 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
       return <IconButton onClick={() => closeSnackbar(key)}><DeleteIcon /></IconButton>;
    }
 
-   notifications.forEach(({ timestamp, message, variant }) => {
-      const key = timestamp;
+   useEffect(() => {
+      const notRendered = notifications.filter(({ timestamp }) => !displayed.includes(timestamp));
+      notRendered.forEach(({ timestamp, message, variant }) => {
+         const key = timestamp;
 
-      if (displayed.includes(key)) {
-         // Do nothing if snackbar is already displayed
-      } else {
-         // Display snackbar using notistack
-         enqueueSnackbar(message, {
-            key,
-            variant,
-            onExited: (event, k) => {
-               dispatch(removeNotification(k));
-               removeDisplayed(key);
-            },
-            action: dismiss
-         });
-         // Keep track of snackbars that we've displayed
-         storeDisplayed(key);
-      }
+         if (displayed.includes(key)) {
+            // Do nothing if snackbar is already displayed
+         } else {
+            // Display snackbar using notistack
+            enqueueSnackbar(message, {
+               key,
+               variant,
+               onExited: (event, k) => {
+                  dispatch(removeNotification(k));
+                  removeDisplayed(key);
+               },
+               action: dismiss
+            });
+            // Keep track of snackbars that we've displayed
+            storeDisplayed(key);
+         }
+      });
    });
 
    return <Fragment>{children}</Fragment>;
