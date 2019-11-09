@@ -68,22 +68,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            final MethodArgumentNotValidException ex, final HttpHeaders headers,
-            final HttpStatus status, final WebRequest request) {
-        final Iterable<String> errors;
-        final Response<Iterable<String>> response;
-
-        errors = ex.getBindingResult().getFieldErrors().stream()
-                .map(x -> x.getDefaultMessage()).collect(Collectors.toList());
-
-        response = new DefaultResponse<>(errors, ResponseStatus.WARNING);
-
-        return super.handleExceptionInternal(ex, response, headers, status,
-                request);
-    }
-
-    @Override
     protected ResponseEntity<Object> handleExceptionInternal(final Exception ex,
             final Object body, final HttpHeaders headers,
             final HttpStatus status, final WebRequest request) {
@@ -97,6 +81,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         response = new DefaultResponse<>(message, ResponseStatus.FAILURE);
+
+        return super.handleExceptionInternal(ex, response, headers, status,
+                request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            final MethodArgumentNotValidException ex, final HttpHeaders headers,
+            final HttpStatus status, final WebRequest request) {
+        final Iterable<String> errors;
+        final Response<Iterable<String>> response;
+
+        errors = ex.getBindingResult().getFieldErrors().stream()
+                .map(x -> x.getDefaultMessage()).collect(Collectors.toList());
+
+        response = new DefaultResponse<>(errors, ResponseStatus.WARNING);
 
         return super.handleExceptionInternal(ex, response, headers, status,
                 request);

@@ -24,14 +24,14 @@ package com.bernardomg.tabletop.palette.test.config;
 public final class UrlConfig {
 
     /**
-     * Products REST URL.
-     */
-    public static final String PRODUCT = "/rest/product";
-
-    /**
      * Palettes REST URL.
      */
     public static final String PALETTE = "/rest/palette";
+
+    /**
+     * Products REST URL.
+     */
+    public static final String PRODUCT = "/rest/product";
 
     /**
      * Default constructor to avoid initialization.
