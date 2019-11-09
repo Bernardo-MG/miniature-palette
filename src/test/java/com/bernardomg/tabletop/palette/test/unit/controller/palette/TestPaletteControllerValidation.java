@@ -87,8 +87,11 @@ public final class TestPaletteControllerValidation {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content("{\"name\":\"\"}");
 
-        mockMvc.perform(request).andExpect(MockMvcResultMatchers
-                .jsonPath("$.status", Matchers.equalTo("warning")));
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.hasSize(1)));
     }
 
     @Test
