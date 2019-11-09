@@ -41,7 +41,7 @@ export function* save(action) {
 }
 
 export function* notifySaved() {
-   yield put(notifySuccess(new Date().getTime() + Math.random(), 'saved_message'));
+   yield put(notifySuccess('saved_message'));
 }
 
 export const paletteSagas = [

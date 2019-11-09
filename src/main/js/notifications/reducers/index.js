@@ -12,7 +12,7 @@ const notification = (state = defaultState, action) => {
          notifications: [
             ...state.notifications,
             {
-               key: action.key,
+               timestamp: action.timestamp,
                variant: action.variant,
                message: action.message
             }
@@ -21,7 +21,7 @@ const notification = (state = defaultState, action) => {
    case types.DELETE_NOTIFICATION:
       return {
          ...state,
-         notifications: state.notifications.filter((notif) => notif.key !== action.key)
+         notifications: state.notifications.filter((notif) => notif.timestamp !== action.timestamp)
       };
    default:
       return state;

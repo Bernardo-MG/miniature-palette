@@ -1,35 +1,35 @@
 import * as types from 'notifications/actions/types';
 
-export const notifySuccess = (key, message) => {
+export const notifySuccess = (message) => {
    return {
       type: types.ADD_NOTIFICATION,
       variant: 'success',
-      key,
+      timestamp: new Date().getTime() + Math.random(),
       message
    };
 };
 
-export const notifyWarning = (key, message) => {
+export const notifyWarning = (message) => {
    return {
       type: types.ADD_NOTIFICATION,
       variant: 'warning',
-      key,
+      timestamp: new Date().getTime() + Math.random(),
       message
    };
 };
 
-export const notifyError = (key, message) => {
+export const notifyError = (message) => {
    return {
       type: types.ADD_NOTIFICATION,
       variant: 'error',
-      key,
+      timestamp: new Date().getTime() + Math.random(),
       message
    };
 };
 
-export const removeNotification = (key) => {
+export const removeNotification = (timestamp) => {
    return {
       type: types.DELETE_NOTIFICATION,
-      key
+      timestamp
    };
 };

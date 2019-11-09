@@ -30,26 +30,20 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
       setDisplayed(displayed.filter((key) => id !== key));
    }
 
-   function dismiss(k) {
-      return <IconButton onClick={() => closeSnackbar(k)}><DeleteIcon /></IconButton>;
+   function dismiss(key) {
+      return <IconButton onClick={() => closeSnackbar(key)}><DeleteIcon /></IconButton>;
    }
 
-   notifications.forEach(({ key, message, variant, options = {}, dismissed = false }) => {
-      if (dismissed) {
-         closeSnackbar(key);
-      } else if (displayed.includes(key)) {
+   notifications.forEach(({ timestamp, message, variant }) => {
+      const key = timestamp;
+
+      if (displayed.includes(key)) {
          // Do nothing if snackbar is already displayed
       } else {
          // Display snackbar using notistack
          enqueueSnackbar(message, {
             key,
-            ...options,
             variant,
-            onClose: (event, reason, k) => {
-               if (options.onClose) {
-                  options.onClose(event, reason, k);
-               }
-            },
             onExited: (event, k) => {
                dispatch(removeNotification(k));
                removeDisplayed(key);

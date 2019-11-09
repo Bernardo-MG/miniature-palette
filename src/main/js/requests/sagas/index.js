@@ -7,7 +7,7 @@ import { notifyError } from 'notifications/actions';
 export function* notifyFailure(action) {
    if (Array.isArray(action.payload.content)) {
       for (let index = 0; index < action.payload.content.length; index += 1) {
-         yield put(notifyError(new Date().getTime() + Math.random(), action.payload.content[index]));
+         yield put(notifyError(action.payload.content[index]));
       }
    } else {
       let message = 'Request failure';
@@ -16,7 +16,7 @@ export function* notifyFailure(action) {
          message = action.payload.message;
       }
 
-      yield put(notifyError(new Date().getTime() + Math.random(), message));
+      yield put(notifyError(message));
    }
 }
 
