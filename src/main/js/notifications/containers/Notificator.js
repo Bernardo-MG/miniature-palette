@@ -37,10 +37,8 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
    notifications.forEach(({ key, message, variant, options = {}, dismissed = false }) => {
       if (dismissed) {
          closeSnackbar(key);
-         return;
       } else if (displayed.includes(key)) {
          // Do nothing if snackbar is already displayed
-         return;
       } else {
          // Display snackbar using notistack
          enqueueSnackbar(message, {
