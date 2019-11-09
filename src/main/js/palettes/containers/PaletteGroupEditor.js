@@ -17,14 +17,8 @@ function PaletteGroupEditor() {
 
    const dispatch = useDispatch();
 
-   function clean() {
-      setName('');
-      setPalettes([]);
-   }
-
    function handleSave() {
       dispatch(savePalettes({ name, palettes }));
-      clean();
    }
 
    function handleNameChange(value) {
