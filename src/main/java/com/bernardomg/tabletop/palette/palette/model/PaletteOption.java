@@ -19,10 +19,17 @@ package com.bernardomg.tabletop.palette.palette.model;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import com.google.common.base.MoreObjects;
 
 public class PaletteOption {
 
+    @NotNull
+    @Min(1)
+    @Max(50)
     private String                name;
 
     private Iterable<PaintOption> paints = new ArrayList<>();
