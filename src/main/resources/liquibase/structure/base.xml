@@ -72,7 +72,7 @@
          <column name="id" type="BIGINT" autoIncrement="true">
             <constraints primaryKey="true" />
          </column>
-         <column name="name" type="VARCHAR(30)">
+         <column name="name" type="VARCHAR(50)">
             <constraints nullable="false" />
          </column>
       </createTable>
@@ -85,7 +85,7 @@
                foreignKeyName="fk_palette_group_relationship"
                references="palette_groups(id)" />
          </column>
-         <column name="name" type="VARCHAR(30)">
+         <column name="name" type="VARCHAR(50)">
             <constraints nullable="false" />
          </column>
       </createTable>
@@ -98,7 +98,7 @@
                foreignKeyName="fk_paint_palette_relationship"
                references="palettes(id)" />
          </column>
-         <column name="name" type="VARCHAR(30)">
+         <column name="name" type="VARCHAR(50)">
             <constraints nullable="false" />
          </column>
       </createTable>

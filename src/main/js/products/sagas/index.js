@@ -1,9 +1,12 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { READ_PRODUCTS, READ_PRODUCTS_SUCCESS } from 'products/actions/types';
-import { success, failure, setProducts } from 'products/actions';
 import api from 'api';
 import { normalize } from 'normalizr';
 import { product } from 'products/schema';
+
+import { READ_PRODUCTS, READ_PRODUCTS_SUCCESS } from 'products/actions/types';
+
+import { success, setProducts } from 'products/actions';
+import { requestFailure } from 'requests/actions';
 
 export function* read() {
    let response;
@@ -11,7 +14,7 @@ export function* read() {
       response = yield call(api.Products.all);
       yield put(success(response));
    } catch (err) {
-      yield put(failure(err));
+      yield put(requestFailure(err));
    }
 }
 

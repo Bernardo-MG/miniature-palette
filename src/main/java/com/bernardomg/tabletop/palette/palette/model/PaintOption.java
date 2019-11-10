@@ -21,12 +21,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.google.common.base.MoreObjects;
 
 public class PaintOption implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
+    @NotNull
+    @Size(min = 1, max = 50)
     private String            name             = "";
 
     public PaintOption() {

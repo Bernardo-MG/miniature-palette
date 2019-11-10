@@ -24,6 +24,11 @@ package com.bernardomg.tabletop.palette.test.config;
 public final class UrlConfig {
 
     /**
+     * Palettes REST URL.
+     */
+    public static final String PALETTE = "/rest/palette";
+
+    /**
      * Products REST URL.
      */
     public static final String PRODUCT = "/rest/product";

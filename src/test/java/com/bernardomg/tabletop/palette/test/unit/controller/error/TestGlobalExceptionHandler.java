@@ -14,14 +14,16 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.unit.error;
+package com.bernardomg.tabletop.palette.test.unit.controller.error;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -67,8 +69,10 @@ public final class TestGlobalExceptionHandler {
         mockMvc = MockMvcBuilders.standaloneSetup(getController())
                 .setCustomArgumentResolvers(
                         new PageableHandlerMethodArgumentResolver())
-                .alwaysExpect(MockMvcResultMatchers.status().is5xxServerError())
-                .setControllerAdvice(exceptionHandler).build();
+                .setControllerAdvice(exceptionHandler)
+                .alwaysExpect(MockMvcResultMatchers.content()
+                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .build();
     }
 
     /**
@@ -76,8 +80,11 @@ public final class TestGlobalExceptionHandler {
      * response is returned.
      */
     @Test
-    public final void testSendFormData_ErrorResponse() throws Exception {
-        mockMvc.perform(getFormRequest());
+    public final void testSendFormData_UnhandledError() throws Exception {
+        mockMvc.perform(getFormRequest())
+                .andExpect(MockMvcResultMatchers.status().is5xxServerError())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("failure")));
     }
 
     /**

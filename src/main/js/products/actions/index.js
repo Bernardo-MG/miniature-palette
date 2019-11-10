@@ -20,13 +20,6 @@ export const success = (payload) => {
    };
 };
 
-export const failure = (payload) => {
-   return {
-      type: types.READ_PRODUCTS_FAILURE,
-      payload
-   };
-};
-
 export const setLoaded = (payload) => {
    return {
       type: types.SET_PRODUCTS_LOADED,

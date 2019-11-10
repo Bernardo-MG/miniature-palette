@@ -20,9 +20,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class DefaultResponse<T> implements Response<T> {
 
-    private T       content;
+    private T              content;
 
-    private Boolean successful = true;
+    private ResponseStatus status = ResponseStatus.SUCCESS;
 
     public DefaultResponse() {
         super();
@@ -34,11 +34,11 @@ public class DefaultResponse<T> implements Response<T> {
         content = checkNotNull(cont, "Missing content");
     }
 
-    public DefaultResponse(final T cont, final Boolean success) {
+    public DefaultResponse(final T cont, final ResponseStatus stat) {
         super();
 
         content = checkNotNull(cont, "Missing content");
-        successful = checkNotNull(success, "Missing successful status");
+        status = checkNotNull(stat, "Missing status");
     }
 
     @Override
@@ -47,16 +47,16 @@ public class DefaultResponse<T> implements Response<T> {
     }
 
     @Override
-    public Boolean getSuccessful() {
-        return successful;
+    public ResponseStatus getStatus() {
+        return status;
     }
 
-    public void setContent(final T content) {
-        this.content = content;
+    public void setContent(final T value) {
+        content = value;
     }
 
-    public void setSuccessful(final Boolean successful) {
-        this.successful = successful;
+    public void setStatus(final ResponseStatus value) {
+        status = value;
     }
 
 }
