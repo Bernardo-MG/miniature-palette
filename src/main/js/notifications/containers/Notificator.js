@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 
 import { withSnackbar } from 'notistack';
 
-import { selectNotifications } from 'notifications/selectors';
+import { selectNotDisplayedNotifications as selectNotifications } from 'notifications/selectors';
 
-import { removeNotification } from 'notifications/actions';
+import { removeNotification, setDisplayed } from 'notifications/actions';
 
 import IconButton from '@material-ui/core/IconButton';
 
@@ -16,46 +16,33 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
 
-   const [displayed, setDisplayed] = useState([]);
-
    const notifications = useSelector(selectNotifications);
 
    const dispatch = useDispatch();
-
-   function storeDisplayed(id) {
-      setDisplayed([...displayed, id]);
-   }
-
-   function removeDisplayed(id) {
-      setDisplayed(displayed.filter((key) => id !== key));
-   }
 
    function dismiss(key) {
       return <IconButton onClick={() => closeSnackbar(key)}><DeleteIcon /></IconButton>;
    }
 
    useEffect(() => {
-      const notRendered = notifications.filter(({ timestamp }) => !displayed.includes(timestamp));
-      notRendered.forEach(({ timestamp, message, variant }) => {
+      console.log(notifications);
+      notifications.forEach(({ timestamp, message, variant }) => {
          const key = timestamp;
 
-         if (displayed.includes(key)) {
-            // Do nothing if snackbar is already displayed
-         } else {
-            // Display snackbar using notistack
-            enqueueSnackbar(message, {
-               key,
-               variant,
-               onExited: (event, k) => {
-                  dispatch(removeNotification(k));
-                  removeDisplayed(key);
-               },
-               action: dismiss
-            });
-            // Keep track of snackbars that we've displayed
-            storeDisplayed(key);
-         }
+         // Display snackbar using notistack
+         enqueueSnackbar(message, {
+            key,
+            variant,
+            onExited: (event, k) => {
+               dispatch(removeNotification(k));
+            },
+            action: dismiss
+         });
       });
+      const ids = notifications.map(({ timestamp }) => timestamp);
+      if (ids.length) {
+         dispatch(setDisplayed(ids));
+      }
    });
 
    return <Fragment>{children}</Fragment>;

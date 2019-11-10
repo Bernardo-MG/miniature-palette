@@ -33,3 +33,10 @@ export const removeNotification = (timestamp) => {
       timestamp
    };
 };
+
+export const setDisplayed = (timestamps) => {
+   return {
+      type: types.SET_DISPLAYED_NOTIFICATIONS,
+      timestamps
+   };
+};
