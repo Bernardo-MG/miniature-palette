@@ -16,6 +16,8 @@
 
 package com.bernardomg.tabletop.palette.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -23,15 +25,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.bernardomg.tabletop.palette.response.DefaultFieldStatus;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
+import com.bernardomg.tabletop.palette.response.FieldStatus;
 import com.bernardomg.tabletop.palette.response.Response;
 import com.bernardomg.tabletop.palette.response.ResponseStatus;
+import com.google.common.base.Predicates;
 
 /**
  * Captures and handles exceptions for all the controllers.
@@ -55,8 +61,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({ RuntimeException.class })
-    public final ResponseEntity<Object> handleExceptionDefault(
-            final Exception ex, final WebRequest request) throws Exception {
+    public ResponseEntity<Object> handleExceptionDefault(final Exception ex,
+            final WebRequest request) throws Exception {
         final HttpHeaders headers;
         final HttpStatus status;
 
@@ -65,6 +71,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         status = HttpStatus.INTERNAL_SERVER_ERROR;
         headers = new HttpHeaders();
         return handleExceptionInternal(ex, null, headers, status, request);
+    }
+
+    private final FieldStatus toFieldStatus(final FieldError error) {
+        final FieldStatus status;
+
+        status = new DefaultFieldStatus();
+        status.setField(error.getField());
+        status.setValue(error.getRejectedValue());
+        // TODO: Object name and the other fields?
+
+        return status;
     }
 
     @Override
@@ -90,11 +107,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             final MethodArgumentNotValidException ex, final HttpHeaders headers,
             final HttpStatus status, final WebRequest request) {
-        final Iterable<String> errors;
-        final Response<Iterable<String>> response;
+        final Collection<FieldStatus> validation;
+        final Collection<FieldStatus> value;
+        final Collection<FieldStatus> errors;
+        final Response<Iterable<FieldStatus>> response;
 
-        errors = ex.getBindingResult().getFieldErrors().stream()
-                .map(x -> x.getDefaultMessage()).collect(Collectors.toList());
+        validation = ex.getBindingResult().getFieldErrors().stream()
+                .filter(Predicates.not(FieldError::isBindingFailure))
+                .map(this::toFieldStatus).collect(Collectors.toList());
+        value = ex.getBindingResult().getFieldErrors().stream()
+                .filter(FieldError::isBindingFailure).map(this::toFieldStatus)
+                .collect(Collectors.toList());
+
+        errors = new ArrayList<>();
+        errors.addAll(validation);
+        errors.addAll(value);
 
         response = new DefaultResponse<>(errors, ResponseStatus.WARNING);
 
