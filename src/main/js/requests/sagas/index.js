@@ -9,6 +9,8 @@ function getMessage(source) {
 
    if ((source) && (typeof source === 'string')) {
       message = source;
+   } else if (source.message) {
+      message = source.message;
    }
 
    return message;

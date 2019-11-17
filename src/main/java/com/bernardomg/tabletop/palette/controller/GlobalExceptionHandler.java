@@ -77,9 +77,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         final FieldStatus status;
 
         status = new DefaultFieldStatus();
+        status.setSource(error.getObjectName());
         status.setField(error.getField());
         status.setValue(error.getRejectedValue());
+        status.setMessage(error.getDefaultMessage());
         // TODO: Object name and the other fields?
+        // Codes
 
         return status;
     }
