@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -13,6 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -60,16 +61,21 @@ PaletteEditorList.propTypes = {
    onColorDelete: PropTypes.func.isRequired
 };
 
-function PaletteEditor({ palette, suggestions, onNameChange, onDelete, onAddColor, onColorChange, onColorDelete }) {
+function PaletteEditor({ palette, suggestions, onNameChange, onAdd, onDelete, onAddColor, onColorChange, onColorDelete }) {
    return <Card>
       <CardHeader
          title={
             <TextField value={palette.name} label="palette_name" onChange={(event) => onNameChange(event.target.value)} />
          }
          action={
-            <IconButton aria-label="delete" onClick={onDelete}>
-               <DeleteIcon />
-            </IconButton>
+            <Fragment>
+               <IconButton aria-label="add" onClick={onAdd}>
+                  <AddBoxIcon />
+               </IconButton>
+               <IconButton aria-label="delete" onClick={onDelete}>
+                  <DeleteIcon />
+               </IconButton>
+            </Fragment>
          }
       />
       <CardContent>
@@ -91,6 +97,7 @@ PaletteEditor.propTypes = {
       paints: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired })).isRequired
    }).isRequired,
    suggestions: PropTypes.array.isRequired,
+   onAdd: PropTypes.func.isRequired,
    onDelete: PropTypes.func.isRequired,
    onNameChange: PropTypes.func.isRequired,
    onAddColor: PropTypes.func.isRequired,

@@ -70,6 +70,7 @@ function PaletteGroupForm({ suggestions, onSave, onPaletteNameChange, onAddColor
                                  palette={palette}
                                  suggestions={suggestions}
                                  onNameChange={(value) => onPaletteNameChange(paletteIndex, value)}
+                                 onAdd={() => arrayHelpers.push({ name: '', paints: [] })}
                                  onDelete={() => arrayHelpers.remove(paletteIndex)}
                                  onAddColor={() => onAddColor(paletteIndex)}
                                  onColorChange={(index, value) => onChangeColor(paletteIndex, index, value)}
