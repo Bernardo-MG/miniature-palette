@@ -1,6 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
+import * as Yup from 'yup';
+
+import { Formik, Form } from 'formik';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +12,13 @@ import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
+
+const PaletteSchema = Yup.object().shape({
+   name: Yup.string()
+      .min(0, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required')
+});
 
 function AddButton({ onClick }) {
    return <IconButton onClick={onClick}>
@@ -20,55 +30,61 @@ AddButton.propTypes = {
    onClick: PropTypes.func.isRequired
 };
 
-function SaveButton({ onClick }) {
-   return <IconButton onClick={onClick}>
+function SaveButton() {
+   return <IconButton type="submit">
       <SaveIcon />
    </IconButton>;
 }
 
-SaveButton.propTypes = {
-   onClick: PropTypes.func.isRequired
-};
+SaveButton.propTypes = {};
 
-function PaletteGroupForm({ name, palettes, suggestions, onSave, onNameChange, onPaletteNameChange, onAddPalette, onDeletePalette, onAddColor, onDeleteColor, onChangeColor }) {
-   return <Fragment>
-      { /* Header */ }
-      <Grid container spacing={3}>
-         <Grid item xs={6}>
-            <TextField value={name} label="group_name" onChange={(event) => onNameChange(event.target.value)} />
-         </Grid>
-         <Grid item xs={6}>
-            <SaveButton onClick={onSave} />
-         </Grid>
-      </Grid>
-      { /* List of palettes */ }
-      <Grid container spacing={3}>
-         {palettes.map((palette, paletteIndex) => {
-            return <Grid item xs={8} key={paletteIndex}>
-               <PaletteEditor
-                  palette={palette}
-                  suggestions={suggestions}
-                  onNameChange={(value) => onPaletteNameChange(paletteIndex, value)}
-                  onDelete={() => onDeletePalette(paletteIndex)}
-                  onAddColor={() => onAddColor(paletteIndex)}
-                  onColorChange={(index, value) => onChangeColor(paletteIndex, index, value)}
-                  onColorDelete={(index) => onDeleteColor(paletteIndex, index)} />
-            </Grid>;
-         }
-         )}
-         <Grid item xs={6}>
-            <AddButton onClick={onAddPalette} />
-         </Grid>
-      </Grid>
-   </Fragment>;
+function PaletteGroupForm({ palettes, suggestions, onSave, onPaletteNameChange, onAddPalette, onDeletePalette, onAddColor, onDeleteColor, onChangeColor }) {
+   return <Formik
+      onSubmit={onSave}
+      initialValues={{
+         name: ''
+      }}
+      validationSchema={PaletteSchema}>
+      {({ values, errors, touched, handleChange, handleBlur }) => (
+         <Form>
+            { /* Header */ }
+            <Grid container spacing={3}>
+               <Grid item xs={6}>
+                  <TextField name="name" label="group_name" value={values.name} onChange={handleChange} onBlur={handleBlur}
+                     helperText={(errors.name && touched.name) && errors.name} />
+               </Grid>
+               <Grid item xs={6}>
+                  <SaveButton />
+               </Grid>
+            </Grid>
+            { /* List of palettes */ }
+            <Grid container spacing={3}>
+               {palettes.map((palette, paletteIndex) => {
+                  return <Grid item xs={8} key={paletteIndex}>
+                     <PaletteEditor
+                        palette={palette}
+                        suggestions={suggestions}
+                        onNameChange={(value) => onPaletteNameChange(paletteIndex, value)}
+                        onDelete={() => onDeletePalette(paletteIndex)}
+                        onAddColor={() => onAddColor(paletteIndex)}
+                        onColorChange={(index, value) => onChangeColor(paletteIndex, index, value)}
+                        onColorDelete={(index) => onDeleteColor(paletteIndex, index)} />
+                  </Grid>;
+               }
+               )}
+               <Grid item xs={6}>
+                  <AddButton onClick={onAddPalette} />
+               </Grid>
+            </Grid>
+         </Form>
+      )}
+   </Formik>;
 }
 
 PaletteGroupForm.propTypes = {
-   name: PropTypes.string.isRequired,
    palettes: PropTypes.array.isRequired,
    suggestions: PropTypes.array.isRequired,
    onSave: PropTypes.func.isRequired,
-   onNameChange: PropTypes.func.isRequired,
    onPaletteNameChange: PropTypes.func.isRequired,
    onAddPalette: PropTypes.func.isRequired,
    onDeletePalette: PropTypes.func.isRequired,

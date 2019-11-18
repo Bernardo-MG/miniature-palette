@@ -12,17 +12,12 @@ function PaletteGroupEditor() {
 
    const suggestions = useSuggestions();
 
-   const [name, setName] = useState('');
    const [palettes, setPalettes] = useState([]);
 
    const dispatch = useDispatch();
 
-   function handleSave() {
-      dispatch(savePalettes({ name, palettes }));
-   }
-
-   function handleNameChange(value) {
-      setName(value);
+   function handleSave(form) {
+      dispatch(savePalettes({ name: form.name, palettes }));
    }
 
    function updatePalettes(func) {
@@ -71,11 +66,9 @@ function PaletteGroupEditor() {
    }
 
    return <PaletteGroupForm
-      name={name}
       palettes={palettes}
       suggestions={suggestions}
       onSave={handleSave}
-      onNameChange={handleNameChange}
       onPaletteNameChange={handlePaletteNameChange}
       onAddPalette={handleAddPalette}
       onDeletePalette={handleDeletePalette}
