@@ -28,19 +28,6 @@ function PaletteGroupEditor() {
       setPalettes(newPalettes);
    }
 
-   function handleAddPalette() {
-      updatePalettes((newPalettes) => {
-         const newPalette = { name: '', paints: [] };
-         newPalettes.push(newPalette);
-      });
-   }
-
-   function handleDeletePalette(index) {
-      updatePalettes((newPalettes) => {
-         newPalettes.splice(index, 1);
-      });
-   }
-
    function handleAddColor(i) {
       updatePalettes((newPalettes) => {
          newPalettes[i].paints.push({ name: '' });
@@ -70,8 +57,6 @@ function PaletteGroupEditor() {
       suggestions={suggestions}
       onSave={handleSave}
       onPaletteNameChange={handlePaletteNameChange}
-      onAddPalette={handleAddPalette}
-      onDeletePalette={handleDeletePalette}
       onAddColor={handleAddColor}
       onDeleteColor={handleColorDeleteAt}
       onChangeColor={handleColorChangeAt}/>;
