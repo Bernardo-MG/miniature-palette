@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 
 import PropTypes from 'prop-types';
+import * as Yup from 'yup';
+
+import { Formik, Form } from 'formik';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -18,6 +21,13 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import SuggestionInput from 'common/components/SuggestionInput';
+
+const PaletteSchema = Yup.object().shape({
+   name: Yup.string()
+      .min(0, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required')
+});
 
 function PaintInput({ onChange, suggestions, value }) {
    return <SuggestionInput
@@ -61,34 +71,46 @@ PaletteEditorList.propTypes = {
    onColorDelete: PropTypes.func.isRequired
 };
 
-function PaletteEditor({ palette, name, onChange, suggestions, onAdd, onDelete, onAddColor, onColorChange, onColorDelete }) {
-   return <Card>
-      <CardHeader
-         title={
-            <TextField name="name" label="palette_name" value={name} onChange={onChange} />
-         }
-         action={
-            <Fragment>
-               <IconButton aria-label="add" onClick={onAdd}>
-                  <AddBoxIcon />
-               </IconButton>
-               <IconButton aria-label="delete" onClick={onDelete}>
-                  <DeleteIcon />
-               </IconButton>
-            </Fragment>
-         }
-      />
-      <CardContent>
-         <PaletteEditorList palette={palette} suggestions={suggestions}
-            onColorChange={onColorChange}
-            onColorDelete={onColorDelete} />
-      </CardContent>
-      <CardActions>
-         <IconButton aria-label="add" onClick={onAddColor}>
-            <AddCircleIcon />
-         </IconButton>
-      </CardActions>
-   </Card>;
+function PaletteEditor({ palette, suggestions, onSave, onAdd, onDelete, onAddColor, onColorChange, onColorDelete }) {
+   return <Formik
+      onSubmit={onSave}
+      initialValues={{
+         name: '',
+         palettes: []
+      }}
+      validationSchema={PaletteSchema}>
+      {({ values, handleChange }) => (
+         <Form>
+            <Card>
+               <CardHeader
+                  title={
+                     <TextField name="name" label="palette_name" value={values.name} onChange={handleChange} />
+                  }
+                  action={
+                     <Fragment>
+                        <IconButton aria-label="add" onClick={onAdd}>
+                           <AddBoxIcon />
+                        </IconButton>
+                        <IconButton aria-label="delete" onClick={onDelete}>
+                           <DeleteIcon />
+                        </IconButton>
+                     </Fragment>
+                  }
+               />
+               <CardContent>
+                  <PaletteEditorList palette={palette} suggestions={suggestions}
+                     onColorChange={onColorChange}
+                     onColorDelete={onColorDelete} />
+               </CardContent>
+               <CardActions>
+                  <IconButton aria-label="add" onClick={onAddColor}>
+                     <AddCircleIcon />
+                  </IconButton>
+               </CardActions>
+            </Card>
+         </Form>
+      )}
+   </Formik>;
 }
 
 PaletteEditor.propTypes = {
@@ -96,8 +118,7 @@ PaletteEditor.propTypes = {
       name: PropTypes.string.isRequired,
       paints: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired })).isRequired
    }).isRequired,
-   name: PropTypes.string.isRequired,
-   onChange: PropTypes.func.isRequired,
+   onSave: PropTypes.func.isRequired,
    suggestions: PropTypes.array.isRequired,
    onAdd: PropTypes.func.isRequired,
    onDelete: PropTypes.func.isRequired,

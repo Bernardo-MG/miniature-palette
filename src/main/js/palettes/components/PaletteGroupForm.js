@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
-import { Formik, Form, FieldArray } from 'formik';
+import { Formik, Form } from 'formik';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -39,6 +39,9 @@ function SaveButton() {
 SaveButton.propTypes = {};
 
 function PaletteGroupForm({ suggestions, onSave, onAddColor, onDeleteColor, onChangeColor }) {
+
+   const [palettes, setPalettes] = useState([]);
+
    return <Fragment>
       <Formik
          onSubmit={onSave}
@@ -62,44 +65,28 @@ function PaletteGroupForm({ suggestions, onSave, onAddColor, onDeleteColor, onCh
          )}
       </Formik>
       { /* List of palettes */ }
-      <Formik
-         onSubmit={onSave}
-         initialValues={{
-            palettes: []
-         }}
-         validationSchema={PaletteSchema}>
-         {({ values, handleChange }) => (
-            <Form>
-               <Grid container spacing={3}>
-                  <FieldArray
-                     name="palettes"
-                     render={(arrayHelpers) => (
-                        (values.palettes.length > 0) ? (
-                           values.palettes.map((palette, paletteIndex) => {
-                              return <Grid item xs={8} key={paletteIndex}>
-                                 <PaletteEditor
-                                    palette={palette}
-                                    name={palette.name}
-                                    onChange={handleChange}
-                                    suggestions={suggestions}
-                                    onAdd={() => arrayHelpers.push({ name: '', paints: [] })}
-                                    onDelete={() => arrayHelpers.remove(paletteIndex)}
-                                    onAddColor={() => onAddColor(paletteIndex)}
-                                    onColorChange={(index, value) => onChangeColor(paletteIndex, index, value)}
-                                    onColorDelete={(index) => onDeleteColor(paletteIndex, index)} />
-                              </Grid>;
-                           })
-                        ) : (
-                           <Grid item xs={6}>
-                              <AddButton onClick={() => arrayHelpers.push({ name: '', paints: [] })} />
-                           </Grid>
-                        )
-                     )}
-                  />
-               </Grid>
-            </Form>
-         )}
-      </Formik>
+      <Grid container spacing={3}>
+         {(palettes.length > 0) ? (
+            palettes.map((palette, paletteIndex) => {
+               return <Grid item xs={8} key={paletteIndex}>
+                  <PaletteEditor
+                     palette={palette}
+                     name={palette.name}
+                     suggestions={suggestions}
+                     onAdd={() => setPalettes([...palettes, { name: '', paints: [] }])}
+                     onDelete={() => setPalettes([palettes.slice(0, paletteIndex).concat(palettes.slice(paletteIndex + 1, palettes.length))])}
+                     onAddColor={() => onAddColor(paletteIndex)}
+                     onColorChange={(index, value) => onChangeColor(paletteIndex, index, value)}
+                     onColorDelete={(index) => onDeleteColor(paletteIndex, index)} />
+               </Grid>;
+            })
+         ) : (
+            <Grid item xs={6}>
+               <AddButton onClick={() => setPalettes([...palettes, { name: '', paints: [] }])} />
+            </Grid>
+         )
+         }
+      </Grid>
    </Fragment>;
 }
 
