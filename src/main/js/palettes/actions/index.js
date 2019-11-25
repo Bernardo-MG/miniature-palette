@@ -33,3 +33,17 @@ export const saveSuccess = (payload) => {
       payload
    };
 };
+
+export const registerPaletteGroup = (payload) => {
+   return {
+      type: types.REGISTER_PALETTE_GROUP,
+      payload
+   };
+};
+
+export const registerPaletteGroupSuccess = (payload) => {
+   return {
+      type: types.REGISTER_PALETTE_GROUP_SUCCESS,
+      payload
+   };
+};

@@ -47,6 +47,8 @@ export function* notifySaved() {
 export const paletteSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.READ_PALETTES_SUCCESS, storePalettes),
+   takeLatest(types.REGISTER_PALETTE_GROUP, save),
+   takeLatest(types.REGISTER_PALETTE_GROUP_SUCCESS, notifySaved),
    takeLatest(types.SAVE_PALETTES, save),
    takeLatest(types.SAVE_PALETTES_SUCCESS, notifySaved)
 ];
