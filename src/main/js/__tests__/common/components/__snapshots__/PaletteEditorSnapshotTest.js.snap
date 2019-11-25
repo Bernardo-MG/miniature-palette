@@ -17,8 +17,8 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
           className="MuiFormControl-root MuiTextField-root"
         >
           <label
-            className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
-            data-shrink={true}
+            className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+            data-shrink={false}
           >
             palette_name
           </label>
@@ -30,13 +30,13 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
               aria-invalid={false}
               className="MuiInputBase-input MuiInput-input"
               disabled={false}
+              name="name"
               onAnimationStart={[Function]}
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               required={false}
               type="text"
-              value="palette"
             />
           </div>
         </div>

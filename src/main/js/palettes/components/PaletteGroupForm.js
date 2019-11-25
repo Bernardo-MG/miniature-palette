@@ -38,7 +38,7 @@ function SaveButton() {
 
 SaveButton.propTypes = {};
 
-function PaletteGroupForm({ suggestions, onSave, onPaletteNameChange, onAddColor, onDeleteColor, onChangeColor }) {
+function PaletteGroupForm({ suggestions, onSave, onAddColor, onDeleteColor, onChangeColor }) {
    return <Formik
       onSubmit={onSave}
       initialValues={{
@@ -68,8 +68,9 @@ function PaletteGroupForm({ suggestions, onSave, onPaletteNameChange, onAddColor
                            return <Grid item xs={8} key={paletteIndex}>
                               <PaletteEditor
                                  palette={palette}
+                                 name={palette.name}
+                                 onChange={handleChange}
                                  suggestions={suggestions}
-                                 onNameChange={(value) => onPaletteNameChange(paletteIndex, value)}
                                  onAdd={() => arrayHelpers.push({ name: '', paints: [] })}
                                  onDelete={() => arrayHelpers.remove(paletteIndex)}
                                  onAddColor={() => onAddColor(paletteIndex)}
@@ -93,7 +94,6 @@ function PaletteGroupForm({ suggestions, onSave, onPaletteNameChange, onAddColor
 PaletteGroupForm.propTypes = {
    suggestions: PropTypes.array.isRequired,
    onSave: PropTypes.func.isRequired,
-   onPaletteNameChange: PropTypes.func.isRequired,
    onAddColor: PropTypes.func.isRequired,
    onDeleteColor: PropTypes.func.isRequired,
    onChangeColor: PropTypes.func.isRequired

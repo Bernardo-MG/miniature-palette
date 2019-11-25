@@ -61,11 +61,11 @@ PaletteEditorList.propTypes = {
    onColorDelete: PropTypes.func.isRequired
 };
 
-function PaletteEditor({ palette, suggestions, onNameChange, onAdd, onDelete, onAddColor, onColorChange, onColorDelete }) {
+function PaletteEditor({ palette, name, onChange, suggestions, onAdd, onDelete, onAddColor, onColorChange, onColorDelete }) {
    return <Card>
       <CardHeader
          title={
-            <TextField value={palette.name} label="palette_name" onChange={(event) => onNameChange(event.target.value)} />
+            <TextField name="name" label="palette_name" value={name} onChange={onChange} />
          }
          action={
             <Fragment>
@@ -96,10 +96,11 @@ PaletteEditor.propTypes = {
       name: PropTypes.string.isRequired,
       paints: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired })).isRequired
    }).isRequired,
+   name: PropTypes.string.isRequired,
+   onChange: PropTypes.func.isRequired,
    suggestions: PropTypes.array.isRequired,
    onAdd: PropTypes.func.isRequired,
    onDelete: PropTypes.func.isRequired,
-   onNameChange: PropTypes.func.isRequired,
    onAddColor: PropTypes.func.isRequired,
    onColorChange: PropTypes.func.isRequired,
    onColorDelete: PropTypes.func.isRequired

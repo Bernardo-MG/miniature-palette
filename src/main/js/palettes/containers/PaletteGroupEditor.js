@@ -44,19 +44,10 @@ function PaletteGroupEditor() {
       });
    }
 
-   function handlePaletteNameChange(i, value) {
-      const newPalettes = JSON.parse(JSON.stringify(palettes));
-
-      newPalettes[i].name = value;
-
-      setPalettes(newPalettes);
-   }
-
    return <PaletteGroupForm
       palettes={palettes}
       suggestions={suggestions}
       onSave={handleSave}
-      onPaletteNameChange={handlePaletteNameChange}
       onAddColor={handleAddColor}
       onDeleteColor={handleColorDeleteAt}
       onChangeColor={handleColorChangeAt}/>;
