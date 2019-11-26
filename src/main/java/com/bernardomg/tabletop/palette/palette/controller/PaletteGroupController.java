@@ -21,6 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +38,8 @@ import com.bernardomg.tabletop.palette.response.Response;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RestController
-@RequestMapping("/rest/palette")
-public class PaletteController {
+@RequestMapping("/rest/palette/group")
+public class PaletteGroupController {
 
     /**
      * Palette service.
@@ -52,10 +53,19 @@ public class PaletteController {
      *            example entity service
      */
     @Autowired
-    public PaletteController(final PaletteService service) {
+    public PaletteGroupController(final PaletteService service) {
         super();
 
         paletteService = checkNotNull(service, "The service is required");
+    }
+
+    @GetMapping
+    public Response<Iterable<PaletteGroupOption>> read() {
+        final Iterable<PaletteGroupOption> read;
+
+        read = paletteService.getAll();
+
+        return new DefaultResponse<>(read);
     }
 
     @PostMapping

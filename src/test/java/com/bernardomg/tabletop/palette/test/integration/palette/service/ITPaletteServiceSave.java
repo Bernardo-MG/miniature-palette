@@ -81,7 +81,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup = new PaletteGroupOption();
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(0, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
@@ -95,7 +95,7 @@ public class ITPaletteServiceSave {
         paletteGroup = new PaletteGroupOption();
         paletteGroup.setName("");
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(0, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
@@ -109,7 +109,7 @@ public class ITPaletteServiceSave {
         paletteGroup = new PaletteGroupOption();
         paletteGroup.setName("group");
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
@@ -124,7 +124,7 @@ public class ITPaletteServiceSave {
         paletteGroup = new PaletteGroupOption();
         paletteGroup.setName("group");
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         group = paletteGroupRepository.findAll().iterator().next();
 
@@ -148,7 +148,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup.setPalettes(palettes);
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
@@ -181,7 +181,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup.setPalettes(palettes);
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
@@ -214,7 +214,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup.setPalettes(palettes);
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(0, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
@@ -247,7 +247,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup.setPalettes(palettes);
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
@@ -280,7 +280,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup.setPalettes(palettes);
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
@@ -294,8 +294,8 @@ public class ITPaletteServiceSave {
         paletteGroup = new PaletteGroupOption();
         paletteGroup.setName("group");
 
-        service.save(paletteGroup);
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(2, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
@@ -333,7 +333,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup.setPalettes(palettes);
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
@@ -362,7 +362,7 @@ public class ITPaletteServiceSave {
 
         paletteGroup.setPalettes(palettes);
 
-        service.save(paletteGroup);
+        service.saveGroup(paletteGroup);
 
         Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(2, paletteRepository.count());

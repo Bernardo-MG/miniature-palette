@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { useSuggestions } from 'suggestions';
 
-import { savePalettes } from 'palettes/actions';
+import { savePalette } from 'palettes/actions';
 
 import PaletteGroupForm from 'palettes/components/PaletteGroupForm';
 
@@ -17,7 +17,7 @@ function PaletteGroupEditor() {
    const dispatch = useDispatch();
 
    function handleSave(form) {
-      dispatch(savePalettes({ name: form.name, palettes }));
+      dispatch(savePalette({ name: form.name, palettes }));
    }
 
    function updatePalettes(func) {

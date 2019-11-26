@@ -93,9 +93,8 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final void save(final PaletteGroupOption paletteGroup) {
+    public final void saveGroup(final PaletteGroupOption paletteGroup) {
         final PaletteGroup group;
-        final PaletteGroup saved;
 
         checkNotNull(paletteGroup, "No palettes received");
 
@@ -103,15 +102,31 @@ public final class DefaultPaletteService implements PaletteService {
             group = new PaletteGroup();
             group.setName(paletteGroup.getName());
 
-            saved = paletteGroupRepository.save(group);
-
-            StreamSupport
-                    .stream(paletteGroup.getPalettes().spliterator(), false)
-                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                    .forEach((p) -> save(p, saved.getId()));
+            paletteGroupRepository.save(group);
         } else {
             LOGGER.debug("Empty name. The Palette group is not saved");
         }
+    }
+
+    @Override
+    public final void savePalette(final PaletteOption palette) {
+        final Palette entity;
+        final Palette saved;
+        final Collection<Paint> paintEntities;
+
+        entity = toEntity(palette);
+
+        saved = paletteRepository.save(entity);
+
+        // Paints are mapped to entities
+        paintEntities = StreamSupport
+                .stream(palette.getPaints().spliterator(), false)
+                .filter((p) -> StringUtils.isNotBlank(p.getName()))
+                .map(this::toEntity).collect(Collectors.toList());
+        // The palette id is set
+        paintEntities.stream().forEach((p) -> p.setPaletteId(saved.getId()));
+
+        paintRepository.saveAll(paintEntities);
     }
 
     private final Map<Integer, List<PaintOption>>
@@ -146,28 +161,6 @@ public final class DefaultPaletteService implements PaletteService {
                 e -> toPaletteOptions(e.getValue(), palettePaintOptions)));
     }
 
-    private final void save(final PaletteOption palette,
-            final Integer groupId) {
-        final Palette entity;
-        final Palette saved;
-        final Collection<Paint> paintEntities;
-
-        entity = toEntity(palette);
-        entity.setGroupId(groupId);
-
-        saved = paletteRepository.save(entity);
-
-        // Paints are mapped to entities
-        paintEntities = StreamSupport
-                .stream(palette.getPaints().spliterator(), false)
-                .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                .map(this::toEntity).collect(Collectors.toList());
-        // The palette id is set
-        paintEntities.stream().forEach((p) -> p.setPaletteId(saved.getId()));
-
-        paintRepository.saveAll(paintEntities);
-    }
-
     private final Paint toEntity(final PaintOption paint) {
         final Paint entity;
 
@@ -182,6 +175,7 @@ public final class DefaultPaletteService implements PaletteService {
 
         entity = new Palette();
         entity.setName(palette.getName());
+        entity.setGroupId(palette.getGroupId());
 
         return entity;
     }

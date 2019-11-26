@@ -31,7 +31,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.palette.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.palette.palette.controller.PaletteController;
+import com.bernardomg.tabletop.palette.palette.controller.PaletteGroupController;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.test.config.UrlConfig;
 
@@ -109,12 +109,12 @@ public final class TestValidationException {
      * 
      * @return a mocked controller
      */
-    private final PaletteController getController() {
+    private final PaletteGroupController getController() {
         final PaletteService service; // Mocked service
 
         service = Mockito.mock(PaletteService.class);
 
-        return new PaletteController(service);
+        return new PaletteGroupController(service);
     }
 
 }

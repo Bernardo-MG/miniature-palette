@@ -20,16 +20,16 @@ export const readSuccess = (payload) => {
    };
 };
 
-export const savePalettes = (payload) => {
+export const savePalette = (payload) => {
    return {
-      type: types.SAVE_PALETTES,
+      type: types.SAVE_PALETTE,
       payload
    };
 };
 
-export const saveSuccess = (payload) => {
+export const savePaletteSuccess = (payload) => {
    return {
-      type: types.SAVE_PALETTES_SUCCESS,
+      type: types.SAVE_PALETTE_SUCCESS,
       payload
    };
 };

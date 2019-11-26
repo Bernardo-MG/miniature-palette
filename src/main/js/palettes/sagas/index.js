@@ -5,14 +5,14 @@ import { palette } from 'palettes/schema';
 
 import * as types from 'palettes/actions/types';
 
-import { readSuccess, setPalettes, saveSuccess } from 'palettes/actions';
+import { readSuccess, setPalettes, savePaletteSuccess } from 'palettes/actions';
 import { notifySuccess } from 'notifications/actions';
 import { requestFailure } from 'requests/actions';
 
 export function* read() {
    let response;
    try {
-      response = yield call(api.Palettes.all);
+      response = yield call(api.PaletteGroups.all);
       yield put(readSuccess(response));
    } catch (err) {
       yield put(requestFailure(err));
@@ -29,9 +29,9 @@ export function* storePalettes(action) {
 export function* save(action) {
    let response;
    try {
-      response = yield call(api.Palettes.save, action.payload);
+      response = yield call(api.PaletteGroups.save, action.payload);
       if (response.status === 'success') {
-         yield put(saveSuccess(response));
+         yield put(savePaletteSuccess(response));
       } else {
          yield put(requestFailure(response));
       }
@@ -49,6 +49,6 @@ export const paletteSagas = [
    takeLatest(types.READ_PALETTES_SUCCESS, storePalettes),
    takeLatest(types.REGISTER_PALETTE_GROUP, save),
    takeLatest(types.REGISTER_PALETTE_GROUP_SUCCESS, notifySaved),
-   takeLatest(types.SAVE_PALETTES, save),
-   takeLatest(types.SAVE_PALETTES_SUCCESS, notifySaved)
+   takeLatest(types.SAVE_PALETTE, save),
+   takeLatest(types.SAVE_PALETTE_SUCCESS, notifySaved)
 ];
