@@ -28,8 +28,8 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaletteRepository extends JpaRepository<Palette, Integer> {
+public interface PaletteRepository extends JpaRepository<Palette, Long> {
 
-    public List<Palette> findAllByGroupIdIn(final Collection<Integer> ids);
+    public List<Palette> findAllByGroupIdIn(final Collection<Long> ids);
 
 }

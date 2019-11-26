@@ -1,11 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 
-import PaletteGroupEditor from 'palettes/containers/PaletteGroupEditor';
+import PaletteGroupRegistration from 'palettes/containers/PaletteGroupRegistration';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -13,17 +12,15 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-function PaletteEditorView() {
-
-   const { id } = useParams();
+function PaletteRegistrationView() {
 
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <PaletteGroupEditor id={id} />
+      <PaletteGroupRegistration />
    </Box>;
 }
 
-PaletteEditorView.propTypes = {};
+PaletteRegistrationView.propTypes = {};
 
-export default PaletteEditorView;
+export default PaletteRegistrationView;

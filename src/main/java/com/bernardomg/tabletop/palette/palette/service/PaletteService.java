@@ -28,6 +28,8 @@ public interface PaletteService {
 
     public Iterable<PaletteGroupOption> getAll();
 
+    public PaletteGroupOption getById(final Long id);
+
     public void saveGroup(final PaletteGroupOption paletteGroup);
 
     public void savePalette(final PaletteOption palette);

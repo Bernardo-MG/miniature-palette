@@ -28,7 +28,7 @@ import com.google.common.base.MoreObjects;
 public class PaletteOption {
 
     @NotNull
-    private Integer               groupId;
+    private Long                  groupId;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -59,7 +59,7 @@ public class PaletteOption {
         return Objects.equals(name, other.name);
     }
 
-    public Integer getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
@@ -76,7 +76,7 @@ public class PaletteOption {
         return Objects.hash(name);
     }
 
-    public void setGroupId(final Integer groupId) {
+    public void setGroupId(final Long groupId) {
         this.groupId = groupId;
     }
 

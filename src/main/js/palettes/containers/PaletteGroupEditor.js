@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import { useDispatch } from 'react-redux';
 
 import { useSuggestions } from 'suggestions';
@@ -8,7 +10,11 @@ import { savePalette } from 'palettes/actions';
 
 import PaletteGroupForm from 'palettes/components/PaletteGroupForm';
 
-function PaletteGroupEditor() {
+import api from 'api';
+
+function PaletteGroupEditor({ id }) {
+
+   const palette = api.PaletteGroups.byId(id);
 
    const suggestions = useSuggestions();
 
@@ -45,6 +51,7 @@ function PaletteGroupEditor() {
    }
 
    return <PaletteGroupForm
+      palette={palette}
       palettes={palettes}
       suggestions={suggestions}
       onSave={handleSave}
@@ -53,6 +60,8 @@ function PaletteGroupEditor() {
       onChangeColor={handleColorChangeAt}/>;
 }
 
-PaletteGroupEditor.propTypes = {};
+PaletteGroupEditor.propTypes = {
+   id: PropTypes.number.isRequired
+};
 
 export default PaletteGroupEditor;

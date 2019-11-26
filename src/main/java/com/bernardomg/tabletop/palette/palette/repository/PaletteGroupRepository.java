@@ -26,6 +26,6 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public interface PaletteGroupRepository
-        extends JpaRepository<PaletteGroup, Integer> {
+        extends JpaRepository<PaletteGroup, Long> {
 
 }

@@ -28,8 +28,8 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaintRepository extends JpaRepository<Paint, Integer> {
+public interface PaintRepository extends JpaRepository<Paint, Long> {
 
-    public List<Paint> findAllByPaletteIdIn(final Collection<Integer> ids);
+    public List<Paint> findAllByPaletteIdIn(final Collection<Long> ids);
 
 }

@@ -49,7 +49,7 @@ public class Palette implements Serializable {
     private static final long serialVersionUID = -9102550009091675104L;
 
     @Column(name = "group_id", nullable = false)
-    private Integer           groupId;
+    private Long              groupId;
 
     /**
      * Entity's ID.
@@ -57,7 +57,7 @@ public class Palette implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Integer           id               = -1;
+    private Long              id               = -1l;
 
     /**
      * Name of the entity.
@@ -93,7 +93,7 @@ public class Palette implements Serializable {
         return Objects.equals(id, other.id);
     }
 
-    public Integer getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
@@ -105,7 +105,7 @@ public class Palette implements Serializable {
      *
      * @return the entity's identifier
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -118,11 +118,11 @@ public class Palette implements Serializable {
         return Objects.hash(id);
     }
 
-    public void setGroupId(final Integer groupId) {
+    public void setGroupId(final Long groupId) {
         this.groupId = groupId;
     }
 
-    public void setId(final Integer value) {
+    public void setId(final Long value) {
         id = checkNotNull(value, "Received a null pointer as identifier");
     }
 

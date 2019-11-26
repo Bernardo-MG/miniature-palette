@@ -22,6 +22,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,13 +69,23 @@ public class PaletteGroupController {
         return new DefaultResponse<>(read);
     }
 
+    @GetMapping(path = "/{id}")
+    public Response<PaletteGroupOption>
+            readById(@PathVariable("id") final Long id) {
+        final PaletteGroupOption read;
+
+        read = paletteService.getById(id);
+
+        return new DefaultResponse<>(read);
+    }
+
     @PostMapping
     public Response<PaletteGroupOption>
             save(@RequestBody @Valid final PaletteGroupOption paletteGroup) {
         paletteService.saveGroup(paletteGroup);
 
         // TODO: Return the new data
-        return new DefaultResponse<PaletteGroupOption>();
+        return new DefaultResponse<>();
     }
 
 }
