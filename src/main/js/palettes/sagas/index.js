@@ -29,7 +29,7 @@ export function* storePalettes(action) {
 export function* save(action) {
    let response;
    try {
-      response = yield call(api.PaletteGroups.save, action.payload);
+      response = yield call(api.Palettes.save, action.payload);
       if (response.status === 'success') {
          yield put(savePaletteSuccess(response));
       } else {

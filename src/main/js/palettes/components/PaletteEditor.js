@@ -19,6 +19,7 @@ import TextField from '@material-ui/core/TextField';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
 
 import SuggestionInput from 'common/components/SuggestionInput';
 
@@ -88,6 +89,9 @@ function PaletteEditor({ palette, suggestions, onSave, onAdd, onDelete, onAddCol
                   }
                   action={
                      <Fragment>
+                        <IconButton aria-label="save" onClick={onSave}>
+                           <SaveIcon />
+                        </IconButton>
                         <IconButton aria-label="add" onClick={onAdd}>
                            <AddBoxIcon />
                         </IconButton>

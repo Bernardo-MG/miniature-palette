@@ -47,7 +47,12 @@ const PaletteGroups = {
    save: (palette) => requests.post('/rest/palette/group', palette)
 };
 
+const Palettes = {
+   save: (palette) => requests.post('/rest/palette', palette)
+};
+
 export default {
    Palettes,
+   PaletteGroups,
    Products
 };

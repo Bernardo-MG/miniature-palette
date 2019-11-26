@@ -73,6 +73,7 @@ function PaletteGroupForm({ suggestions, onSave, onAddColor, onDeleteColor, onCh
                      palette={palette}
                      name={palette.name}
                      suggestions={suggestions}
+                     onSave={onSave}
                      onAdd={() => setPalettes([...palettes, { name: '', paints: [] }])}
                      onDelete={() => setPalettes([palettes.slice(0, paletteIndex).concat(palettes.slice(paletteIndex + 1, palettes.length))])}
                      onAddColor={() => onAddColor(paletteIndex)}
