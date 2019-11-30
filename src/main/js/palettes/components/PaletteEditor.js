@@ -28,18 +28,17 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
-function PaintInput({ onChange, suggestions, value }) {
+function PaintInput({ suggestions, value }) {
    return <SuggestionInput
       suggestions={suggestions}
       label={'paint'}
       placeholder={'write_paint'}
-      onChange={onChange}
+      // onChange={onChange}
       initial={value}
    />;
 }
 
 PaintInput.propTypes = {
-   onChange: PropTypes.func.isRequired,
    suggestions: PropTypes.array.isRequired,
    value: PropTypes.string.isRequired
 };
@@ -52,16 +51,17 @@ function PaletteEditor({ suggestions, onSave }) {
          paints: []
       }}
       validationSchema={PaletteSchema}>
-      {({ values, handleChange }) => (
+      {({ values, errors, touched, handleChange, handleBlur }) => (
          <Form>
             <Card>
                <CardHeader
                   title={
-                     <TextField name="name" label="palette_name" value={values.name} onChange={handleChange} />
+                     <TextField name="name" label="palette_name" value={values.name} onChange={handleChange} onBlur={handleBlur}
+                        helperText={(errors.name && touched.name) && errors.name} />
                   }
                   action={
                      <Fragment>
-                        <IconButton aria-label="save" onClick={onSave}>
+                        <IconButton aria-label="save" type="submit">
                            <SaveIcon />
                         </IconButton>
                      </Fragment>

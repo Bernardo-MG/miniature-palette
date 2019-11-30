@@ -67,7 +67,7 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
           onTouchMove={[Function]}
           onTouchStart={[Function]}
           tabIndex={0}
-          type="button"
+          type="submit"
         >
           <span
             className="MuiIconButton-label"
