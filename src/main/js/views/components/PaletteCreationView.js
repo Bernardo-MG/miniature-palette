@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 
-import PaletteGroupRegistration from 'palettes/containers/PaletteGroupRegistration';
+import PaletteForm from 'palettes/containers/PaletteForm';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-function PaletteRegistrationView() {
+function PaletteCreationView() {
 
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <PaletteGroupRegistration />
+      <PaletteForm />
    </Box>;
 }
 
-PaletteRegistrationView.propTypes = {};
+PaletteCreationView.propTypes = {};
 
-export default PaletteRegistrationView;
+export default PaletteCreationView;

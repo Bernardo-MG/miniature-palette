@@ -16,7 +16,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
-import AddBoxIcon from '@material-ui/icons/AddBox';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
@@ -72,7 +71,7 @@ PaletteEditorList.propTypes = {
    onColorDelete: PropTypes.func.isRequired
 };
 
-function PaletteEditor({ palette, suggestions, onSave, onAdd, onDelete, onAddColor, onColorChange, onColorDelete }) {
+function PaletteEditor({ palette, suggestions, onSave, onAddColor, onColorChange, onColorDelete }) {
    return <Formik
       onSubmit={onSave}
       initialValues={{
@@ -91,12 +90,6 @@ function PaletteEditor({ palette, suggestions, onSave, onAdd, onDelete, onAddCol
                      <Fragment>
                         <IconButton aria-label="save" onClick={onSave}>
                            <SaveIcon />
-                        </IconButton>
-                        <IconButton aria-label="add" onClick={onAdd}>
-                           <AddBoxIcon />
-                        </IconButton>
-                        <IconButton aria-label="delete" onClick={onDelete}>
-                           <DeleteIcon />
                         </IconButton>
                      </Fragment>
                   }
