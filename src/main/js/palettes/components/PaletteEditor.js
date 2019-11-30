@@ -3,10 +3,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
-import { Formik, Form } from 'formik';
+import { Formik, Form, FieldArray } from 'formik';
 
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
@@ -45,38 +44,12 @@ PaintInput.propTypes = {
    value: PropTypes.string.isRequired
 };
 
-function PaletteEditorList({ palette, suggestions, onColorChange, onColorDelete }) {
-   return <List>
-      {palette.paints.map((color, index) =>
-         <ListItem key={color.name + index}>
-            <ListItemText>
-               <PaintInput onChange={(value) => onColorChange(index, value)} suggestions={suggestions} value={color.name} />
-            </ListItemText>
-            <ListItemSecondaryAction>
-               <IconButton edge="end" aria-label="delete" onClick={() => onColorDelete(index)}>
-                  <DeleteIcon />
-               </IconButton>
-            </ListItemSecondaryAction>
-         </ListItem>
-      )}
-   </List>;
-}
-
-PaletteEditorList.propTypes = {
-   palette: PropTypes.shape({
-      paints: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired })).isRequired
-   }).isRequired,
-   suggestions: PropTypes.array.isRequired,
-   onColorChange: PropTypes.func.isRequired,
-   onColorDelete: PropTypes.func.isRequired
-};
-
-function PaletteEditor({ palette, suggestions, onSave, onAddColor, onColorChange, onColorDelete }) {
+function PaletteEditor({ suggestions, onSave }) {
    return <Formik
       onSubmit={onSave}
       initialValues={{
          name: '',
-         palettes: []
+         paints: []
       }}
       validationSchema={PaletteSchema}>
       {({ values, handleChange }) => (
@@ -95,15 +68,31 @@ function PaletteEditor({ palette, suggestions, onSave, onAddColor, onColorChange
                   }
                />
                <CardContent>
-                  <PaletteEditorList palette={palette} suggestions={suggestions}
-                     onColorChange={onColorChange}
-                     onColorDelete={onColorDelete} />
+                  <FieldArray
+                     name="paints"
+                     render={(arrayHelpers) => (
+                        <Fragment>
+                           <List>
+                              {values.paints.map((color, index) =>
+                                 <ListItem key={color.name + index}>
+                                    <ListItemText>
+                                       <PaintInput suggestions={suggestions} value={color.name} />
+                                    </ListItemText>
+                                    <ListItemSecondaryAction>
+                                       <IconButton edge="end" aria-label="delete" onClick={() => arrayHelpers.remove(index)}>
+                                          <DeleteIcon />
+                                       </IconButton>
+                                    </ListItemSecondaryAction>
+                                 </ListItem>
+                              )}
+                           </List>
+                           <IconButton aria-label="add" onClick={() => arrayHelpers.push({})}>
+                              <AddCircleIcon />
+                           </IconButton>
+                        </Fragment>
+                     )}
+                  />
                </CardContent>
-               <CardActions>
-                  <IconButton aria-label="add" onClick={onAddColor}>
-                     <AddCircleIcon />
-                  </IconButton>
-               </CardActions>
             </Card>
          </Form>
       )}
@@ -111,17 +100,10 @@ function PaletteEditor({ palette, suggestions, onSave, onAddColor, onColorChange
 }
 
 PaletteEditor.propTypes = {
-   palette: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      paints: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired })).isRequired
-   }).isRequired,
    onSave: PropTypes.func.isRequired,
    suggestions: PropTypes.array.isRequired,
    onAdd: PropTypes.func.isRequired,
-   onDelete: PropTypes.func.isRequired,
-   onAddColor: PropTypes.func.isRequired,
-   onColorChange: PropTypes.func.isRequired,
-   onColorDelete: PropTypes.func.isRequired
+   onDelete: PropTypes.func.isRequired
 };
 
 export default PaletteEditor;
