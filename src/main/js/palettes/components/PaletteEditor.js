@@ -28,21 +28,6 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
-function PaintInput({ suggestions, value }) {
-   return <SuggestionInput
-      suggestions={suggestions}
-      label={'paint'}
-      placeholder={'write_paint'}
-      // onChange={onChange}
-      initial={value}
-   />;
-}
-
-PaintInput.propTypes = {
-   suggestions: PropTypes.array.isRequired,
-   value: PropTypes.string.isRequired
-};
-
 function PaletteEditor({ suggestions, onSave }) {
    return <Formik
       onSubmit={onSave}
@@ -73,10 +58,13 @@ function PaletteEditor({ suggestions, onSave }) {
                      render={(arrayHelpers) => (
                         <Fragment>
                            <List>
-                              {values.paints.map((color, index) =>
-                                 <ListItem key={color.name + index}>
+                              {values.paints.map((paint, index) =>
+                                 <ListItem key={index}>
                                     <ListItemText>
-                                       <PaintInput suggestions={suggestions} value={color.name} />
+                                       <SuggestionInput name={`paints.${index}`} label={'paint'} placeholder={'write_paint'}
+                                          initial={paint.name} suggestions={suggestions}
+                                          onChange={handleChange} onBlur={handleBlur}
+                                          helperText={(errors.name && touched.name) && errors.name} />
                                     </ListItemText>
                                     <ListItemSecondaryAction>
                                        <IconButton edge="end" aria-label="delete" onClick={() => arrayHelpers.remove(index)}>
@@ -86,7 +74,7 @@ function PaletteEditor({ suggestions, onSave }) {
                                  </ListItem>
                               )}
                            </List>
-                           <IconButton aria-label="add" onClick={() => arrayHelpers.push({})}>
+                           <IconButton aria-label="add" onClick={() => arrayHelpers.push({ name: '' })}>
                               <AddCircleIcon />
                            </IconButton>
                         </Fragment>
@@ -101,9 +89,7 @@ function PaletteEditor({ suggestions, onSave }) {
 
 PaletteEditor.propTypes = {
    onSave: PropTypes.func.isRequired,
-   suggestions: PropTypes.array.isRequired,
-   onAdd: PropTypes.func.isRequired,
-   onDelete: PropTypes.func.isRequired
+   suggestions: PropTypes.array.isRequired
 };
 
 export default PaletteEditor;

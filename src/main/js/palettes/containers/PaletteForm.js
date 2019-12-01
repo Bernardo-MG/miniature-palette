@@ -15,7 +15,7 @@ function PaletteForm() {
    const dispatch = useDispatch();
 
    function handleSave(form) {
-      dispatch(savePalette({ name: form.name, paints: form.paints }));
+      dispatch(savePalette(form));
    }
 
    return <PaletteEditor

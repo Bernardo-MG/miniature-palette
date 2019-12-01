@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function SuggestionInput({ id, label, placeholder, suggestions, onChange, initial }) {
+export default function SuggestionInput({ suggestions, initial, ...props }) {
 
    let initialText;
    if (initial) {
@@ -124,7 +124,6 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
 
    const handleChange = (event, { newValue }) => {
       setText(newValue);
-      onChange(newValue);
    };
 
    const classes = useStyles();
@@ -142,9 +141,7 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
       <Autosuggest
          {...autosuggestProps}
          inputProps={{
-            id,
-            label,
-            placeholder,
+            ...props,
             value: text,
             onChange: handleChange,
             inputRef: (node) => {
@@ -171,10 +168,6 @@ export default function SuggestionInput({ id, label, placeholder, suggestions, o
 }
 
 SuggestionInput.propTypes = {
-   id: PropTypes.string,
-   label: PropTypes.string.isRequired,
-   placeholder: PropTypes.string.isRequired,
    suggestions: PropTypes.array.isRequired,
-   onChange: PropTypes.func.isRequired,
    initial: PropTypes.string.isRequired
 };
