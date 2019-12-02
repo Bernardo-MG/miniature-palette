@@ -15,11 +15,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
-
-import SuggestionInput from 'common/components/SuggestionInput';
 
 const PaletteSchema = Yup.object().shape({
    name: Yup.string()
@@ -61,10 +61,26 @@ function PaletteEditor({ suggestions, onSave }) {
                               {values.paints.map((paint, index) =>
                                  <ListItem key={index}>
                                     <ListItemText>
-                                       <SuggestionInput name={`paints.${index}`} label={'paint'} placeholder={'write_paint'}
-                                          initial={paint.name} suggestions={suggestions}
-                                          onChange={handleChange} onBlur={handleBlur}
-                                          helperText={(errors.name && touched.name) && errors.name} />
+                                       <Autocomplete
+                                          freeSolo
+                                          id={`paints.${index}`}
+                                          disableClearable
+                                          options={suggestions}
+                                          renderInput={(params) => (
+                                             <TextField
+                                                {...params}
+                                                value={paint.name}
+                                                label="paint"
+                                                name={`paints.${index}`}
+                                                placeholder="write_paint"
+                                                margin="normal"
+                                                variant="outlined"
+                                                fullWidth
+                                                onChange={handleChange} onBlur={handleBlur}
+                                                helperText={(errors.name && touched.name) && errors.name}
+                                             />
+                                          )}
+                                       />
                                     </ListItemText>
                                     <ListItemSecondaryAction>
                                        <IconButton edge="end" aria-label="delete" onClick={() => arrayHelpers.remove(index)}>

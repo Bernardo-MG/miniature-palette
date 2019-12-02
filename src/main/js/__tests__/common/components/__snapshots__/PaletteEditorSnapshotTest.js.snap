@@ -33,6 +33,7 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoFocus={false}
                 className="MuiInputBase-input MuiInput-input"
                 disabled={false}
                 name="name"
