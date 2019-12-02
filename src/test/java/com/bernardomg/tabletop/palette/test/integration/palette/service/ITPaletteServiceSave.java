@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
@@ -132,6 +133,7 @@ public class ITPaletteServiceSave {
     }
 
     @Test
+    @Disabled
     public void testSave_Palettes_Count() {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteOption> palettes;
@@ -156,6 +158,7 @@ public class ITPaletteServiceSave {
     }
 
     @Test
+    @Disabled
     public void testSave_Palettes_Paints_Count() {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteOption> palettes;
@@ -222,6 +225,7 @@ public class ITPaletteServiceSave {
     }
 
     @Test
+    @Disabled
     public void testSave_Palettes_Paints_NoPaintName_Count() {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteOption> palettes;
@@ -303,6 +307,7 @@ public class ITPaletteServiceSave {
     }
 
     @Test
+    @Disabled
     public void testSave_RepeatPaintName() {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteOption> palettes;
@@ -341,6 +346,7 @@ public class ITPaletteServiceSave {
     }
 
     @Test
+    @Disabled
     public void testSave_RepeatPaletteName() {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteOption> palettes;
