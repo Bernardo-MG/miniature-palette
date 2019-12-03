@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
-import { Formik, Form, FieldArray } from 'formik';
+import { Field, Formik, Form, FieldArray } from 'formik';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,7 +13,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import TextField from '@material-ui/core/TextField';
+
+import { TextField } from 'formik-material-ui';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
@@ -36,13 +37,16 @@ function PaletteEditor({ suggestions, onSave }) {
          paints: []
       }}
       validationSchema={PaletteSchema}>
-      {({ values, errors, touched, handleChange, handleBlur }) => (
+      {({ values }) => (
          <Form>
             <Card>
                <CardHeader
                   title={
-                     <TextField name="name" label="palette_name" value={values.name} onChange={handleChange} onBlur={handleBlur}
-                        helperText={(errors.name && touched.name) && errors.name} />
+                     <Field
+                        name="name"
+                        label="palette_name"
+                        component={TextField}
+                     />
                   }
                   action={
                      <Fragment>
@@ -67,17 +71,15 @@ function PaletteEditor({ suggestions, onSave }) {
                                           disableClearable
                                           options={suggestions}
                                           renderInput={(params) => (
-                                             <TextField
+                                             <Field
                                                 {...params}
-                                                value={paint.name}
-                                                label="paint"
                                                 name={`paints.${index}`}
+                                                label="paint"
                                                 placeholder="write_paint"
                                                 margin="normal"
                                                 variant="outlined"
                                                 fullWidth
-                                                onChange={handleChange} onBlur={handleBlur}
-                                                helperText={(errors.name && touched.name) && errors.name}
+                                                component={TextField}
                                              />
                                           )}
                                        />
