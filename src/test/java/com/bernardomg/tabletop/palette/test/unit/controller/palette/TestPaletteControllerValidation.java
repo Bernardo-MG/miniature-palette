@@ -17,13 +17,10 @@
 package com.bernardomg.tabletop.palette.test.unit.controller.palette;
 
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
@@ -34,8 +31,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.palette.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.palette.palette.controller.PaletteGroupController;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.controller.PaletteController;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.test.config.UrlConfig;
 
@@ -46,7 +42,6 @@ import com.bernardomg.tabletop.palette.test.config.UrlConfig;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RunWith(JUnitPlatform.class)
-@Disabled
 public final class TestPaletteControllerValidation {
 
     /**
@@ -65,22 +60,6 @@ public final class TestPaletteControllerValidation {
         service = Mockito.mock(PaletteService.class);
     }
 
-    /**
-     * Sets up the mocked MVC context.
-     * <p>
-     * It expects all the responses to have the OK (200) HTTP code.
-     */
-    @BeforeEach
-    public final void setUpMockContext() {
-        final GlobalExceptionHandler exceptionHandler;
-
-        exceptionHandler = new GlobalExceptionHandler();
-        mockMvc = MockMvcBuilders.standaloneSetup(getController())
-                .setCustomArgumentResolvers(
-                        new PageableHandlerMethodArgumentResolver())
-                .setControllerAdvice(exceptionHandler).build();
-    }
-
     @Test
     public final void testSendFormData_EmptyName() throws Exception {
         final RequestBuilder request;
@@ -97,101 +76,20 @@ public final class TestPaletteControllerValidation {
                         Matchers.hasSize(1)));
     }
 
-    @Test
-    public final void testSendFormData_EmptyName_PaletteEmptyName()
-            throws Exception {
-        final RequestBuilder request;
+    /**
+     * Sets up the mocked MVC context.
+     * <p>
+     * It expects all the responses to have the OK (200) HTTP code.
+     */
+    @BeforeEach
+    public final void setUpMockContext() {
+        final GlobalExceptionHandler exceptionHandler;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"\", \"palettes\":[{\"name\":\"\"}]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("warning")))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
-                        Matchers.hasSize(2)));
-    }
-
-    @Test
-    public final void testSendFormData_NoContent() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8);
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("failure")))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
-    }
-
-    @Test
-    public final void testSendFormData_ValidName_EmptyPalettes()
-            throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\", \"palettes\":[]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public final void testSendFormData_ValidName_PaletteEmptyName()
-            throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\", \"palettes\":[{\"name\":\"\"}]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("warning")))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
-                        Matchers.hasSize(1)));
-    }
-
-    @Test
-    public final void testSendFormData_ValidName_SentToService()
-            throws Exception {
-        final RequestBuilder request;
-        final ArgumentCaptor<PaletteGroupOption> captor;
-
-        captor = ArgumentCaptor.forClass(PaletteGroupOption.class);
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\"}");
-
-        mockMvc.perform(request);
-
-        // TODO: Test with the correct controller
-        // Mockito.verify(service,
-        // Mockito.atLeastOnce()).saveGroup(captor.capture());
-
-        Assertions.assertEquals("abcd", captor.getValue().getName());
-    }
-
-    @Test
-    public final void testSendFormData_ValidName_Success() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\"}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        exceptionHandler = new GlobalExceptionHandler();
+        mockMvc = MockMvcBuilders.standaloneSetup(getController())
+                .setCustomArgumentResolvers(
+                        new PageableHandlerMethodArgumentResolver())
+                .setControllerAdvice(exceptionHandler).build();
     }
 
     /**
@@ -199,8 +97,8 @@ public final class TestPaletteControllerValidation {
      * 
      * @return a mocked controller
      */
-    private final PaletteGroupController getController() {
-        return new PaletteGroupController(service);
+    private final PaletteController getController() {
+        return new PaletteController(service);
     }
 
 }

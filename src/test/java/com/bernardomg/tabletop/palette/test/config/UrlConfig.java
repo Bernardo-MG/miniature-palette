@@ -26,12 +26,17 @@ public final class UrlConfig {
     /**
      * Palettes REST URL.
      */
-    public static final String PALETTE = "/rest/palette";
+    public static final String PALETTE       = "/rest/palette";
+
+    /**
+     * Palette groups REST URL.
+     */
+    public static final String PALETTE_GROUP = "/rest/palette/group";
 
     /**
      * Products REST URL.
      */
-    public static final String PRODUCT = "/rest/product";
+    public static final String PRODUCT       = "/rest/product";
 
     /**
      * Default constructor to avoid initialization.
