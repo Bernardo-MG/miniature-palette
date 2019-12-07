@@ -25,10 +25,7 @@ import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteOption {
-
-    @NotNull
-    private Long                  groupId;
+public class PaletteForm {
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -37,7 +34,7 @@ public class PaletteOption {
     @Valid
     private Iterable<PaintOption> paints = new ArrayList<>();
 
-    public PaletteOption() {
+    public PaletteForm() {
         super();
     }
 
@@ -55,12 +52,8 @@ public class PaletteOption {
             return false;
         }
 
-        final PaletteOption other = (PaletteOption) obj;
+        final PaletteForm other = (PaletteForm) obj;
         return Objects.equals(name, other.name);
-    }
-
-    public Long getGroupId() {
-        return groupId;
     }
 
     public String getName() {
@@ -74,10 +67,6 @@ public class PaletteOption {
     @Override
     public final int hashCode() {
         return Objects.hash(name);
-    }
-
-    public void setGroupId(final Long groupId) {
-        this.groupId = groupId;
     }
 
     public void setName(final String name) {

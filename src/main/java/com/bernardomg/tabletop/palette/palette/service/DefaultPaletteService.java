@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
 import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
@@ -73,7 +73,7 @@ public final class DefaultPaletteService implements PaletteService {
         final Collection<PaletteGroup> groups;
         final Collection<Long> groupIds;
         final Collection<Palette> allPalettes;
-        final Map<Long, List<PaletteOption>> groupPaletteOptions;
+        final Map<Long, List<PaletteForm>> groupPaletteOptions;
         final Collection<Long> paletteIds;
         final Collection<Paint> allPaints;
         final Map<Long, List<PaintOption>> palettePaintOptions;
@@ -100,7 +100,7 @@ public final class DefaultPaletteService implements PaletteService {
         final Optional<PaletteGroup> group;
         final Collection<Long> groupIds;
         final Collection<Palette> allPalettes;
-        final Map<Long, List<PaletteOption>> groupPaletteOptions;
+        final Map<Long, List<PaletteForm>> groupPaletteOptions;
         final Collection<Long> paletteIds;
         final Collection<Paint> allPaints;
         final Map<Long, List<PaintOption>> palettePaintOptions;
@@ -146,7 +146,7 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final void savePalette(final PaletteOption palette) {
+    public final void savePalette(final PaletteForm palette) {
         final Palette entity;
         final Palette saved;
         final Collection<Paint> paintEntities;
@@ -178,7 +178,7 @@ public final class DefaultPaletteService implements PaletteService {
 
     private final Collection<PaletteGroupOption> getPaletteGroupOptions(
             final Collection<PaletteGroup> groups,
-            final Map<Long, List<PaletteOption>> groupPaletteOptions) {
+            final Map<Long, List<PaletteForm>> groupPaletteOptions) {
         return groups.stream()
                 .map((g) -> toPaletteGroupOption(g,
                         groupPaletteOptions.getOrDefault(g.getId(),
@@ -186,7 +186,7 @@ public final class DefaultPaletteService implements PaletteService {
                 .collect(Collectors.toList());
     }
 
-    private final Map<Long, List<PaletteOption>> getPaletteOptions(
+    private final Map<Long, List<PaletteForm>> getPaletteOptions(
             final Collection<Palette> allPalettes,
             final Map<Long, List<PaintOption>> palettePaintOptions) {
         final Map<Long, List<Palette>> groupPalettes;
@@ -207,12 +207,12 @@ public final class DefaultPaletteService implements PaletteService {
         return entity;
     }
 
-    private final Palette toEntity(final PaletteOption palette) {
+    private final Palette toEntity(final PaletteForm palette) {
         final Palette entity;
 
         entity = new Palette();
         entity.setName(palette.getName());
-        entity.setGroupId(palette.getGroupId());
+        // entity.setGroupId(palette.getGroupId());
 
         return entity;
     }
@@ -232,8 +232,7 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     private final PaletteGroupOption toPaletteGroupOption(
-            final PaletteGroup group,
-            final Collection<PaletteOption> palettes) {
+            final PaletteGroup group, final Collection<PaletteForm> palettes) {
         final PaletteGroupOption option;
 
         option = new PaletteGroupOption();
@@ -243,18 +242,18 @@ public final class DefaultPaletteService implements PaletteService {
         return option;
     }
 
-    private final PaletteOption toPaletteOption(final Palette palette,
+    private final PaletteForm toPaletteOption(final Palette palette,
             final List<PaintOption> paintOptions) {
-        final PaletteOption option;
+        final PaletteForm option;
 
-        option = new PaletteOption();
+        option = new PaletteForm();
         option.setName(palette.getName());
         option.setPaints(paintOptions);
 
         return option;
     }
 
-    private final List<PaletteOption> toPaletteOptions(
+    private final List<PaletteForm> toPaletteOptions(
             final List<Palette> palettes,
             final Map<Long, List<PaintOption>> palettePaintOptions) {
         return palettes.stream()

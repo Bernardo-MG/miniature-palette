@@ -60,6 +60,22 @@ public final class TestPaletteControllerValidation {
         service = Mockito.mock(PaletteService.class);
     }
 
+    /**
+     * Sets up the mocked MVC context.
+     * <p>
+     * It expects all the responses to have the OK (200) HTTP code.
+     */
+    @BeforeEach
+    public final void setUpMockContext() {
+        final GlobalExceptionHandler exceptionHandler;
+
+        exceptionHandler = new GlobalExceptionHandler();
+        mockMvc = MockMvcBuilders.standaloneSetup(getController())
+                .setCustomArgumentResolvers(
+                        new PageableHandlerMethodArgumentResolver())
+                .setControllerAdvice(exceptionHandler).build();
+    }
+
     @Test
     public final void testSendFormData_EmptyName() throws Exception {
         final RequestBuilder request;
@@ -76,20 +92,50 @@ public final class TestPaletteControllerValidation {
                         Matchers.hasSize(1)));
     }
 
-    /**
-     * Sets up the mocked MVC context.
-     * <p>
-     * It expects all the responses to have the OK (200) HTTP code.
-     */
-    @BeforeEach
-    public final void setUpMockContext() {
-        final GlobalExceptionHandler exceptionHandler;
+    @Test
+    public final void testSendFormData_ValidName_EmptyPaintName()
+            throws Exception {
+        final RequestBuilder request;
 
-        exceptionHandler = new GlobalExceptionHandler();
-        mockMvc = MockMvcBuilders.standaloneSetup(getController())
-                .setCustomArgumentResolvers(
-                        new PageableHandlerMethodArgumentResolver())
-                .setControllerAdvice(exceptionHandler).build();
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.hasSize(1)));
+    }
+
+    @Test
+    public final void testSendFormData_ValidName_EmptyPaints()
+            throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"name\":\"abcd\", \"paints\":[]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testSendFormData_ValidName_ValidPaint() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                        "{\"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     /**

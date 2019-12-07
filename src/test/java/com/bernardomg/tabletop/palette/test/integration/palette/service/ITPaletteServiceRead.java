@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.google.common.collect.Iterables;
 
@@ -77,9 +77,9 @@ public class ITPaletteServiceRead {
     public void testRead_Full_Big() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
-        final Iterator<PaletteOption> palettes;
+        final Iterator<PaletteForm> palettes;
         Iterator<PaintOption> paints;
-        PaletteOption palette;
+        PaletteForm palette;
         PaintOption paint;
 
         read = service.getAll();
@@ -132,7 +132,7 @@ public class ITPaletteServiceRead {
     public void testRead_Full_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
-        final PaletteOption palette;
+        final PaletteForm palette;
         final PaintOption paint;
 
         read = service.getAll();
@@ -156,7 +156,7 @@ public class ITPaletteServiceRead {
     public void testRead_Group_Palette_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
-        final PaletteOption palette;
+        final PaletteForm palette;
 
         read = service.getAll();
 
