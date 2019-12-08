@@ -12,7 +12,7 @@ import { requestFailure } from 'requests/actions';
 export function* read() {
    let response;
    try {
-      response = yield call(api.PaletteGroups.all);
+      response = yield call(api.Palettes.all);
       yield put(readSuccess(response));
    } catch (err) {
       yield put(requestFailure(err));

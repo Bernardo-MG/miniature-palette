@@ -49,6 +49,7 @@ const PaletteGroups = {
 };
 
 const Palettes = {
+   all: () => requests.get('/rest/palette').then((response) => response.content),
    save: (palette) => requests.post('/rest/palette', palette)
 };
 

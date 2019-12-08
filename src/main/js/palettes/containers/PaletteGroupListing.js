@@ -2,10 +2,10 @@ import React from 'react';
 
 import PaletteGroupList from 'palettes/components/PaletteGroupList';
 
-import { usePaletteGroups } from 'palettes';
+import { usePalettes } from 'palettes';
 
 function PaletteGroupListing() {
-   const groups = usePaletteGroups();
+   const groups = usePalettes();
 
    return <PaletteGroupList groups={groups} />;
 }
