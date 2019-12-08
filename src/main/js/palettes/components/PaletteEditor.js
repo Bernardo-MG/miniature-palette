@@ -49,11 +49,9 @@ function PaletteEditor({ suggestions, onSave }) {
                      />
                   }
                   action={
-                     <Fragment>
-                        <IconButton aria-label="save" type="submit">
-                           <SaveIcon />
-                        </IconButton>
-                     </Fragment>
+                     <IconButton aria-label="save" type="submit">
+                        <SaveIcon />
+                     </IconButton>
                   }
                />
                <CardContent>
