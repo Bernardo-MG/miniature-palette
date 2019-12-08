@@ -67,13 +67,13 @@ function PaletteEditor({ suggestions, onSave }) {
                                     <ListItemText>
                                        <Autocomplete
                                           freeSolo
-                                          id={`paints.${index}`}
+                                          id={`paints.${index}.name`}
                                           disableClearable
                                           options={suggestions}
                                           renderInput={(params) => (
                                              <Field
                                                 {...params}
-                                                name={`paints.${index}`}
+                                                name={`paints.${index}.name`}
                                                 label="paint"
                                                 placeholder="write_paint"
                                                 margin="normal"
