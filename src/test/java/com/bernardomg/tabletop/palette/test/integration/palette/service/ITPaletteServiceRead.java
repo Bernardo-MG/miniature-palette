@@ -19,6 +19,7 @@ package com.bernardomg.tabletop.palette.test.integration.palette.service;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
@@ -74,6 +75,7 @@ public class ITPaletteServiceRead {
 
     @Test
     @Sql({ "/db/palette_group_big.sql" })
+    @Disabled
     public void testRead_Full_Big() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
@@ -129,6 +131,7 @@ public class ITPaletteServiceRead {
     @Test
     @Sql({ "/db/palette_group_simple.sql", "/db/palette_simple.sql",
             "/db/paint_simple.sql" })
+    @Disabled
     public void testRead_Full_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
@@ -153,6 +156,7 @@ public class ITPaletteServiceRead {
 
     @Test
     @Sql({ "/db/palette_group_simple.sql", "/db/palette_simple.sql" })
+    @Disabled
     public void testRead_Group_Palette_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;

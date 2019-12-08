@@ -1,10 +1,10 @@
 INSERT INTO palette_groups (id, name) VALUES
    (10, 'Group1');
 
-INSERT INTO palettes (id, group_id, name) VALUES
-   (10, 10, 'Palette1'),
-   (11, 10, 'Palette2'),
-   (12, 10, 'Palette3');
+INSERT INTO palettes (id, name) VALUES
+   (10, 'Palette1'),
+   (11, 'Palette2'),
+   (12, 'Palette3');
 
 INSERT INTO paints (id, palette_id, name) VALUES
    (10, 10, 'Paint1'),
