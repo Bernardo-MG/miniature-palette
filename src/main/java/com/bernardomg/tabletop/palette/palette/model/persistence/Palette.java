@@ -48,9 +48,6 @@ public class Palette implements Serializable {
     @Transient
     private static final long serialVersionUID = -9102550009091675104L;
 
-    @Column(name = "group_id", nullable = false)
-    private Long              groupId;
-
     /**
      * Entity's ID.
      */
@@ -93,10 +90,6 @@ public class Palette implements Serializable {
         return Objects.equals(id, other.id);
     }
 
-    public Long getGroupId() {
-        return groupId;
-    }
-
     /**
      * Returns the identifier assigned to this entity.
      * <p>
@@ -116,10 +109,6 @@ public class Palette implements Serializable {
     @Override
     public final int hashCode() {
         return Objects.hash(id);
-    }
-
-    public void setGroupId(final Long groupId) {
-        this.groupId = groupId;
     }
 
     public void setId(final Long value) {

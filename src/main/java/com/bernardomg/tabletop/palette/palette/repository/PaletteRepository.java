@@ -16,9 +16,6 @@
 
 package com.bernardomg.tabletop.palette.palette.repository;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
@@ -29,7 +26,5 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public interface PaletteRepository extends JpaRepository<Palette, Long> {
-
-    public List<Palette> findAllByGroupIdIn(final Collection<Long> ids);
 
 }

@@ -29,7 +29,7 @@ public class PaletteGroupOption {
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String                  name;
+    private String                name;
 
     @Valid
     private Iterable<PaletteForm> palettes = new ArrayList<>();

@@ -34,8 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
 import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
@@ -82,7 +82,9 @@ public final class DefaultPaletteService implements PaletteService {
         groupIds = groups.stream().map(PaletteGroup::getId)
                 .collect(Collectors.toList());
 
-        allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+        // TODO: Read relationship
+        // allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+        allPalettes = paletteRepository.findAll();
         paletteIds = allPalettes.stream().map(Palette::getId)
                 .collect(Collectors.toList());
 
@@ -110,7 +112,9 @@ public final class DefaultPaletteService implements PaletteService {
         if (group.isPresent()) {
             groupIds = Arrays.asList(group.get().getId());
 
-            allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+            // TODO: Read relationship
+            // allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+            allPalettes = paletteRepository.findAll();
             paletteIds = allPalettes.stream().map(Palette::getId)
                     .collect(Collectors.toList());
 
@@ -191,11 +195,13 @@ public final class DefaultPaletteService implements PaletteService {
             final Map<Long, List<PaintOption>> palettePaintOptions) {
         final Map<Long, List<Palette>> groupPalettes;
 
-        groupPalettes = allPalettes.stream()
-                .collect(Collectors.groupingBy(Palette::getGroupId));
-        return groupPalettes.entrySet().stream().collect(Collectors.toMap(
-                Map.Entry::getKey,
-                e -> toPaletteOptions(e.getValue(), palettePaintOptions)));
+        // groupPalettes = allPalettes.stream()
+        // .collect(Collectors.groupingBy(Palette::getGroupId));
+        // return groupPalettes.entrySet().stream().collect(Collectors.toMap(
+        // Map.Entry::getKey,
+        // e -> toPaletteOptions(e.getValue(), palettePaintOptions)));
+        // TODO: Read relationship
+        return Collections.emptyMap();
     }
 
     private final Paint toEntity(final PaintOption paint) {
