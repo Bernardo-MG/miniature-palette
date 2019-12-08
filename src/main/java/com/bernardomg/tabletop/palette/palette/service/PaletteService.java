@@ -18,6 +18,7 @@ package com.bernardomg.tabletop.palette.palette.service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 
 /**
  * Service for palettes.
@@ -27,6 +28,8 @@ import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 public interface PaletteService {
 
     public Iterable<PaletteGroupOption> getAll();
+
+    public Iterable<PaletteOption> getAllPalettes();
 
     public PaletteGroupOption getById(final Long id);
 

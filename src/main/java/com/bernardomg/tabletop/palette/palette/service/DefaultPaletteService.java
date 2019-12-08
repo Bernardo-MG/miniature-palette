@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
 import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
@@ -94,6 +95,25 @@ public final class DefaultPaletteService implements PaletteService {
         groupPaletteOptions = getPaletteOptions(allPalettes,
                 palettePaintOptions);
         return getPaletteGroupOptions(groups, groupPaletteOptions);
+    }
+
+    @Override
+    public Iterable<PaletteOption> getAllPalettes() {
+        final List<Palette> allPalettes;
+        final Collection<Long> paletteIds;
+        final Collection<Paint> allPaints;
+        final Map<Long, List<PaintOption>> palettePaintOptions;
+
+        allPalettes = paletteRepository.findAll();
+        paletteIds = allPalettes.stream().map(Palette::getId)
+                .collect(Collectors.toList());
+
+        allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
+
+        palettePaintOptions = getPaintOptions(allPaints);
+
+        // TODO Auto-generated method stub
+        return toPaletteOptions(allPalettes, palettePaintOptions);
     }
 
     @Override
@@ -248,18 +268,18 @@ public final class DefaultPaletteService implements PaletteService {
         return option;
     }
 
-    private final PaletteForm toPaletteOption(final Palette palette,
+    private final PaletteOption toPaletteOption(final Palette palette,
             final List<PaintOption> paintOptions) {
-        final PaletteForm option;
+        final PaletteOption option;
 
-        option = new PaletteForm();
+        option = new PaletteOption();
         option.setName(palette.getName());
         option.setPaints(paintOptions);
 
         return option;
     }
 
-    private final List<PaletteForm> toPaletteOptions(
+    private final List<PaletteOption> toPaletteOptions(
             final List<Palette> palettes,
             final Map<Long, List<PaintOption>> palettePaintOptions) {
         return palettes.stream()
