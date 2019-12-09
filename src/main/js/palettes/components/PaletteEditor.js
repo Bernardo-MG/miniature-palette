@@ -16,7 +16,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import { TextField } from 'formik-material-ui';
 
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Autocomplete } from 'material-ui-formik-components/Autocomplete';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -63,23 +63,12 @@ function PaletteEditor({ suggestions, onSave }) {
                               {values.paints.map((paint, index) =>
                                  <ListItem key={index}>
                                     <ListItemText>
-                                       <Autocomplete
-                                          freeSolo
+                                       <Field
                                           id={`paints.${index}.name`}
-                                          disableClearable
+                                          name={`paints.${index}.name`}
+                                          required
                                           options={suggestions}
-                                          renderInput={(params) => (
-                                             <Field
-                                                {...params}
-                                                name={`paints.${index}.name`}
-                                                label="paint"
-                                                placeholder="write_paint"
-                                                margin="normal"
-                                                variant="outlined"
-                                                fullWidth
-                                                component={TextField}
-                                             />
-                                          )}
+                                          component={Autocomplete}
                                        />
                                     </ListItemText>
                                     <ListItemSecondaryAction>
