@@ -25,7 +25,6 @@ function Notificator({ children, enqueueSnackbar, closeSnackbar }) {
    }
 
    useEffect(() => {
-      console.log(notifications);
       notifications.forEach(({ timestamp, message, variant }) => {
          const key = timestamp;
 

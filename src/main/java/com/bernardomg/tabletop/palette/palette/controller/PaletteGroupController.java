@@ -22,14 +22,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
 import com.bernardomg.tabletop.palette.response.Response;
@@ -40,8 +39,8 @@ import com.bernardomg.tabletop.palette.response.Response;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RestController
-@RequestMapping("/rest/palette")
-public class PaletteController {
+@RequestMapping("/rest/palette/group")
+public class PaletteGroupController {
 
     /**
      * Palette service.
@@ -55,28 +54,38 @@ public class PaletteController {
      *            example entity service
      */
     @Autowired
-    public PaletteController(final PaletteService service) {
+    public PaletteGroupController(final PaletteService service) {
         super();
 
         paletteService = checkNotNull(service, "The service is required");
     }
 
     @GetMapping
-    public Response<Iterable<PaletteOption>> read() {
-        final Iterable<PaletteOption> read;
+    public Response<Iterable<PaletteGroupOption>> read() {
+        final Iterable<PaletteGroupOption> read;
 
-        read = paletteService.getAllPalettes();
+        read = paletteService.getAll();
+
+        return new DefaultResponse<>(read);
+    }
+
+    @GetMapping(path = "/{id}")
+    public Response<PaletteGroupOption>
+            readById(@PathVariable("id") final Long id) {
+        final PaletteGroupOption read;
+
+        read = paletteService.getById(id);
 
         return new DefaultResponse<>(read);
     }
 
     @PostMapping
     public Response<PaletteGroupOption>
-            save(@RequestBody @Valid final PaletteForm palette) {
-        paletteService.savePalette(palette);
+            save(@RequestBody @Valid final PaletteGroupOption paletteGroup) {
+        paletteService.saveGroup(paletteGroup);
 
         // TODO: Return the new data
-        return new DefaultResponse<PaletteGroupOption>();
+        return new DefaultResponse<>();
     }
 
 }

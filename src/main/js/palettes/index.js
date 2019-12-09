@@ -6,7 +6,7 @@ import { readPalettes } from 'palettes/actions';
 
 import { selectPaletteOptions } from 'palettes/selectors';
 
-export function usePaletteGroups() {
+export function usePalettes() {
    const dispatch = useDispatch();
    const load = () => dispatch(readPalettes());
 

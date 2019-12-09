@@ -42,6 +42,12 @@ const Products = {
    all: () => requests.get('/rest/product').then((response) => response.content)
 };
 
+const PaletteGroups = {
+   all: () => requests.get('/rest/palette/group').then((response) => response.content),
+   byId: (id) => requests.get(`/rest/palette/group/${id}`),
+   save: (palette) => requests.post('/rest/palette/group', palette)
+};
+
 const Palettes = {
    all: () => requests.get('/rest/palette').then((response) => response.content),
    save: (palette) => requests.post('/rest/palette', palette)
@@ -49,5 +55,6 @@ const Palettes = {
 
 export default {
    Palettes,
+   PaletteGroups,
    Products
 };

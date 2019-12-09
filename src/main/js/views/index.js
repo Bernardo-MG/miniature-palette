@@ -1,5 +1,5 @@
 import Index from 'views/components/Index';
-import PaletteEditorView from 'views/components/PaletteEditorView';
+import PaletteCreationView from 'views/components/PaletteCreationView';
 import PaletteListView from 'views/components/PaletteListView';
 
-export { Index, PaletteEditorView, PaletteListView };
+export { Index, PaletteCreationView, PaletteListView };

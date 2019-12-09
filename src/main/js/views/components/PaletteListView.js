@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 
-import PaletteGroupListing from 'palettes/containers/PaletteGroupListing';
+import PaletteListing from 'palettes/containers/PaletteListing';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -17,7 +17,7 @@ function PaletteListView() {
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <PaletteGroupListing />
+      <PaletteListing />
    </Box>;
 }
 

@@ -25,16 +25,16 @@ import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteGroupOption {
+public class PaletteForm {
 
     @NotNull
     @Size(min = 1, max = 50)
     private String                name;
 
     @Valid
-    private Iterable<PaletteForm> palettes = new ArrayList<>();
+    private Iterable<PaintOption> paints = new ArrayList<>();
 
-    public PaletteGroupOption() {
+    public PaletteForm() {
         super();
     }
 
@@ -52,7 +52,7 @@ public class PaletteGroupOption {
             return false;
         }
 
-        final PaletteGroupOption other = (PaletteGroupOption) obj;
+        final PaletteForm other = (PaletteForm) obj;
         return Objects.equals(name, other.name);
     }
 
@@ -60,8 +60,8 @@ public class PaletteGroupOption {
         return name;
     }
 
-    public Iterable<PaletteForm> getPalettes() {
-        return palettes;
+    public Iterable<PaintOption> getPaints() {
+        return paints;
     }
 
     @Override
@@ -73,14 +73,14 @@ public class PaletteGroupOption {
         this.name = name;
     }
 
-    public void setPalettes(final Iterable<PaletteForm> palettes) {
-        this.palettes = palettes;
+    public void setPaints(final Iterable<PaintOption> paints) {
+        this.paints = paints;
     }
 
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", name)
-                .add("palettes", palettes).toString();
+                .add("paints", paints).toString();
     }
 
 }

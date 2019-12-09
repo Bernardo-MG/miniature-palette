@@ -7,7 +7,7 @@ const sideLinks = [
    },
    {
       text: 'create_palette',
-      link: '/palette/edit',
+      link: '/palette/create',
       id: 'create_palette'
    },
    {
