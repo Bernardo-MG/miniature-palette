@@ -14,8 +14,16 @@ function PaletteForm() {
 
    const dispatch = useDispatch();
 
+   function toPalette(v) {
+      return { name: v.name.value };
+   }
+
    function handleSave(form) {
-      dispatch(savePalette(form));
+      const palette = { ...form };
+
+      palette.paints = palette.paints.map(toPalette);
+
+      dispatch(savePalette(palette));
    }
 
    return <PaletteEditor
