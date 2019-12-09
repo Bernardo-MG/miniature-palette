@@ -19,10 +19,3 @@ export const success = (payload) => {
       payload
    };
 };
-
-export const setLoaded = (payload) => {
-   return {
-      type: types.SET_PRODUCTS_LOADED,
-      payload
-   };
-};
