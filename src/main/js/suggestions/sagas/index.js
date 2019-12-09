@@ -6,8 +6,8 @@ import { READ_PRODUCTS_SUCCESS } from 'products/actions/types';
 
 import { setPaintSuggestions } from 'suggestions/actions';
 
-function toMap(value) {
-   return { value: `${value.name} (${value.code})`, label: `${value.name} (${value.code})` };
+function toMap(val) {
+   return { label: `${val.name} (${val.code})`, value: `${val.name} (${val.code})` };
 }
 
 export function* storePaintSuggestions(action) {
