@@ -14,56 +14,52 @@ import Typography from '@material-ui/core/Typography';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-function PaletteGroupData({ group }) {
+function PaletteData({ data, onReturn }) {
    return <Fragment>
       <Grid item xs={8}>
          <Card>
-            <CardHeader title={ <Typography>{group.name}</Typography> } />
+            <CardHeader
+               title={ <Typography>{data.name}</Typography> }
+               action={
+                  <IconButton edge="end" aria-label="back" onClick={onReturn}>
+                     <ArrowBackIcon />
+                  </IconButton>
+               } />
+            <CardContent>
+               <List>
+                  {data.paints.map((paint) =>
+                     <ListItem key={paint.name}>
+                        <ListItemText primary={paint.name} secondary={paint.code} />
+                     </ListItem>
+                  )}
+               </List>
+            </CardContent>
          </Card>
       </Grid>
-      {group.palettes.map((palette, index) => {
-         return <Grid item xs={8} key={palette.name + index}>
-            <Card>
-               <CardHeader title={ <Typography>{palette.name}</Typography> } />
-               <CardContent>
-                  <List>
-                     {palette.paints.map((color) =>
-                        <ListItem key={color.name}>
-                           <ListItemText primary={color.name} secondary={color.code} />
-                        </ListItem>
-                     )}
-                  </List>
-               </CardContent>
-            </Card>
-         </Grid>;
-      }
-      )}
    </Fragment>;
 }
 
-PaletteGroupData.propTypes = {
-   group: PropTypes.shape({
+PaletteData.propTypes = {
+   data: PropTypes.shape({
       name: PropTypes.string,
-      palettes: PropTypes.array
-   })
+      paints: PropTypes.array
+   }).isRequired,
+   onReturn: PropTypes.func.isRequired
 };
 
-function PaletteGroupList({ groups }) {
+function PaletteList({ data }) {
    const [selected, setSelected] = useState(null);
    let paletteData;
 
    if (selected) {
       // Selected group
       paletteData = <Fragment>
-         <IconButton edge="end" aria-label="delete" onClick={() => setSelected(null)}>
-            <ArrowBackIcon />
-         </IconButton>
-         <PaletteGroupData group={selected} />
+         <PaletteData data={selected} onReturn={() => setSelected(null)} />
       </Fragment>;
    } else {
       // List of groups
       paletteData = <List>
-         {groups.map((palette) =>
+         {data.map((palette) =>
             <ListItem button key={palette.name} onClick={() => setSelected(palette)}>
                <ListItemText primary={palette.name}/>
             </ListItem>
@@ -78,8 +74,8 @@ function PaletteGroupList({ groups }) {
    </Fragment>;
 }
 
-PaletteGroupList.propTypes = {
-   groups: PropTypes.array.isRequired
+PaletteList.propTypes = {
+   data: PropTypes.array.isRequired
 };
 
-export default PaletteGroupList;
+export default PaletteList;

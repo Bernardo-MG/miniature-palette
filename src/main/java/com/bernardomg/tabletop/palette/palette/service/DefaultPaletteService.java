@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 the original author or authors
+ * Copyright 2019 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -18,10 +18,12 @@ package com.bernardomg.tabletop.palette.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -32,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
@@ -69,18 +72,20 @@ public final class DefaultPaletteService implements PaletteService {
     @Override
     public final Iterable<PaletteGroupOption> getAll() {
         final Collection<PaletteGroup> groups;
-        final Collection<Integer> groupIds;
+        final Collection<Long> groupIds;
         final Collection<Palette> allPalettes;
-        final Map<Integer, List<PaletteOption>> groupPaletteOptions;
-        final Collection<Integer> paletteIds;
+        final Map<Long, List<PaletteForm>> groupPaletteOptions;
+        final Collection<Long> paletteIds;
         final Collection<Paint> allPaints;
-        final Map<Integer, List<PaintOption>> palettePaintOptions;
+        final Map<Long, List<PaintOption>> palettePaintOptions;
 
         groups = paletteGroupRepository.findAll();
         groupIds = groups.stream().map(PaletteGroup::getId)
                 .collect(Collectors.toList());
 
-        allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+        // TODO: Read relationship
+        // allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+        allPalettes = paletteRepository.findAll();
         paletteIds = allPalettes.stream().map(Palette::getId)
                 .collect(Collectors.toList());
 
@@ -93,9 +98,64 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final void save(final PaletteGroupOption paletteGroup) {
+    public Iterable<PaletteOption> getAllPalettes() {
+        final List<Palette> allPalettes;
+        final Collection<Long> paletteIds;
+        final Collection<Paint> allPaints;
+        final Map<Long, List<PaintOption>> palettePaintOptions;
+
+        allPalettes = paletteRepository.findAll();
+        paletteIds = allPalettes.stream().map(Palette::getId)
+                .collect(Collectors.toList());
+
+        allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
+
+        palettePaintOptions = getPaintOptions(allPaints);
+
+        // TODO Auto-generated method stub
+        return toPaletteOptions(allPalettes, palettePaintOptions);
+    }
+
+    @Override
+    public final PaletteGroupOption getById(final Long id) {
+        // TODO: Do this better, avoid repeating code
+        final Optional<PaletteGroup> group;
+        final Collection<Long> groupIds;
+        final Collection<Palette> allPalettes;
+        final Map<Long, List<PaletteForm>> groupPaletteOptions;
+        final Collection<Long> paletteIds;
+        final Collection<Paint> allPaints;
+        final Map<Long, List<PaintOption>> palettePaintOptions;
+        final PaletteGroupOption result;
+
+        group = paletteGroupRepository.findById(id);
+        if (group.isPresent()) {
+            groupIds = Arrays.asList(group.get().getId());
+
+            // TODO: Read relationship
+            // allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
+            allPalettes = paletteRepository.findAll();
+            paletteIds = allPalettes.stream().map(Palette::getId)
+                    .collect(Collectors.toList());
+
+            allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
+
+            palettePaintOptions = getPaintOptions(allPaints);
+            groupPaletteOptions = getPaletteOptions(allPalettes,
+                    palettePaintOptions);
+            // TODO: No need for a map
+            result = toPaletteGroupOption(group.get(),
+                    groupPaletteOptions.get(group.get().getId()));
+        } else {
+            result = null;
+        }
+
+        return result;
+    }
+
+    @Override
+    public final void saveGroup(final PaletteGroupOption paletteGroup) {
         final PaletteGroup group;
-        final PaletteGroup saved;
 
         checkNotNull(paletteGroup, "No palettes received");
 
@@ -103,57 +163,19 @@ public final class DefaultPaletteService implements PaletteService {
             group = new PaletteGroup();
             group.setName(paletteGroup.getName());
 
-            saved = paletteGroupRepository.save(group);
-
-            StreamSupport
-                    .stream(paletteGroup.getPalettes().spliterator(), false)
-                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                    .forEach((p) -> save(p, saved.getId()));
+            paletteGroupRepository.save(group);
         } else {
             LOGGER.debug("Empty name. The Palette group is not saved");
         }
     }
 
-    private final Map<Integer, List<PaintOption>>
-            getPaintOptions(final Collection<Paint> paints) {
-        final Map<Integer, List<Paint>> palettePaints;
-
-        palettePaints = paints.stream()
-                .collect(Collectors.groupingBy(Paint::getPaletteId));
-        return palettePaints.entrySet().stream().collect(Collectors
-                .toMap(Map.Entry::getKey, e -> toPaintOptions(e.getValue())));
-    }
-
-    private final Collection<PaletteGroupOption> getPaletteGroupOptions(
-            final Collection<PaletteGroup> groups,
-            final Map<Integer, List<PaletteOption>> groupPaletteOptions) {
-        return groups.stream()
-                .map((g) -> toPaletteGroupOption(g,
-                        groupPaletteOptions.getOrDefault(g.getId(),
-                                Collections.emptyList())))
-                .collect(Collectors.toList());
-    }
-
-    private final Map<Integer, List<PaletteOption>> getPaletteOptions(
-            final Collection<Palette> allPalettes,
-            final Map<Integer, List<PaintOption>> palettePaintOptions) {
-        final Map<Integer, List<Palette>> groupPalettes;
-
-        groupPalettes = allPalettes.stream()
-                .collect(Collectors.groupingBy(Palette::getGroupId));
-        return groupPalettes.entrySet().stream().collect(Collectors.toMap(
-                Map.Entry::getKey,
-                e -> toPaletteOptions(e.getValue(), palettePaintOptions)));
-    }
-
-    private final void save(final PaletteOption palette,
-            final Integer groupId) {
+    @Override
+    public final void savePalette(final PaletteForm palette) {
         final Palette entity;
         final Palette saved;
         final Collection<Paint> paintEntities;
 
         entity = toEntity(palette);
-        entity.setGroupId(groupId);
 
         saved = paletteRepository.save(entity);
 
@@ -168,6 +190,40 @@ public final class DefaultPaletteService implements PaletteService {
         paintRepository.saveAll(paintEntities);
     }
 
+    private final Map<Long, List<PaintOption>>
+            getPaintOptions(final Collection<Paint> paints) {
+        final Map<Long, List<Paint>> palettePaints;
+
+        palettePaints = paints.stream()
+                .collect(Collectors.groupingBy(Paint::getPaletteId));
+        return palettePaints.entrySet().stream().collect(Collectors
+                .toMap(Map.Entry::getKey, e -> toPaintOptions(e.getValue())));
+    }
+
+    private final Collection<PaletteGroupOption> getPaletteGroupOptions(
+            final Collection<PaletteGroup> groups,
+            final Map<Long, List<PaletteForm>> groupPaletteOptions) {
+        return groups.stream()
+                .map((g) -> toPaletteGroupOption(g,
+                        groupPaletteOptions.getOrDefault(g.getId(),
+                                Collections.emptyList())))
+                .collect(Collectors.toList());
+    }
+
+    private final Map<Long, List<PaletteForm>> getPaletteOptions(
+            final Collection<Palette> allPalettes,
+            final Map<Long, List<PaintOption>> palettePaintOptions) {
+        final Map<Long, List<Palette>> groupPalettes;
+
+        // groupPalettes = allPalettes.stream()
+        // .collect(Collectors.groupingBy(Palette::getGroupId));
+        // return groupPalettes.entrySet().stream().collect(Collectors.toMap(
+        // Map.Entry::getKey,
+        // e -> toPaletteOptions(e.getValue(), palettePaintOptions)));
+        // TODO: Read relationship
+        return Collections.emptyMap();
+    }
+
     private final Paint toEntity(final PaintOption paint) {
         final Paint entity;
 
@@ -177,11 +233,12 @@ public final class DefaultPaletteService implements PaletteService {
         return entity;
     }
 
-    private final Palette toEntity(final PaletteOption palette) {
+    private final Palette toEntity(final PaletteForm palette) {
         final Palette entity;
 
         entity = new Palette();
         entity.setName(palette.getName());
+        // entity.setGroupId(palette.getGroupId());
 
         return entity;
     }
@@ -201,8 +258,7 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     private final PaletteGroupOption toPaletteGroupOption(
-            final PaletteGroup group,
-            final Collection<PaletteOption> palettes) {
+            final PaletteGroup group, final Collection<PaletteForm> palettes) {
         final PaletteGroupOption option;
 
         option = new PaletteGroupOption();
@@ -225,7 +281,7 @@ public final class DefaultPaletteService implements PaletteService {
 
     private final List<PaletteOption> toPaletteOptions(
             final List<Palette> palettes,
-            final Map<Integer, List<PaintOption>> palettePaintOptions) {
+            final Map<Long, List<PaintOption>> palettePaintOptions) {
         return palettes.stream()
                 .map((p) -> toPaletteOption(p,
                         palettePaintOptions.getOrDefault(p.getId(),

@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 the original author or authors
+ * Copyright 2019 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -54,7 +54,7 @@ public class PaletteGroup implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Integer           id               = -1;
+    private Long              id               = -1l;
 
     /**
      * Name of the entity.
@@ -98,7 +98,7 @@ public class PaletteGroup implements Serializable {
      *
      * @return the entity's identifier
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -111,7 +111,7 @@ public class PaletteGroup implements Serializable {
         return Objects.hash(id);
     }
 
-    public void setId(final Integer value) {
+    public void setId(final Long value) {
         id = checkNotNull(value, "Received a null pointer as identifier");
     }
 

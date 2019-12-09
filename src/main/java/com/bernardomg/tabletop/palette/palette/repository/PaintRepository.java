@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 the original author or authors
+ * Copyright 2019 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,8 +28,8 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaintRepository extends JpaRepository<Paint, Integer> {
+public interface PaintRepository extends JpaRepository<Paint, Long> {
 
-    public List<Paint> findAllByPaletteIdIn(final Collection<Integer> ids);
+    public List<Paint> findAllByPaletteIdIn(final Collection<Long> ids);
 
 }

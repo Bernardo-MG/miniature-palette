@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectSuggestions, selectLoaded } from 'products/selectors';
+import { selectSuggestions, selectLoaded } from 'suggestions/selectors';
 
-import { read, setLoaded } from 'products/actions';
+import { read } from 'products/actions';
+import { setLoaded } from 'suggestions/actions';
 
 export function useSuggestions() {
    const suggestions = useSelector(selectSuggestions);

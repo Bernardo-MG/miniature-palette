@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 the original author or authors
+ * Copyright 2019 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
 import com.bernardomg.tabletop.palette.response.Response;
@@ -60,18 +62,18 @@ public class PaletteController {
     }
 
     @GetMapping
-    public Response<Iterable<PaletteGroupOption>> read() {
-        final Iterable<PaletteGroupOption> read;
+    public Response<Iterable<PaletteOption>> read() {
+        final Iterable<PaletteOption> read;
 
-        read = paletteService.getAll();
+        read = paletteService.getAllPalettes();
 
         return new DefaultResponse<>(read);
     }
 
     @PostMapping
     public Response<PaletteGroupOption>
-            save(@RequestBody @Valid final PaletteGroupOption paletteGroup) {
-        paletteService.save(paletteGroup);
+            save(@RequestBody @Valid final PaletteForm palette) {
+        paletteService.savePalette(palette);
 
         // TODO: Return the new data
         return new DefaultResponse<PaletteGroupOption>();

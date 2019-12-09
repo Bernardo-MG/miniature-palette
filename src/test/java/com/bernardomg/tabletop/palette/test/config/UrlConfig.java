@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 the original author or authors
+ * Copyright 2019 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -26,12 +26,17 @@ public final class UrlConfig {
     /**
      * Palettes REST URL.
      */
-    public static final String PALETTE = "/rest/palette";
+    public static final String PALETTE       = "/rest/palette";
+
+    /**
+     * Palette groups REST URL.
+     */
+    public static final String PALETTE_GROUP = "/rest/palette/group";
 
     /**
      * Products REST URL.
      */
-    public static final String PRODUCT = "/rest/product";
+    public static final String PRODUCT       = "/rest/product";
 
     /**
      * Default constructor to avoid initialization.

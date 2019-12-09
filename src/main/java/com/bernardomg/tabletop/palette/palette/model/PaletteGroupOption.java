@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 the original author or authors
+ * Copyright 2019 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -29,10 +29,10 @@ public class PaletteGroupOption {
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String                  name;
+    private String                name;
 
     @Valid
-    private Iterable<PaletteOption> palettes = new ArrayList<>();
+    private Iterable<PaletteForm> palettes = new ArrayList<>();
 
     public PaletteGroupOption() {
         super();
@@ -60,7 +60,7 @@ public class PaletteGroupOption {
         return name;
     }
 
-    public Iterable<PaletteOption> getPalettes() {
+    public Iterable<PaletteForm> getPalettes() {
         return palettes;
     }
 
@@ -73,7 +73,7 @@ public class PaletteGroupOption {
         this.name = name;
     }
 
-    public void setPalettes(final Iterable<PaletteOption> palettes) {
+    public void setPalettes(final Iterable<PaletteForm> palettes) {
         this.palettes = palettes;
     }
 
