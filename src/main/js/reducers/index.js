@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
+import domain from 'domains/reducers';
 import notification from 'notifications/reducers';
-import palette from 'palettes/reducers';
-import product from 'products/reducers';
 import suggestion from 'suggestions/reducers';
 
-const rootReducer = combineReducers({ notification, palette, product, suggestion });
+const rootReducer = combineReducers({ domain, notification, suggestion });
 
 export default rootReducer;
