@@ -3,7 +3,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+
+import PaletteForm from 'palettes/containers/PaletteForm';
 
 import { useParams } from 'react-router-dom';
 
@@ -20,9 +21,7 @@ function PaletteEditionView() {
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <Typography variant="h1" component="h2" gutterBottom>
-         { id }
-      </Typography>
+      <PaletteForm id={id} />
    </Box>;
 }
 

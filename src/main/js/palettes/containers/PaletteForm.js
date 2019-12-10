@@ -20,7 +20,7 @@ function PaletteForm({ id }) {
 
    let values;
 
-   const idValues = useSelector(selectPalettesById, id);
+   const idValues = useSelector(selectPalettesById(id));
    if (id && idValues) {
       values = idValues;
    } else {
