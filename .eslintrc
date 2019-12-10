@@ -102,6 +102,9 @@
          "warn",
          "multiline"
       ],
+      "linebreak-style":[
+         "off"
+      ],
       "no-trailing-spaces":[
          "error",
          {
