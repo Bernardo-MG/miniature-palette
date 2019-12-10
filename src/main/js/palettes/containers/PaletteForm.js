@@ -14,6 +14,11 @@ function PaletteForm() {
 
    const dispatch = useDispatch();
 
+   const values = {
+      name: '',
+      paints: []
+   };
+
    function toPalette(v) {
       return { name: v.name.value };
    }
@@ -28,7 +33,8 @@ function PaletteForm() {
 
    return <PaletteEditor
       suggestions={suggestions}
-      onSave={handleSave} />;
+      onSave={handleSave}
+      initialValues={values} />;
 }
 
 PaletteForm.propTypes = {};
