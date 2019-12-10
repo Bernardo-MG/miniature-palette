@@ -1,23 +1,34 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useSuggestions } from 'suggestions';
 
 import { savePalette } from 'palettes/actions';
 
+import { selectPalettesById } from 'palettes/selectors';
+
 import PaletteEditor from 'palettes/components/PaletteEditor';
 
-function PaletteForm() {
+function PaletteForm({ id }) {
 
    const suggestions = useSuggestions();
 
    const dispatch = useDispatch();
 
-   const values = {
-      name: '',
-      paints: []
-   };
+   let values;
+
+   const idValues = useSelector(selectPalettesById, id);
+   if (id && idValues) {
+      values = idValues;
+   } else {
+      values = {
+         name: '',
+         paints: []
+      };
+   }
 
    function toPalette(v) {
       return { name: v.name.value };
@@ -37,6 +48,8 @@ function PaletteForm() {
       initialValues={values} />;
 }
 
-PaletteForm.propTypes = {};
+PaletteForm.propTypes = {
+   id: PropTypes.number
+};
 
 export default PaletteForm;
