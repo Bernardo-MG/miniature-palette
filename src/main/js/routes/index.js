@@ -3,7 +3,7 @@ import { Switch } from 'react-router-dom';
 
 import SideMenuLayoutRoute from 'routes/SideMenuLayoutRoute';
 
-import { Index, PaletteCreationView, PaletteListView } from 'views';
+import { Index, PaletteCreationView, PaletteEditionView, PaletteListView } from 'views';
 
 /**
  * All the routes for the application.
@@ -16,5 +16,6 @@ import { Index, PaletteCreationView, PaletteListView } from 'views';
 export default <Switch>
    <SideMenuLayoutRoute path='/' exact component={Index}/>
    <SideMenuLayoutRoute path='/palette/create' exact component={PaletteCreationView}/>
+   <SideMenuLayoutRoute path='/palette/edit/:id' exact component={PaletteEditionView}/>
    <SideMenuLayoutRoute path='/palette/view' exact component={PaletteListView}/>
 </Switch>;
