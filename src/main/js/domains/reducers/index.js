@@ -1,7 +1,12 @@
 import { SET_PALETTES } from 'palettes/actions/types';
 import { SET_PRODUCTS } from 'products/actions/types';
 
-const domain = (state = { palettes: {}, products: {} }, action) => {
+const defaultState = {
+   palettes: {},
+   products: {} 
+};
+
+const domain = (state = defaultState, action) => {
    switch (action.type) {
    case SET_PALETTES:
       return {

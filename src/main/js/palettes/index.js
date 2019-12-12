@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { readPalettes } from 'palettes/actions';
 
-import { selectPaletteOptions } from 'palettes/selectors';
+import { selectPalettes } from 'palettes/selectors';
 
 export function usePalettes() {
    const dispatch = useDispatch();
@@ -14,7 +14,5 @@ export function usePalettes() {
       load();
    }, []);
 
-   const palettes = useSelector(selectPaletteOptions);
-
-   return palettes;
+   return useSelector(selectPalettes);
 }

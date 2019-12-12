@@ -1,6 +1,11 @@
 import * as types from 'suggestions/actions/types';
 
-const suggestion = (state = { paints: [], loadedPaints: false }, action) => {
+const defaultState = {
+   paints: [],
+   loadedPaints: false
+};
+
+const suggestion = (state = defaultState, action) => {
    switch (action.type) {
    case types.SET_PAINT_SUGGESTIONS:
       return {

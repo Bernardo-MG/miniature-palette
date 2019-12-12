@@ -8,7 +8,7 @@ import { useSuggestions } from 'suggestions';
 
 import { savePalette } from 'palettes/actions';
 
-import { selectPalettesById } from 'palettes/selectors';
+import { selectPaletteById } from 'palettes/selectors';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
 
@@ -20,7 +20,7 @@ function PaletteForm({ id }) {
 
    let values;
 
-   const idValues = useSelector(selectPalettesById(id));
+   const idValues = useSelector(selectPaletteById(id));
    if (id && idValues) {
       values = idValues;
    } else {
