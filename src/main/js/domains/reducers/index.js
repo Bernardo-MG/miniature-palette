@@ -3,7 +3,7 @@ import { SET_PRODUCTS } from 'products/actions/types';
 
 const defaultState = {
    palettes: {},
-   products: {} 
+   products: {}
 };
 
 const domain = (state = defaultState, action) => {

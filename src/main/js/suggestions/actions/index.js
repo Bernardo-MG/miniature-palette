@@ -6,10 +6,3 @@ export const setPaintSuggestions = (payload) => {
       payload
    };
 };
-
-export const setLoaded = (payload) => {
-   return {
-      type: types.SET_PAINT_SUGGESTIONS_LOADED,
-      payload
-   };
-};
