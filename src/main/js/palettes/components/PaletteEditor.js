@@ -29,7 +29,7 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
-function PaletteEditor({ suggestions, onSave, initialValues }) {
+function PaletteEditor({ suggestions, initialValues, onSave }) {
    return <Formik
       onSubmit={onSave}
       initialValues={initialValues}
@@ -90,12 +90,12 @@ function PaletteEditor({ suggestions, onSave, initialValues }) {
 }
 
 PaletteEditor.propTypes = {
-   onSave: PropTypes.func.isRequired,
    suggestions: PropTypes.array.isRequired,
    initialValues: PropTypes.shape({
       name: PropTypes.string,
       paints: PropTypes.array
-   })
+   }),
+   onSave: PropTypes.func.isRequired
 };
 
 export default PaletteEditor;

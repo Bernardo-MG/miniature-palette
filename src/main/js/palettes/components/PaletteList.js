@@ -13,17 +13,23 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import EditIcon from '@material-ui/icons/Edit';
 
-function PaletteData({ data, onReturn }) {
+function PaletteData({ data, onReturn, onEdit }) {
    return <Fragment>
       <Grid item xs={8}>
          <Card>
             <CardHeader
                title={ <Typography>{data.name}</Typography> }
                action={
-                  <IconButton edge="end" aria-label="back" onClick={onReturn}>
-                     <ArrowBackIcon />
-                  </IconButton>
+                  <Fragment>
+                     <IconButton edge="end" aria-label="back" onClick={onReturn}>
+                        <ArrowBackIcon />
+                     </IconButton>
+                     <IconButton aria-label="edit" onClick={onEdit}>
+                        <EditIcon />
+                     </IconButton>
+                  </Fragment>
                } />
             <CardContent>
                <List>
@@ -44,17 +50,18 @@ PaletteData.propTypes = {
       name: PropTypes.string,
       paints: PropTypes.array
    }).isRequired,
-   onReturn: PropTypes.func.isRequired
+   onReturn: PropTypes.func.isRequired,
+   onEdit: PropTypes.func.isRequired
 };
 
-function PaletteList({ data }) {
+function PaletteList({ data, onEdit }) {
    const [selected, setSelected] = useState(null);
    let paletteData;
 
    if (selected) {
       // Selected group
       paletteData = <Fragment>
-         <PaletteData data={selected} onReturn={() => setSelected(null)} />
+         <PaletteData data={selected} onReturn={() => setSelected(null)} onEdit={onEdit} />
       </Fragment>;
    } else {
       // List of groups
@@ -75,7 +82,8 @@ function PaletteList({ data }) {
 }
 
 PaletteList.propTypes = {
-   data: PropTypes.array.isRequired
+   data: PropTypes.array.isRequired,
+   onEdit: PropTypes.func.isRequired
 };
 
 export default PaletteList;
