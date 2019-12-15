@@ -31,7 +31,7 @@ import com.bernardomg.tabletop.palette.product.model.persistence.Product;
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query("SELECT new com.bernardomg.tabletop.palette.product.model.DefaultProductInfo(p.code, p.name, b.name, c.name) FROM Product p"
+    @Query("SELECT new com.bernardomg.tabletop.palette.product.model.DefaultProductInfo(p.id, p.code, p.name, b.name, c.name) FROM Product p"
             + " LEFT JOIN BrandProduct bp ON p.id = bp.product"
             + " LEFT JOIN Brand b ON b.id = bp.brand"
             + " LEFT JOIN CompanyBrand cb ON cb.brand = bp.brand"
