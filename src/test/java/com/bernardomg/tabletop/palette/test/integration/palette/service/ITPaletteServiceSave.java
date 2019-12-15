@@ -30,9 +30,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.PaintOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.model.PaintForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
@@ -163,10 +163,10 @@ public class ITPaletteServiceSave {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteForm> palettes;
         final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -196,10 +196,10 @@ public class ITPaletteServiceSave {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteForm> palettes;
         final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -230,10 +230,10 @@ public class ITPaletteServiceSave {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteForm> palettes;
         final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("");
 
         paints = new ArrayList<>();
@@ -263,10 +263,10 @@ public class ITPaletteServiceSave {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteForm> palettes;
         final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -312,14 +312,14 @@ public class ITPaletteServiceSave {
         final PaletteGroupOption paletteGroup;
         final Collection<PaletteForm> palettes;
         final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paintA;
-        final PaintOption paintB;
+        final Collection<PaintForm> paints;
+        final PaintForm paintA;
+        final PaintForm paintB;
 
-        paintA = new PaintOption();
+        paintA = new PaintForm();
         paintA.setName("paint");
 
-        paintB = new PaintOption();
+        paintB = new PaintForm();
         paintB.setName("paint");
 
         paints = new ArrayList<>();

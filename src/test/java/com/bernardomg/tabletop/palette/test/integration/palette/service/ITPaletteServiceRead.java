@@ -30,9 +30,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.PaintOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
+import com.bernardomg.tabletop.palette.palette.model.PaintForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
+import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.google.common.collect.Iterables;
 
@@ -80,9 +80,9 @@ public class ITPaletteServiceRead {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
         final Iterator<PaletteForm> palettes;
-        Iterator<PaintOption> paints;
+        Iterator<PaintForm> paints;
         PaletteForm palette;
-        PaintOption paint;
+        PaintForm paint;
 
         read = service.getAll();
 
@@ -136,7 +136,7 @@ public class ITPaletteServiceRead {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
         final PaletteForm palette;
-        final PaintOption paint;
+        final PaintForm paint;
 
         read = service.getAll();
 

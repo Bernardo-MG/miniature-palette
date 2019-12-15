@@ -21,17 +21,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.google.common.base.MoreObjects;
 
 public class PaintOption implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
-    @NotNull
-    @Size(min = 1, max = 50)
+    private Long              id               = -1l;
+
     private String            name             = "";
 
     public PaintOption() {
@@ -56,6 +53,10 @@ public class PaintOption implements Serializable {
         return Objects.equals(name, other.name);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -63,6 +64,10 @@ public class PaintOption implements Serializable {
     @Override
     public final int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     public void setName(final String value) {

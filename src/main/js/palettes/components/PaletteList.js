@@ -26,7 +26,7 @@ function PaletteData({ data, onReturn, onEdit }) {
                      <IconButton edge="end" aria-label="back" onClick={onReturn}>
                         <ArrowBackIcon />
                      </IconButton>
-                     <IconButton aria-label="edit" onClick={onEdit}>
+                     <IconButton aria-label="edit" onClick={() => onEdit(data.id)}>
                         <EditIcon />
                      </IconButton>
                   </Fragment>
@@ -47,6 +47,7 @@ function PaletteData({ data, onReturn, onEdit }) {
 
 PaletteData.propTypes = {
    data: PropTypes.shape({
+      id: PropTypes.number,
       name: PropTypes.string,
       paints: PropTypes.array
    }).isRequired,

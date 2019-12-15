@@ -11,8 +11,8 @@ function PaletteListing() {
 
    const history = useHistory();
 
-   function toEdit(form) {
-      history.push(`/palette/edit/${form.id}`);
+   function toEdit(id) {
+      history.push(`/palette/edit/${id}`);
    }
 
    return <PaletteList data={palettes}

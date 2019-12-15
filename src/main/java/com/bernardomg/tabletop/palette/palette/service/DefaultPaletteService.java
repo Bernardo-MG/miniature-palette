@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.tabletop.palette.palette.model.PaintForm;
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
@@ -224,7 +225,7 @@ public final class DefaultPaletteService implements PaletteService {
         return Collections.emptyMap();
     }
 
-    private final Paint toEntity(final PaintOption paint) {
+    private final Paint toEntity(final PaintForm paint) {
         final Paint entity;
 
         entity = new Paint();
@@ -247,6 +248,7 @@ public final class DefaultPaletteService implements PaletteService {
         final PaintOption option;
 
         option = new PaintOption();
+        option.setId(paint.getId());
         option.setName(paint.getName());
 
         return option;
@@ -273,6 +275,7 @@ public final class DefaultPaletteService implements PaletteService {
         final PaletteOption option;
 
         option = new PaletteOption();
+        option.setId(palette.getId());
         option.setName(palette.getName());
         option.setPaints(paintOptions);
 
