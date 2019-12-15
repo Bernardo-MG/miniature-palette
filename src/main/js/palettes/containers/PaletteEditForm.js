@@ -20,9 +20,17 @@ function PaletteEditForm({ id }) {
 
    let values;
 
+   function toPaint(v) {
+      return { name: v.name };
+   }
+
    const idValues = useSelector(selectPaletteById(id));
    if (idValues) {
       values = idValues;
+      values = {
+         ...values,
+         paints: values.paints.map(toPaint)
+      };
    } else {
       values = {
          name: '',
