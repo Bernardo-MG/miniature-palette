@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 
-import PaletteForm from 'palettes/containers/PaletteForm';
+import PaletteCreateForm from 'palettes/containers/PaletteCreateForm';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -17,7 +17,7 @@ function PaletteCreationView() {
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <PaletteForm />
+      <PaletteCreateForm />
    </Box>;
 }
 

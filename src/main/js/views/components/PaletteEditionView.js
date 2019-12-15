@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 
-import PaletteForm from 'palettes/containers/PaletteForm';
+import PaletteEditForm from 'palettes/containers/PaletteEditForm';
 
 import { useParams } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ function PaletteEditionView() {
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <PaletteForm id={id} />
+      <PaletteEditForm id={id} />
    </Box>;
 }
 

@@ -12,7 +12,7 @@ import { selectPaletteById } from 'palettes/selectors';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
 
-function PaletteForm({ id }) {
+function PaletteEditForm({ id }) {
 
    const suggestions = useSuggestions();
 
@@ -21,7 +21,7 @@ function PaletteForm({ id }) {
    let values;
 
    const idValues = useSelector(selectPaletteById(id));
-   if (id && idValues) {
+   if (idValues) {
       values = idValues;
    } else {
       values = {
@@ -48,8 +48,8 @@ function PaletteForm({ id }) {
       initialValues={values} />;
 }
 
-PaletteForm.propTypes = {
-   id: PropTypes.number
+PaletteEditForm.propTypes = {
+   id: PropTypes.number.isRequired
 };
 
-export default PaletteForm;
+export default PaletteEditForm;
