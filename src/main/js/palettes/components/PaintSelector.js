@@ -16,8 +16,8 @@ function PaintSelector({ values, onSelect }) {
       </Box>
       <List>
          {values.map((value) => (
-            <ListItem button onClick={() => onSelect(value.label)} key={value.id}>
-               <ListItemText primary={value.label} />
+            <ListItem button onClick={() => onSelect(value)} key={value.id}>
+               <ListItemText primary={value} />
             </ListItem>
          ))}
       </List>
