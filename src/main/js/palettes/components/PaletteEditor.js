@@ -8,6 +8,8 @@ import { Field, Formik, Form, FieldArray } from 'formik';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,7 +18,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import { TextField } from 'formik-material-ui';
 
-import { Autocomplete } from 'material-ui-formik-components/Autocomplete';
+import PaintSelector from 'palettes/components/PaintSelector';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -29,7 +31,29 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
+function PaintDialog({ open, onClose, values, onSelect }) {
+
+   function handleSelect(value) {
+      onSelect(value);
+      onClose();
+   }
+
+   return <Dialog aria-labelledby="paint-dialog-title" open={open} onClose={onClose}>
+      <DialogTitle id="paint-dialog-title">select_paint</DialogTitle>
+      <PaintSelector values={values} onSelect={handleSelect} />
+   </Dialog>;
+}
+
+PaintDialog.propTypes = {
+   open: PropTypes.bool.isRequired,
+   onClose: PropTypes.func.isRequired,
+   values: PropTypes.array.isRequired,
+   onSelect: PropTypes.func.isRequired
+};
+
 function PaletteEditor({ suggestions, initialValues, onSave }) {
+   const [open, setOpen] = React.useState(false);
+
    return <Formik
       onSubmit={onSave}
       initialValues={initialValues}
@@ -65,7 +89,7 @@ function PaletteEditor({ suggestions, initialValues, onSave }) {
                                           name={`paints.${index}.name`}
                                           required
                                           options={suggestions}
-                                          component={Autocomplete}
+                                          component={TextField}
                                        />
                                     </ListItemText>
                                     <ListItemSecondaryAction>
@@ -76,9 +100,12 @@ function PaletteEditor({ suggestions, initialValues, onSave }) {
                                  </ListItem>
                               )}
                            </List>
-                           <IconButton aria-label="add" onClick={() => arrayHelpers.push({ name: '' })}>
+                           <IconButton aria-label="add" onClick={() => setOpen(true)}>
                               <AddCircleIcon />
                            </IconButton>
+                           <PaintDialog open={open} values={suggestions}
+                              onClose={() => setOpen(false)}
+                              onSelect={(value) => arrayHelpers.push({ name: value })} />
                         </Fragment>
                      )}
                   />
