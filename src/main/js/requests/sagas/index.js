@@ -7,11 +7,14 @@ import { notifyError } from 'notifications/actions';
 function getMessage(source) {
    let message = 'Request failure';
 
-   if ((source) && (typeof source === 'string')) {
-      message = source;
-   } else if (source.message) {
-      message = source.message;
+   if (source) {
+      if (typeof source === 'string') {
+         message = source;
+      } else if (source.message) {
+         message = source.message;
+      }
    }
+
 
    return message;
 }
