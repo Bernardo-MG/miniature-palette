@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
@@ -32,10 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.palette.model.PaintForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
-import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
-import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 
@@ -55,19 +51,16 @@ import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 public class ITPaletteServiceSave {
 
     @Autowired
-    private PaintRepository        paintRepository;
+    private PaintRepository   paintRepository;
 
     @Autowired
-    private PaletteGroupRepository paletteGroupRepository;
-
-    @Autowired
-    private PaletteRepository      paletteRepository;
+    private PaletteRepository paletteRepository;
 
     /**
      * Service being tested.
      */
     @Autowired
-    private PaletteService         service;
+    private PaletteService    service;
 
     /**
      * Default constructor.
@@ -77,91 +70,45 @@ public class ITPaletteServiceSave {
     }
 
     @Test
-    public void testSave_Empty_Count() {
-        final PaletteGroupOption paletteGroup;
+    public void testSavePalette_Empty() {
+        final PaletteCreationForm palette;
 
-        paletteGroup = new PaletteGroupOption();
+        palette = new PaletteCreationForm();
 
-        service.saveGroup(paletteGroup);
+        service.savePalette(palette);
 
-        Assertions.assertEquals(0, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSave_EmptyName() {
-        final PaletteGroupOption paletteGroup;
+    public void testSavePalette_EmptyName() {
+        final PaletteCreationForm palette;
 
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("");
+        palette = new PaletteCreationForm();
+        palette.setName("");
 
-        service.saveGroup(paletteGroup);
+        service.savePalette(palette);
 
-        Assertions.assertEquals(0, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSave_NoPalettes_Count() {
-        final PaletteGroupOption paletteGroup;
-
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(1, paletteGroupRepository.count());
-        Assertions.assertEquals(0, paletteRepository.count());
-        Assertions.assertEquals(0, paintRepository.count());
-    }
-
-    @Test
-    public void testSave_NoPalettes_Created() {
-        final PaletteGroupOption paletteGroup;
-        final PaletteGroup group;
-
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        service.saveGroup(paletteGroup);
-
-        group = paletteGroupRepository.findAll().iterator().next();
-
-        Assertions.assertEquals("group", group.getName());
-    }
-
-    @Test
-    @Disabled
-    public void testSave_Palettes_Count() {
-        final PaletteGroupOption paletteGroup;
-        final Collection<PaletteCreationForm> palettes;
+    public void testSavePalette_NoPaints() {
         final PaletteCreationForm palette;
 
         palette = new PaletteCreationForm();
         palette.setName("palette");
 
-        palettes = new ArrayList<>();
-        palettes.add(palette);
+        service.savePalette(palette);
 
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        paletteGroup.setPalettes(palettes);
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    @Disabled
-    public void testSave_Palettes_Paints_Count() {
-        final PaletteGroupOption paletteGroup;
-        final Collection<PaletteCreationForm> palettes;
+    public void testSavePalette_Paints() {
         final PaletteCreationForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paint;
@@ -176,59 +123,14 @@ public class ITPaletteServiceSave {
         palette.setName("palette");
         palette.setPaints(paints);
 
-        palettes = new ArrayList<>();
-        palettes.add(palette);
+        service.savePalette(palette);
 
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        paletteGroup.setPalettes(palettes);
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(1, paintRepository.count());
     }
 
     @Test
-    public void testSave_Palettes_Paints_NoGroupName_Count() {
-        final PaletteGroupOption paletteGroup;
-        final Collection<PaletteCreationForm> palettes;
-        final PaletteCreationForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
-
-        paint = new PaintForm();
-        paint.setName("paint");
-
-        paints = new ArrayList<>();
-        paints.add(paint);
-
-        palette = new PaletteCreationForm();
-        palette.setName("palette");
-        palette.setPaints(paints);
-
-        palettes = new ArrayList<>();
-        palettes.add(palette);
-
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("");
-
-        paletteGroup.setPalettes(palettes);
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(0, paletteGroupRepository.count());
-        Assertions.assertEquals(0, paletteRepository.count());
-        Assertions.assertEquals(0, paintRepository.count());
-    }
-
-    @Test
-    @Disabled
-    public void testSave_Palettes_Paints_NoPaintName_Count() {
-        final PaletteGroupOption paletteGroup;
-        final Collection<PaletteCreationForm> palettes;
+    public void testSavePalette_Paints_NoPaintName() {
         final PaletteCreationForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paint;
@@ -243,25 +145,14 @@ public class ITPaletteServiceSave {
         palette.setName("palette");
         palette.setPaints(paints);
 
-        palettes = new ArrayList<>();
-        palettes.add(palette);
+        service.savePalette(palette);
 
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        paletteGroup.setPalettes(palettes);
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSave_Palettes_Paints_NoPaletteName_Count() {
-        final PaletteGroupOption paletteGroup;
-        final Collection<PaletteCreationForm> palettes;
+    public void testSavePalette_Paints_NoPaletteName() {
         final PaletteCreationForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paint;
@@ -276,41 +167,28 @@ public class ITPaletteServiceSave {
         palette.setName("");
         palette.setPaints(paints);
 
-        palettes = new ArrayList<>();
-        palettes.add(palette);
+        service.savePalette(palette);
 
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        paletteGroup.setPalettes(palettes);
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSave_RepeatGroupName() {
-        final PaletteGroupOption paletteGroup;
+    public void testSavePalette_RepeatPaletteName() {
+        final PaletteCreationForm palette;
 
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
+        palette = new PaletteCreationForm();
+        palette.setName("palette");
 
-        service.saveGroup(paletteGroup);
-        service.saveGroup(paletteGroup);
+        service.savePalette(palette);
+        service.savePalette(palette);
 
-        Assertions.assertEquals(2, paletteGroupRepository.count());
-        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(2, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    @Disabled
-    public void testSave_RepeatPaintName() {
-        final PaletteGroupOption paletteGroup;
-        final Collection<PaletteCreationForm> palettes;
+    public void testSavePalette_RepeatPaintName() {
         final PaletteCreationForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paintA;
@@ -330,49 +208,10 @@ public class ITPaletteServiceSave {
         palette.setName("palette");
         palette.setPaints(paints);
 
-        palettes = new ArrayList<>();
-        palettes.add(palette);
+        service.savePalette(palette);
 
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        paletteGroup.setPalettes(palettes);
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(1, paletteGroupRepository.count());
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(2, paintRepository.count());
-    }
-
-    @Test
-    @Disabled
-    public void testSave_RepeatPaletteName() {
-        final PaletteGroupOption paletteGroup;
-        final Collection<PaletteCreationForm> palettes;
-        final PaletteCreationForm paletteA;
-        final PaletteCreationForm paletteB;
-
-        paletteA = new PaletteCreationForm();
-        paletteA.setName("palette");
-
-        paletteB = new PaletteCreationForm();
-        paletteB.setName("palette");
-
-        palettes = new ArrayList<>();
-        palettes.add(paletteA);
-        palettes.add(paletteB);
-
-        paletteGroup = new PaletteGroupOption();
-        paletteGroup.setName("group");
-
-        paletteGroup.setPalettes(palettes);
-
-        service.saveGroup(paletteGroup);
-
-        Assertions.assertEquals(1, paletteGroupRepository.count());
-        Assertions.assertEquals(2, paletteRepository.count());
-        Assertions.assertEquals(0, paintRepository.count());
     }
 
 }

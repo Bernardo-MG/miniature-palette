@@ -17,7 +17,6 @@
 package com.bernardomg.tabletop.palette.palette.service;
 
 import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
 
@@ -29,8 +28,6 @@ import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
 public interface PaletteService {
 
     public Iterable<PaletteOption> getAllPalettes();
-
-    public void saveGroup(final PaletteGroupOption paletteGroup);
 
     public void savePalette(final PaletteCreationForm palette);
 

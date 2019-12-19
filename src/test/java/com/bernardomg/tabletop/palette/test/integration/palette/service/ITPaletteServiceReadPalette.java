@@ -17,7 +17,6 @@
 package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
@@ -72,7 +71,6 @@ public class ITPaletteServiceReadPalette {
 
     @Test
     @Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
-    @Disabled
     public void testRead_Full_Simple() {
         final Iterable<PaletteOption> read;
         final PaletteOption palette;
@@ -92,7 +90,6 @@ public class ITPaletteServiceReadPalette {
 
     @Test
     @Sql({ "/db/palette_simple.sql" })
-    @Disabled
     public void testRead_NoPaints_Simple() {
         final Iterable<PaletteOption> read;
         final PaletteOption palette;

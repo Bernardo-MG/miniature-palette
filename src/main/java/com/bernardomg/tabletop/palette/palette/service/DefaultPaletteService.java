@@ -34,38 +34,30 @@ import org.springframework.stereotype.Service;
 import com.bernardomg.tabletop.palette.palette.model.PaintForm;
 import com.bernardomg.tabletop.palette.palette.model.PaintOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
-import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
-import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
-import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
 
 @Service
 public final class DefaultPaletteService implements PaletteService {
 
-    private static final Logger          LOGGER = LoggerFactory
+    private static final Logger     LOGGER = LoggerFactory
             .getLogger(DefaultPaletteService.class);
 
-    private final PaintRepository        paintRepository;
+    private final PaintRepository   paintRepository;
 
-    private final PaletteGroupRepository paletteGroupRepository;
-
-    private final PaletteRepository      paletteRepository;
+    private final PaletteRepository paletteRepository;
 
     @Autowired
     public DefaultPaletteService(final PaintRepository paintRepo,
-            final PaletteRepository paletteRepo,
-            final PaletteGroupRepository paletteGroupRepo) {
+            final PaletteRepository paletteRepo) {
         super();
 
         paintRepository = checkNotNull(paintRepo, "The repository is required");
         paletteRepository = checkNotNull(paletteRepo,
-                "The repository is required");
-        paletteGroupRepository = checkNotNull(paletteGroupRepo,
                 "The repository is required");
     }
 
@@ -89,41 +81,28 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final void saveGroup(final PaletteGroupOption paletteGroup) {
-        final PaletteGroup group;
-
-        checkNotNull(paletteGroup, "No palettes received");
-
-        if (StringUtils.isNotBlank(paletteGroup.getName())) {
-            group = new PaletteGroup();
-            group.setName(paletteGroup.getName());
-
-            paletteGroupRepository.save(group);
-        } else {
-            LOGGER.debug("Empty name. The Palette group is not saved");
-        }
-    }
-
-    @Override
     public final void savePalette(final PaletteCreationForm palette) {
         final Palette entity;
         final Palette saved;
         final Collection<Paint> paintEntities;
 
-        entity = new Palette();
-        entity.setName(palette.getName());
+        if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
+            entity = new Palette();
+            entity.setName(palette.getName());
 
-        saved = paletteRepository.save(entity);
+            saved = paletteRepository.save(entity);
 
-        // Paints are mapped to entities
-        paintEntities = StreamSupport
-                .stream(palette.getPaints().spliterator(), false)
-                .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                .map(this::toEntity).collect(Collectors.toList());
-        // The palette id is set
-        paintEntities.stream().forEach((p) -> p.setPaletteId(saved.getId()));
+            // Paints are mapped to entities
+            paintEntities = StreamSupport
+                    .stream(palette.getPaints().spliterator(), false)
+                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
+                    .map(this::toEntity).collect(Collectors.toList());
+            // The palette id is set
+            paintEntities.stream()
+                    .forEach((p) -> p.setPaletteId(saved.getId()));
 
-        paintRepository.saveAll(paintEntities);
+            paintRepository.saveAll(paintEntities);
+        }
     }
 
     @Override
