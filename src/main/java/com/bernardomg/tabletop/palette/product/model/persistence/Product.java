@@ -57,7 +57,7 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Integer           id               = -1;
+    private Long              id               = -1l;
 
     /**
      * Name of the entity.
@@ -105,7 +105,7 @@ public class Product implements Serializable {
      *
      * @return the entity's identifier
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -122,7 +122,7 @@ public class Product implements Serializable {
         this.code = checkNotNull(code, "Received a null pointer as code");
     }
 
-    public void setId(final Integer value) {
+    public void setId(final Long value) {
         id = checkNotNull(value, "Received a null pointer as identifier");
     }
 

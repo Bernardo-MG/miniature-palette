@@ -30,9 +30,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.PaintOption;
+import com.bernardomg.tabletop.palette.palette.model.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.google.common.collect.Iterables;
 
@@ -79,10 +79,10 @@ public class ITPaletteServiceRead {
     public void testRead_Full_Big() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
-        final Iterator<PaletteForm> palettes;
-        Iterator<PaintOption> paints;
-        PaletteForm palette;
-        PaintOption paint;
+        final Iterator<PaletteCreationForm> palettes;
+        Iterator<PaintForm> paints;
+        PaletteCreationForm palette;
+        PaintForm paint;
 
         read = service.getAll();
 
@@ -135,8 +135,8 @@ public class ITPaletteServiceRead {
     public void testRead_Full_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
-        final PaletteForm palette;
-        final PaintOption paint;
+        final PaletteCreationForm palette;
+        final PaintForm paint;
 
         read = service.getAll();
 
@@ -160,7 +160,7 @@ public class ITPaletteServiceRead {
     public void testRead_Group_Palette_Simple() {
         final Iterable<PaletteGroupOption> read;
         final PaletteGroupOption group;
-        final PaletteForm palette;
+        final PaletteCreationForm palette;
 
         read = service.getAll();
 

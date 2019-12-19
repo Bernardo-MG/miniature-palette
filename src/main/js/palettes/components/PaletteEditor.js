@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
-import { Field, Formik, Form, FieldArray } from 'formik';
+import { Formik, Form, FieldArray } from 'formik';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,10 +13,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-
-import { TextField } from 'formik-material-ui';
-
-import { Autocomplete } from 'material-ui-formik-components/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -29,23 +26,24 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
-function PaletteEditor({ suggestions, onSave }) {
+function PaletteEditor({ initialValues, onSave }) {
    return <Formik
       onSubmit={onSave}
-      initialValues={{
-         name: '',
-         paints: []
-      }}
+      initialValues={initialValues}
       validationSchema={PaletteSchema}>
-      {({ values }) => (
+      {({ values, errors, touched, handleChange, handleBlur }) => (
          <Form>
             <Card>
                <CardHeader
                   title={
-                     <Field
+                     <TextField
                         name="name"
                         label="palette_name"
-                        component={TextField}
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={(errors.name && touched.name) && errors.name}
+                        margin="normal"
                      />
                   }
                   action={
@@ -63,12 +61,14 @@ function PaletteEditor({ suggestions, onSave }) {
                               {values.paints.map((paint, index) =>
                                  <ListItem key={index}>
                                     <ListItemText>
-                                       <Field
-                                          id={`paints.${index}.name`}
-                                          name={`paints.${index}.name`}
-                                          required
-                                          options={suggestions}
-                                          component={Autocomplete}
+                                       <TextField
+                                          id={`paints[${index}].name`}
+                                          name={`paints[${index}].name`}
+                                          label="paint_name"
+                                          value={paint.name}
+                                          onChange={handleChange}
+                                          onBlur={handleBlur}
+                                          helperText={(errors.name && touched.name) && errors.name}
                                        />
                                     </ListItemText>
                                     <ListItemSecondaryAction>
@@ -93,8 +93,11 @@ function PaletteEditor({ suggestions, onSave }) {
 }
 
 PaletteEditor.propTypes = {
-   onSave: PropTypes.func.isRequired,
-   suggestions: PropTypes.array.isRequired
+   initialValues: PropTypes.shape({
+      name: PropTypes.string,
+      paints: PropTypes.array
+   }),
+   onSave: PropTypes.func.isRequired
 };
 
 export default PaletteEditor;

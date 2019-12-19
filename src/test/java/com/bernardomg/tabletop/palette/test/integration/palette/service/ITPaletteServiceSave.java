@@ -30,9 +30,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.PaintOption;
+import com.bernardomg.tabletop.palette.palette.model.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
@@ -136,10 +136,10 @@ public class ITPaletteServiceSave {
     @Disabled
     public void testSave_Palettes_Count() {
         final PaletteGroupOption paletteGroup;
-        final Collection<PaletteForm> palettes;
-        final PaletteForm palette;
+        final Collection<PaletteCreationForm> palettes;
+        final PaletteCreationForm palette;
 
-        palette = new PaletteForm();
+        palette = new PaletteCreationForm();
         palette.setName("palette");
 
         palettes = new ArrayList<>();
@@ -161,18 +161,18 @@ public class ITPaletteServiceSave {
     @Disabled
     public void testSave_Palettes_Paints_Count() {
         final PaletteGroupOption paletteGroup;
-        final Collection<PaletteForm> palettes;
-        final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaletteCreationForm> palettes;
+        final PaletteCreationForm palette;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
         paints.add(paint);
 
-        palette = new PaletteForm();
+        palette = new PaletteCreationForm();
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -194,18 +194,18 @@ public class ITPaletteServiceSave {
     @Test
     public void testSave_Palettes_Paints_NoGroupName_Count() {
         final PaletteGroupOption paletteGroup;
-        final Collection<PaletteForm> palettes;
-        final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaletteCreationForm> palettes;
+        final PaletteCreationForm palette;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
         paints.add(paint);
 
-        palette = new PaletteForm();
+        palette = new PaletteCreationForm();
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -228,18 +228,18 @@ public class ITPaletteServiceSave {
     @Disabled
     public void testSave_Palettes_Paints_NoPaintName_Count() {
         final PaletteGroupOption paletteGroup;
-        final Collection<PaletteForm> palettes;
-        final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaletteCreationForm> palettes;
+        final PaletteCreationForm palette;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("");
 
         paints = new ArrayList<>();
         paints.add(paint);
 
-        palette = new PaletteForm();
+        palette = new PaletteCreationForm();
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -261,18 +261,18 @@ public class ITPaletteServiceSave {
     @Test
     public void testSave_Palettes_Paints_NoPaletteName_Count() {
         final PaletteGroupOption paletteGroup;
-        final Collection<PaletteForm> palettes;
-        final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paint;
+        final Collection<PaletteCreationForm> palettes;
+        final PaletteCreationForm palette;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
 
-        paint = new PaintOption();
+        paint = new PaintForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
         paints.add(paint);
 
-        palette = new PaletteForm();
+        palette = new PaletteCreationForm();
         palette.setName("");
         palette.setPaints(paints);
 
@@ -310,23 +310,23 @@ public class ITPaletteServiceSave {
     @Disabled
     public void testSave_RepeatPaintName() {
         final PaletteGroupOption paletteGroup;
-        final Collection<PaletteForm> palettes;
-        final PaletteForm palette;
-        final Collection<PaintOption> paints;
-        final PaintOption paintA;
-        final PaintOption paintB;
+        final Collection<PaletteCreationForm> palettes;
+        final PaletteCreationForm palette;
+        final Collection<PaintForm> paints;
+        final PaintForm paintA;
+        final PaintForm paintB;
 
-        paintA = new PaintOption();
+        paintA = new PaintForm();
         paintA.setName("paint");
 
-        paintB = new PaintOption();
+        paintB = new PaintForm();
         paintB.setName("paint");
 
         paints = new ArrayList<>();
         paints.add(paintA);
         paints.add(paintB);
 
-        palette = new PaletteForm();
+        palette = new PaletteCreationForm();
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -349,14 +349,14 @@ public class ITPaletteServiceSave {
     @Disabled
     public void testSave_RepeatPaletteName() {
         final PaletteGroupOption paletteGroup;
-        final Collection<PaletteForm> palettes;
-        final PaletteForm paletteA;
-        final PaletteForm paletteB;
+        final Collection<PaletteCreationForm> palettes;
+        final PaletteCreationForm paletteA;
+        final PaletteCreationForm paletteB;
 
-        paletteA = new PaletteForm();
+        paletteA = new PaletteCreationForm();
         paletteA.setName("palette");
 
-        paletteB = new PaletteForm();
+        paletteB = new PaletteCreationForm();
         paletteB.setName("palette");
 
         palettes = new ArrayList<>();

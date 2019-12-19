@@ -32,7 +32,7 @@ public class PaletteGroupOption {
     private String                name;
 
     @Valid
-    private Iterable<PaletteForm> palettes = new ArrayList<>();
+    private Iterable<PaletteCreationForm> palettes = new ArrayList<>();
 
     public PaletteGroupOption() {
         super();
@@ -60,7 +60,7 @@ public class PaletteGroupOption {
         return name;
     }
 
-    public Iterable<PaletteForm> getPalettes() {
+    public Iterable<PaletteCreationForm> getPalettes() {
         return palettes;
     }
 
@@ -73,7 +73,7 @@ public class PaletteGroupOption {
         this.name = name;
     }
 
-    public void setPalettes(final Iterable<PaletteForm> palettes) {
+    public void setPalettes(final Iterable<PaletteCreationForm> palettes) {
         this.palettes = palettes;
     }
 

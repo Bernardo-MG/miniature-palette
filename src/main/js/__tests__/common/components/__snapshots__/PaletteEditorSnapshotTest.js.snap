@@ -19,7 +19,7 @@ exports[`<SuggestionInput /> renders correctly 1`] = `
           className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock"
         >
           <div
-            className="MuiFormControl-root MuiTextField-root"
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal"
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"

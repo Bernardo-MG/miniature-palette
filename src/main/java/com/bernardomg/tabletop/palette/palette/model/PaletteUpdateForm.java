@@ -16,22 +16,30 @@
 
 package com.bernardomg.tabletop.palette.palette.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaintOption implements Serializable {
+public class PaletteUpdateForm {
 
-    private static final long serialVersionUID = -7040753038901687866L;
+    @NotNull
+    @Min(1)
+    private Long                id;
 
-    private Long              id               = -1l;
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String              name;
 
-    private String            name             = "";
+    @Valid
+    private Iterable<PaintForm> paints = new ArrayList<>();
 
-    public PaintOption() {
+    public PaletteUpdateForm() {
         super();
     }
 
@@ -49,7 +57,7 @@ public class PaintOption implements Serializable {
             return false;
         }
 
-        final PaintOption other = (PaintOption) obj;
+        final PaletteUpdateForm other = (PaletteUpdateForm) obj;
         return Objects.equals(name, other.name);
     }
 
@@ -61,6 +69,10 @@ public class PaintOption implements Serializable {
         return name;
     }
 
+    public Iterable<PaintForm> getPaints() {
+        return paints;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hash(name);
@@ -70,13 +82,18 @@ public class PaintOption implements Serializable {
         this.id = id;
     }
 
-    public void setName(final String value) {
-        name = checkNotNull(value, "Received a null pointer as name");
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setPaints(final Iterable<PaintForm> paints) {
+        this.paints = paints;
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name).toString();
+        return MoreObjects.toStringHelper(this).add("name", name)
+                .add("paints", paints).toString();
     }
 
 }

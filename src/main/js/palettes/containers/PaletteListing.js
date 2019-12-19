@@ -4,10 +4,19 @@ import PaletteList from 'palettes/components/PaletteList';
 
 import { usePalettes } from 'palettes';
 
+import { useHistory } from 'react-router-dom';
+
 function PaletteListing() {
    const palettes = usePalettes();
 
-   return <PaletteList data={palettes} />;
+   const history = useHistory();
+
+   function toEdit(id) {
+      history.push(`/palette/edit/${id}`);
+   }
+
+   return <PaletteList data={palettes}
+      onEdit={toEdit} />;
 }
 
 PaletteListing.propTypes = {};

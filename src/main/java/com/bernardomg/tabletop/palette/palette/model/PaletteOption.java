@@ -27,6 +27,8 @@ import com.google.common.base.MoreObjects;
 
 public class PaletteOption {
 
+    private Long                  id     = -1l;
+
     @NotNull
     @Size(min = 1, max = 50)
     private String                name;
@@ -56,6 +58,10 @@ public class PaletteOption {
         return Objects.equals(name, other.name);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -67,6 +73,10 @@ public class PaletteOption {
     @Override
     public final int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     public void setName(final String name) {

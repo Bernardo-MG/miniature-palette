@@ -33,16 +33,19 @@ public class DefaultProductInfo implements Serializable, ProductInfo {
 
     private String            company          = "";
 
+    private Long              id               = 0l;
+
     private String            name             = "";
 
     public DefaultProductInfo() {
         super();
     }
 
-    public DefaultProductInfo(final String code, final String name,
-            final String brand, final String company) {
+    public DefaultProductInfo(final Long id, final String code,
+            final String name, final String brand, final String company) {
         super();
 
+        this.id = checkNotNull(id, "Received a null pointer as id");
         this.code = checkNotNull(code, "Received a null pointer as code");
         this.name = checkNotNull(name, "Received a null pointer as name");
         this.brand = brand;
@@ -83,6 +86,11 @@ public class DefaultProductInfo implements Serializable, ProductInfo {
     }
 
     @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -105,6 +113,11 @@ public class DefaultProductInfo implements Serializable, ProductInfo {
     @Override
     public void setCompany(final String value) {
         company = checkNotNull(value, "Received a null pointer as company");
+    }
+
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     @Override
