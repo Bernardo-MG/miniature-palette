@@ -77,7 +77,7 @@ public final class TestPaletteControllerValidation {
     }
 
     @Test
-    public final void testSendFormData_EmptyName() throws Exception {
+    public final void testCreate_EmptyName() throws Exception {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
@@ -93,8 +93,7 @@ public final class TestPaletteControllerValidation {
     }
 
     @Test
-    public final void testSendFormData_ValidName_EmptyPaintName()
-            throws Exception {
+    public final void testCreate_ValidName_EmptyPaintName() throws Exception {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
@@ -110,8 +109,7 @@ public final class TestPaletteControllerValidation {
     }
 
     @Test
-    public final void testSendFormData_ValidName_EmptyPaints()
-            throws Exception {
+    public final void testCreate_ValidName_EmptyPaints() throws Exception {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
@@ -125,7 +123,7 @@ public final class TestPaletteControllerValidation {
     }
 
     @Test
-    public final void testSendFormData_ValidName_ValidPaint() throws Exception {
+    public final void testCreate_ValidName_ValidPaint() throws Exception {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
