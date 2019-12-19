@@ -20,21 +20,26 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteGroupOption {
+public class PaletteUpdateForm {
+
+    @NotNull
+    @Min(1)
+    private Long                id;
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String                name;
+    private String              name;
 
     @Valid
-    private Iterable<PaletteCreationForm> palettes = new ArrayList<>();
+    private Iterable<PaintForm> paints = new ArrayList<>();
 
-    public PaletteGroupOption() {
+    public PaletteUpdateForm() {
         super();
     }
 
@@ -52,16 +57,20 @@ public class PaletteGroupOption {
             return false;
         }
 
-        final PaletteGroupOption other = (PaletteGroupOption) obj;
+        final PaletteUpdateForm other = (PaletteUpdateForm) obj;
         return Objects.equals(name, other.name);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public Iterable<PaletteCreationForm> getPalettes() {
-        return palettes;
+    public Iterable<PaintForm> getPaints() {
+        return paints;
     }
 
     @Override
@@ -69,18 +78,22 @@ public class PaletteGroupOption {
         return Objects.hash(name);
     }
 
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
     public void setName(final String name) {
         this.name = name;
     }
 
-    public void setPalettes(final Iterable<PaletteCreationForm> palettes) {
-        this.palettes = palettes;
+    public void setPaints(final Iterable<PaintForm> paints) {
+        this.paints = paints;
     }
 
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", name)
-                .add("palettes", palettes).toString();
+                .add("paints", paints).toString();
     }
 
 }

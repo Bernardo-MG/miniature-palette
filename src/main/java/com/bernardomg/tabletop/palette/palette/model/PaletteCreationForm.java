@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteForm {
+public class PaletteCreationForm {
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -34,7 +34,7 @@ public class PaletteForm {
     @Valid
     private Iterable<PaintForm> paints = new ArrayList<>();
 
-    public PaletteForm() {
+    public PaletteCreationForm() {
         super();
     }
 
@@ -52,7 +52,7 @@ public class PaletteForm {
             return false;
         }
 
-        final PaletteForm other = (PaletteForm) obj;
+        final PaletteCreationForm other = (PaletteCreationForm) obj;
         return Objects.equals(name, other.name);
     }
 

@@ -16,9 +16,10 @@
 
 package com.bernardomg.tabletop.palette.palette.service;
 
-import com.bernardomg.tabletop.palette.palette.model.PaletteForm;
+import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
+import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
 
 /**
  * Service for palettes.
@@ -35,6 +36,8 @@ public interface PaletteService {
 
     public void saveGroup(final PaletteGroupOption paletteGroup);
 
-    public void savePalette(final PaletteForm palette);
+    public void savePalette(final PaletteCreationForm palette);
+
+    public void updatePalette(final PaletteUpdateForm palette);
 
 }
