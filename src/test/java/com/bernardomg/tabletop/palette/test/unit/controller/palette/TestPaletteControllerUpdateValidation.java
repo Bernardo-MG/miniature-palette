@@ -42,7 +42,7 @@ import com.bernardomg.tabletop.palette.test.config.UrlConfig;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RunWith(JUnitPlatform.class)
-public final class TestPaletteControllerValidation {
+public final class TestPaletteControllerUpdateValidation {
 
     /**
      * Mocked MVC context.
@@ -54,7 +54,7 @@ public final class TestPaletteControllerValidation {
     /**
      * Default constructor.
      */
-    public TestPaletteControllerValidation() {
+    public TestPaletteControllerUpdateValidation() {
         super();
 
         service = Mockito.mock(PaletteService.class);
@@ -77,12 +77,27 @@ public final class TestPaletteControllerValidation {
     }
 
     @Test
-    public final void testCreate_EmptyName() throws Exception {
+    public final void testUpdate_Empty() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8).content("{}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.not(Matchers.empty())));
+    }
+
+    @Test
+    public final void testUpdate_Id() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"\"}");
+                .content("{\"id\":\"1\"}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -93,47 +108,78 @@ public final class TestPaletteControllerValidation {
     }
 
     @Test
-    public final void testCreate_ValidName_EmptyPaintName() throws Exception {
+    public final void testUpdate_Id_ValidName_EmptyPaintName()
+            throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("warning")))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
-                        Matchers.hasSize(1)));
-    }
-
-    @Test
-    public final void testCreate_ValidName_EmptyPaints() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\", \"paints\":[]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public final void testCreate_ValidName_ValidPaint() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content(
-                        "{\"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
+                        "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.hasSize(1)));
+    }
+
+    @Test
+    public final void testUpdate_Id_ValidName_EmptyPaints() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
                         Matchers.equalTo("success")))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testUpdate_Id_ValidName_NoPaints() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testUpdate_Id_ValidName_ValidPaint() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                        "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testUpdate_NoId_ValidName() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"name\":\"abcd\"}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.hasSize(1)));
     }
 
     /**
