@@ -28,11 +28,7 @@ import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
  */
 public interface PaletteService {
 
-    public Iterable<PaletteGroupOption> getAll();
-
     public Iterable<PaletteOption> getAllPalettes();
-
-    public PaletteGroupOption getById(final Long id);
 
     public void saveGroup(final PaletteGroupOption paletteGroup);
 

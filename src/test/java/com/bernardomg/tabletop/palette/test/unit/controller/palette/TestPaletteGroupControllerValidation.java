@@ -34,7 +34,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.palette.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.palette.palette.controller.PaletteGroupController;
+import com.bernardomg.tabletop.palette.palette.controller.PaletteController;
 import com.bernardomg.tabletop.palette.palette.model.PaletteGroupOption;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.test.config.UrlConfig;
@@ -199,8 +199,8 @@ public final class TestPaletteGroupControllerValidation {
      * 
      * @return a mocked controller
      */
-    private final PaletteGroupController getController() {
-        return new PaletteGroupController(service);
+    private final PaletteController getController() {
+        return new PaletteController(service);
     }
 
 }

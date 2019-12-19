@@ -18,12 +18,10 @@ package com.bernardomg.tabletop.palette.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -72,34 +70,6 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final Iterable<PaletteGroupOption> getAll() {
-        final Collection<PaletteGroup> groups;
-        final Collection<Long> groupIds;
-        final Collection<Palette> allPalettes;
-        final Map<Long, List<PaletteCreationForm>> groupPaletteOptions;
-        final Collection<Long> paletteIds;
-        final Collection<Paint> allPaints;
-        final Map<Long, List<PaintOption>> palettePaintOptions;
-
-        groups = paletteGroupRepository.findAll();
-        groupIds = groups.stream().map(PaletteGroup::getId)
-                .collect(Collectors.toList());
-
-        // TODO: Read relationship
-        // allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
-        allPalettes = paletteRepository.findAll();
-        paletteIds = allPalettes.stream().map(Palette::getId)
-                .collect(Collectors.toList());
-
-        allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
-
-        palettePaintOptions = getPaintOptions(allPaints);
-        groupPaletteOptions = getPaletteOptions(allPalettes,
-                palettePaintOptions);
-        return getPaletteGroupOptions(groups, groupPaletteOptions);
-    }
-
-    @Override
     public final Iterable<PaletteOption> getAllPalettes() {
         final List<Palette> allPalettes;
         final Collection<Long> paletteIds;
@@ -116,43 +86,6 @@ public final class DefaultPaletteService implements PaletteService {
 
         // TODO Auto-generated method stub
         return toPaletteOptions(allPalettes, palettePaintOptions);
-    }
-
-    @Override
-    public final PaletteGroupOption getById(final Long id) {
-        // TODO: Do this better, avoid repeating code
-        final Optional<PaletteGroup> group;
-        final Collection<Long> groupIds;
-        final Collection<Palette> allPalettes;
-        final Map<Long, List<PaletteCreationForm>> groupPaletteOptions;
-        final Collection<Long> paletteIds;
-        final Collection<Paint> allPaints;
-        final Map<Long, List<PaintOption>> palettePaintOptions;
-        final PaletteGroupOption result;
-
-        group = paletteGroupRepository.findById(id);
-        if (group.isPresent()) {
-            groupIds = Arrays.asList(group.get().getId());
-
-            // TODO: Read relationship
-            // allPalettes = paletteRepository.findAllByGroupIdIn(groupIds);
-            allPalettes = paletteRepository.findAll();
-            paletteIds = allPalettes.stream().map(Palette::getId)
-                    .collect(Collectors.toList());
-
-            allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
-
-            palettePaintOptions = getPaintOptions(allPaints);
-            groupPaletteOptions = getPaletteOptions(allPalettes,
-                    palettePaintOptions);
-            // TODO: No need for a map
-            result = toPaletteGroupOption(group.get(),
-                    groupPaletteOptions.get(group.get().getId()));
-        } else {
-            result = null;
-        }
-
-        return result;
     }
 
     @Override
@@ -228,30 +161,6 @@ public final class DefaultPaletteService implements PaletteService {
                 .toMap(Map.Entry::getKey, e -> toPaintOptions(e.getValue())));
     }
 
-    private final Collection<PaletteGroupOption> getPaletteGroupOptions(
-            final Collection<PaletteGroup> groups,
-            final Map<Long, List<PaletteCreationForm>> groupPaletteOptions) {
-        return groups.stream()
-                .map((g) -> toPaletteGroupOption(g,
-                        groupPaletteOptions.getOrDefault(g.getId(),
-                                Collections.emptyList())))
-                .collect(Collectors.toList());
-    }
-
-    private final Map<Long, List<PaletteCreationForm>> getPaletteOptions(
-            final Collection<Palette> allPalettes,
-            final Map<Long, List<PaintOption>> palettePaintOptions) {
-        final Map<Long, List<Palette>> groupPalettes;
-
-        // groupPalettes = allPalettes.stream()
-        // .collect(Collectors.groupingBy(Palette::getGroupId));
-        // return groupPalettes.entrySet().stream().collect(Collectors.toMap(
-        // Map.Entry::getKey,
-        // e -> toPaletteOptions(e.getValue(), palettePaintOptions)));
-        // TODO: Read relationship
-        return Collections.emptyMap();
-    }
-
     private final Paint toEntity(final PaintForm paint) {
         final Paint entity;
 
@@ -274,18 +183,6 @@ public final class DefaultPaletteService implements PaletteService {
     private final List<PaintOption> toPaintOptions(final List<Paint> paints) {
         return paints.stream().map(this::toPaintOption)
                 .collect(Collectors.toList());
-    }
-
-    private final PaletteGroupOption toPaletteGroupOption(
-            final PaletteGroup group,
-            final Collection<PaletteCreationForm> palettes) {
-        final PaletteGroupOption option;
-
-        option = new PaletteGroupOption();
-        option.setName(group.getName());
-        option.setPalettes(palettes);
-
-        return option;
     }
 
     private final PaletteOption toPaletteOption(final Palette palette,
