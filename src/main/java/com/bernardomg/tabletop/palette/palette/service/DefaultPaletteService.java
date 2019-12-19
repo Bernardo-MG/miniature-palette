@@ -111,23 +111,27 @@ public final class DefaultPaletteService implements PaletteService {
         final Palette saved;
         final Collection<Paint> paintEntities;
 
-        entity = new Palette();
-        entity.setId(palette.getId());
-        entity.setName(palette.getName());
+        if ((palette.getName() != null) && (!palette.getName().isEmpty())
+                && (palette.getId() != null)) {
+            entity = new Palette();
+            entity.setId(palette.getId());
+            entity.setName(palette.getName());
 
-        saved = paletteRepository.save(entity);
+            saved = paletteRepository.save(entity);
 
-        // TODO: Save paint ids
+            // TODO: Save paint ids
 
-        // Paints are mapped to entities
-        paintEntities = StreamSupport
-                .stream(palette.getPaints().spliterator(), false)
-                .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                .map(this::toEntity).collect(Collectors.toList());
-        // The palette id is set
-        paintEntities.stream().forEach((p) -> p.setPaletteId(saved.getId()));
+            // Paints are mapped to entities
+            paintEntities = StreamSupport
+                    .stream(palette.getPaints().spliterator(), false)
+                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
+                    .map(this::toEntity).collect(Collectors.toList());
+            // The palette id is set
+            paintEntities.stream()
+                    .forEach((p) -> p.setPaletteId(saved.getId()));
 
-        paintRepository.saveAll(paintEntities);
+            paintRepository.saveAll(paintEntities);
+        }
     }
 
     private final Map<Long, List<PaintOption>>
