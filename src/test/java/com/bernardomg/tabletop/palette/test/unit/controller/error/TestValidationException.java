@@ -18,7 +18,6 @@ package com.bernardomg.tabletop.palette.test.unit.controller.error;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
@@ -43,7 +42,6 @@ import com.bernardomg.tabletop.palette.test.config.UrlConfig;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RunWith(JUnitPlatform.class)
-@Disabled
 public final class TestValidationException {
 
     /**
