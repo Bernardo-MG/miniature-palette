@@ -38,14 +38,8 @@ function PaletteEditForm({ id }) {
       };
    }
 
-   function toPalette(v) {
-      return { name: v.name.value };
-   }
-
    function handleSave(form) {
       const palette = { ...form };
-
-      palette.paints = palette.paints.map(toPalette);
 
       dispatch(savePalette(palette));
    }
