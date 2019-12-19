@@ -33,6 +33,7 @@ function PaletteUpdateForm({ id }) {
       };
    } else {
       values = {
+         id,
          name: '',
          paints: []
       };
