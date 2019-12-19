@@ -44,11 +44,31 @@ export function* notifySaved() {
    yield put(notifySuccess('saved_message'));
 }
 
+export function* update(action) {
+   let response;
+   try {
+      response = yield call(api.Palettes.update, action.payload);
+      if (response.status === 'success') {
+         yield put(savePaletteSuccess(response));
+      } else {
+         yield put(requestFailure(response));
+      }
+   } catch (err) {
+      yield put(requestFailure(err));
+   }
+}
+
+export function* notifyUpdated() {
+   yield put(notifySuccess('updated_message'));
+}
+
 export const paletteSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.READ_PALETTES_SUCCESS, storePalettes),
    takeLatest(types.REGISTER_PALETTE_GROUP, save),
    takeLatest(types.REGISTER_PALETTE_GROUP_SUCCESS, notifySaved),
    takeLatest(types.SAVE_PALETTE, save),
-   takeLatest(types.SAVE_PALETTE_SUCCESS, notifySaved)
+   takeLatest(types.SAVE_PALETTE_SUCCESS, notifySaved),
+   takeLatest(types.UPDATE_PALETTE, update),
+   takeLatest(types.UPDATE_PALETTE_SUCCESS, notifyUpdated)
 ];

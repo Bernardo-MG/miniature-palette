@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useSuggestions } from 'suggestions';
 
-import { savePalette } from 'palettes/actions';
+import { updatePalette } from 'palettes/actions';
 
 import { selectPaletteById } from 'palettes/selectors';
 
@@ -41,7 +41,7 @@ function PaletteUpdateForm({ id }) {
    function handleSave(form) {
       const palette = { ...form };
 
-      dispatch(savePalette(palette));
+      dispatch(updatePalette(palette));
    }
 
    return <PaletteEditor

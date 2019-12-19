@@ -34,6 +34,20 @@ export const savePaletteSuccess = (payload) => {
    };
 };
 
+export const updatePalette = (payload) => {
+   return {
+      type: types.UPDATE_PALETTE,
+      payload
+   };
+};
+
+export const updatePaletteSuccess = (payload) => {
+   return {
+      type: types.UPDATE_PALETTE_SUCCESS,
+      payload
+   };
+};
+
 export const registerPaletteGroup = (payload) => {
    return {
       type: types.REGISTER_PALETTE_GROUP,

@@ -35,7 +35,8 @@ const requests = {
          (error) => error.message || 'Request failed'
       ),
    get: (url) => superagent.get(`${API_ROOT}${url}`).then((response) => JSON.parse(response.text)),
-   post: (url, body) => superagent.post(`${API_ROOT}${url}`, body).ok((res) => res.status < 500).then((response) => JSON.parse(response.text))
+   post: (url, body) => superagent.post(`${API_ROOT}${url}`, body).ok((res) => res.status < 500).then((response) => JSON.parse(response.text)),
+   put: (url, body) => superagent.put(`${API_ROOT}${url}`, body).ok((res) => res.status < 500).then((response) => JSON.parse(response.text))
 };
 
 const Products = {
@@ -50,7 +51,8 @@ const PaletteGroups = {
 
 const Palettes = {
    all: () => requests.get('/rest/palette').then((response) => response.content),
-   save: (palette) => requests.post('/rest/palette', palette)
+   save: (palette) => requests.post('/rest/palette', palette),
+   update: (palette) => requests.put('/rest/palette', palette)
 };
 
 export default {
