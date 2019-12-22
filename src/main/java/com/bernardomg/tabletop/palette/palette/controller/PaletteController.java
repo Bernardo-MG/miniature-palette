@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
+import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
 import com.bernardomg.tabletop.palette.response.Response;
@@ -50,7 +50,7 @@ public class PaletteController {
     private final PaletteService paletteService;
 
     /**
-     * Constructs a controller with the specified dependencies.
+     * Constructs a controller.
      * 
      * @param service
      *            example entity service
@@ -62,31 +62,52 @@ public class PaletteController {
         paletteService = checkNotNull(service, "The service is required");
     }
 
+    /**
+     * Returns all the palettes stored.
+     * 
+     * @return all the palettes
+     */
     @GetMapping
-    public Response<Iterable<PaletteOption>> read() {
-        final Iterable<PaletteOption> read;
+    public Response<Iterable<PaletteData>> read() {
+        final Iterable<PaletteData> read;
 
         read = paletteService.getAllPalettes();
 
         return new DefaultResponse<>(read);
     }
 
+    /**
+     * Saves the received palette.
+     * 
+     * @param palette
+     *            palette to save
+     * @return the new palette
+     */
     @PostMapping
-    public Response<PaletteOption>
+    public Response<PaletteData>
             save(@RequestBody @Valid final PaletteCreationForm palette) {
-        paletteService.savePalette(palette);
+        final PaletteData result;
 
-        // TODO: Return the new data
-        return new DefaultResponse<>();
+        result = paletteService.savePalette(palette);
+
+        return new DefaultResponse<>(result);
     }
 
+    /**
+     * Updates the received palette.
+     * 
+     * @param palette
+     *            palette to update
+     * @return the updated palette
+     */
     @PutMapping
-    public Response<PaletteOption>
+    public Response<PaletteData>
             update(@RequestBody @Valid final PaletteUpdateForm palette) {
-        paletteService.updatePalette(palette);
+        final PaletteData result;
 
-        // TODO: Return the new data
-        return new DefaultResponse<>();
+        result = paletteService.updatePalette(palette);
+
+        return new DefaultResponse<>(result);
     }
 
 }

@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.palette.model;
+package com.bernardomg.tabletop.palette.palette.model.data;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -25,16 +25,18 @@ import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteGroupOption {
+public class PaletteData {
+
+    private Long                id     = -1l;
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String                        name;
+    private String              name;
 
     @Valid
-    private Iterable<PaletteCreationForm> palettes = new ArrayList<>();
+    private Iterable<PaintData> paints = new ArrayList<>();
 
-    public PaletteGroupOption() {
+    public PaletteData() {
         super();
     }
 
@@ -52,16 +54,20 @@ public class PaletteGroupOption {
             return false;
         }
 
-        final PaletteGroupOption other = (PaletteGroupOption) obj;
+        final PaletteData other = (PaletteData) obj;
         return Objects.equals(name, other.name);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public Iterable<PaletteCreationForm> getPalettes() {
-        return palettes;
+    public Iterable<PaintData> getPaints() {
+        return paints;
     }
 
     @Override
@@ -69,18 +75,22 @@ public class PaletteGroupOption {
         return Objects.hash(name);
     }
 
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
     public void setName(final String name) {
         this.name = name;
     }
 
-    public void setPalettes(final Iterable<PaletteCreationForm> palettes) {
-        this.palettes = palettes;
+    public void setPaints(final Iterable<PaintData> paints) {
+        this.paints = paints;
     }
 
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", name)
-                .add("palettes", palettes).toString();
+                .add("paints", paints).toString();
     }
 
 }

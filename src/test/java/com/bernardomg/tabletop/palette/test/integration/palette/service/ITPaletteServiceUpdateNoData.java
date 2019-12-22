@@ -16,9 +16,6 @@
 
 package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
-import org.junit.Ignore;
-import org.springframework.test.context.jdbc.Sql;
-
 /**
  * Integration tests for the {@link ExampleEntityService}.
  * <p>
@@ -26,14 +23,13 @@ import org.springframework.test.context.jdbc.Sql;
  * the example entities repository, these tests are for verifying everything is
  * set up correctly and working.
  */
-@Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
-@Ignore
-public class ITPaletteServiceUpdate extends AbstractITPaletteServiceUpdate {
+public class ITPaletteServiceUpdateNoData
+        extends AbstractITPaletteServiceUpdate {
 
     /**
      * Default constructor.
      */
-    public ITPaletteServiceUpdate() {
+    public ITPaletteServiceUpdateNoData() {
         super();
     }
 

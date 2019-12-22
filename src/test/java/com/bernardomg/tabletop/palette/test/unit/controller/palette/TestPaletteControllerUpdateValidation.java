@@ -32,6 +32,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.palette.controller.GlobalExceptionHandler;
 import com.bernardomg.tabletop.palette.palette.controller.PaletteController;
+import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.bernardomg.tabletop.palette.test.config.UrlConfig;
 
@@ -58,6 +59,8 @@ public final class TestPaletteControllerUpdateValidation {
         super();
 
         service = Mockito.mock(PaletteService.class);
+        Mockito.when(service.updatePalette(Mockito.any()))
+                .thenReturn(new PaletteData());
     }
 
     /**

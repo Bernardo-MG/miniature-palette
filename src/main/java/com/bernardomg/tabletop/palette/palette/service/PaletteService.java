@@ -16,9 +16,9 @@
 
 package com.bernardomg.tabletop.palette.palette.service;
 
-import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
+import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 
 /**
  * Service for palettes.
@@ -27,10 +27,10 @@ import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
  */
 public interface PaletteService {
 
-    public Iterable<PaletteOption> getAllPalettes();
+    public Iterable<PaletteData> getAllPalettes();
 
-    public void savePalette(final PaletteCreationForm palette);
+    public PaletteData savePalette(final PaletteCreationForm palette);
 
-    public void updatePalette(final PaletteUpdateForm palette);
+    public PaletteData updatePalette(final PaletteUpdateForm palette);
 
 }

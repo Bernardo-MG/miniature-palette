@@ -14,27 +14,24 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.palette.model;
+package com.bernardomg.tabletop.palette.palette.model.data;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.google.common.base.MoreObjects;
 
-public class PaintForm implements Serializable {
+public class PaintData implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
-    @NotNull
-    @Size(min = 1, max = 50)
+    private Long              id               = -1l;
+
     private String            name             = "";
 
-    public PaintForm() {
+    public PaintData() {
         super();
     }
 
@@ -52,8 +49,12 @@ public class PaintForm implements Serializable {
             return false;
         }
 
-        final PaintForm other = (PaintForm) obj;
+        final PaintData other = (PaintData) obj;
         return Objects.equals(name, other.name);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -63,6 +64,10 @@ public class PaintForm implements Serializable {
     @Override
     public final int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     public void setName(final String value) {

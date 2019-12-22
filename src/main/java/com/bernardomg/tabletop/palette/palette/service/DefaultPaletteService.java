@@ -31,11 +31,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.tabletop.palette.palette.model.PaintForm;
-import com.bernardomg.tabletop.palette.palette.model.PaintOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteCreationForm;
-import com.bernardomg.tabletop.palette.palette.model.PaletteOption;
-import com.bernardomg.tabletop.palette.palette.model.PaletteUpdateForm;
+import com.bernardomg.tabletop.palette.palette.model.data.PaintData;
+import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
+import com.bernardomg.tabletop.palette.palette.model.form.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
@@ -62,11 +62,11 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final Iterable<PaletteOption> getAllPalettes() {
+    public final Iterable<PaletteData> getAllPalettes() {
         final List<Palette> allPalettes;
         final Collection<Long> paletteIds;
         final Collection<Paint> allPaints;
-        final Map<Long, List<PaintOption>> palettePaintOptions;
+        final Map<Long, List<PaintData>> palettePaintOptions;
 
         allPalettes = paletteRepository.findAll();
         paletteIds = allPalettes.stream().map(Palette::getId)
@@ -74,17 +74,20 @@ public final class DefaultPaletteService implements PaletteService {
 
         allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
 
-        palettePaintOptions = getPaintOptions(allPaints);
+        palettePaintOptions = getPaintData(allPaints);
 
         // TODO Auto-generated method stub
-        return toPaletteOptions(allPalettes, palettePaintOptions);
+        return toPaletteDatas(allPalettes, palettePaintOptions);
     }
 
     @Override
-    public final void savePalette(final PaletteCreationForm palette) {
+    public final PaletteData savePalette(final PaletteCreationForm palette) {
         final Palette entity;
         final Palette saved;
         final Collection<Paint> paintEntities;
+        final Collection<Paint> savedPaints;
+        final PaletteData result;
+        final Iterable<PaintData> palettePaintOptions;
 
         if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
             entity = new Palette();
@@ -96,20 +99,31 @@ public final class DefaultPaletteService implements PaletteService {
             paintEntities = StreamSupport
                     .stream(palette.getPaints().spliterator(), false)
                     .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                    .map(this::toEntity).collect(Collectors.toList());
+                    .map(this::toPaint).collect(Collectors.toList());
             // The palette id is set
             paintEntities.stream()
                     .forEach((p) -> p.setPaletteId(saved.getId()));
 
-            paintRepository.saveAll(paintEntities);
+            savedPaints = paintRepository.saveAll(paintEntities);
+
+            palettePaintOptions = savedPaints.stream().map(this::toPaintData)
+                    .collect(Collectors.toList());
+            result = toPaletteData(saved, palettePaintOptions);
+        } else {
+            result = null;
         }
+
+        return result;
     }
 
     @Override
-    public final void updatePalette(final PaletteUpdateForm palette) {
+    public final PaletteData updatePalette(final PaletteUpdateForm palette) {
         final Palette entity;
         final Palette saved;
         final Collection<Paint> paintEntities;
+        final Collection<Paint> savedPaints;
+        final PaletteData result;
+        final Iterable<PaintData> palettePaintOptions;
 
         if ((palette.getName() != null) && (!palette.getName().isEmpty())
                 && (palette.getId() != null)) {
@@ -125,26 +139,34 @@ public final class DefaultPaletteService implements PaletteService {
             paintEntities = StreamSupport
                     .stream(palette.getPaints().spliterator(), false)
                     .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                    .map(this::toEntity).collect(Collectors.toList());
+                    .map(this::toPaint).collect(Collectors.toList());
             // The palette id is set
             paintEntities.stream()
                     .forEach((p) -> p.setPaletteId(saved.getId()));
 
-            paintRepository.saveAll(paintEntities);
+            savedPaints = paintRepository.saveAll(paintEntities);
+
+            palettePaintOptions = savedPaints.stream().map(this::toPaintData)
+                    .collect(Collectors.toList());
+            result = toPaletteData(saved, palettePaintOptions);
+        } else {
+            result = null;
         }
+
+        return result;
     }
 
-    private final Map<Long, List<PaintOption>>
-            getPaintOptions(final Collection<Paint> paints) {
+    private final Map<Long, List<PaintData>>
+            getPaintData(final Collection<Paint> paints) {
         final Map<Long, List<Paint>> palettePaints;
 
         palettePaints = paints.stream()
                 .collect(Collectors.groupingBy(Paint::getPaletteId));
         return palettePaints.entrySet().stream().collect(Collectors
-                .toMap(Map.Entry::getKey, e -> toPaintOptions(e.getValue())));
+                .toMap(Map.Entry::getKey, e -> toPaintDatas(e.getValue())));
     }
 
-    private final Paint toEntity(final PaintForm paint) {
+    private final Paint toPaint(final PaintForm paint) {
         final Paint entity;
 
         entity = new Paint();
@@ -153,26 +175,26 @@ public final class DefaultPaletteService implements PaletteService {
         return entity;
     }
 
-    private final PaintOption toPaintOption(final Paint paint) {
-        final PaintOption option;
+    private final PaintData toPaintData(final Paint paint) {
+        final PaintData option;
 
-        option = new PaintOption();
+        option = new PaintData();
         option.setId(paint.getId());
         option.setName(paint.getName());
 
         return option;
     }
 
-    private final List<PaintOption> toPaintOptions(final List<Paint> paints) {
-        return paints.stream().map(this::toPaintOption)
+    private final List<PaintData> toPaintDatas(final List<Paint> paints) {
+        return paints.stream().map(this::toPaintData)
                 .collect(Collectors.toList());
     }
 
-    private final PaletteOption toPaletteOption(final Palette palette,
-            final List<PaintOption> paintOptions) {
-        final PaletteOption option;
+    private final PaletteData toPaletteData(final Palette palette,
+            final Iterable<PaintData> paintOptions) {
+        final PaletteData option;
 
-        option = new PaletteOption();
+        option = new PaletteData();
         option.setId(palette.getId());
         option.setName(palette.getName());
         option.setPaints(paintOptions);
@@ -180,11 +202,10 @@ public final class DefaultPaletteService implements PaletteService {
         return option;
     }
 
-    private final List<PaletteOption> toPaletteOptions(
-            final List<Palette> palettes,
-            final Map<Long, List<PaintOption>> palettePaintOptions) {
+    private final List<PaletteData> toPaletteDatas(final List<Palette> palettes,
+            final Map<Long, List<PaintData>> palettePaintOptions) {
         return palettes.stream()
-                .map((p) -> toPaletteOption(p,
+                .map((p) -> toPaletteData(p,
                         palettePaintOptions.getOrDefault(p.getId(),
                                 Collections.emptyList())))
                 .collect(Collectors.toList());

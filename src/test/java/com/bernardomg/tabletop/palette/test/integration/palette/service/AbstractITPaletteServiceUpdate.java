@@ -30,7 +30,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.palette.model.form.PaintForm;
-import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
@@ -48,7 +48,7 @@ import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 @Rollback
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITPaletteServiceSave {
+public abstract class AbstractITPaletteServiceUpdate {
 
     @Autowired
     private PaintRepository   paintRepository;
@@ -65,38 +65,53 @@ public class ITPaletteServiceSave {
     /**
      * Default constructor.
      */
-    public ITPaletteServiceSave() {
+    public AbstractITPaletteServiceUpdate() {
         super();
     }
 
     @Test
-    public void testSavePalette_Empty() {
-        final PaletteCreationForm palette;
+    public void testUpdatePalette_Empty() {
+        final PaletteUpdateForm palette;
 
-        palette = new PaletteCreationForm();
+        palette = new PaletteUpdateForm();
 
-        service.savePalette(palette);
+        service.updatePalette(palette);
 
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSavePalette_EmptyName() {
-        final PaletteCreationForm palette;
+    public void testUpdatePalette_EmptyName() {
+        final PaletteUpdateForm palette;
 
-        palette = new PaletteCreationForm();
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
         palette.setName("");
 
-        service.savePalette(palette);
+        service.updatePalette(palette);
 
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSavePalette_Paints() {
-        final PaletteCreationForm palette;
+    public void testUpdatePalette_NoPaints() {
+        final PaletteUpdateForm palette;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_Paints() {
+        final PaletteUpdateForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paint;
 
@@ -106,19 +121,20 @@ public class ITPaletteServiceSave {
         paints = new ArrayList<>();
         paints.add(paint);
 
-        palette = new PaletteCreationForm();
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
         palette.setName("palette");
         palette.setPaints(paints);
 
-        service.savePalette(palette);
+        service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(1, paintRepository.count());
     }
 
     @Test
-    public void testSavePalette_Paints_NoPaintName() {
-        final PaletteCreationForm palette;
+    public void testUpdatePalette_Paints_NoPaintName() {
+        final PaletteUpdateForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paint;
 
@@ -128,19 +144,20 @@ public class ITPaletteServiceSave {
         paints = new ArrayList<>();
         paints.add(paint);
 
-        palette = new PaletteCreationForm();
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
         palette.setName("palette");
         palette.setPaints(paints);
 
-        service.savePalette(palette);
+        service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSavePalette_Paints_NoPaletteName() {
-        final PaletteCreationForm palette;
+    public void testUpdatePalette_Paints_NoPaletteName() {
+        final PaletteUpdateForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paint;
 
@@ -150,19 +167,20 @@ public class ITPaletteServiceSave {
         paints = new ArrayList<>();
         paints.add(paint);
 
-        palette = new PaletteCreationForm();
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
         palette.setName("");
         palette.setPaints(paints);
 
-        service.savePalette(palette);
+        service.updatePalette(palette);
 
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    public void testSavePalette_RepeatPaintName() {
-        final PaletteCreationForm palette;
+    public void testUpdatePalette_RepeatPaintName() {
+        final PaletteUpdateForm palette;
         final Collection<PaintForm> paints;
         final PaintForm paintA;
         final PaintForm paintB;
@@ -177,40 +195,29 @@ public class ITPaletteServiceSave {
         paints.add(paintA);
         paints.add(paintB);
 
-        palette = new PaletteCreationForm();
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
         palette.setName("palette");
         palette.setPaints(paints);
 
-        service.savePalette(palette);
+        service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(2, paintRepository.count());
     }
 
     @Test
-    public void testSavePalette_RepeatPaletteName() {
-        final PaletteCreationForm palette;
+    public void testUpdatePalette_RepeatPaletteName() {
+        final PaletteUpdateForm palette;
 
-        palette = new PaletteCreationForm();
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
         palette.setName("palette");
 
-        service.savePalette(palette);
-        service.savePalette(palette);
+        service.updatePalette(palette);
+        service.updatePalette(palette);
 
         Assertions.assertEquals(2, paletteRepository.count());
-        Assertions.assertEquals(0, paintRepository.count());
-    }
-
-    @Test
-    public void testSavePalette_ValidName_NoPaints() {
-        final PaletteCreationForm palette;
-
-        palette = new PaletteCreationForm();
-        palette.setName("palette");
-
-        service.savePalette(palette);
-
-        Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 

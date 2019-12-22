@@ -14,23 +14,18 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.palette.model;
+package com.bernardomg.tabletop.palette.palette.model.form;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteUpdateForm {
-
-    @NotNull
-    @Min(1)
-    private Long                id;
+public class PaletteCreationForm {
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -39,7 +34,7 @@ public class PaletteUpdateForm {
     @Valid
     private Iterable<PaintForm> paints = new ArrayList<>();
 
-    public PaletteUpdateForm() {
+    public PaletteCreationForm() {
         super();
     }
 
@@ -57,12 +52,8 @@ public class PaletteUpdateForm {
             return false;
         }
 
-        final PaletteUpdateForm other = (PaletteUpdateForm) obj;
+        final PaletteCreationForm other = (PaletteCreationForm) obj;
         return Objects.equals(name, other.name);
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
@@ -76,10 +67,6 @@ public class PaletteUpdateForm {
     @Override
     public final int hashCode() {
         return Objects.hash(name);
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
     }
 
     public void setName(final String name) {

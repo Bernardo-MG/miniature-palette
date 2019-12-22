@@ -14,27 +14,27 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.palette.model;
+package com.bernardomg.tabletop.palette.palette.model.form;
 
-import java.util.ArrayList;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteCreationForm {
+public class PaintForm implements Serializable {
+
+    private static final long serialVersionUID = -7040753038901687866L;
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String              name;
+    private String            name             = "";
 
-    @Valid
-    private Iterable<PaintForm> paints = new ArrayList<>();
-
-    public PaletteCreationForm() {
+    public PaintForm() {
         super();
     }
 
@@ -52,7 +52,7 @@ public class PaletteCreationForm {
             return false;
         }
 
-        final PaletteCreationForm other = (PaletteCreationForm) obj;
+        final PaintForm other = (PaintForm) obj;
         return Objects.equals(name, other.name);
     }
 
@@ -60,27 +60,18 @@ public class PaletteCreationForm {
         return name;
     }
 
-    public Iterable<PaintForm> getPaints() {
-        return paints;
-    }
-
     @Override
     public final int hashCode() {
         return Objects.hash(name);
     }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public void setPaints(final Iterable<PaintForm> paints) {
-        this.paints = paints;
+    public void setName(final String value) {
+        name = checkNotNull(value, "Received a null pointer as name");
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name)
-                .add("paints", paints).toString();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

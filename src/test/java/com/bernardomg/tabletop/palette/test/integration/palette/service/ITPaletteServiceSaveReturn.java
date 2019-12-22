@@ -16,6 +16,9 @@
 
 package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
@@ -23,12 +26,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.data.PaintData;
 import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
+import com.bernardomg.tabletop.palette.palette.model.form.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.google.common.collect.Iterables;
 
@@ -45,7 +48,7 @@ import com.google.common.collect.Iterables;
 @Rollback
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITPaletteServiceReadPalette {
+public class ITPaletteServiceSaveReturn {
 
     /**
      * Service being tested.
@@ -56,51 +59,59 @@ public class ITPaletteServiceReadPalette {
     /**
      * Default constructor.
      */
-    public ITPaletteServiceReadPalette() {
+    public ITPaletteServiceSaveReturn() {
         super();
     }
 
     @Test
-    public void testRead_Empty() {
-        final Iterable<PaletteData> read;
+    public void testSavePalette_Empty() {
+        final PaletteCreationForm palette;
+        final PaletteData result;
 
-        read = service.getAllPalettes();
+        palette = new PaletteCreationForm();
 
-        Assertions.assertEquals(0, Iterables.size(read));
+        result = service.savePalette(palette);
+
+        Assertions.assertNull(result);
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
-    public void testRead_Full_Simple() {
-        final Iterable<PaletteData> read;
-        final PaletteData palette;
-        final PaintData paint;
+    public void testSavePalette_Paints() {
+        final PaletteCreationForm palette;
+        final Collection<PaintForm> paints;
+        final PaintForm paint;
+        final PaletteData result;
 
-        read = service.getAllPalettes();
+        paint = new PaintForm();
+        paint.setName("paint");
 
-        Assertions.assertEquals(1, Iterables.size(read));
+        paints = new ArrayList<>();
+        paints.add(paint);
 
-        palette = read.iterator().next();
-        Assertions.assertEquals("Palette1", palette.getName());
-        Assertions.assertEquals(1, Iterables.size(palette.getPaints()));
+        palette = new PaletteCreationForm();
+        palette.setName("palette");
+        palette.setPaints(paints);
 
-        paint = palette.getPaints().iterator().next();
-        Assertions.assertEquals("Paint1", paint.getName());
+        result = service.savePalette(palette);
+
+        Assertions.assertEquals("palette", result.getName());
+
+        Assertions.assertEquals(1, Iterables.size(result.getPaints()));
+        Assertions.assertEquals("paint",
+                result.getPaints().iterator().next().getName());
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql" })
-    public void testRead_NoPaints_Simple() {
-        final Iterable<PaletteData> read;
-        final PaletteData palette;
+    public void testSavePalette_ValidName_NoPaints() {
+        final PaletteCreationForm palette;
+        final PaletteData result;
 
-        read = service.getAllPalettes();
+        palette = new PaletteCreationForm();
+        palette.setName("palette");
 
-        Assertions.assertEquals(1, Iterables.size(read));
+        result = service.savePalette(palette);
 
-        palette = read.iterator().next();
-        Assertions.assertEquals("Palette1", palette.getName());
-        Assertions.assertEquals(0, Iterables.size(palette.getPaints()));
+        Assertions.assertEquals("palette", result.getName());
     }
 
 }

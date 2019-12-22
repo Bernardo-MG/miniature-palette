@@ -14,24 +14,28 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.palette.model;
+package com.bernardomg.tabletop.palette.palette.model.data;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.google.common.base.MoreObjects;
 
-public class PaintOption implements Serializable {
+public class PaletteGroupData {
 
-    private static final long serialVersionUID = -7040753038901687866L;
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String                        name;
 
-    private Long              id               = -1l;
+    @Valid
+    private Iterable<PaletteCreationForm> palettes = new ArrayList<>();
 
-    private String            name             = "";
-
-    public PaintOption() {
+    public PaletteGroupData() {
         super();
     }
 
@@ -49,16 +53,16 @@ public class PaintOption implements Serializable {
             return false;
         }
 
-        final PaintOption other = (PaintOption) obj;
+        final PaletteGroupData other = (PaletteGroupData) obj;
         return Objects.equals(name, other.name);
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Iterable<PaletteCreationForm> getPalettes() {
+        return palettes;
     }
 
     @Override
@@ -66,17 +70,18 @@ public class PaintOption implements Serializable {
         return Objects.hash(name);
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setName(final String name) {
+        this.name = name;
     }
 
-    public void setName(final String value) {
-        name = checkNotNull(value, "Received a null pointer as name");
+    public void setPalettes(final Iterable<PaletteCreationForm> palettes) {
+        this.palettes = palettes;
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name).toString();
+        return MoreObjects.toStringHelper(this).add("name", name)
+                .add("palettes", palettes).toString();
     }
 
 }
