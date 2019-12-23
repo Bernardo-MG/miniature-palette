@@ -177,7 +177,7 @@ public abstract class AbstractITPaletteServiceUpdate {
         paintA.setName("paint");
 
         paintB = new PaintUpdateForm();
-        paintB.setId(1l);
+        paintB.setId(2l);
         paintB.setName("paint");
 
         paints = new ArrayList<>();
@@ -192,7 +192,7 @@ public abstract class AbstractITPaletteServiceUpdate {
         service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(1, paintRepository.count());
+        Assertions.assertEquals(2, paintRepository.count());
     }
 
     @Test
