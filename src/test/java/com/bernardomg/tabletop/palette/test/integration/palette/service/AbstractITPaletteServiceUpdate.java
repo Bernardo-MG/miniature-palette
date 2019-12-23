@@ -217,7 +217,7 @@ public abstract class AbstractITPaletteServiceUpdate {
         service.updatePalette(palette);
         service.updatePalette(palette);
 
-        Assertions.assertEquals(2, paletteRepository.count());
+        Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
