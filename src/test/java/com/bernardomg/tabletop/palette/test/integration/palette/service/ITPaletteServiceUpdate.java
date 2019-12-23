@@ -16,7 +16,7 @@
 
 package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.test.context.jdbc.Sql;
 
 /**
@@ -27,7 +27,7 @@ import org.springframework.test.context.jdbc.Sql;
  * set up correctly and working.
  */
 @Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
-@Ignore
+@Disabled
 public class ITPaletteServiceUpdate extends AbstractITPaletteServiceUpdate {
 
     /**
