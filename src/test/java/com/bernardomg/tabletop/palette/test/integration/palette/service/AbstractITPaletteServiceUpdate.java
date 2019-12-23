@@ -96,20 +96,6 @@ public abstract class AbstractITPaletteServiceUpdate {
     }
 
     @Test
-    public void testUpdatePalette_NoPaints() {
-        final PaletteUpdateForm palette;
-
-        palette = new PaletteUpdateForm();
-        palette.setId(1l);
-        palette.setName("palette");
-
-        service.updatePalette(palette);
-
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(0, paintRepository.count());
-    }
-
-    @Test
     public void testUpdatePalette_Paints() {
         final PaletteUpdateForm palette;
         final Collection<PaintForm> paints;
@@ -215,6 +201,20 @@ public abstract class AbstractITPaletteServiceUpdate {
         palette.setName("palette");
 
         service.updatePalette(palette);
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_ValidName_NoPaints() {
+        final PaletteUpdateForm palette;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+
         service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
