@@ -67,18 +67,6 @@ public class ITPaletteServiceUpdateReturn {
     }
 
     @Test
-    public void testUpdatePalette_Empty() {
-        final PaletteUpdateForm palette;
-        final PaletteData result;
-
-        palette = new PaletteUpdateForm();
-
-        result = service.updatePalette(palette);
-
-        Assertions.assertNull(result);
-    }
-
-    @Test
     public void testUpdatePalette() {
         final PaletteUpdateForm palette;
         final PaletteData result;
@@ -91,6 +79,18 @@ public class ITPaletteServiceUpdateReturn {
 
         Assertions.assertEquals(1l, result.getId());
         Assertions.assertEquals("palette", result.getName());
+    }
+
+    @Test
+    public void testUpdatePalette_Empty() {
+        final PaletteUpdateForm palette;
+        final PaletteData result;
+
+        palette = new PaletteUpdateForm();
+
+        result = service.updatePalette(palette);
+
+        Assertions.assertNull(result);
     }
 
     @Test

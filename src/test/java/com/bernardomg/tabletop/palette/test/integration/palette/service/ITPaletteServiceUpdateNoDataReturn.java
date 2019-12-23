@@ -77,22 +77,6 @@ public class ITPaletteServiceUpdateNoDataReturn {
     }
 
     @Test
-    public void testUpdatePalette_ValidName() {
-        final PaletteUpdateForm palette;
-        final PaletteData result;
-
-        palette = new PaletteUpdateForm();
-        palette.setId(1l);
-        palette.setName("palette");
-
-        result = service.updatePalette(palette);
-
-        // TODO: Fails when no data exists
-        // Assertions.assertEquals(1l, result.getId());
-        Assertions.assertEquals("palette", result.getName());
-    }
-
-    @Test
     public void testUpdatePalette_Paints_ReturnsPaintData() {
         final PaletteUpdateForm palette;
         final Collection<PaintUpdateForm> paints;
@@ -141,6 +125,22 @@ public class ITPaletteServiceUpdateNoDataReturn {
         palette.setId(1l);
         palette.setName("palette");
         palette.setPaints(paints);
+
+        result = service.updatePalette(palette);
+
+        // TODO: Fails when no data exists
+        // Assertions.assertEquals(1l, result.getId());
+        Assertions.assertEquals("palette", result.getName());
+    }
+
+    @Test
+    public void testUpdatePalette_ValidName() {
+        final PaletteUpdateForm palette;
+        final PaletteData result;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
 
         result = service.updatePalette(palette);
 

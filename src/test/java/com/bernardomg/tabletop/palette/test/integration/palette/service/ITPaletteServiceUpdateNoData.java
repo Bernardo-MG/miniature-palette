@@ -16,6 +16,25 @@
 
 package com.bernardomg.tabletop.palette.test.integration.palette.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bernardomg.tabletop.palette.palette.model.form.PaintUpdateForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
+import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
+import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
+import com.bernardomg.tabletop.palette.palette.service.PaletteService;
+
 /**
  * Integration tests for the {@link ExampleEntityService}.
  * <p>
@@ -23,14 +42,221 @@ package com.bernardomg.tabletop.palette.test.integration.palette.service;
  * the example entities repository, these tests are for verifying everything is
  * set up correctly and working.
  */
-public class ITPaletteServiceUpdateNoData
-        extends AbstractITPaletteServiceUpdate {
+@RunWith(JUnitPlatform.class)
+@SpringJUnitConfig
+@Transactional
+@Rollback
+@ContextConfiguration(
+        locations = { "classpath:context/application-context.xml" })
+public class ITPaletteServiceUpdateNoData {
+
+    @Autowired
+    private PaintRepository   paintRepository;
+
+    @Autowired
+    private PaletteRepository paletteRepository;
+
+    /**
+     * Service being tested.
+     */
+    @Autowired
+    private PaletteService    service;
 
     /**
      * Default constructor.
      */
     public ITPaletteServiceUpdateNoData() {
         super();
+    }
+
+    @Test
+    public void testUpdatePalette_AddPaint() {
+        final PaletteUpdateForm palette;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paintA;
+        final PaintUpdateForm paintB;
+
+        paintA = new PaintUpdateForm();
+        paintA.setId(1l);
+        paintA.setName("paint");
+
+        paintB = new PaintUpdateForm();
+        paintB.setId(2l);
+        paintB.setName("paint2");
+
+        paints = new ArrayList<>();
+        paints.add(paintA);
+        paints.add(paintB);
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+        palette.setPaints(paints);
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(2, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_Empty() {
+        final PaletteUpdateForm palette;
+
+        palette = new PaletteUpdateForm();
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_EmptyName() {
+        final PaletteUpdateForm palette;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("");
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_Paints() {
+        final PaletteUpdateForm palette;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
+
+        paint = new PaintUpdateForm();
+        paint.setId(1l);
+        paint.setName("paint");
+
+        paints = new ArrayList<>();
+        paints.add(paint);
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+        palette.setPaints(paints);
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(1, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_Paints_NoPaintName() {
+        final PaletteUpdateForm palette;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
+
+        paint = new PaintUpdateForm();
+        paint.setName("");
+
+        paints = new ArrayList<>();
+        paints.add(paint);
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+        palette.setPaints(paints);
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_Paints_NoPaletteName() {
+        final PaletteUpdateForm palette;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
+
+        paint = new PaintUpdateForm();
+        paint.setName("paint");
+
+        paints = new ArrayList<>();
+        paints.add(paint);
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("");
+        palette.setPaints(paints);
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_RepeatPaintName() {
+        final PaletteUpdateForm palette;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paintA;
+        final PaintUpdateForm paintB;
+
+        paintA = new PaintUpdateForm();
+        paintA.setId(1l);
+        paintA.setName("paint");
+
+        paintB = new PaintUpdateForm();
+        paintB.setId(2l);
+        paintB.setName("paint");
+
+        paints = new ArrayList<>();
+        paints.add(paintA);
+        paints.add(paintB);
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+        palette.setPaints(paints);
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(2, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_RepeatPaletteName() {
+        final PaletteUpdateForm paletteA;
+        final PaletteUpdateForm paletteB;
+
+        paletteA = new PaletteUpdateForm();
+        paletteA.setId(1l);
+        paletteA.setName("palette");
+
+        paletteB = new PaletteUpdateForm();
+        paletteB.setId(1l);
+        paletteB.setName("palette");
+
+        service.updatePalette(paletteA);
+        service.updatePalette(paletteB);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_ValidName_NoPaints() {
+        final PaletteUpdateForm palette;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
 }
