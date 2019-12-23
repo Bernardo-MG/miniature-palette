@@ -26,6 +26,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,6 +92,20 @@ public class ITPaletteServiceSave {
         service.savePalette(palette);
 
         Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    @Sql({ "/db/palette_simple.sql" })
+    public void testSavePalette_ExistingPaletteName() {
+        final PaletteCreationForm palette;
+
+        palette = new PaletteCreationForm();
+        palette.setName("palette");
+
+        service.savePalette(palette);
+
+        Assertions.assertEquals(2, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
