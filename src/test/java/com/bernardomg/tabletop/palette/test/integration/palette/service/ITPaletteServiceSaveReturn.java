@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.palette.palette.model.data.PaintData;
 import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
-import com.bernardomg.tabletop.palette.palette.model.form.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaintCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.service.PaletteService;
 import com.google.common.collect.Iterables;
@@ -79,12 +79,12 @@ public class ITPaletteServiceSaveReturn {
     @Test
     public void testSavePalette_Paints() {
         final PaletteCreationForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
+        final Collection<PaintCreationForm> paints;
+        final PaintCreationForm paint;
         final PaletteData result;
         final PaintData resultPaint;
 
-        paint = new PaintForm();
+        paint = new PaintCreationForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();

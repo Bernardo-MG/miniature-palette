@@ -29,7 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.form.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaintUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
@@ -98,10 +98,11 @@ public abstract class AbstractITPaletteServiceUpdate {
     @Test
     public void testUpdatePalette_Paints() {
         final PaletteUpdateForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
 
-        paint = new PaintForm();
+        paint = new PaintUpdateForm();
+        paint.setId(1l);
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -121,10 +122,10 @@ public abstract class AbstractITPaletteServiceUpdate {
     @Test
     public void testUpdatePalette_Paints_NoPaintName() {
         final PaletteUpdateForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
 
-        paint = new PaintForm();
+        paint = new PaintUpdateForm();
         paint.setName("");
 
         paints = new ArrayList<>();
@@ -144,10 +145,10 @@ public abstract class AbstractITPaletteServiceUpdate {
     @Test
     public void testUpdatePalette_Paints_NoPaletteName() {
         final PaletteUpdateForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
 
-        paint = new PaintForm();
+        paint = new PaintUpdateForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -167,14 +168,16 @@ public abstract class AbstractITPaletteServiceUpdate {
     @Test
     public void testUpdatePalette_RepeatPaintName() {
         final PaletteUpdateForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paintA;
-        final PaintForm paintB;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paintA;
+        final PaintUpdateForm paintB;
 
-        paintA = new PaintForm();
+        paintA = new PaintUpdateForm();
+        paintA.setId(1l);
         paintA.setName("paint");
 
-        paintB = new PaintForm();
+        paintB = new PaintUpdateForm();
+        paintB.setId(1l);
         paintB.setName("paint");
 
         paints = new ArrayList<>();

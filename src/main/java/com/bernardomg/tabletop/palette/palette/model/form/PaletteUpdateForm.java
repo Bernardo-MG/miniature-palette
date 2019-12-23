@@ -30,14 +30,14 @@ public class PaletteUpdateForm {
 
     @NotNull
     @Min(1)
-    private Long                id;
+    private Long                      id;
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String              name;
+    private String                    name;
 
     @Valid
-    private Iterable<PaintForm> paints = new ArrayList<>();
+    private Iterable<PaintUpdateForm> paints = new ArrayList<>();
 
     public PaletteUpdateForm() {
         super();
@@ -69,7 +69,7 @@ public class PaletteUpdateForm {
         return name;
     }
 
-    public Iterable<PaintForm> getPaints() {
+    public Iterable<PaintUpdateForm> getPaints() {
         return paints;
     }
 
@@ -86,7 +86,7 @@ public class PaletteUpdateForm {
         this.name = name;
     }
 
-    public void setPaints(final Iterable<PaintForm> paints) {
+    public void setPaints(final Iterable<PaintUpdateForm> paints) {
         this.paints = paints;
     }
 

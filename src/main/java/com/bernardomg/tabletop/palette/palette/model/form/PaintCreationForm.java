@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaintForm implements Serializable {
+public class PaintCreationForm implements Serializable {
 
     private static final long serialVersionUID = -7040753038901687866L;
 
@@ -34,7 +34,7 @@ public class PaintForm implements Serializable {
     @Size(min = 1, max = 50)
     private String            name             = "";
 
-    public PaintForm() {
+    public PaintCreationForm() {
         super();
     }
 
@@ -52,7 +52,7 @@ public class PaintForm implements Serializable {
             return false;
         }
 
-        final PaintForm other = (PaintForm) obj;
+        final PaintCreationForm other = (PaintCreationForm) obj;
         return Objects.equals(name, other.name);
     }
 

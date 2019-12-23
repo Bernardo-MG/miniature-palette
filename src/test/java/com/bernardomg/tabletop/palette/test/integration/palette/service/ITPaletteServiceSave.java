@@ -30,7 +30,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.form.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaintCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
@@ -112,10 +112,10 @@ public class ITPaletteServiceSave {
     @Test
     public void testSavePalette_Paints() {
         final PaletteCreationForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
+        final Collection<PaintCreationForm> paints;
+        final PaintCreationForm paint;
 
-        paint = new PaintForm();
+        paint = new PaintCreationForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -134,10 +134,10 @@ public class ITPaletteServiceSave {
     @Test
     public void testSavePalette_Paints_NoPaintName() {
         final PaletteCreationForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
+        final Collection<PaintCreationForm> paints;
+        final PaintCreationForm paint;
 
-        paint = new PaintForm();
+        paint = new PaintCreationForm();
         paint.setName("");
 
         paints = new ArrayList<>();
@@ -156,10 +156,10 @@ public class ITPaletteServiceSave {
     @Test
     public void testSavePalette_Paints_NoPaletteName() {
         final PaletteCreationForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paint;
+        final Collection<PaintCreationForm> paints;
+        final PaintCreationForm paint;
 
-        paint = new PaintForm();
+        paint = new PaintCreationForm();
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -178,14 +178,14 @@ public class ITPaletteServiceSave {
     @Test
     public void testSavePalette_RepeatPaintName() {
         final PaletteCreationForm palette;
-        final Collection<PaintForm> paints;
-        final PaintForm paintA;
-        final PaintForm paintB;
+        final Collection<PaintCreationForm> paints;
+        final PaintCreationForm paintA;
+        final PaintCreationForm paintB;
 
-        paintA = new PaintForm();
+        paintA = new PaintCreationForm();
         paintA.setName("paint");
 
-        paintB = new PaintForm();
+        paintB = new PaintCreationForm();
         paintB.setName("paint");
 
         paints = new ArrayList<>();

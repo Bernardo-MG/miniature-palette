@@ -33,7 +33,8 @@ import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.data.PaintData;
 import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
-import com.bernardomg.tabletop.palette.palette.model.form.PaintForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaintCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaintUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
@@ -166,10 +167,20 @@ public final class DefaultPaletteService implements PaletteService {
                 .toMap(Map.Entry::getKey, e -> toPaintDatas(e.getValue())));
     }
 
-    private final Paint toPaint(final PaintForm paint) {
+    private final Paint toPaint(final PaintCreationForm paint) {
         final Paint entity;
 
         entity = new Paint();
+        entity.setName(paint.getName());
+
+        return entity;
+    }
+
+    private final Paint toPaint(final PaintUpdateForm paint) {
+        final Paint entity;
+
+        entity = new Paint();
+        entity.setId(paint.getId());
         entity.setName(paint.getName());
 
         return entity;

@@ -117,7 +117,7 @@ public final class TestPaletteControllerUpdateValidation {
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content(
-                        "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
+                        "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"id\":\"1\", \"name\":\"\"}]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -161,12 +161,28 @@ public final class TestPaletteControllerUpdateValidation {
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content(
-                        "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
+                        "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"id\":\"1\", \"name\":\"abcd\"}]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
                         Matchers.equalTo("success")))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testUpdate_Id_ValidName_NoPaintId() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                        "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.hasSize(1)));
     }
 
     @Test
