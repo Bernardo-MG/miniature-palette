@@ -39,6 +39,10 @@
          <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Logger>
+      <Logger name="org.hibernate.type.descriptor.sql" level="off" additivity="false">
+         <AppenderRef ref="file" />
+         <AppenderRef ref="console" />
+      </Logger>
 
       <!-- Hikari -->
       <Logger name="com.zaxxer.hikari" level="warn" additivity="false">
@@ -47,8 +51,7 @@
       </Logger>
 
       <!-- Jackson -->
-      <logger name="com.fasterxml.jackson" level="warn"
-         additivity="false">
+      <logger name="com.fasterxml.jackson" level="warn" additivity="false">
          <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </logger>
