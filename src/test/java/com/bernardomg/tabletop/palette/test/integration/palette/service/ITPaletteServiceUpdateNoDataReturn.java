@@ -102,8 +102,7 @@ public class ITPaletteServiceUpdateNoDataReturn {
 
         resultPaint = result.getPaints().iterator().next();
 
-        // TODO: Fails when no data exists
-        // Assertions.assertEquals(1l, resultPaint.getId());
+        Assertions.assertNotNull(resultPaint.getId());
         Assertions.assertEquals("paint", resultPaint.getName());
     }
 
@@ -128,8 +127,7 @@ public class ITPaletteServiceUpdateNoDataReturn {
 
         result = service.updatePalette(palette);
 
-        // TODO: Fails when no data exists
-        // Assertions.assertEquals(1l, result.getId());
+        Assertions.assertNotNull(result.getId());
         Assertions.assertEquals("palette", result.getName());
     }
 
@@ -144,8 +142,7 @@ public class ITPaletteServiceUpdateNoDataReturn {
 
         result = service.updatePalette(palette);
 
-        // TODO: Fails when no data exists
-        // Assertions.assertEquals(1l, result.getId());
+        Assertions.assertNotNull(result.getId());
         Assertions.assertEquals("palette", result.getName());
     }
 
