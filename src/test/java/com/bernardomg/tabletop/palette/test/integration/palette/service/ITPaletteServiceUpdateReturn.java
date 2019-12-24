@@ -82,6 +82,20 @@ public class ITPaletteServiceUpdateReturn {
     }
 
     @Test
+    public void testUpdatePalette_ChangeName() {
+        final PaletteUpdateForm palette;
+        final PaletteData result;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("abc");
+
+        result = service.updatePalette(palette);
+
+        Assertions.assertEquals("abc", result.getName());
+    }
+
+    @Test
     public void testUpdatePalette_Empty() {
         final PaletteUpdateForm palette;
         final PaletteData result;

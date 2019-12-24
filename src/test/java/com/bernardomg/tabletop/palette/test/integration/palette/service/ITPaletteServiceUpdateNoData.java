@@ -226,26 +226,6 @@ public class ITPaletteServiceUpdateNoData {
     }
 
     @Test
-    public void testUpdatePalette_RepeatPaletteName() {
-        final PaletteUpdateForm paletteA;
-        final PaletteUpdateForm paletteB;
-
-        paletteA = new PaletteUpdateForm();
-        paletteA.setId(1l);
-        paletteA.setName("palette");
-
-        paletteB = new PaletteUpdateForm();
-        paletteB.setId(1l);
-        paletteB.setName("palette");
-
-        service.updatePalette(paletteA);
-        service.updatePalette(paletteB);
-
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(0, paintRepository.count());
-    }
-
-    @Test
     public void testUpdatePalette_ValidName_NoPaints() {
         final PaletteUpdateForm palette;
 

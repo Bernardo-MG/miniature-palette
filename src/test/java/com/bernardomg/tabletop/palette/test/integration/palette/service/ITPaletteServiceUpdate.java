@@ -102,31 +102,7 @@ public class ITPaletteServiceUpdate {
     }
 
     @Test
-    public void testUpdatePalette_Paints() {
-        final PaletteUpdateForm palette;
-        final Collection<PaintUpdateForm> paints;
-        final PaintUpdateForm paint;
-
-        paint = new PaintUpdateForm();
-        paint.setId(1l);
-        paint.setName("paint");
-
-        paints = new ArrayList<>();
-        paints.add(paint);
-
-        palette = new PaletteUpdateForm();
-        palette.setId(1l);
-        palette.setName("palette");
-        palette.setPaints(paints);
-
-        service.updatePalette(palette);
-
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(1, paintRepository.count());
-    }
-
-    @Test
-    public void testUpdatePalette_RepeatPaintName() {
+    public void testUpdatePalette_AddRepeatedPaintName() {
         final PaletteUpdateForm palette;
         final Collection<PaintUpdateForm> paints;
         final PaintUpdateForm paintA;
@@ -153,6 +129,58 @@ public class ITPaletteServiceUpdate {
 
         Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(2, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_ChangeName() {
+        final PaletteUpdateForm palette;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("abc");
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(1, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_NotExisting() {
+        final PaletteUpdateForm palette;
+
+        palette = new PaletteUpdateForm();
+        palette.setId(2l);
+        palette.setName("palette2");
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(2, paletteRepository.count());
+        Assertions.assertEquals(1, paintRepository.count());
+    }
+
+    @Test
+    public void testUpdatePalette_Paints() {
+        final PaletteUpdateForm palette;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
+
+        paint = new PaintUpdateForm();
+        paint.setId(1l);
+        paint.setName("paint");
+
+        paints = new ArrayList<>();
+        paints.add(paint);
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+        palette.setPaints(paints);
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(1, paintRepository.count());
     }
 
 }
