@@ -6,9 +6,9 @@ export const readPalettes = () => {
    };
 };
 
-export const readSuccess = (payload) => {
+export const palettesRead = (payload) => {
    return {
-      type: types.READ_PALETTES_SUCCESS,
+      type: types.PALETTES_READ,
       payload
    };
 };
@@ -20,9 +20,9 @@ export const savePalette = (payload) => {
    };
 };
 
-export const savePaletteSuccess = (payload) => {
+export const paletteSaved = (payload) => {
    return {
-      type: types.SAVE_PALETTE_SUCCESS,
+      type: types.PALETTE_SAVED,
       payload
    };
 };
@@ -34,23 +34,9 @@ export const updatePalette = (payload) => {
    };
 };
 
-export const updatePaletteSuccess = (payload) => {
+export const paletteUpdated = (payload) => {
    return {
-      type: types.UPDATE_PALETTE_SUCCESS,
-      payload
-   };
-};
-
-export const registerPaletteGroup = (payload) => {
-   return {
-      type: types.REGISTER_PALETTE_GROUP,
-      payload
-   };
-};
-
-export const registerPaletteGroupSuccess = (payload) => {
-   return {
-      type: types.REGISTER_PALETTE_GROUP_SUCCESS,
+      type: types.PALETTE_UPDATED,
       payload
    };
 };

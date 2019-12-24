@@ -3,7 +3,7 @@ import api from 'api';
 
 import * as types from 'palettes/actions/types';
 
-import { readSuccess, savePaletteSuccess } from 'palettes/actions';
+import { palettesRead, paletteSaved, paletteUpdated } from 'palettes/actions';
 import { notifySuccess } from 'notifications/actions';
 import { requestFailure } from 'requests/actions';
 
@@ -11,7 +11,7 @@ export function* read() {
    let response;
    try {
       response = yield call(api.Palettes.all);
-      yield put(readSuccess(response));
+      yield put(palettesRead(response));
    } catch (err) {
       yield put(requestFailure(err));
    }
@@ -22,7 +22,7 @@ export function* save(action) {
    try {
       response = yield call(api.Palettes.save, action.payload);
       if (response.status === 'success') {
-         yield put(savePaletteSuccess(response));
+         yield put(paletteSaved(response));
       } else {
          yield put(requestFailure(response));
       }
@@ -40,7 +40,7 @@ export function* update(action) {
    try {
       response = yield call(api.Palettes.update, action.payload);
       if (response.status === 'success') {
-         yield put(savePaletteSuccess(response));
+         yield put(paletteUpdated(response));
       } else {
          yield put(requestFailure(response));
       }
@@ -55,10 +55,8 @@ export function* notifyUpdated() {
 
 export const paletteSagas = [
    takeLatest(types.READ_PALETTES, read),
-   takeLatest(types.REGISTER_PALETTE_GROUP, save),
-   takeLatest(types.REGISTER_PALETTE_GROUP_SUCCESS, notifySaved),
    takeLatest(types.SAVE_PALETTE, save),
-   takeLatest(types.SAVE_PALETTE_SUCCESS, notifySaved),
+   takeLatest(types.PALETTE_SAVED, notifySaved),
    takeLatest(types.UPDATE_PALETTE, update),
-   takeLatest(types.UPDATE_PALETTE_SUCCESS, notifyUpdated)
+   takeLatest(types.PALETTE_UPDATED, notifyUpdated)
 ];

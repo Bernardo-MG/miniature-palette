@@ -1,4 +1,4 @@
-import { READ_PALETTES_SUCCESS } from 'palettes/actions/types';
+import { PALETTES_READ } from 'palettes/actions/types';
 import { SET_PRODUCTS } from 'products/actions/types';
 
 const defaultState = {
@@ -8,7 +8,7 @@ const defaultState = {
 
 const domain = (state = defaultState, action) => {
    switch (action.type) {
-   case READ_PALETTES_SUCCESS:
+   case PALETTES_READ:
       return {
          ...state,
          palettes: { ...action.payload }
