@@ -1,6 +1,22 @@
 import superagent, { parse } from 'superagent';
 
+import { normalize } from 'normalizr';
+import { palette as paletteSchema } from 'palettes/schema';
+
 const API_ROOT = 'http://localhost:8080';
+
+function normalizePalette(response) {
+   const normalized = normalize(response, [paletteSchema]);
+   let result;
+
+   if (normalized.entities.palettes) {
+      result = normalized.entities.palettes;
+   } else {
+      result = null;
+   }
+
+   return result;
+}
 
 function saveFile(blob, type, filename) {
    // It is necessary to create a new blob object with mime-type explicitly set
@@ -50,7 +66,7 @@ const PaletteGroups = {
 };
 
 const Palettes = {
-   all: () => requests.get('/rest/palette').then((response) => response.content),
+   all: () => requests.get('/rest/palette').then((response) => response.content).then(normalizePalette),
    save: (palette) => requests.post('/rest/palette', palette),
    update: (palette) => requests.put('/rest/palette', palette)
 };

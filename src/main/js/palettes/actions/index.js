@@ -1,12 +1,5 @@
 import * as types from 'palettes/actions/types';
 
-export const setPalettes = (payload) => {
-   return {
-      type: types.SET_PALETTES,
-      payload
-   };
-};
-
 export const readPalettes = () => {
    return {
       type: types.READ_PALETTES
