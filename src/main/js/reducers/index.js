@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import domain from 'domains/reducers';
+import domain from 'domain/reducers';
 import notification from 'notifications/reducers';
 import suggestion from 'suggestions/reducers';
 

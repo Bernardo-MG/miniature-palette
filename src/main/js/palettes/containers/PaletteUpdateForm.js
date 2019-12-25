@@ -8,7 +8,7 @@ import { useSuggestions } from 'suggestions';
 
 import { updatePalette } from 'palettes/actions';
 
-import { selectPaletteById } from 'palettes/selectors';
+import { selectPaletteById } from 'domain/selectors';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
 

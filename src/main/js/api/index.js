@@ -10,7 +10,7 @@ function normalizePalette(response) {
    let result;
 
    if (normalized.entities.palettes) {
-      result = normalized.entities.palettes;
+      result = normalized.entities;
    } else {
       result = null;
    }

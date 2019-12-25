@@ -1,8 +1,17 @@
 import { schema } from 'normalizr';
 
 /**
- * Document schema.
+ * Paint schema.
  */
-export const palette = new schema.Entity('palettes', {}, {
+export const paint = new schema.Entity('paints', {}, {
+   idAttribute: 'id'
+});
+
+/**
+ * Palette schema.
+ */
+export const palette = new schema.Entity('palettes', {
+   paints: [paint]
+}, {
    idAttribute: 'id'
 });
