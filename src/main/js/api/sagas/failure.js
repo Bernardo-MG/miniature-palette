@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 import * as types from 'api/actions/types';
 
-import { notifyError } from 'notifications/actions';
+import { notifyError } from 'notify/actions';
 
 function getMessage(source) {
    let message = 'Request failure';

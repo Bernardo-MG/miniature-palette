@@ -10,7 +10,7 @@ import { IntlProvider } from 'react-intl';
 
 import { SnackbarProvider } from 'notistack';
 
-import Notificator from 'notifications/containers/Notificator';
+import Notificator from 'notify/containers/Notificator';
 
 /**
  * Production root application.

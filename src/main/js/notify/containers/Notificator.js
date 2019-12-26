@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 
 import { withSnackbar } from 'notistack';
 
-import { selectNotDisplayedNotifications as selectNotifications } from 'notifications/selectors';
+import { selectNotDisplayedNotifications as selectNotifications } from 'notify/selectors';
 
-import { removeNotification, setDisplayed } from 'notifications/actions';
+import { removeNotification, setDisplayed } from 'notify/actions';
 
 import IconButton from '@material-ui/core/IconButton';
 

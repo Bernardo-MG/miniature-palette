@@ -1,4 +1,4 @@
-import * as types from 'notifications/actions/types';
+import * as types from 'notify/actions/types';
 
 const defaultState = {
    notifications: []

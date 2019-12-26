@@ -4,7 +4,7 @@ import api from 'api';
 import * as types from 'domain/actions/types';
 
 import { palettesRead, paletteSaved, paletteUpdated } from 'domain/actions';
-import { notifySuccess } from 'notifications/actions';
+import { notifySuccess } from 'notify/actions';
 import { requestFailure } from 'api/actions';
 
 export function* read() {
