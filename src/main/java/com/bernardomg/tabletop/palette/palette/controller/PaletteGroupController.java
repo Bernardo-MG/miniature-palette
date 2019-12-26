@@ -38,7 +38,7 @@ import com.bernardomg.tabletop.palette.response.Response;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RestController
-@RequestMapping("/rest/palette")
+@RequestMapping("/rest/palette/group")
 public class PaletteGroupController {
 
     /**

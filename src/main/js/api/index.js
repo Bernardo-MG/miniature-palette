@@ -60,8 +60,6 @@ const Products = {
 };
 
 const PaletteGroups = {
-   all: () => requests.get('/rest/palette/group').then((response) => response.content),
-   byId: (id) => requests.get(`/rest/palette/group/${id}`),
    save: (palette) => requests.post('/rest/palette/group', palette)
 };
 
