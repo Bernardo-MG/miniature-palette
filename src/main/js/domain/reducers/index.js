@@ -1,5 +1,4 @@
 import { PALETTES_READ } from 'domain/actions/types';
-import { SET_PRODUCTS } from 'products/actions/types';
 
 const defaultState = {
    palettes: {},
@@ -27,11 +26,6 @@ const domain = (state = defaultState, action) => {
    switch (action.type) {
    case PALETTES_READ:
       return palettesState;
-   case SET_PRODUCTS:
-      return {
-         ...state,
-         products: { ...action.payload }
-      };
    default:
       return state;
    }

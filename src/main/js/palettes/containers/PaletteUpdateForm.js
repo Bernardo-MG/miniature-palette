@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useSuggestions } from 'suggestions';
-
 import { updatePalette } from 'domain/actions';
 
 import { selectPaletteById } from 'domain/selectors';
@@ -13,8 +11,6 @@ import { selectPaletteById } from 'domain/selectors';
 import PaletteEditor from 'palettes/components/PaletteEditor';
 
 function PaletteUpdateForm({ id }) {
-
-   const suggestions = useSuggestions();
 
    const dispatch = useDispatch();
 
@@ -46,7 +42,6 @@ function PaletteUpdateForm({ id }) {
    }
 
    return <PaletteEditor
-      suggestions={suggestions}
       onSave={handleSave}
       initialValues={values} />;
 }
