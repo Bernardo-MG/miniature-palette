@@ -94,8 +94,9 @@ function PaletteEditor({ initialValues, onSave }) {
 
 PaletteEditor.propTypes = {
    initialValues: PropTypes.shape({
-      name: PropTypes.string,
-      paints: PropTypes.array
+      id: PropTypes.number,
+      name: PropTypes.string.isRequired,
+      paints: PropTypes.array.isRequired
    }),
    onSave: PropTypes.func.isRequired
 };

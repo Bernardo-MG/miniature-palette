@@ -49,7 +49,12 @@ PaletteData.propTypes = {
    data: PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
-      paints: PropTypes.array
+      paints: PropTypes.arrayOf(
+         PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string.isRequired
+         })
+      ).isRequired
    }).isRequired,
    onReturn: PropTypes.func.isRequired,
    onEdit: PropTypes.func.isRequired
@@ -83,7 +88,18 @@ function PaletteList({ data, onEdit }) {
 }
 
 PaletteList.propTypes = {
-   data: PropTypes.array.isRequired,
+   data: PropTypes.arrayOf(
+      PropTypes.shape({
+         id: PropTypes.number,
+         name: PropTypes.string.isRequired,
+         paints: PropTypes.arrayOf(
+            PropTypes.shape({
+               id: PropTypes.number,
+               name: PropTypes.string.isRequired
+            })
+         ).isRequired
+      })
+   ).isRequired,
    onEdit: PropTypes.func.isRequired
 };
 
