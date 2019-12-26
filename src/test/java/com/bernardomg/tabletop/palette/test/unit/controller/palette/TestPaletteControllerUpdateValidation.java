@@ -163,7 +163,7 @@ public final class TestPaletteControllerUpdateValidation {
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[]}");
+                .content("{\"id\":\"1\", \"name\":\"abcd\"}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",

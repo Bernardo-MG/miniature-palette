@@ -14,27 +14,22 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.palette.model.data;
+package com.bernardomg.tabletop.palette.palette.model.form;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.google.common.base.MoreObjects;
 
-public class PaletteGroupData {
+public class PaletteGroupCreationForm {
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String                name;
+    private String name;
 
-    @Valid
-    private Iterable<PaletteData> palettes = new ArrayList<>();
-
-    public PaletteGroupData() {
+    public PaletteGroupCreationForm() {
         super();
     }
 
@@ -52,16 +47,12 @@ public class PaletteGroupData {
             return false;
         }
 
-        final PaletteGroupData other = (PaletteGroupData) obj;
+        final PaletteGroupCreationForm other = (PaletteGroupCreationForm) obj;
         return Objects.equals(name, other.name);
     }
 
     public String getName() {
         return name;
-    }
-
-    public Iterable<PaletteData> getPalettes() {
-        return palettes;
     }
 
     @Override
@@ -73,14 +64,9 @@ public class PaletteGroupData {
         this.name = name;
     }
 
-    public void setPalettes(final Iterable<PaletteData> palettes) {
-        this.palettes = palettes;
-    }
-
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name)
-                .add("palettes", palettes).toString();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.unit.controller.palette;
+package com.bernardomg.tabletop.palette.test.unit.controller.group;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,9 +31,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.palette.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.palette.palette.controller.PaletteController;
-import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
-import com.bernardomg.tabletop.palette.palette.service.PaletteService;
+import com.bernardomg.tabletop.palette.palette.controller.PaletteGroupController;
+import com.bernardomg.tabletop.palette.palette.model.data.PaletteGroupData;
+import com.bernardomg.tabletop.palette.palette.service.PaletteGroupService;
 import com.bernardomg.tabletop.palette.test.config.UrlConfig;
 
 /**
@@ -43,24 +43,24 @@ import com.bernardomg.tabletop.palette.test.config.UrlConfig;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RunWith(JUnitPlatform.class)
-public final class TestPaletteControllerCreateValidation {
+public final class TestPaletteGroupControllerCreateValidation {
 
     /**
      * Mocked MVC context.
      */
-    private MockMvc              mockMvc;
+    private MockMvc                   mockMvc;
 
-    private final PaletteService service;
+    private final PaletteGroupService service;
 
     /**
      * Default constructor.
      */
-    public TestPaletteControllerCreateValidation() {
+    public TestPaletteGroupControllerCreateValidation() {
         super();
 
-        service = Mockito.mock(PaletteService.class);
-        Mockito.when(service.savePalette(Mockito.any()))
-                .thenReturn(new PaletteData());
+        service = Mockito.mock(PaletteGroupService.class);
+        Mockito.when(service.saveGroup(Mockito.any()))
+                .thenReturn(new PaletteGroupData());
     }
 
     /**
@@ -110,71 +110,13 @@ public final class TestPaletteControllerCreateValidation {
                         Matchers.hasSize(1)));
     }
 
-    @Test
-    public final void testCreate_ValidName_EmptyPaintName() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("warning")))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
-                        Matchers.hasSize(1)));
-    }
-
-    @Test
-    public final void testCreate_ValidName_EmptyPaints() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\", \"paints\":[]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public final void testCreate_ValidName_NoPaints() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"abcd\"}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public final void testCreate_ValidName_ValidPaint() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
-                        "{\"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
     /**
      * Returns a controller with mocked dependencies.
      * 
      * @return a mocked controller
      */
-    private final PaletteController getController() {
-        return new PaletteController(service);
+    private final PaletteGroupController getController() {
+        return new PaletteGroupController(service);
     }
 
 }
