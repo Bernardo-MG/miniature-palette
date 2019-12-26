@@ -51,7 +51,7 @@ PaletteData.propTypes = {
       name: PropTypes.string,
       paints: PropTypes.arrayOf(
          PropTypes.shape({
-            id: PropTypes.number,
+            id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired
          })
       ).isRequired
@@ -90,11 +90,11 @@ function PaletteList({ data, onEdit }) {
 PaletteList.propTypes = {
    data: PropTypes.arrayOf(
       PropTypes.shape({
-         id: PropTypes.number,
+         id: PropTypes.number.isRequired,
          name: PropTypes.string.isRequired,
          paints: PropTypes.arrayOf(
             PropTypes.shape({
-               id: PropTypes.number,
+               id: PropTypes.number.isRequired,
                name: PropTypes.string.isRequired
             })
          ).isRequired
