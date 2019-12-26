@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import * as types from 'requests/actions/types';
+import * as types from 'api/actions/types';
 
 import { notifyError } from 'notifications/actions';
 
@@ -14,7 +14,6 @@ function getMessage(source) {
          message = source.message;
       }
    }
-
 
    return message;
 }
@@ -33,6 +32,6 @@ export function* notifyFailure(action) {
    }
 }
 
-export const requestSagas = [
+export const requestFailureSagas = [
    takeLatest(types.REQUEST_FAILURE, notifyFailure)
 ];

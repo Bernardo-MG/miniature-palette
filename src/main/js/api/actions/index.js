@@ -1,4 +1,4 @@
-import * as types from 'requests/actions/types';
+import * as types from 'api/actions/types';
 
 export const requestFailure = (payload) => {
    return {
