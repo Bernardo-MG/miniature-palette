@@ -2,7 +2,7 @@ import * as types from 'notifications/actions/types';
 
 export const notifySuccess = (message) => {
    return {
-      type: types.ADD_NOTIFICATION,
+      type: types.DISPLAY_NOTIFICATION,
       variant: 'success',
       timestamp: new Date().getTime() + Math.random(),
       message
@@ -11,7 +11,7 @@ export const notifySuccess = (message) => {
 
 export const notifyWarning = (message) => {
    return {
-      type: types.ADD_NOTIFICATION,
+      type: types.DISPLAY_NOTIFICATION,
       variant: 'warning',
       timestamp: new Date().getTime() + Math.random(),
       message
@@ -20,7 +20,7 @@ export const notifyWarning = (message) => {
 
 export const notifyError = (message) => {
    return {
-      type: types.ADD_NOTIFICATION,
+      type: types.DISPLAY_NOTIFICATION,
       variant: 'error',
       timestamp: new Date().getTime() + Math.random(),
       message
@@ -29,14 +29,14 @@ export const notifyError = (message) => {
 
 export const removeNotification = (timestamp) => {
    return {
-      type: types.DELETE_NOTIFICATION,
+      type: types.REMOVE_NOTIFICATION,
       timestamp
    };
 };
 
 export const setDisplayed = (timestamps) => {
    return {
-      type: types.SET_DISPLAYED_NOTIFICATIONS,
+      type: types.NOTIFICATIONS_DISPLAYED,
       timestamps
    };
 };

@@ -13,7 +13,7 @@ const notification = (state = defaultState, action) => {
       selected = state.notifications.filter((notif) => action.timestamps.includes(notif.timestamp)).map((notif) => ({ ...notif, displayed: true }));
    }
    switch (action.type) {
-   case types.ADD_NOTIFICATION:
+   case types.DISPLAY_NOTIFICATION:
       return {
          ...state,
          notifications: [
@@ -26,12 +26,12 @@ const notification = (state = defaultState, action) => {
             }
          ]
       };
-   case types.DELETE_NOTIFICATION:
+   case types.REMOVE_NOTIFICATION:
       return {
          ...state,
          notifications: state.notifications.filter((notif) => notif.timestamp !== action.timestamp)
       };
-   case types.SET_DISPLAYED_NOTIFICATIONS:
+   case types.NOTIFICATIONS_DISPLAYED:
       return {
          ...state,
          notifications: [...notSelected, ...selected]
