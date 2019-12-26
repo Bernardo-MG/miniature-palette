@@ -14,25 +14,7 @@ function PaletteUpdateForm({ id }) {
 
    const dispatch = useDispatch();
 
-   let values;
-
-   function toPaint(v) {
-      return { name: v.name };
-   }
-
-   const idValues = usePalette(id);
-   if (idValues) {
-      values = {
-         ...idValues,
-         paints: idValues.paints.map(toPaint)
-      };
-   } else {
-      values = {
-         id,
-         name: '',
-         paints: []
-      };
-   }
+   const values = usePalette(id);
 
    function handleSave(form) {
       const palette = { ...form };
