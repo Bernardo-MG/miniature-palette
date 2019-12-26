@@ -2,7 +2,7 @@ import React from 'react';
 
 import PaletteList from 'palettes/components/PaletteList';
 
-import { usePalettes } from 'palettes';
+import { usePalettes } from 'domain';
 
 import { useHistory } from 'react-router-dom';
 
