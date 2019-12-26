@@ -1,14 +1,20 @@
+import { createSelector } from 'reselect';
 
-export const selectDomain = (state) => state.domain;
+const selectDomain = (state) => state.domain;
 
-export const selectAllPaints = (state) => selectDomain(state).paints;
+const selectPaintsMap = (state) => selectDomain(state).paints;
 
-export const selectAllPalettes = (state) => selectDomain(state).palettes;
+const selectPalettesValues = (state) => Object.values(selectDomain(state).palettes);
 
-export const selectPaletteById = (id) => (state) => selectAllPalettes(state)[id];
+export const selectPaletteById = (id) => (state) => selectDomain(state).palettes[id];
 
-function loadPaint(palette, state) {
-   return { ...palette, paints: palette.paints.map((id) => selectAllPaints(state)[id]) };
+function loadPaint(palette, paints) {
+   return { ...palette, paints: palette.paints.map((id) => paints[id]) };
 }
 
-export const selectPalettes = (state) => Object.values(selectAllPalettes(state)).map((palette) => loadPaint(palette, state));
+export const selectPalettes = createSelector(
+   [selectPalettesValues, selectPaintsMap],
+   (palettes, paints) => {
+      return palettes.map((palette) => loadPaint(palette, paints));
+   }
+);
