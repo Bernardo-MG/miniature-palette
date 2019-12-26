@@ -11,12 +11,12 @@ function PaletteListing() {
 
    const history = useHistory();
 
-   function toEdit(id) {
+   function handleEdit(id) {
       history.push(`/palette/edit/${id}`);
    }
 
    return <PaletteList data={palettes}
-      onEdit={toEdit} />;
+      onEdit={handleEdit} />;
 }
 
 PaletteListing.propTypes = {};
