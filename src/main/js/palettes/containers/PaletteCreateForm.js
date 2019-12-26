@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
 import { useDispatch } from 'react-redux';
 
 import { savePalette } from 'domain/actions';
@@ -18,9 +16,7 @@ function PaletteCreateForm() {
    };
 
    function handleSave(form) {
-      const palette = { ...form };
-
-      dispatch(savePalette(palette));
+      dispatch(savePalette(form));
    }
 
    return <PaletteEditor
@@ -28,8 +24,6 @@ function PaletteCreateForm() {
       initialValues={values} />;
 }
 
-PaletteCreateForm.propTypes = {
-   id: PropTypes.number
-};
+PaletteCreateForm.propTypes = {};
 
 export default PaletteCreateForm;

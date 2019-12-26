@@ -17,9 +17,7 @@ function PaletteUpdateForm({ id }) {
    const values = usePalette(id);
 
    function handleSave(form) {
-      const palette = { ...form };
-
-      dispatch(updatePalette(palette));
+      dispatch(updatePalette(form));
    }
 
    return <PaletteEditor
