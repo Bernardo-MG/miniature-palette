@@ -2,11 +2,11 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { updatePalette } from 'domain/actions';
 
-import { selectPaletteById } from 'domain/selectors';
+import { usePalette } from 'domain/hooks';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
 
@@ -20,12 +20,11 @@ function PaletteUpdateForm({ id }) {
       return { name: v.name };
    }
 
-   const idValues = useSelector(selectPaletteById(id));
+   const idValues = usePalette(id);
    if (idValues) {
-      values = idValues;
       values = {
-         ...values,
-         paints: values.paints.map(toPaint)
+         ...idValues,
+         paints: idValues.paints.map(toPaint)
       };
    } else {
       values = {

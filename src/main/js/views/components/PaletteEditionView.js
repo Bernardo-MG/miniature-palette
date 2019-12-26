@@ -19,9 +19,10 @@ function PaletteEditionView() {
    const { id } = useParams();
 
    const classes = useStyles();
+   const intId = parseInt(id, 10);
 
    return <Box className={classes.root}>
-      <PaletteUpdateForm id={id} />
+      <PaletteUpdateForm id={intId} />
    </Box>;
 }
 
