@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
 
-import { savePalette } from 'palettes/actions';
+import { savePalette } from 'domain/actions';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
 

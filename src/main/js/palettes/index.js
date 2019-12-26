@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { readPalettes } from 'palettes/actions';
+import { readPalettes } from 'domain/actions';
 
 import { selectPalettes } from 'domain/selectors';
 

@@ -1,7 +1,7 @@
 import superagent, { parse } from 'superagent';
 
 import { normalize } from 'normalizr';
-import { palette as paletteSchema } from 'palettes/schema';
+import { palette as paletteSchema } from 'domain/schema';
 
 const API_ROOT = 'http://localhost:8080';
 

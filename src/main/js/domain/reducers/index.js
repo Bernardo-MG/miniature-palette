@@ -1,4 +1,4 @@
-import { PALETTES_READ } from 'palettes/actions/types';
+import { PALETTES_READ } from 'domain/actions/types';
 import { SET_PRODUCTS } from 'products/actions/types';
 
 const defaultState = {

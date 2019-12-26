@@ -1,4 +1,4 @@
-import * as types from 'palettes/actions/types';
+import * as types from 'domain/actions/types';
 
 export const readPalettes = () => {
    return {

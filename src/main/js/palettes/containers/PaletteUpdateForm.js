@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useSuggestions } from 'suggestions';
 
-import { updatePalette } from 'palettes/actions';
+import { updatePalette } from 'domain/actions';
 
 import { selectPaletteById } from 'domain/selectors';
 

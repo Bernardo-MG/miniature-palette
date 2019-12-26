@@ -1,9 +1,9 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import api from 'api';
 
-import * as types from 'palettes/actions/types';
+import * as types from 'domain/actions/types';
 
-import { palettesRead, paletteSaved, paletteUpdated } from 'palettes/actions';
+import { palettesRead, paletteSaved, paletteUpdated } from 'domain/actions';
 import { notifySuccess } from 'notifications/actions';
 import { requestFailure } from 'requests/actions';
 
@@ -53,7 +53,7 @@ export function* notifyUpdated() {
    yield put(notifySuccess('updated_message'));
 }
 
-export const paletteSagas = [
+export const apiSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.SAVE_PALETTE, save),
    takeLatest(types.PALETTE_SAVED, notifySaved),
