@@ -4,7 +4,6 @@ import api from 'api';
 import * as types from 'domain/actions/types';
 
 import { palettesRead, paletteSaved, paletteUpdated } from 'domain/actions';
-import { notifySuccess } from 'notify/actions';
 import { requestFailure } from 'api/actions';
 
 export function* read() {
@@ -31,10 +30,6 @@ export function* save(action) {
    }
 }
 
-export function* notifySaved() {
-   yield put(notifySuccess('saved_message'));
-}
-
 export function* update(action) {
    let response;
    try {
@@ -49,14 +44,8 @@ export function* update(action) {
    }
 }
 
-export function* notifyUpdated() {
-   yield put(notifySuccess('updated_message'));
-}
-
 export const paletteApiSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.SAVE_PALETTE, save),
-   takeLatest(types.PALETTE_SAVED, notifySaved),
-   takeLatest(types.UPDATE_PALETTE, update),
-   takeLatest(types.PALETTE_UPDATED, notifyUpdated)
+   takeLatest(types.UPDATE_PALETTE, update)
 ];
