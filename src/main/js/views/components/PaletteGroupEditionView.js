@@ -6,6 +6,8 @@ import Box from '@material-ui/core/Box';
 
 import PaletteGroupUpdateForm from 'palettes/containers/PaletteGroupUpdateForm';
 
+import { useParams } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
    root: {
       padding: theme.spacing(3, 2)
@@ -14,10 +16,13 @@ const useStyles = makeStyles((theme) => ({
 
 function PaletteGroupEditionView() {
 
+   const { id } = useParams();
+
    const classes = useStyles();
+   const intId = parseInt(id, 10);
 
    return <Box className={classes.root}>
-      <PaletteGroupUpdateForm />
+      <PaletteGroupUpdateForm id={intId} />
    </Box>;
 }
 
