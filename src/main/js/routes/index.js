@@ -16,6 +16,7 @@ import { Index, PaletteCreationView, PaletteEditionView, PaletteListView, Palett
 export default <Switch>
    <SideMenuLayoutRoute path='/' exact component={Index}/>
    <SideMenuLayoutRoute path='/palette/group/create' exact component={PaletteGroupCreationView}/>
+   <SideMenuLayoutRoute path='/palette/edit/:id' exact component={PaletteGroupCreationView}/>
    <SideMenuLayoutRoute path='/palette/create' exact component={PaletteCreationView}/>
    <SideMenuLayoutRoute path='/palette/edit/:id' exact component={PaletteEditionView}/>
    <SideMenuLayoutRoute path='/palette/view' exact component={PaletteListView}/>

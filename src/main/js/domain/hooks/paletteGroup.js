@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { readPaletteGroups } from 'api/actions';
 
-import { selectPaletteGroups } from 'domain/selectors';
+import { selectPaletteGroups, selectPaletteGroupById } from 'domain/selectors';
 
 export function usePaletteGroups() {
    const dispatch = useDispatch();
@@ -15,4 +15,15 @@ export function usePaletteGroups() {
    }, []);
 
    return useSelector(selectPaletteGroups);
+}
+
+export function usePaletteGroup(id) {
+   const dispatch = useDispatch();
+   const load = () => dispatch(readPaletteGroups());
+
+   useEffect(() => {
+      load();
+   }, []);
+
+   return useSelector(selectPaletteGroupById(id));
 }

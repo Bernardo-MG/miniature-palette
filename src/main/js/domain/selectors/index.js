@@ -35,3 +35,5 @@ export const selectPalettes = createSelector(
 );
 
 export const selectPaletteGroups = (state) => Object.values(selectDomain(state).paletteGroups);
+
+export const selectPaletteGroupById = (id) => (state) => selectDomain(state).paletteGroups[id];
