@@ -83,7 +83,7 @@ public final class TestPaletteGroupControllerCreateValidation {
     public final void testCreate_Empty() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE_GROUP)
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content("{}");
 
         mockMvc.perform(request)
@@ -98,7 +98,7 @@ public final class TestPaletteGroupControllerCreateValidation {
     public final void testCreate_EmptyName() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE_GROUP)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content("{\"name\":\"\"}");
 
