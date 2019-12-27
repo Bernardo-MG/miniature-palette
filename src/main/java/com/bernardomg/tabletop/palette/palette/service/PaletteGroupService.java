@@ -18,6 +18,7 @@ package com.bernardomg.tabletop.palette.palette.service;
 
 import com.bernardomg.tabletop.palette.palette.model.data.PaletteGroupData;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteGroupCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteGroupUpdateForm;
 
 /**
  * Service for palettes.
@@ -29,5 +30,7 @@ public interface PaletteGroupService {
     public Iterable<PaletteGroupData> getAllGroups();
 
     public PaletteGroupData saveGroup(final PaletteGroupCreationForm group);
+
+    public PaletteGroupData updateGroup(final PaletteGroupUpdateForm group);
 
 }

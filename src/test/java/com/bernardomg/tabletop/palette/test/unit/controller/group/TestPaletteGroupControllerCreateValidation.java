@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
@@ -59,7 +60,7 @@ public final class TestPaletteGroupControllerCreateValidation {
         super();
 
         service = Mockito.mock(PaletteGroupService.class);
-        Mockito.when(service.saveGroup(Mockito.any()))
+        Mockito.when(service.saveGroup(ArgumentMatchers.any()))
                 .thenReturn(new PaletteGroupData());
     }
 

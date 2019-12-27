@@ -23,12 +23,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.tabletop.palette.palette.model.data.PaletteGroupData;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteGroupCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteGroupUpdateForm;
 import com.bernardomg.tabletop.palette.palette.service.PaletteGroupService;
 import com.bernardomg.tabletop.palette.response.DefaultResponse;
 import com.bernardomg.tabletop.palette.response.Response;
@@ -87,6 +89,23 @@ public class PaletteGroupController {
         final PaletteGroupData result;
 
         result = paletteService.saveGroup(group);
+
+        return new DefaultResponse<>(result);
+    }
+
+    /**
+     * Updates the received group.
+     * 
+     * @param group
+     *            group to update
+     * @return the updated group
+     */
+    @PutMapping
+    public Response<PaletteGroupData>
+            update(@RequestBody @Valid final PaletteGroupUpdateForm group) {
+        final PaletteGroupData result;
+
+        result = paletteService.updateGroup(group);
 
         return new DefaultResponse<>(result);
     }

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
@@ -59,7 +60,7 @@ public final class TestPaletteControllerUpdateValidation {
         super();
 
         service = Mockito.mock(PaletteService.class);
-        Mockito.when(service.updatePalette(Mockito.any()))
+        Mockito.when(service.updatePalette(ArgumentMatchers.any()))
                 .thenReturn(new PaletteData());
     }
 

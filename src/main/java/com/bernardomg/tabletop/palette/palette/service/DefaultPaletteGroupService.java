@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.data.PaletteGroupData;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteGroupCreationForm;
+import com.bernardomg.tabletop.palette.palette.model.form.PaletteGroupUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.PaletteGroup;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteGroupRepository;
 
@@ -79,6 +80,30 @@ public final class DefaultPaletteGroupService implements PaletteGroupService {
         return result;
     }
 
+    @Override
+    public final PaletteGroupData
+            updateGroup(final PaletteGroupUpdateForm group) {
+        final PaletteGroup entity;
+        final PaletteGroup saved;
+        final PaletteGroupData result;
+
+        if ((group.getName() != null) && (!group.getName().isEmpty())
+                && (group.getId() != null)) {
+            entity = new PaletteGroup();
+            entity.setId(group.getId());
+            entity.setName(group.getName());
+
+            saved = paletteGroupRepository.save(entity);
+
+            result = new PaletteGroupData();
+            result.setName(saved.getName());
+        } else {
+            result = null;
+        }
+
+        return result;
+    }
+
     private final PaletteGroupData toGroupData(final PaletteGroup palette) {
         final PaletteGroupData option;
 
@@ -94,5 +119,4 @@ public final class DefaultPaletteGroupService implements PaletteGroupService {
         return groups.stream().map((p) -> toGroupData(p))
                 .collect(Collectors.toList());
     }
-
 }
