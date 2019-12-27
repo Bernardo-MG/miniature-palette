@@ -18,9 +18,16 @@ function PaletteGroupCreateForm() {
       dispatch(savePaletteGroup(form));
    }
 
-   return <PaletteGroupEditor
-      onSave={handleSave}
-      initialValues={values} />;
+   let form;
+   if (values) {
+      form = <PaletteGroupEditor
+         onSave={handleSave}
+         initialValues={values} />;
+   } else {
+      form = <div />;
+   }
+
+   return form;
 }
 
 PaletteGroupCreateForm.propTypes = {};

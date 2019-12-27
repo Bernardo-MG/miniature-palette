@@ -19,9 +19,16 @@ function PaletteCreateForm() {
       dispatch(savePalette(form));
    }
 
-   return <PaletteEditor
-      onSave={handleSave}
-      initialValues={values} />;
+   let form;
+   if (values) {
+      form = <PaletteEditor
+         onSave={handleSave}
+         initialValues={values} />;
+   } else {
+      form = <div />;
+   }
+
+   return form;
 }
 
 PaletteCreateForm.propTypes = {};

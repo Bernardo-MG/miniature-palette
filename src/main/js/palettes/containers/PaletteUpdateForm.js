@@ -20,9 +20,16 @@ function PaletteUpdateForm({ id }) {
       dispatch(updatePalette(form));
    }
 
-   return <PaletteEditor
-      onSave={handleSave}
-      initialValues={values} />;
+   let form;
+   if (values) {
+      form = <PaletteEditor
+         onSave={handleSave}
+         initialValues={values} />;
+   } else {
+      form = <div />;
+   }
+
+   return form;
 }
 
 PaletteUpdateForm.propTypes = {
