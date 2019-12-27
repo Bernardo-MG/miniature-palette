@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import * as types from 'domain/actions/types';
+import * as types from 'api/actions/types';
 
 import { notifySuccess } from 'notify/actions';
 

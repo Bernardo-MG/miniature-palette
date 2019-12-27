@@ -1,15 +1,15 @@
-import { PALETTES_READ } from 'domain/actions/types';
+import { PALETTES_RECEIVED } from 'api/actions/types';
 
 const defaultState = {
-   palettes: {},
    paints: {},
-   products: {}
+   palettes: {},
+   paletteGroups: {}
 };
 
 const domain = (state = defaultState, action) => {
    let palettesState;
 
-   if (action.type === PALETTES_READ) {
+   if (action.type === PALETTES_RECEIVED) {
       if (action.payload) {
          palettesState = {
             ...state,
@@ -24,7 +24,7 @@ const domain = (state = defaultState, action) => {
    }
 
    switch (action.type) {
-   case PALETTES_READ:
+   case PALETTES_RECEIVED:
       return palettesState;
    default:
       return state;

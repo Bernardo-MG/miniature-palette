@@ -1,10 +1,9 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import api from 'api';
 
-import * as types from 'domain/actions/types';
+import * as types from 'api/actions/types';
 
-import { palettesRead, paletteSaved, paletteUpdated } from 'domain/actions';
-import { requestFailure } from 'api/actions';
+import { palettesRead, paletteSaved, paletteUpdated, requestFailure } from 'api/actions';
 
 export function* read() {
    let response;

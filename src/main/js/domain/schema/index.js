@@ -15,3 +15,10 @@ export const palette = new schema.Entity('palettes', {
 }, {
    idAttribute: 'id'
 });
+
+/**
+ * Palette group schema.
+ */
+export const paletteGroup = new schema.Entity('palette_groups', {}, {
+   idAttribute: 'id'
+});

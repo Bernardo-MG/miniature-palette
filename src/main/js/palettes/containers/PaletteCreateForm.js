@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { savePalette } from 'domain/actions';
+import { savePalette } from 'api/actions';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
 

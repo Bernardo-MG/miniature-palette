@@ -1,4 +1,4 @@
-import * as types from 'domain/actions/types';
+import * as types from 'api/actions/types';
 
 export const readPalettes = () => {
    return {
@@ -8,7 +8,7 @@ export const readPalettes = () => {
 
 export const palettesRead = (payload) => {
    return {
-      type: types.PALETTES_READ,
+      type: types.PALETTES_RECEIVED,
       payload
    };
 };
