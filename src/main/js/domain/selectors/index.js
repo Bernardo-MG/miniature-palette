@@ -33,3 +33,5 @@ export const selectPalettes = createSelector(
       return palettes.map((palette) => loadPaint(palette, paints));
    }
 );
+
+export const selectPaletteGroups = (state) => Object.values(selectDomain(state).paletteGroups);

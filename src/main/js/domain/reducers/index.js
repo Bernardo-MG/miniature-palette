@@ -1,4 +1,4 @@
-import { PALETTES_RECEIVED } from 'api/actions/types';
+import { PALETTES_RECEIVED, PALETTE_GROUPS_RECEIVED } from 'api/actions/types';
 
 const defaultState = {
    paints: {},
@@ -26,6 +26,13 @@ const domain = (state = defaultState, action) => {
    switch (action.type) {
    case PALETTES_RECEIVED:
       return palettesState;
+   case PALETTE_GROUPS_RECEIVED:
+      return {
+         ...state,
+         paletteGroups: { ...action.payload.paletteGroups },
+         palettes: { ...action.payload.palettes },
+         paints: { ...action.payload.paints }
+      };
    default:
       return state;
    }

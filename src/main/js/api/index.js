@@ -1,7 +1,7 @@
 import superagent, { parse } from 'superagent';
 
 import { normalize } from 'normalizr';
-import { palette as paletteSchema } from 'domain/schema';
+import { palette as paletteSchema, paletteGroup as paletteGroupSchema } from 'domain/schema';
 
 const API_ROOT = 'http://localhost:8080';
 
@@ -10,6 +10,19 @@ function normalizePalette(response) {
    let result;
 
    if (normalized.entities.palettes) {
+      result = normalized.entities;
+   } else {
+      result = null;
+   }
+
+   return result;
+}
+
+function normalizePaletteGroup(response) {
+   const normalized = normalize(response, [paletteGroupSchema]);
+   let result;
+
+   if (normalized.entities.paletteGroups) {
       result = normalized.entities;
    } else {
       result = null;
@@ -56,7 +69,9 @@ const requests = {
 };
 
 const PaletteGroups = {
-   save: (palette) => requests.post('/rest/palette/group', palette)
+   all: () => requests.get('/rest/palette/group').then((response) => response.content).then(normalizePaletteGroup),
+   save: (palette) => requests.post('/rest/palette/group', palette),
+   update: (palette) => requests.put('/rest/palette/group', palette)
 };
 
 const Palettes = {
