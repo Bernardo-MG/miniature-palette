@@ -55,10 +55,6 @@ const requests = {
    put: (url, body) => superagent.put(`${API_ROOT}${url}`, body).ok((res) => res.status < 500).then((response) => JSON.parse(response.text))
 };
 
-const Products = {
-   all: () => requests.get('/rest/product').then((response) => response.content)
-};
-
 const PaletteGroups = {
    save: (palette) => requests.post('/rest/palette/group', palette)
 };
@@ -71,6 +67,5 @@ const Palettes = {
 
 export default {
    Palettes,
-   PaletteGroups,
-   Products
+   PaletteGroups
 };
