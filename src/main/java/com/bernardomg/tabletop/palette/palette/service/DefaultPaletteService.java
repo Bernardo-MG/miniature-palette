@@ -77,7 +77,6 @@ public final class DefaultPaletteService implements PaletteService {
 
         palettePaintOptions = getPaintData(allPaints);
 
-        // TODO Auto-generated method stub
         return toPaletteDatas(allPalettes, palettePaintOptions);
     }
 

@@ -21,6 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,18 +61,32 @@ public class PaletteGroupController {
     }
 
     /**
-     * Saves the received palette.
+     * Returns all the palettes stored.
      * 
-     * @param palette
-     *            palette to save
-     * @return the new palette
+     * @return all the palettes
+     */
+    @GetMapping
+    public Response<Iterable<PaletteGroupData>> read() {
+        final Iterable<PaletteGroupData> read;
+
+        read = paletteService.getAllGroups();
+
+        return new DefaultResponse<>(read);
+    }
+
+    /**
+     * Saves the received group.
+     * 
+     * @param group
+     *            group to save
+     * @return the new group
      */
     @PostMapping
     public Response<PaletteGroupData>
-            save(@RequestBody @Valid final PaletteGroupCreationForm palette) {
+            save(@RequestBody @Valid final PaletteGroupCreationForm group) {
         final PaletteGroupData result;
 
-        result = paletteService.saveGroup(palette);
+        result = paletteService.saveGroup(group);
 
         return new DefaultResponse<>(result);
     }

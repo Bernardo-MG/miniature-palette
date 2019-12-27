@@ -26,6 +26,8 @@ import com.bernardomg.tabletop.palette.palette.model.form.PaletteGroupCreationFo
  */
 public interface PaletteGroupService {
 
+    public Iterable<PaletteGroupData> getAllGroups();
+
     public PaletteGroupData saveGroup(final PaletteGroupCreationForm group);
 
 }

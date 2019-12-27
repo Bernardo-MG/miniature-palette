@@ -18,6 +18,9 @@ package com.bernardomg.tabletop.palette.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,15 @@ public final class DefaultPaletteGroupService implements PaletteGroupService {
     }
 
     @Override
+    public final Iterable<PaletteGroupData> getAllGroups() {
+        final List<PaletteGroup> allGroups;
+
+        allGroups = paletteGroupRepository.findAll();
+
+        return toGroupDatas(allGroups);
+    }
+
+    @Override
     public final PaletteGroupData
             saveGroup(final PaletteGroupCreationForm group) {
         final PaletteGroup entity;
@@ -65,6 +77,22 @@ public final class DefaultPaletteGroupService implements PaletteGroupService {
         }
 
         return result;
+    }
+
+    private final PaletteGroupData toGroupData(final PaletteGroup palette) {
+        final PaletteGroupData option;
+
+        option = new PaletteGroupData();
+        option.setId(palette.getId());
+        option.setName(palette.getName());
+
+        return option;
+    }
+
+    private final List<PaletteGroupData>
+            toGroupDatas(final List<PaletteGroup> groups) {
+        return groups.stream().map((p) -> toGroupData(p))
+                .collect(Collectors.toList());
     }
 
 }

@@ -45,7 +45,7 @@ import com.google.common.collect.Iterables;
 @Rollback
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITPaletteServiceReadPalette {
+public class ITPaletteServiceRead {
 
     /**
      * Service being tested.
@@ -56,7 +56,7 @@ public class ITPaletteServiceReadPalette {
     /**
      * Default constructor.
      */
-    public ITPaletteServiceReadPalette() {
+    public ITPaletteServiceRead() {
         super();
     }
 
