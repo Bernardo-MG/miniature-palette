@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 
-import PaletteGroupUpdateForm from 'palettes/containers/PaletteGroupUpdateForm';
+import PaletteGroupListing from 'palettes/containers/PaletteGroupListing';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-function PaletteGroupEditionView() {
+function PaletteGroupListView() {
 
    const classes = useStyles();
 
    return <Box className={classes.root}>
-      <PaletteGroupUpdateForm />
+      <PaletteGroupListing />
    </Box>;
 }
 
-PaletteGroupEditionView.propTypes = {};
+PaletteGroupListView.propTypes = {};
 
-export default PaletteGroupEditionView;
+export default PaletteGroupListView;

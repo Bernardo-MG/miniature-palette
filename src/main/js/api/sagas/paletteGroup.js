@@ -3,13 +3,13 @@ import api from 'api';
 
 import * as types from 'api/actions/types';
 
-import { palettesRead, paletteSaved, paletteUpdated, requestFailure } from 'api/actions';
+import { paletteGroupsRead, paletteGroupSaved, paletteGroupUpdated, requestFailure } from 'api/actions';
 
 export function* read() {
    let response;
    try {
       response = yield call(api.PaletteGroups.all);
-      yield put(palettesRead(response));
+      yield put(paletteGroupsRead(response));
    } catch (err) {
       yield put(requestFailure(err));
    }
@@ -20,7 +20,7 @@ export function* save(action) {
    try {
       response = yield call(api.PaletteGroups.save, action.payload);
       if (response.status === 'success') {
-         yield put(paletteSaved(response));
+         yield put(paletteGroupSaved(response));
       } else {
          yield put(requestFailure(response));
       }
@@ -34,7 +34,7 @@ export function* update(action) {
    try {
       response = yield call(api.PaletteGroups.update, action.payload);
       if (response.status === 'success') {
-         yield put(paletteUpdated(response));
+         yield put(paletteGroupUpdated(response));
       } else {
          yield put(requestFailure(response));
       }
