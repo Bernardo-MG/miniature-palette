@@ -43,7 +43,7 @@ export function* update(action) {
    }
 }
 
-export const paletteApiSagas = [
+export const paletteGroupApiSagas = [
    takeLatest(types.READ_PALETTE_GROUPS, read),
    takeLatest(types.SAVE_PALETTE_GROUP, save),
    takeLatest(types.UPDATE_PALETTE_GROUP, update)
