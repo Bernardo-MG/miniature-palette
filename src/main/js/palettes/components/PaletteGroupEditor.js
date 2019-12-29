@@ -37,7 +37,7 @@ function PaletteGroupEditor({ initialValues, onSave, palettes }) {
          {({ values, errors, touched, handleChange, handleBlur }) => (
             <Form>
                <Paper>
-                  <Grid container spacing={3} xs={11}>
+                  <Grid container spacing={3}>
                      <Grid item xs={9}>
                         <Box m={2}>
                            <TextField

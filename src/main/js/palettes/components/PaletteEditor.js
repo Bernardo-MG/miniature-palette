@@ -35,7 +35,7 @@ function PaletteEditor({ initialValues, onSave }) {
          <Form>
             <Grid item xs={6}>
                <Paper>
-                  <Grid container spacing={3} xs={11}>
+                  <Grid container spacing={3}>
                      <Grid item xs={9}>
                         <Box m={2}>
                            <TextField

@@ -13,7 +13,7 @@ exports[`<PaletteEditor /> renders correctly when there is no data 1`] = `
       className="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-grid-xs-11"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
       >
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-9"
@@ -157,7 +157,7 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
       className="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-grid-xs-11"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
       >
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-9"
