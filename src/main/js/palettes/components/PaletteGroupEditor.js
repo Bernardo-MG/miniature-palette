@@ -5,10 +5,11 @@ import * as Yup from 'yup';
 
 import { Formik, Form } from 'formik';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -26,26 +27,29 @@ function PaletteGroupEditor({ initialValues, onSave }) {
       validationSchema={PaletteSchema}>
       {({ values, errors, touched, handleChange, handleBlur }) => (
          <Form>
-            <Card>
-               <CardHeader
-                  title={
-                     <TextField
-                        name="name"
-                        label="group_name"
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        helperText={(errors.name && touched.name) && errors.name}
-                        margin="normal"
-                     />
-                  }
-                  action={
+            <Paper>
+               <Grid container spacing={3} xs={11}>
+                  <Grid item xs={9}>
+                     <Box m={2}>
+                        <TextField
+                           fullWidth
+                           name="name"
+                           label="palette_group_name"
+                           value={values.name}
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           helperText={(errors.name && touched.name) && errors.name}
+                           margin="normal"
+                        />
+                     </Box>
+                  </Grid>
+                  <Grid item align="center" xs={1}>
                      <IconButton aria-label="save" type="submit">
                         <SaveIcon />
                      </IconButton>
-                  }
-               />
-            </Card>
+                  </Grid>
+               </Grid>
+            </Paper>
          </Form>
       )}
    </Formik>;
