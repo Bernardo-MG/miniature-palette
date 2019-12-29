@@ -1,12 +1,14 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
+import { usePalettes } from 'domain/hooks';
 
 import { savePaletteGroup } from 'api/actions';
 
 import PaletteGroupEditor from 'palettes/components/PaletteGroupEditor';
 
 function PaletteGroupCreateForm() {
+   const palettes = usePalettes();
 
    const dispatch = useDispatch();
 
@@ -21,6 +23,7 @@ function PaletteGroupCreateForm() {
    let form;
    if (values) {
       form = <PaletteGroupEditor
+         palettes={palettes}
          onSave={handleSave}
          initialValues={values} />;
    } else {
