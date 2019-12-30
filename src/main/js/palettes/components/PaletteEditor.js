@@ -28,6 +28,51 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
+function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }) {
+   let list;
+
+   if (data && data.length > 0) {
+      list = <Fragment>
+         <Grid item xs={12}>
+            <List>
+               {data.map((paint, index) =>
+                  <ListItem key={index}>
+                     <ListItemText>
+                        <TextField
+                           fullWidth
+                           id={`paints[${index}].name`}
+                           name={`paints[${index}].name`}
+                           label="paint_name"
+                           value={paint.name}
+                           onChange={onChange}
+                           onBlur={onBlur}
+                           helperText={(errors.name && touched.name) && errors.name}
+                        />
+                     </ListItemText>
+                     <ListItemSecondaryAction>
+                        <IconButton edge="end" aria-label="delete" onClick={() => onRemove(index)}>
+                           <RemoveCircleOutlineIcon />
+                        </IconButton>
+                     </ListItemSecondaryAction>
+                  </ListItem>
+               )}
+            </List>
+         </Grid>
+         <Grid item align="center" xs={12}>
+            <IconButton aria-label="add" onClick={onAdd}>
+               <AddCircleIcon />
+            </IconButton>
+         </Grid>
+      </Fragment>;
+   } else {
+      list = <IconButton aria-label="add" onClick={onAdd}>
+         <AddCircleIcon />
+      </IconButton>;
+   }
+
+   return list;
+}
+
 function PaletteEditor({ initialValues, onSave }) {
    return <Formik
       onSubmit={onSave}
@@ -64,38 +109,13 @@ function PaletteEditor({ initialValues, onSave }) {
                   <FieldArray
                      name="paints"
                      render={(arrayHelpers) => (
-                        <Fragment>
-                           <Grid item xs={12}>
-                              <List>
-                                 {values.paints.map((paint, index) =>
-                                    <ListItem key={index}>
-                                       <ListItemText>
-                                          <TextField
-                                             fullWidth
-                                             id={`paints[${index}].name`}
-                                             name={`paints[${index}].name`}
-                                             label="paint_name"
-                                             value={paint.name}
-                                             onChange={handleChange}
-                                             onBlur={handleBlur}
-                                             helperText={(errors.name && touched.name) && errors.name}
-                                          />
-                                       </ListItemText>
-                                       <ListItemSecondaryAction>
-                                          <IconButton edge="end" aria-label="delete" onClick={() => arrayHelpers.remove(index)}>
-                                             <RemoveCircleOutlineIcon />
-                                          </IconButton>
-                                       </ListItemSecondaryAction>
-                                    </ListItem>
-                                 )}
-                              </List>
-                           </Grid>
-                           <Grid item align="center" xs={12}>
-                              <IconButton aria-label="add" onClick={() => arrayHelpers.push({ name: '' })}>
-                                 <AddCircleIcon />
-                              </IconButton>
-                           </Grid>
-                        </Fragment>
+                        <PaintsList data={values.paints}
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           errors={errors}
+                           touched={touched}
+                           onAdd={() => arrayHelpers.push({ name: '' })}
+                           onRemove={(index) => arrayHelpers.remove(index)} />
                      )}
                   />
                </Grid>

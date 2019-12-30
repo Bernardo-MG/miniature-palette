@@ -127,53 +127,41 @@ exports[`<PaletteEditor /> renders correctly when there is no data 1`] = `
           </span>
         </button>
       </div>
-      <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      <button
+        aria-label="add"
+        className="MuiButtonBase-root MuiIconButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
       >
-        <ul
-          className="MuiList-root MuiList-padding"
-        />
-      </div>
-      <div
-        align="center"
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-      >
-        <button
-          aria-label="add"
-          className="MuiButtonBase-root MuiIconButton-root"
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onDragLeave={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex={0}
-          type="button"
+        <span
+          className="MuiIconButton-label"
         >
-          <span
-            className="MuiIconButton-label"
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
           >
-            <svg
-              aria-hidden="true"
-              className="MuiSvgIcon-root"
-              focusable="false"
-              role="presentation"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+            />
+          </svg>
+        </span>
+      </button>
     </div>
   </div>
 </form>
@@ -195,7 +183,7 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10"
       >
         <div
-          className="MuiBox-root MuiBox-root-228"
+          className="MuiBox-root MuiBox-root-224"
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
