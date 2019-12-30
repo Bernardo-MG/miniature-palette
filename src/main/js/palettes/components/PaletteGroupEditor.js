@@ -6,12 +6,14 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 
 import PaletteList from 'palettes/components/PaletteList';
@@ -38,7 +40,7 @@ function PaletteGroupEditor({ initialValues, onSave, palettes }) {
             <Form>
                <Paper>
                   <Grid container spacing={3}>
-                     <Grid item xs={9}>
+                     <Grid item xs={10}>
                         <Box m={2}>
                            <TextField
                               fullWidth
@@ -53,14 +55,20 @@ function PaletteGroupEditor({ initialValues, onSave, palettes }) {
                         </Box>
                      </Grid>
                      <Grid item align="center" xs={1}>
-                        <IconButton aria-label="save" type="submit">
+                        <Fab aria-label="save" type="submit">
                            <SaveIcon />
-                        </IconButton>
+                        </Fab>
+                     </Grid>
+                     <Grid item align="center" xs={1}>
+                        <Fab aria-label="save">
+                           <DeleteIcon />
+                        </Fab>
                      </Grid>
                      <Grid item align="center" xs={12}>
-                        <IconButton aria-label="add" onClick={() => setChoosingPalette(true)}>
-                           <AddCircleIcon />
-                        </IconButton>
+                        <ButtonGroup color="primary" aria-label="outlined primary button group">
+                           <Button aria-label="add" onClick={() => setChoosingPalette(true)}>add_existing</Button>
+                           <Button aria-label="add" onClick={() => setChoosingPalette(true)}>add_new</Button>
+                        </ButtonGroup>
                      </Grid>
                   </Grid>
                </Paper>

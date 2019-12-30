@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { Formik, Form, FieldArray } from 'formik';
 
 import Box from '@material-ui/core/Box';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
@@ -17,6 +18,7 @@ import TextField from '@material-ui/core/TextField';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import SaveIcon from '@material-ui/icons/Save';
 
 const PaletteSchema = Yup.object().shape({
@@ -33,68 +35,71 @@ function PaletteEditor({ initialValues, onSave }) {
       validationSchema={PaletteSchema}>
       {({ values, errors, touched, handleChange, handleBlur }) => (
          <Form>
-            <Grid item xs={6}>
-               <Paper>
-                  <Grid container spacing={3}>
-                     <Grid item xs={9}>
-                        <Box m={2}>
-                           <TextField
-                              fullWidth
-                              name="name"
-                              label="palette_name"
-                              value={values.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              helperText={(errors.name && touched.name) && errors.name}
-                              margin="normal"
-                           />
-                        </Box>
-                     </Grid>
-                     <Grid item align="center" xs={1}>
-                        <IconButton aria-label="save" type="submit">
-                           <SaveIcon />
-                        </IconButton>
-                     </Grid>
-                     <FieldArray
-                        name="paints"
-                        render={(arrayHelpers) => (
-                           <Fragment>
-                              <Grid item xs={12}>
-                                 <List>
-                                    {values.paints.map((paint, index) =>
-                                       <ListItem key={index}>
-                                          <ListItemText>
-                                             <TextField
-                                                fullWidth
-                                                id={`paints[${index}].name`}
-                                                name={`paints[${index}].name`}
-                                                label="paint_name"
-                                                value={paint.name}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                helperText={(errors.name && touched.name) && errors.name}
-                                             />
-                                          </ListItemText>
-                                          <ListItemSecondaryAction>
-                                             <IconButton edge="end" aria-label="delete" onClick={() => arrayHelpers.remove(index)}>
-                                                <DeleteIcon />
-                                             </IconButton>
-                                          </ListItemSecondaryAction>
-                                       </ListItem>
-                                    )}
-                                 </List>
-                              </Grid>
-                              <Grid item align="center" xs={12}>
-                                 <IconButton aria-label="add" onClick={() => arrayHelpers.push({ name: '' })}>
-                                    <AddCircleIcon />
-                                 </IconButton>
-                              </Grid>
-                           </Fragment>
-                        )}
-                     />
+            <Paper>
+               <Grid container spacing={3}>
+                  <Grid item xs={10}>
+                     <Box m={2}>
+                        <TextField
+                           fullWidth
+                           name="name"
+                           label="palette_name"
+                           value={values.name}
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           helperText={(errors.name && touched.name) && errors.name}
+                           margin="normal"
+                        />
+                     </Box>
                   </Grid>
-               </Paper>
-            </Grid>
+                  <Grid item align="center" xs={1}>
+                     <Fab aria-label="save" type="submit">
+                        <SaveIcon />
+                     </Fab>
+                  </Grid>
+                  <Grid item align="center" xs={1}>
+                     <Fab aria-label="save">
+                        <DeleteIcon />
+                     </Fab>
+                  </Grid>
+                  <FieldArray
+                     name="paints"
+                     render={(arrayHelpers) => (
+                        <Fragment>
+                           <Grid item xs={12}>
+                              <List>
+                                 {values.paints.map((paint, index) =>
+                                    <ListItem key={index}>
+                                       <ListItemText>
+                                          <TextField
+                                             fullWidth
+                                             id={`paints[${index}].name`}
+                                             name={`paints[${index}].name`}
+                                             label="paint_name"
+                                             value={paint.name}
+                                             onChange={handleChange}
+                                             onBlur={handleBlur}
+                                             helperText={(errors.name && touched.name) && errors.name}
+                                          />
+                                       </ListItemText>
+                                       <ListItemSecondaryAction>
+                                          <IconButton edge="end" aria-label="delete" onClick={() => arrayHelpers.remove(index)}>
+                                             <RemoveCircleOutlineIcon />
+                                          </IconButton>
+                                       </ListItemSecondaryAction>
+                                    </ListItem>
+                                 )}
+                              </List>
+                           </Grid>
+                           <Grid item align="center" xs={12}>
+                              <IconButton aria-label="add" onClick={() => arrayHelpers.push({ name: '' })}>
+                                 <AddCircleIcon />
+                              </IconButton>
+                           </Grid>
+                        </Fragment>
+                     )}
+                  />
+               </Grid>
+            </Paper>
          </Form>
       )}
    </Formik>;
