@@ -65,9 +65,11 @@ function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }
          </Grid>
       </Fragment>;
    } else {
-      list = <IconButton aria-label="add" onClick={onAdd}>
-         <AddCircleIcon />
-      </IconButton>;
+      list = <Grid item align="center" xs={12}>
+         <IconButton aria-label="add" onClick={onAdd}>
+            <AddCircleIcon />
+         </IconButton>
+      </Grid>;
    }
 
    return list;
