@@ -3,7 +3,7 @@ import api from 'api';
 
 import * as types from 'api/actions/types';
 
-import { palettesRead, paletteSaved, paletteUpdated, requestFailure } from 'api/actions';
+import { palettesRead, paletteSaved, paletteUpdated, paletteDeleted, requestFailure } from 'api/actions';
 
 export function* read() {
    let response;
@@ -43,8 +43,23 @@ export function* update(action) {
    }
 }
 
+export function* del(action) {
+   let response;
+   try {
+      response = yield call(api.Palettes.delete, action.payload);
+      if (response.status === 'success') {
+         yield put(paletteDeleted(response));
+      } else {
+         yield put(requestFailure(response));
+      }
+   } catch (err) {
+      yield put(requestFailure(err));
+   }
+}
+
 export const paletteApiSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.SAVE_PALETTE, save),
-   takeLatest(types.UPDATE_PALETTE, update)
+   takeLatest(types.UPDATE_PALETTE, update),
+   takeLatest(types.DELETE_PALETTE, del)
 ];

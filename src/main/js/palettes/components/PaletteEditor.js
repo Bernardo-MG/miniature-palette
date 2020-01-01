@@ -75,7 +75,7 @@ function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }
    return list;
 }
 
-function PaletteEditor({ initialValues, onSave }) {
+function PaletteEditor({ initialValues, onSave, onDelete }) {
    return <Formik
       onSubmit={onSave}
       initialValues={initialValues}
@@ -104,7 +104,7 @@ function PaletteEditor({ initialValues, onSave }) {
                      </Fab>
                   </Grid>
                   <Grid item align="center" xs={1}>
-                     <Fab aria-label="save">
+                     <Fab aria-label="delete" onClick={() => onDelete(values)}>
                         <DeleteIcon />
                      </Fab>
                   </Grid>
@@ -133,7 +133,8 @@ PaletteEditor.propTypes = {
       name: PropTypes.string.isRequired,
       paints: PropTypes.array.isRequired
    }),
-   onSave: PropTypes.func.isRequired
+   onSave: PropTypes.func.isRequired,
+   onDelete: PropTypes.func
 };
 
 export default PaletteEditor;

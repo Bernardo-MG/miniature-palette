@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
 
-import { updatePalette } from 'api/actions';
+import { deletePalette, updatePalette } from 'api/actions';
 
 import { usePalette } from 'domain/hooks';
 
@@ -20,10 +20,15 @@ function PaletteUpdateForm({ id }) {
       dispatch(updatePalette(form));
    }
 
+   function handleDelete(form) {
+      dispatch(deletePalette(form.id));
+   }
+
    let form;
    if (values) {
       form = <PaletteEditor
          onSave={handleSave}
+         onDelete={handleDelete}
          initialValues={values} />;
    } else {
       form = <div />;

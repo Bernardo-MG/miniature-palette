@@ -40,3 +40,17 @@ export const paletteUpdated = (payload) => {
       payload
    };
 };
+
+export const deletePalette = (payload) => {
+   return {
+      type: types.DELETE_PALETTE,
+      payload
+   };
+};
+
+export const paletteDeleted = (payload) => {
+   return {
+      type: types.PALETTE_DELETED,
+      payload
+   };
+};

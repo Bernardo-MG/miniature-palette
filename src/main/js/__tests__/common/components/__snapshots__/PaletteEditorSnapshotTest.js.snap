@@ -93,10 +93,11 @@ exports[`<PaletteEditor /> renders correctly when there is no data 1`] = `
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
       >
         <button
-          aria-label="save"
+          aria-label="delete"
           className="MuiButtonBase-root MuiFab-root"
           disabled={false}
           onBlur={[Function]}
+          onClick={[Function]}
           onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -268,10 +269,11 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
       >
         <button
-          aria-label="save"
+          aria-label="delete"
           className="MuiButtonBase-root MuiFab-root"
           disabled={false}
           onBlur={[Function]}
+          onClick={[Function]}
           onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
