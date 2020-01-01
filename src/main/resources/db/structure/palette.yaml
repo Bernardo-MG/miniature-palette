@@ -51,7 +51,6 @@ databaseChangeLog:
                     foreignKeyName: fk_paint_palette_relationship
                     references: palettes(id)
                     nullable: false
-                    onDelete: cascade
               - column:
                   name: name
                   type: varchar(50)
