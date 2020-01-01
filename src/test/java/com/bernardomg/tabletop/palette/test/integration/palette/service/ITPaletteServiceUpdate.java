@@ -146,6 +146,30 @@ public class ITPaletteServiceUpdate {
     }
 
     @Test
+    public void testUpdatePalette_EditPaint() {
+        final PaletteUpdateForm palette;
+        final Collection<PaintUpdateForm> paints;
+        final PaintUpdateForm paint;
+
+        paint = new PaintUpdateForm();
+        paint.setId(1l);
+        paint.setName("abc");
+
+        paints = new ArrayList<>();
+        paints.add(paint);
+
+        palette = new PaletteUpdateForm();
+        palette.setId(1l);
+        palette.setName("palette");
+        palette.setPaints(paints);
+
+        service.updatePalette(palette);
+
+        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(1, paintRepository.count());
+    }
+
+    @Test
     public void testUpdatePalette_NotExisting() {
         final PaletteUpdateForm palette;
 
@@ -160,27 +184,17 @@ public class ITPaletteServiceUpdate {
     }
 
     @Test
-    public void testUpdatePalette_Paints() {
+    public void testUpdatePalette_RemovePaint() {
         final PaletteUpdateForm palette;
-        final Collection<PaintUpdateForm> paints;
-        final PaintUpdateForm paint;
-
-        paint = new PaintUpdateForm();
-        paint.setId(1l);
-        paint.setName("paint");
-
-        paints = new ArrayList<>();
-        paints.add(paint);
 
         palette = new PaletteUpdateForm();
         palette.setId(1l);
         palette.setName("palette");
-        palette.setPaints(paints);
 
         service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(1, paintRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
 }
