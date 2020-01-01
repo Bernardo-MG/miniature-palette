@@ -142,7 +142,7 @@ public class ITPaletteServiceUpdate {
         service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(1, paintRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -194,7 +194,7 @@ public class ITPaletteServiceUpdate {
         service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(1, paintRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
 }

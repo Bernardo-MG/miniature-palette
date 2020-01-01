@@ -136,6 +136,7 @@ public final class DefaultPaletteService implements PaletteService {
     public final PaletteData updatePalette(final PaletteUpdateForm palette) {
         final Palette entity;
         final Palette saved;
+        final Collection<Paint> deletedPaints;
         final Collection<Paint> paintEntities;
         final Collection<Paint> savedPaints;
         final PaletteData result;
@@ -151,7 +152,8 @@ public final class DefaultPaletteService implements PaletteService {
 
             saved = paletteRepository.save(entity);
 
-            // TODO: Save paint ids
+            deletedPaints = deletedPaints(palette);
+            paintRepository.deleteAll(deletedPaints);
 
             // Paints are mapped to entities
             paintEntities = StreamSupport
@@ -172,6 +174,21 @@ public final class DefaultPaletteService implements PaletteService {
         }
 
         return result;
+    }
+
+    private final Collection<Paint>
+            deletedPaints(final PaletteUpdateForm palette) {
+        final Collection<Paint> existingPaints;
+        final Collection<Long> paintIds;
+
+        paintIds = StreamSupport
+                .stream(palette.getPaints().spliterator(), false)
+                .map(PaintUpdateForm::getId).collect(Collectors.toList());
+
+        existingPaints = paintRepository.findAllByPaletteId(palette.getId());
+        return existingPaints.stream()
+                .filter((p) -> !paintIds.contains(p.getId()))
+                .collect(Collectors.toList());
     }
 
     private final Map<Long, List<PaintData>>

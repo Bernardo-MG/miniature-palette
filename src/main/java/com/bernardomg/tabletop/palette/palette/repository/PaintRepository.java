@@ -32,6 +32,8 @@ public interface PaintRepository extends JpaRepository<Paint, Long> {
 
     public void deleteByPaletteId(final Long id);
 
+    public List<Paint> findAllByPaletteId(final Long id);
+
     public List<Paint> findAllByPaletteIdIn(final Collection<Long> ids);
 
 }
