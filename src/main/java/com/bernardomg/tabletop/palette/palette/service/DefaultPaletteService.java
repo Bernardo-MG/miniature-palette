@@ -63,6 +63,15 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
+    public final Boolean deletePalette(final Long id) {
+        // TODO: Replace by cascade delete
+        paintRepository.deleteByPaletteId(id);
+        paletteRepository.deleteById(id);
+
+        return true;
+    }
+
+    @Override
     public final Iterable<PaletteData> getAllPalettes() {
         final List<Palette> allPalettes;
         final Collection<Long> paletteIds;

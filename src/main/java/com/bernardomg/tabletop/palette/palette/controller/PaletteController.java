@@ -21,7 +21,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +62,22 @@ public class PaletteController {
         super();
 
         paletteService = checkNotNull(service, "The service is required");
+    }
+
+    /**
+     * Deletes the received palette.
+     * 
+     * @param id
+     *            id of the palette to delete
+     * @return {@code true} if the palette was deleted, {@code false} otherwise
+     */
+    @DeleteMapping(path = "/{id:\\d*}")
+    public Response<Boolean> delete(@PathVariable final Long id) {
+        final Boolean result;
+
+        result = paletteService.deletePalette(id);
+
+        return new DefaultResponse<>(result);
     }
 
     /**
@@ -104,6 +122,8 @@ public class PaletteController {
     public Response<PaletteData>
             update(@RequestBody @Valid final PaletteUpdateForm palette) {
         final PaletteData result;
+
+        // TODO: Include id on path
 
         result = paletteService.updatePalette(palette);
 

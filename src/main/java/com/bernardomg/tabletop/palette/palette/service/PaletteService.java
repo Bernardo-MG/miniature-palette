@@ -27,6 +27,8 @@ import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
  */
 public interface PaletteService {
 
+    public Boolean deletePalette(final Long id);
+
     public Iterable<PaletteData> getAllPalettes();
 
     public PaletteData savePalette(final PaletteCreationForm palette);
