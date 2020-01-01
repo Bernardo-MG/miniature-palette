@@ -1,0 +1,97 @@
+databaseChangeLog:
+  - changeSet:
+      id: product_tables
+      author: Bernardo
+      changes:
+        - createTable:
+            tableName: companies
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: brands
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: products
+            columnNames: name, code
+            constraintName: products_unique_name_code
+  - changeSet:
+      id: product_relationships
+      author: Bernardo
+      changes:
+        - createTable:
+            tableName: brand_products
+            columns:
+              - column:
+                  name: brand
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_product_brand_relationship
+                    references: brands(id)
+                    nullable: false
+              - column:
+                  name: product
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_brand_product_relationship
+                    references: products(id)
+                    nullable: false
+        - createTable:
+            tableName: company_brands
+            columns:
+              - column:
+                  name: company
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_product_company_relationship
+                    references: companies(id)
+                    nullable: false
+              - column:
+                  name: brand
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_company_brand_relationship
+                    references: brands(id)
+                    nullable: false
