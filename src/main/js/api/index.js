@@ -12,7 +12,7 @@ function normalizePalette(response) {
    if (normalized.entities.palettes) {
       result = normalized.entities;
    } else {
-      result = null;
+      result = { palettes: [], paints: [] };
    }
 
    return result;
@@ -25,7 +25,7 @@ function normalizePaletteGroup(response) {
    if (normalized.entities.paletteGroups) {
       result = normalized.entities;
    } else {
-      result = null;
+      result = {};
    }
 
    return result;

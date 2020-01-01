@@ -2,8 +2,7 @@ import { PALETTES_RECEIVED, PALETTE_GROUPS_RECEIVED } from 'api/actions/types';
 
 const defaultState = {
    paints: {},
-   palettes: {},
-   paletteGroups: {}
+   palettes: {}
 };
 
 const domain = (state = defaultState, action) => {
