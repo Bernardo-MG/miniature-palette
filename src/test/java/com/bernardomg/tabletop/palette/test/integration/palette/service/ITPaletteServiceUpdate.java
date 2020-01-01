@@ -132,7 +132,7 @@ public class ITPaletteServiceUpdate {
     }
 
     @Test
-    public void testUpdatePalette_ChangeName() {
+    public void testUpdatePalette_ChangeName_NoPaints() {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
@@ -194,7 +194,7 @@ public class ITPaletteServiceUpdate {
         service.updatePalette(palette);
 
         Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(0, paintRepository.count());
+        Assertions.assertEquals(1, paintRepository.count());
     }
 
 }

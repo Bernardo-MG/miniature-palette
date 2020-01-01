@@ -29,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.palette.palette.model.data.PaintData;
@@ -64,11 +65,17 @@ public final class DefaultPaletteService implements PaletteService {
 
     @Override
     public final Boolean deletePalette(final Long id) {
-        // TODO: Replace by cascade delete
-        paintRepository.deleteByPaletteId(id);
-        paletteRepository.deleteById(id);
+        Boolean result;
 
-        return true;
+        try {
+            paintRepository.deleteByPaletteId(id);
+            paletteRepository.deleteById(id);
+            result = true;
+        } catch (final EmptyResultDataAccessException e) {
+            result = false;
+        }
+
+        return result;
     }
 
     @Override
@@ -133,6 +140,8 @@ public final class DefaultPaletteService implements PaletteService {
         final Collection<Paint> savedPaints;
         final PaletteData result;
         final Iterable<PaintData> palettePaintOptions;
+
+        // TODO: Split palette update from paint update
 
         if ((palette.getName() != null) && (!palette.getName().isEmpty())
                 && (palette.getId() != null)) {
