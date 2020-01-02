@@ -56,6 +56,10 @@ databaseChangeLog:
             constraintName: fk_paint_palette_relationship
             referencedTableName: palettes
             referencedColumnNames: id
+      modifySql:
+      -  append:
+            dbms: mysql
+            value:  engine innodb
 -  changeSet:
       id: palette_relationships
       author: Bernardo
@@ -85,3 +89,7 @@ databaseChangeLog:
             constraintName: fk_group_palette_relationship
             referencedTableName: palettes
             referencedColumnNames: id
+      modifySql:
+      -  append:
+            dbms: mysql
+            value:  engine innodb
