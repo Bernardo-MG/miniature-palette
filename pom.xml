@@ -539,6 +539,7 @@
       <postgresql.version>42.2.7</postgresql.version>
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.8.0-beta4</slf4j.version>
+      <snakeyaml.version>1.25</snakeyaml.version>
       <spring.data.train.version>Moore-SR3</spring.data.train.version>
       <spring.version>5.2.2.RELEASE</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
@@ -721,6 +722,15 @@
          <groupId>org.liquibase</groupId>
          <artifactId>liquibase-core</artifactId>
          <version>${liquibase.version}</version>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================ SNAKEYAML =================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- SnakeYAML -->
+         <groupId>org.yaml</groupId>
+         <artifactId>snakeyaml</artifactId>
+         <version>${snakeyaml.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JASPERREPORTS ================= -->
