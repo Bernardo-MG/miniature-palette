@@ -1,83 +1,83 @@
 databaseChangeLog:
-  - changeSet:
+-  changeSet:
       id: palette_tables
       author: Bernardo
       changes:
-        - createTable:
+      -  createTable:
             tableName: palette_groups
             columns:
-              - column:
+            -  column:
                   name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
+                     primaryKey: true
+                     nullable: false
+            -  column:
                   name: name
                   type: varchar(50)
                   constraints:
-                    nullable: false
-        - createTable:
+                     nullable: false
+      -  createTable:
             tableName: palettes
             columns:
-              - column:
+            -  column:
                   name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
-              - column:
+                     primaryKey: true
+            -  column:
                   name: name
                   type: varchar(50)
                   constraints:
-                    nullable: false
-        - createTable:
+                     nullable: false
+      -  createTable:
             tableName: paints
             columns:
-              - column:
+            -  column:
                   name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
+                     primaryKey: true
+                     nullable: false
+            -  column:
                   name: palette_id
                   type: int
                   constraints:
-                    foreignKeyName: fk_paint_palette_relationship
-                    references: palettes(id)
-                    nullable: false
-              - column:
+                     foreignKeyName: fk_paint_palette_relationship
+                     references: palettes(id)
+                     nullable: false
+            -  column:
                   name: name
                   type: varchar(50)
       modifySql:
       -  append:
             dbms: mysql
-            value: " ENGINE=INNODB"
-  - changeSet:
+            value: ' ENGINE=InnoDB DEFAULT CHARSET=latin1'
+-  changeSet:
       id: palette_relationships
       author: Bernardo
       changes:
-        - createTable:
+      -  createTable:
             tableName: palette_group_palettes
             columns:
-              - column:
+            -  column:
                   name: palette_group
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_palette_group_relationship
-                    references: palette_groups(id)
-                    nullable: false
-              - column:
+                     foreignKeyName: fk_palette_group_relationship
+                     references: palette_groups(id)
+                     nullable: false
+            -  column:
                   name: palette
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_group_palette_relationship
-                    references: palettes(id)
-                    nullable: false
+                     foreignKeyName: fk_group_palette_relationship
+                     references: palettes(id)
+                     nullable: false
       modifySql:
       -  append:
             dbms: mysql
-            value: " ENGINE=INNODB"
+            value: ' ENGINE=InnoDB DEFAULT CHARSET=latin1'
