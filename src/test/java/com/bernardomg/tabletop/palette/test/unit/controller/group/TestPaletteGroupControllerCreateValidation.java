@@ -85,7 +85,7 @@ public final class TestPaletteGroupControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE_GROUP)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content("{}");
+                .contentType(MediaType.APPLICATION_JSON).content("{}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -100,7 +100,7 @@ public final class TestPaletteGroupControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE_GROUP)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"\"}");
 
         mockMvc.perform(request)

@@ -71,7 +71,7 @@ public final class TestValidationException {
                         new PageableHandlerMethodArgumentResolver())
                 .setControllerAdvice(exceptionHandler)
                 .alwaysExpect(MockMvcResultMatchers.content()
-                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .build();
     }
 
@@ -80,7 +80,7 @@ public final class TestValidationException {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8);
+                .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
@@ -93,7 +93,7 @@ public final class TestValidationException {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"\"}");
 
         mockMvc.perform(request)

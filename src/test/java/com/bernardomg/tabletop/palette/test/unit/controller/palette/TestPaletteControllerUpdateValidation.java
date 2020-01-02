@@ -85,7 +85,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content("{}");
+                .contentType(MediaType.APPLICATION_JSON).content("{}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -100,7 +100,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\"1\"}");
 
         mockMvc.perform(request)
@@ -117,7 +117,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                .contentType(MediaType.APPLICATION_JSON).content(
                         "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"id\":\"1\", \"name\":\"\"}]}");
 
         mockMvc.perform(request)
@@ -133,7 +133,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[]}");
 
         mockMvc.perform(request)
@@ -147,7 +147,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                .contentType(MediaType.APPLICATION_JSON).content(
                         "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
 
         mockMvc.perform(request)
@@ -163,7 +163,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\"1\", \"name\":\"abcd\"}");
 
         mockMvc.perform(request)
@@ -177,7 +177,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                .contentType(MediaType.APPLICATION_JSON).content(
                         "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"id\":\"1\", \"name\":\"abcd\"}]}");
 
         mockMvc.perform(request)
@@ -191,7 +191,7 @@ public final class TestPaletteControllerUpdateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"abcd\"}");
 
         mockMvc.perform(request)

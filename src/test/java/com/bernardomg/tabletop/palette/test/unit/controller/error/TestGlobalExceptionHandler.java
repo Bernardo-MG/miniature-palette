@@ -71,7 +71,7 @@ public final class TestGlobalExceptionHandler {
                         new PageableHandlerMethodArgumentResolver())
                 .setControllerAdvice(exceptionHandler)
                 .alwaysExpect(MockMvcResultMatchers.content()
-                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .build();
     }
 

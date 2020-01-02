@@ -85,7 +85,7 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content("{}");
+                .contentType(MediaType.APPLICATION_JSON).content("{}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -100,7 +100,7 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"\"}");
 
         mockMvc.perform(request)
@@ -116,7 +116,7 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
 
         mockMvc.perform(request)
@@ -132,7 +132,7 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"abcd\", \"paints\":[]}");
 
         mockMvc.perform(request)
@@ -146,7 +146,7 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"abcd\"}");
 
         mockMvc.perform(request)
@@ -160,7 +160,7 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                .contentType(MediaType.APPLICATION_JSON).content(
                         "{\"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
 
         mockMvc.perform(request)
