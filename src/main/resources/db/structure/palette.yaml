@@ -59,7 +59,7 @@ databaseChangeLog:
       modifySql:
       -  append:
             dbms: mysql
-            value:  engine innodb
+            value: " engine innodb"
 -  changeSet:
       id: palette_relationships
       author: Bernardo
@@ -92,4 +92,4 @@ databaseChangeLog:
       modifySql:
       -  append:
             dbms: mysql
-            value:  engine innodb
+            value: " engine innodb"
