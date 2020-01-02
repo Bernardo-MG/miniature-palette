@@ -52,6 +52,10 @@ databaseChangeLog:
               - column:
                   name: name
                   type: varchar(50)
+      modifySql:
+      -  append:
+            dbms: mysql
+            value: " ENGINE=INNODB"
   - changeSet:
       id: palette_relationships
       author: Bernardo
@@ -73,3 +77,7 @@ databaseChangeLog:
                     foreignKeyName: fk_group_palette_relationship
                     references: palettes(id)
                     nullable: false
+      modifySql:
+      -  append:
+            dbms: mysql
+            value: " ENGINE=INNODB"

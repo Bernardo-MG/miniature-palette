@@ -84,7 +84,17 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
          <Form>
             <Paper>
                <Grid container spacing={3}>
-                  <Grid item xs={10}>
+                  <Grid item xs={12}>
+                     <Grid container justify="flex-end" spacing={3}>
+                        <Fab aria-label="save" type="submit">
+                           <SaveIcon />
+                        </Fab>
+                        <Fab aria-label="delete" onClick={() => onDelete(values)}>
+                           <DeleteIcon />
+                        </Fab>
+                     </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
                      <Box m={2}>
                         <TextField
                            fullWidth
@@ -97,16 +107,6 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
                            margin="normal"
                         />
                      </Box>
-                  </Grid>
-                  <Grid item align="center" xs={1}>
-                     <Fab aria-label="save" type="submit">
-                        <SaveIcon />
-                     </Fab>
-                  </Grid>
-                  <Grid item align="center" xs={1}>
-                     <Fab aria-label="delete" onClick={() => onDelete(values)}>
-                        <DeleteIcon />
-                     </Fab>
                   </Grid>
                   <FieldArray
                      name="paints"
