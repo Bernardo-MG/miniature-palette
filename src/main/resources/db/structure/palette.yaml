@@ -44,7 +44,7 @@ databaseChangeLog:
                      nullable: false
             -  column:
                   name: palette_id
-                  type: int
+                  type: bigint
                   constraints:
                      foreignKeyName: fk_paint_palette_relationship
                      references: palettes(id)
