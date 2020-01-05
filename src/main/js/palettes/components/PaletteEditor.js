@@ -85,13 +85,17 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
             <Paper>
                <Grid container spacing={3}>
                   <Grid item xs={12}>
-                     <Grid container justify="flex-end" spacing={3}>
-                        <Fab aria-label="save" type="submit">
-                           <SaveIcon />
-                        </Fab>
-                        <Fab aria-label="delete" onClick={() => onDelete(values)}>
-                           <DeleteIcon />
-                        </Fab>
+                     <Grid container justify="flex-end">
+                        <Grid item xs={1}>
+                           <Fab aria-label="save" type="submit">
+                              <SaveIcon />
+                           </Fab>
+                        </Grid>
+                        <Grid item xs={1}>
+                           <Fab aria-label="delete" onClick={() => onDelete(values)}>
+                              <DeleteIcon />
+                           </Fab>
+                        </Grid>
                      </Grid>
                   </Grid>
                   <Grid item xs={12}>
