@@ -54,3 +54,10 @@ export const paletteDeleted = (payload) => {
       payload
    };
 };
+
+export const paletteReport = (payload) => {
+   return {
+      type: types.GENERATE_PALETTE_REPORT,
+      payload
+   };
+};

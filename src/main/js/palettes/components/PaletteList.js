@@ -13,9 +13,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import DescriptionIcon from '@material-ui/icons/Description';
 import EditIcon from '@material-ui/icons/Edit';
 
-function PaletteData({ data, onReturn, onEdit }) {
+function PaletteData({ data, onReturn, onEdit, onReport }) {
    return <Fragment>
       <Grid item xs={8}>
          <Card>
@@ -28,6 +29,9 @@ function PaletteData({ data, onReturn, onEdit }) {
                      </IconButton>
                      <IconButton aria-label="edit" onClick={() => onEdit(data.id)}>
                         <EditIcon />
+                     </IconButton>
+                     <IconButton aria-label="report" onClick={() => onReport(data.id)}>
+                        <DescriptionIcon />
                      </IconButton>
                   </Fragment>
                } />
@@ -57,17 +61,18 @@ PaletteData.propTypes = {
       ).isRequired
    }).isRequired,
    onReturn: PropTypes.func.isRequired,
-   onEdit: PropTypes.func.isRequired
+   onEdit: PropTypes.func.isRequired,
+   onReport: PropTypes.func
 };
 
-function PaletteList({ data, onEdit }) {
+function PaletteList({ data, onEdit, onReport }) {
    const [selected, setSelected] = useState(null);
    let paletteData;
 
    if (selected) {
       // Selected group
       paletteData = <Fragment>
-         <PaletteData data={selected} onReturn={() => setSelected(null)} onEdit={onEdit} />
+         <PaletteData data={selected} onReturn={() => setSelected(null)} onEdit={onEdit} onReport={onReport} />
       </Fragment>;
    } else {
       // List of groups
@@ -100,7 +105,8 @@ PaletteList.propTypes = {
          ).isRequired
       })
    ).isRequired,
-   onEdit: PropTypes.func.isRequired
+   onEdit: PropTypes.func.isRequired,
+   onReport: PropTypes.func
 };
 
 export default PaletteList;

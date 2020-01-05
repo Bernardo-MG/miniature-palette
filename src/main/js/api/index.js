@@ -79,7 +79,8 @@ const Palettes = {
    all: () => requests.get('/rest/palette').then((response) => response.content).then(normalizePalette),
    save: (palette) => requests.post('/rest/palette', palette),
    update: (palette) => requests.put('/rest/palette', palette),
-   delete: (id) => requests.delete('/rest/palette/', id)
+   delete: (id) => requests.delete('/rest/palette/', id),
+   report: (id) => requests.download(`/rest/palette/report/${id}`, 'palettes.pdf')
 };
 
 export default {

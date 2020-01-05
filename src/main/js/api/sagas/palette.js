@@ -57,9 +57,18 @@ export function* del(action) {
    }
 }
 
+export function* report(action) {
+   try {
+      yield call(api.Palettes.report, action.payload);
+   } catch (err) {
+      yield put(requestFailure(err));
+   }
+}
+
 export const paletteApiSagas = [
    takeLatest(types.READ_PALETTES, read),
    takeLatest(types.SAVE_PALETTE, save),
    takeLatest(types.UPDATE_PALETTE, update),
-   takeLatest(types.DELETE_PALETTE, del)
+   takeLatest(types.DELETE_PALETTE, del),
+   takeLatest(types.GENERATE_PALETTE_REPORT, report)
 ];
