@@ -12,7 +12,12 @@ export function* notifyUpdated() {
    yield put(notifySuccess('updated_message'));
 }
 
+export function* notifyDeleted() {
+   yield put(notifySuccess('deleted_message'));
+}
+
 export const paletteNotificationSagas = [
    takeLatest(types.PALETTE_SAVED, notifySaved),
-   takeLatest(types.PALETTE_UPDATED, notifyUpdated)
+   takeLatest(types.PALETTE_UPDATED, notifyUpdated),
+   takeLatest(types.PALETTE_DELETED, notifyDeleted)
 ];
