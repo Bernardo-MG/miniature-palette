@@ -76,6 +76,18 @@ function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }
 }
 
 function PaletteEditor({ initialValues, onSave, onDelete }) {
+   let deleteButton;
+
+   if (onDelete) {
+      deleteButton = <Grid item xs={1}>
+         <Fab aria-label="delete" onClick={() => onDelete(initialValues)}>
+            <DeleteIcon />
+         </Fab>
+      </Grid>;
+   } else {
+      deleteButton = null;
+   }
+
    return <Formik
       onSubmit={onSave}
       initialValues={initialValues}
@@ -91,11 +103,7 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
                               <SaveIcon />
                            </Fab>
                         </Grid>
-                        <Grid item xs={1}>
-                           <Fab aria-label="delete" onClick={() => onDelete(values)}>
-                              <DeleteIcon />
-                           </Fab>
-                        </Grid>
+                        {deleteButton}
                      </Grid>
                   </Grid>
                   <Grid item xs={12}>
