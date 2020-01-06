@@ -18,9 +18,15 @@ package com.bernardomg.tabletop.palette.palette.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +51,11 @@ import com.bernardomg.tabletop.palette.response.Response;
 @RestController
 @RequestMapping("/rest/palette")
 public class PaletteController {
+
+    /**
+     * Default report file name.
+     */
+    private static final String FILENAME = "Report";
 
     /**
      * Palette service.
@@ -78,6 +89,21 @@ public class PaletteController {
         result = paletteService.deletePalette(id);
 
         return new DefaultResponse<>(result);
+    }
+
+    @GetMapping(path = "/report/{id:\\d*}")
+    public void getReport(final HttpServletRequest request,
+            final HttpServletResponse response, @PathVariable final Long id)
+            throws IOException {
+        final OutputStream output;
+
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        response.setHeader("Content-disposition",
+                String.format("inline; filename=%s.pdf", FILENAME));
+
+        output = response.getOutputStream();
+
+        paletteService.getReport(id, output);
     }
 
     /**

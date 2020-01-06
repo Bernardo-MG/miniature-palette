@@ -18,6 +18,7 @@ package com.bernardomg.tabletop.palette.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +43,25 @@ import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 public final class DefaultPaletteService implements PaletteService {
 
     private static final Logger     LOGGER = LoggerFactory
             .getLogger(DefaultPaletteService.class);
+
+    /**
+     * Chapter font.
+     */
+    private final Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA,
+            16, Font.BOLDITALIC);
 
     private final PaintRepository   paintRepository;
 
@@ -94,6 +108,29 @@ public final class DefaultPaletteService implements PaletteService {
         palettePaintOptions = getPaintData(allPaints);
 
         return toPaletteDatas(allPalettes, palettePaintOptions);
+    }
+
+    @Override
+    public final void getReport(final Long id, final OutputStream output) {
+        final Document document;
+        final Paragraph header;
+
+        document = new Document();
+        try {
+            PdfWriter.getInstance(document, output);
+        } catch (final DocumentException e) {
+            throw new RuntimeException(e);
+        }
+        document.open();
+
+        header = getHeader();
+
+        try {
+            document.add(header);
+        } catch (final DocumentException e) {
+            throw new RuntimeException(e);
+        }
+        document.close();
     }
 
     @Override
@@ -189,6 +226,19 @@ public final class DefaultPaletteService implements PaletteService {
         return existingPaints.stream()
                 .filter((p) -> !paintIds.contains(p.getId()))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Builds the header paragraph.
+     * 
+     * @return the header paragraph
+     */
+    private final Paragraph getHeader() {
+        final Chunk chunk;
+
+        chunk = new Chunk("title", chapterFont);
+
+        return new Paragraph(chunk);
     }
 
     private final Map<Long, List<PaintData>>

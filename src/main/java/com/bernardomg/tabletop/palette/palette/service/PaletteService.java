@@ -16,6 +16,8 @@
 
 package com.bernardomg.tabletop.palette.palette.service;
 
+import java.io.OutputStream;
+
 import com.bernardomg.tabletop.palette.palette.model.data.PaletteData;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
@@ -30,6 +32,8 @@ public interface PaletteService {
     public Boolean deletePalette(final Long id);
 
     public Iterable<PaletteData> getAllPalettes();
+
+    public void getReport(final Long id, final OutputStream output);
 
     public PaletteData savePalette(final PaletteCreationForm palette);
 
