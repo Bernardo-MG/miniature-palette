@@ -45,25 +45,18 @@ import com.bernardomg.tabletop.palette.palette.report.PaletteReportPrinter;
 import com.bernardomg.tabletop.palette.palette.report.ReportPrinter;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 public final class DefaultPaletteService implements PaletteService {
 
-    private static final Logger     LOGGER               = LoggerFactory
+    private static final Logger              LOGGER               = LoggerFactory
             .getLogger(DefaultPaletteService.class);
 
-    private final PaintRepository   paintRepository;
+    private final PaintRepository            paintRepository;
 
-    private final ReportPrinter     paletteReportPrinter = new PaletteReportPrinter();
+    private final ReportPrinter<PaletteData> paletteReportPrinter = new PaletteReportPrinter();
 
-    private final PaletteRepository paletteRepository;
+    private final PaletteRepository          paletteRepository;
 
     @Autowired
     public DefaultPaletteService(final PaintRepository paintRepo,
@@ -110,7 +103,15 @@ public final class DefaultPaletteService implements PaletteService {
 
     @Override
     public final void getReport(final Long id, final OutputStream output) {
-        paletteReportPrinter.saveReport(null, output);
+        final Palette palette;
+        final PaletteData data;
+        final Collection<Paint> paints;
+
+        palette = paletteRepository.getOne(id);
+        paints = paintRepository.findAllByPaletteId(id);
+
+        data = toPaletteDataSimple(palette, paints);
+        paletteReportPrinter.saveReport(data, output);
     }
 
     @Override
@@ -120,7 +121,6 @@ public final class DefaultPaletteService implements PaletteService {
         final Collection<Paint> paintEntities;
         final Collection<Paint> savedPaints;
         final PaletteData result;
-        final Iterable<PaintData> palettePaintOptions;
 
         if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
             entity = new Palette();
@@ -139,9 +139,7 @@ public final class DefaultPaletteService implements PaletteService {
 
             savedPaints = paintRepository.saveAll(paintEntities);
 
-            palettePaintOptions = savedPaints.stream().map(this::toPaintData)
-                    .collect(Collectors.toList());
-            result = toPaletteData(saved, palettePaintOptions);
+            result = toPaletteDataSimple(saved, savedPaints);
         } else {
             result = null;
         }
@@ -271,6 +269,22 @@ public final class DefaultPaletteService implements PaletteService {
                         palettePaintOptions.getOrDefault(p.getId(),
                                 Collections.emptyList())))
                 .collect(Collectors.toList());
+    }
+
+    private final PaletteData toPaletteDataSimple(final Palette palette,
+            final Collection<Paint> paints) {
+        final PaletteData option;
+        final Iterable<PaintData> paintOptions;
+
+        paintOptions = paints.stream().map(this::toPaintData)
+                .collect(Collectors.toList());
+
+        option = new PaletteData();
+        option.setId(palette.getId());
+        option.setName(palette.getName());
+        option.setPaints(paintOptions);
+
+        return option;
     }
 
 }

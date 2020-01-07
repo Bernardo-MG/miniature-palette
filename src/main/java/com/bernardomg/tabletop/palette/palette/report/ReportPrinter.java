@@ -3,10 +3,8 @@ package com.bernardomg.tabletop.palette.palette.report;
 
 import java.io.OutputStream;
 
-import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
+public interface ReportPrinter<T> {
 
-public interface ReportPrinter {
-
-    public void saveReport(final Palette data, final OutputStream output);
+    public void saveReport(final T data, final OutputStream output);
 
 }
