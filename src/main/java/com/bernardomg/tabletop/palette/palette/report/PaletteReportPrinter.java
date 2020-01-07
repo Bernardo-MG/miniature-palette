@@ -46,7 +46,7 @@ public final class PaletteReportPrinter implements ReportPrinter<PaletteData> {
         }
         document.open();
 
-        header = getHeader();
+        header = getHeader(data.getName());
         paints = getPaints(data.getPaints());
 
         try {
@@ -85,7 +85,7 @@ public final class PaletteReportPrinter implements ReportPrinter<PaletteData> {
         paragraph.add(table);
 
         // Adds headers
-        Stream.of("header").forEach(columnTitle -> {
+        Stream.of("paints").forEach(columnTitle -> {
             final PdfPCell header = new PdfPCell();
             header.setBackgroundColor(BaseColor.LIGHT_GRAY);
             header.setBorderWidth(2);
@@ -105,10 +105,10 @@ public final class PaletteReportPrinter implements ReportPrinter<PaletteData> {
      * 
      * @return the header paragraph
      */
-    private final Paragraph getHeader() {
+    private final Paragraph getHeader(final String title) {
         final Chunk chunk;
 
-        chunk = new Chunk("title", chapterFont);
+        chunk = new Chunk(title, chapterFont);
 
         return new Paragraph(chunk);
     }
