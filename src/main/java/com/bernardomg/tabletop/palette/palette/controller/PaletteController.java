@@ -55,7 +55,7 @@ public class PaletteController {
     /**
      * Default report file name.
      */
-    private static final String FILENAME = "Report";
+    private static final String  FILENAME = "Report";
 
     /**
      * Palette service.

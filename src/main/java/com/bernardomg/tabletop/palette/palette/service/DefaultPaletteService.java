@@ -41,6 +41,8 @@ import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
+import com.bernardomg.tabletop.palette.palette.report.PaletteReportPrinter;
+import com.bernardomg.tabletop.palette.palette.report.ReportPrinter;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
 import com.itextpdf.text.Chunk;
@@ -54,16 +56,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Service
 public final class DefaultPaletteService implements PaletteService {
 
-    private static final Logger     LOGGER = LoggerFactory
+    private static final Logger     LOGGER               = LoggerFactory
             .getLogger(DefaultPaletteService.class);
 
-    /**
-     * Chapter font.
-     */
-    private final Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA,
-            16, Font.BOLDITALIC);
-
     private final PaintRepository   paintRepository;
+
+    private final ReportPrinter     paletteReportPrinter = new PaletteReportPrinter();
 
     private final PaletteRepository paletteRepository;
 
@@ -112,25 +110,7 @@ public final class DefaultPaletteService implements PaletteService {
 
     @Override
     public final void getReport(final Long id, final OutputStream output) {
-        final Document document;
-        final Paragraph header;
-
-        document = new Document();
-        try {
-            PdfWriter.getInstance(document, output);
-        } catch (final DocumentException e) {
-            throw new RuntimeException(e);
-        }
-        document.open();
-
-        header = getHeader();
-
-        try {
-            document.add(header);
-        } catch (final DocumentException e) {
-            throw new RuntimeException(e);
-        }
-        document.close();
+        paletteReportPrinter.saveReport(null, output);
     }
 
     @Override
@@ -226,19 +206,6 @@ public final class DefaultPaletteService implements PaletteService {
         return existingPaints.stream()
                 .filter((p) -> !paintIds.contains(p.getId()))
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Builds the header paragraph.
-     * 
-     * @return the header paragraph
-     */
-    private final Paragraph getHeader() {
-        final Chunk chunk;
-
-        chunk = new Chunk("title", chapterFont);
-
-        return new Paragraph(chunk);
     }
 
     private final Map<Long, List<PaintData>>
