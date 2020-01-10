@@ -83,8 +83,11 @@ public final class TestPaletteControllerUpdateValidation {
     @Test
     public final void testUpdate_Empty() throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON).content("{}");
 
         mockMvc.perform(request)
@@ -98,8 +101,11 @@ public final class TestPaletteControllerUpdateValidation {
     @Test
     public final void testUpdate_Id() throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\"1\"}");
 
@@ -115,8 +121,11 @@ public final class TestPaletteControllerUpdateValidation {
     public final void testUpdate_Id_ValidName_EmptyPaintName()
             throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON).content(
                         "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"id\":\"1\", \"name\":\"\"}]}");
 
@@ -131,8 +140,11 @@ public final class TestPaletteControllerUpdateValidation {
     @Test
     public final void testUpdate_Id_ValidName_EmptyPaints() throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[]}");
 
@@ -145,8 +157,11 @@ public final class TestPaletteControllerUpdateValidation {
     @Test
     public final void testUpdate_Id_ValidName_NoPaintId() throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON).content(
                         "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
 
@@ -161,8 +176,11 @@ public final class TestPaletteControllerUpdateValidation {
     @Test
     public final void testUpdate_Id_ValidName_NoPaints() throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\"1\", \"name\":\"abcd\"}");
 
@@ -175,8 +193,11 @@ public final class TestPaletteControllerUpdateValidation {
     @Test
     public final void testUpdate_Id_ValidName_ValidPaint() throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON).content(
                         "{\"id\":\"1\", \"name\":\"abcd\", \"paints\":[{\"id\":\"1\", \"name\":\"abcd\"}]}");
 
@@ -189,10 +210,32 @@ public final class TestPaletteControllerUpdateValidation {
     @Test
     public final void testUpdate_NoId_ValidName() throws Exception {
         final RequestBuilder request;
+        final String url;
 
-        request = MockMvcRequestBuilders.put(UrlConfig.PALETTE)
+        url = UrlConfig.PALETTE + "/1";
+
+        request = MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"abcd\"}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.hasSize(1)));
+    }
+
+    @Test
+    public final void testUpdate_WrongId() throws Exception {
+        final RequestBuilder request;
+        final String url;
+
+        url = UrlConfig.PALETTE + "/2";
+
+        request = MockMvcRequestBuilders.put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"id\":\"1\"}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",

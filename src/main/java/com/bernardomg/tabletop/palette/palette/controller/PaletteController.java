@@ -144,12 +144,13 @@ public class PaletteController {
      *            palette to update
      * @return the updated palette
      */
-    @PutMapping
-    public Response<PaletteData>
-            update(@RequestBody @Valid final PaletteUpdateForm palette) {
+    @PutMapping(path = "/{id:\\d*}")
+    public Response<PaletteData> update(@PathVariable final Long id,
+            @RequestBody @Valid final PaletteUpdateForm palette) {
         final PaletteData result;
 
-        // TODO: Include id on path
+        // Forces id coherence
+        palette.setId(id);
 
         result = paletteService.updatePalette(palette);
 
