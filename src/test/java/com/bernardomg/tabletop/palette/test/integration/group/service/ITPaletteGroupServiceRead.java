@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.integration.group.service;
+package com.bernardomg.tabletop.painting.test.integration.group.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,8 +27,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.data.PaletteGroupData;
-import com.bernardomg.tabletop.palette.palette.service.PaletteGroupService;
+import com.bernardomg.tabletop.painting.palette.model.data.PaletteGroupData;
+import com.bernardomg.tabletop.painting.palette.service.PaletteGroupService;
 import com.google.common.collect.Iterables;
 
 /**

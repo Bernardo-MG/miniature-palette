@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.integration.product.service;
+package com.bernardomg.tabletop.painting.test.integration.product.service;
 
 import java.util.Iterator;
 
@@ -29,8 +29,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.product.model.ProductInfo;
-import com.bernardomg.tabletop.palette.product.service.ProductService;
+import com.bernardomg.tabletop.painting.product.model.ProductInfo;
+import com.bernardomg.tabletop.painting.product.service.ProductService;
 import com.google.common.collect.Iterables;
 
 /**

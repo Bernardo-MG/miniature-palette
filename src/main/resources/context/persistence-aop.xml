@@ -26,7 +26,7 @@
       of an operation defined by the FooService interface -->
    <aop:config>
       <aop:pointcut id="serviceOperation"
-         expression="execution(* com.bernardomg.tabletop.palette..*Service*.*(..))" />
+         expression="execution(* com.bernardomg.tabletop.painting..*Service*.*(..))" />
       <aop:advisor advice-ref="transactionAdvice"
          pointcut-ref="serviceOperation" />
    </aop:config>

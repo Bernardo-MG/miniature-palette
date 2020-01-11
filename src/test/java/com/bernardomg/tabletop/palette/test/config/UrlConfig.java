@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.config;
+package com.bernardomg.tabletop.painting.test.config;
 
 /**
  * Contains configuration information for the controller URLs.

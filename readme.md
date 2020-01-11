@@ -1,6 +1,6 @@
-# Miniature Palette
+# Painting Journal
 
-A small application for handling paint palettes for miniatures
+Create and save paint palettes for your miniatures.
 
 ## Features
 

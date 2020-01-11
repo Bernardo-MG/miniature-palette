@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.unit.controller.group;
+package com.bernardomg.tabletop.painting.test.unit.controller.group;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,11 +31,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.bernardomg.tabletop.palette.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.palette.palette.controller.PaletteGroupController;
-import com.bernardomg.tabletop.palette.palette.model.data.PaletteGroupData;
-import com.bernardomg.tabletop.palette.palette.service.PaletteGroupService;
-import com.bernardomg.tabletop.palette.test.config.UrlConfig;
+import com.bernardomg.tabletop.painting.controller.GlobalExceptionHandler;
+import com.bernardomg.tabletop.painting.palette.controller.PaletteGroupController;
+import com.bernardomg.tabletop.painting.palette.model.data.PaletteGroupData;
+import com.bernardomg.tabletop.painting.palette.service.PaletteGroupService;
+import com.bernardomg.tabletop.painting.test.config.UrlConfig;
 
 /**
  * Unit tests for {@link GlobalExceptionHandler}, checking that it catches and

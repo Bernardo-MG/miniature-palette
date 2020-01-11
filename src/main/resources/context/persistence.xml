@@ -20,7 +20,7 @@
    <!-- ============================= CONFIGURATION ============================= -->
 
    <!-- Repositories -->
-   <jpa:repositories base-package="com.bernardomg.tabletop.palette.**.repository" entity-manager-factory-ref="sessionFactory" />
+   <jpa:repositories base-package="com.bernardomg.tabletop.painting.**.repository" entity-manager-factory-ref="sessionFactory" />
 
    <!-- ================================== JPA ================================== -->
 

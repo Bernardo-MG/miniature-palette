@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.palette.test.integration.palette.service;
+package com.bernardomg.tabletop.painting.test.integration.palette.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,11 +29,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.tabletop.palette.palette.model.form.PaintUpdateForm;
-import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
-import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
-import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
-import com.bernardomg.tabletop.palette.palette.service.PaletteService;
+import com.bernardomg.tabletop.painting.palette.model.form.PaintUpdateForm;
+import com.bernardomg.tabletop.painting.palette.model.form.PaletteUpdateForm;
+import com.bernardomg.tabletop.painting.palette.repository.PaintRepository;
+import com.bernardomg.tabletop.painting.palette.repository.PaletteRepository;
+import com.bernardomg.tabletop.painting.palette.service.PaletteService;
 
 /**
  * Integration tests for the {@link ExampleEntityService}.
