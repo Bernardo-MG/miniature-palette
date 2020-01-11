@@ -19,7 +19,7 @@
    <!-- ********************************************** -->
 
    <groupId>com.bernardomg.tabletop</groupId>
-   <artifactId>miniature-palette</artifactId>
+   <artifactId>painting-journal</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <packaging>war</packaging>
 
@@ -41,20 +41,20 @@
    <!-- ********************************************** -->
 
    <scm>
-      <connection>scm:git:https://github.com/bernardo-mg/miniature-palette.git</connection>
-      <developerConnection>scm:git:https://github.com/bernardo-mg/miniature-palette.git</developerConnection>
+      <connection>scm:git:https://github.com/bernardo-mg/painting-journal.git</connection>
+      <developerConnection>scm:git:https://github.com/bernardo-mg/painting-journal.git</developerConnection>
       <tag>head</tag>
-      <url>https://www.github.com/bernardo-mg/miniature-palette</url>
+      <url>https://www.github.com/bernardo-mg/painting-journal</url>
    </scm>
 
    <issueManagement>
       <system>GitHub</system>
-      <url>https://www.github.com/bernardo-mg/miniature-palette/issues</url>
+      <url>https://www.github.com/bernardo-mg/painting-journal/issues</url>
    </issueManagement>
 
    <ciManagement>
       <system>Travis CI</system>
-      <url>https://travis-ci.org/bernardo-mg/miniature-palette</url>
+      <url>https://travis-ci.org/bernardo-mg/painting-journal</url>
       <notifiers />
    </ciManagement>
 
@@ -63,7 +63,7 @@
          <uniqueVersion>false</uniqueVersion>
          <id>releases</id>
          <name>Releases Repository</name>
-         <url>https://api.bintray.com/maven/bernardo-mg/maven/miniature-palette</url>
+         <url>https://api.bintray.com/maven/bernardo-mg/maven/painting-journal</url>
       </repository>
       <snapshotRepository>
          <uniqueVersion>false</uniqueVersion>

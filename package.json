@@ -1,9 +1,9 @@
 {
-   "name": "miniature-palette",
+   "name": "painting-journal",
    "version": "0.0.1-SNAPSHOT",
    "description": "Create and save paint palettes for your miniatures",
    "author": "Bernardo Martínez Garrido",
-   "homepage": "https://github.com/bernardo-mg/miniature-palette",
+   "homepage": "https://github.com/bernardo-mg/painting-journal",
    "license": "MIT",
    "keywords": [
       "miniature",
@@ -12,10 +12,10 @@
    ],
    "repository": {
       "type": "git",
-      "url": "git@github.com:bernardo-mg/miniature-palette.git"
+      "url": "git@github.com:bernardo-mg/painting-journal.git"
    },
    "bugs": {
-      "url": "https://www.github.com/bernardo-mg/miniature-palette/issues"
+      "url": "https://www.github.com/bernardo-mg/painting-journal/issues"
    },
    "scripts": {
       "development": "cross-env INPUT_PATH=./src/main/js/ MODULE_PATH=./node_modules/ OUTPUT_PATH=./target/generated-ui/ NODE_ENV=development webpack --config webpack.dev.js",
