@@ -18,6 +18,7 @@ package com.bernardomg.tabletop.palette.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +41,22 @@ import com.bernardomg.tabletop.palette.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.palette.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Paint;
 import com.bernardomg.tabletop.palette.palette.model.persistence.Palette;
+import com.bernardomg.tabletop.palette.palette.report.PaletteReportPrinter;
+import com.bernardomg.tabletop.palette.palette.report.ReportPrinter;
 import com.bernardomg.tabletop.palette.palette.repository.PaintRepository;
 import com.bernardomg.tabletop.palette.palette.repository.PaletteRepository;
 
 @Service
 public final class DefaultPaletteService implements PaletteService {
 
-    private static final Logger     LOGGER = LoggerFactory
+    private static final Logger              LOGGER               = LoggerFactory
             .getLogger(DefaultPaletteService.class);
 
-    private final PaintRepository   paintRepository;
+    private final PaintRepository            paintRepository;
 
-    private final PaletteRepository paletteRepository;
+    private final ReportPrinter<PaletteData> paletteReportPrinter = new PaletteReportPrinter();
+
+    private final PaletteRepository          paletteRepository;
 
     @Autowired
     public DefaultPaletteService(final PaintRepository paintRepo,
@@ -97,13 +102,25 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
+    public final void getReport(final Long id, final OutputStream output) {
+        final Palette palette;
+        final PaletteData data;
+        final Collection<Paint> paints;
+
+        palette = paletteRepository.getOne(id);
+        paints = paintRepository.findAllByPaletteId(id);
+
+        data = toPaletteDataSimple(palette, paints);
+        paletteReportPrinter.saveReport(data, output);
+    }
+
+    @Override
     public final PaletteData savePalette(final PaletteCreationForm palette) {
         final Palette entity;
         final Palette saved;
         final Collection<Paint> paintEntities;
         final Collection<Paint> savedPaints;
         final PaletteData result;
-        final Iterable<PaintData> palettePaintOptions;
 
         if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
             entity = new Palette();
@@ -122,9 +139,7 @@ public final class DefaultPaletteService implements PaletteService {
 
             savedPaints = paintRepository.saveAll(paintEntities);
 
-            palettePaintOptions = savedPaints.stream().map(this::toPaintData)
-                    .collect(Collectors.toList());
-            result = toPaletteData(saved, palettePaintOptions);
+            result = toPaletteDataSimple(saved, savedPaints);
         } else {
             result = null;
         }
@@ -254,6 +269,22 @@ public final class DefaultPaletteService implements PaletteService {
                         palettePaintOptions.getOrDefault(p.getId(),
                                 Collections.emptyList())))
                 .collect(Collectors.toList());
+    }
+
+    private final PaletteData toPaletteDataSimple(final Palette palette,
+            final Collection<Paint> paints) {
+        final PaletteData option;
+        final Iterable<PaintData> paintOptions;
+
+        paintOptions = paints.stream().map(this::toPaintData)
+                .collect(Collectors.toList());
+
+        option = new PaletteData();
+        option.setId(palette.getId());
+        option.setName(palette.getName());
+        option.setPaints(paintOptions);
+
+        return option;
     }
 
 }

@@ -65,7 +65,7 @@ const requests = {
       ),
    get: (url) => superagent.get(`${API_ROOT}${url}`).then((response) => JSON.parse(response.text)),
    post: (url, body) => superagent.post(`${API_ROOT}${url}`, body).ok((res) => res.status < 500).then((response) => JSON.parse(response.text)),
-   put: (url, body) => superagent.put(`${API_ROOT}${url}`, body).ok((res) => res.status < 500).then((response) => JSON.parse(response.text)),
+   put: (url, id, body) => superagent.put(`${API_ROOT}${url}${id}`, body).ok((res) => res.status < 500).then((response) => JSON.parse(response.text)),
    delete: (url, id) => superagent.delete(`${API_ROOT}${url}${id}`).ok((res) => res.status < 500).then((response) => JSON.parse(response.text))
 };
 
@@ -76,10 +76,11 @@ const PaletteGroups = {
 };
 
 const Palettes = {
-   all: () => requests.get('/rest/palette').then((response) => response.content).then(normalizePalette),
-   save: (palette) => requests.post('/rest/palette', palette),
-   update: (palette) => requests.put('/rest/palette', palette),
-   delete: (id) => requests.delete('/rest/palette/', id)
+   all: () => requests.get('/rest/palette/').then((response) => response.content).then(normalizePalette),
+   save: (palette) => requests.post('/rest/palette/', palette),
+   update: (palette) => requests.put('/rest/palette/', palette.id, palette),
+   delete: (id) => requests.delete('/rest/palette/', id),
+   report: (id) => requests.download(`/rest/palette/report/${id}`, 'palettes.pdf')
 };
 
 export default {
