@@ -80,7 +80,7 @@ const Palettes = {
    save: (palette) => requests.post('/rest/palette/', palette),
    update: (palette) => requests.put('/rest/palette/', palette.id, palette),
    delete: (id) => requests.delete('/rest/palette/', id),
-   report: (id) => requests.download(`/rest/palette/report/${id}`, 'palettes.pdf')
+   report: (id) => requests.download(`/report/palette/${id}`, 'palettes.pdf')
 };
 
 export default {
