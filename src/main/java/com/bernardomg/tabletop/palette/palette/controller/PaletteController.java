@@ -140,6 +140,8 @@ public class PaletteController {
     /**
      * Updates the received palette.
      * 
+     * @param id
+     *            palette's id
      * @param palette
      *            palette to update
      * @return the updated palette
