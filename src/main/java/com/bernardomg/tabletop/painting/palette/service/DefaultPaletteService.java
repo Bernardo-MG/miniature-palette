@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.painting.palette.model.data.PaintData;
 import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
@@ -68,6 +69,7 @@ public final class DefaultPaletteService implements PaletteService {
                 "The repository is required");
     }
 
+    @Transactional
     @Override
     public final Boolean deletePalette(final Long id) {
         Boolean result;
@@ -83,6 +85,7 @@ public final class DefaultPaletteService implements PaletteService {
         return result;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public final Iterable<PaletteData> getAllPalettes() {
         final List<Palette> allPalettes;
@@ -101,6 +104,7 @@ public final class DefaultPaletteService implements PaletteService {
         return toPaletteDatas(allPalettes, palettePaintOptions);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public final void getReport(final Long id, final OutputStream output) {
         final Palette palette;
@@ -114,6 +118,7 @@ public final class DefaultPaletteService implements PaletteService {
         paletteReportPrinter.saveReport(data, output);
     }
 
+    @Transactional
     @Override
     public final PaletteData savePalette(final PaletteCreationForm palette) {
         final Palette entity;
@@ -147,6 +152,7 @@ public final class DefaultPaletteService implements PaletteService {
         return result;
     }
 
+    @Transactional
     @Override
     public final PaletteData updatePalette(final PaletteUpdateForm palette) {
         final Palette entity;
