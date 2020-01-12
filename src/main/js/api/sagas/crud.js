@@ -2,7 +2,7 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 
 import { requestFailure } from 'api/actions';
 
-export const async = (code, api) => {
+export const crud = (code, api) => {
 
    function* read() {
       let response;
@@ -56,19 +56,10 @@ export const async = (code, api) => {
       }
    }
 
-   function* report(action) {
-      try {
-         yield call(api.report, action.payload);
-      } catch (err) {
-         yield put(requestFailure(err));
-      }
-   }
-
    return [
       takeLatest(`READ_${code}`, read),
       takeLatest(`SAVE_${code}`, save),
       takeLatest(`UPDATE_${code}`, update),
-      takeLatest(`DELETE_${code}`, del),
-      takeLatest(`GENERATE_${code}_REPORT`, report)
+      takeLatest(`DELETE_${code}`, del)
    ];
 };

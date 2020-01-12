@@ -2,10 +2,12 @@ import { requestFailureSagas } from 'api/sagas/failure';
 
 import api from 'api';
 
-import { async } from 'api/sagas/async';
+import { crud } from 'api/sagas/crud';
+import { report } from 'api/sagas/report';
 
 export const apiSagas = [
    ...requestFailureSagas,
-   ...async('PALETTE', api.Palettes),
-   ...async('PALETTE_GROUP', api.PaletteGroups)
+   ...crud('PALETTE', api.Palettes),
+   ...report('PALETTE', api.Palettes),
+   ...crud('PALETTE_GROUP', api.PaletteGroups)
 ];
