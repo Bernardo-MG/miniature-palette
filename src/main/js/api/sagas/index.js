@@ -1,9 +1,12 @@
 import { requestFailureSagas } from 'api/sagas/failure';
-import { paletteApiSagas } from 'api/sagas/palette';
 import { paletteGroupApiSagas } from 'api/sagas/paletteGroup';
+
+import api from 'api';
+
+import { async } from 'api/sagas/async';
 
 export const apiSagas = [
    ...requestFailureSagas,
-   ...paletteApiSagas,
+   ...async('PALETTE', api.Palettes),
    ...paletteGroupApiSagas
 ];
