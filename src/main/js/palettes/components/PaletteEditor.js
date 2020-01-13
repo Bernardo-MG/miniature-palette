@@ -21,15 +21,7 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
-function PaletteEditor({ initialValues, onSave, onDelete }) {
-   let handleDelete;
-
-   if (onDelete) {
-      handleDelete = () => onDelete(initialValues);
-   } else {
-      handleDelete = null;
-   }
-
+function PaletteEditor({ initialValues, onSave, onDelete, onReturn }) {
    return <Formik
       onSubmit={onSave}
       initialValues={initialValues}
@@ -39,7 +31,7 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
             <Paper>
                <Grid container spacing={3}>
                   <Grid item xs={12}>
-                     <EditorButtons onDelete={handleDelete} />
+                     <EditorButtons onDelete={onDelete} onReturn={onReturn} />
                   </Grid>
                   <Grid item xs={12}>
                      <Box m={2}>
@@ -81,7 +73,8 @@ PaletteEditor.propTypes = {
       paints: PropTypes.array.isRequired
    }),
    onSave: PropTypes.func.isRequired,
-   onDelete: PropTypes.func
+   onDelete: PropTypes.func,
+   onReturn: PropTypes.func
 };
 
 export default PaletteEditor;

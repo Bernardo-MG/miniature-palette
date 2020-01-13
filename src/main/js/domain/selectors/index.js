@@ -18,15 +18,6 @@ const selectPaintsMap = (state) => selectDomain(state).paints;
 
 const selectPalettesValues = (state) => Object.values(selectDomain(state).palettes);
 
-const selectPalettesMap = (state) => selectDomain(state).palettes;
-
-export const selectPaletteById = (id) => createSelector(
-   [selectPalettesMap, selectPaintsMap],
-   (palettes, paints) => {
-      return loadPaint(palettes[id], paints);
-   }
-);
-
 export const selectPalettes = createSelector(
    [selectPalettesValues, selectPaintsMap],
    (palettes, paints) => {

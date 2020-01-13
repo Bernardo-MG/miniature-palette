@@ -6,28 +6,29 @@ import PaletteList from 'palettes/components/PaletteList';
 
 import { usePalettes } from 'domain/hooks';
 
-import { useHistory } from 'react-router-dom';
-
-import { paletteReport } from 'api/actions';
+import { deletePalette, updatePalette, paletteReport } from 'api/actions';
 
 function PaletteListing() {
    const palettes = usePalettes();
 
-   const history = useHistory();
-
    const dispatch = useDispatch();
-
-   function handleEdit(id) {
-      history.push(`/palette/edit/${id}`);
-   }
 
    function handleReport(id) {
       dispatch(paletteReport(id));
    }
 
+   function handleSave(form) {
+      dispatch(updatePalette(form));
+   }
+
+   function handleDelete(form) {
+      dispatch(deletePalette(form.id));
+   }
+
    return <PaletteList data={palettes}
-      onEdit={handleEdit}
-      onReport={handleReport} />;
+      onReport={handleReport}
+      onSave={handleSave}
+      onDelete={handleDelete} />;
 }
 
 PaletteListing.propTypes = {};

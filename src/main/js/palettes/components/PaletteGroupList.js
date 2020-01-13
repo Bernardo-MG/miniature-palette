@@ -2,62 +2,32 @@ import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
 
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import EditIcon from '@material-ui/icons/Edit';
+import PaletteEditor from 'palettes/components/PaletteEditor';
+import PaletteGroupData from 'palettes/components/PaletteGroupData';
 
-function PaletteGroupData({ data, onReturn, onEdit }) {
-   return <Fragment>
-      <Grid item xs={8}>
-         <Card>
-            <CardHeader
-               title={ <Typography>{data.name}</Typography> }
-               action={
-                  <Fragment>
-                     <IconButton edge="end" aria-label="back" onClick={onReturn}>
-                        <ArrowBackIcon />
-                     </IconButton>
-                     <IconButton aria-label="edit" onClick={() => onEdit(data.id)}>
-                        <EditIcon />
-                     </IconButton>
-                  </Fragment>
-               } />
-         </Card>
-      </Grid>
-   </Fragment>;
-}
-
-PaletteGroupData.propTypes = {
-   data: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      paints: PropTypes.arrayOf(
-         PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-         })
-      ).isRequired
-   }).isRequired,
-   onReturn: PropTypes.func.isRequired,
-   onEdit: PropTypes.func.isRequired
-};
-
-function PaletteGroupList({ data, onEdit }) {
+function PaletteGroupList({ data, onSave, onDelete }) {
    const [selected, setSelected] = useState(null);
+   const [editing, setEditing] = useState(null);
    let groupData;
 
-   if (selected) {
+   if (editing) {
       // Selected group
       groupData = <Fragment>
-         <PaletteGroupData data={selected} onReturn={() => setSelected(null)} onEdit={onEdit} />
+         <PaletteEditor
+            onSave={onSave}
+            onDelete={onDelete}
+            onReturn={() => setEditing(null)}
+            initialValues={editing} />;
+      </Fragment>;
+   } else if (selected) {
+      // Selected group
+      groupData = <Fragment>
+         <PaletteGroupData data={selected} onReturn={() => setSelected(null)} onEdit={setEditing} />
       </Fragment>;
    } else {
       // List of groups
@@ -90,7 +60,9 @@ PaletteGroupList.propTypes = {
          ).isRequired
       })
    ).isRequired,
-   onEdit: PropTypes.func.isRequired
+   onEdit: PropTypes.func.isRequired,
+   onSave: PropTypes.func.isRequired,
+   onDelete: PropTypes.func.isRequired
 };
 
 export default PaletteGroupList;
