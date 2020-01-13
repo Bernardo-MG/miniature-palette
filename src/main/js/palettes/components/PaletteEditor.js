@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import { Formik, Form, FieldArray } from 'formik';
 
 import Box from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
@@ -17,9 +16,9 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import DeleteIcon from '@material-ui/icons/Delete';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import SaveIcon from '@material-ui/icons/Save';
+
+import EditorButtons from 'editor/components/EditorButtons';
 
 const PaletteSchema = Yup.object().shape({
    name: Yup.string()
@@ -76,18 +75,6 @@ function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }
 }
 
 function PaletteEditor({ initialValues, onSave, onDelete }) {
-   let deleteButton;
-
-   if (onDelete) {
-      deleteButton = <Grid item xs={1}>
-         <Fab aria-label="delete" onClick={() => onDelete(initialValues)}>
-            <DeleteIcon />
-         </Fab>
-      </Grid>;
-   } else {
-      deleteButton = null;
-   }
-
    return <Formik
       onSubmit={onSave}
       initialValues={initialValues}
@@ -97,14 +84,7 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
             <Paper>
                <Grid container spacing={3}>
                   <Grid item xs={12}>
-                     <Grid container justify="flex-end">
-                        <Grid item xs={1}>
-                           <Fab aria-label="save" type="submit">
-                              <SaveIcon />
-                           </Fab>
-                        </Grid>
-                        {deleteButton}
-                     </Grid>
+                     <EditorButtons onDelete={() => onDelete(initialValues)} />
                   </Grid>
                   <Grid item xs={12}>
                      <Box m={2}>
