@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
@@ -7,18 +7,12 @@ import { Formik, Form, FieldArray } from 'formik';
 
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-
 import EditorButtons from 'editor/components/EditorButtons';
+
+import PaintsEditorList from 'palettes/components/PaintsEditorList';
 
 const PaletteSchema = Yup.object().shape({
    name: Yup.string()
@@ -27,54 +21,15 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
-function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }) {
-   let list;
+function PaletteEditor({ initialValues, onSave, onDelete }) {
+   let handleDelete;
 
-   if (data && data.length > 0) {
-      list = <Fragment>
-         <Grid item xs={12}>
-            <List>
-               {data.map((paint, index) =>
-                  <ListItem key={index}>
-                     <ListItemText>
-                        <TextField
-                           fullWidth
-                           id={`paints[${index}].name`}
-                           name={`paints[${index}].name`}
-                           label="paint_name"
-                           value={paint.name}
-                           onChange={onChange}
-                           onBlur={onBlur}
-                           helperText={(errors.name && touched.name) && errors.name}
-                        />
-                     </ListItemText>
-                     <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete" onClick={() => onRemove(index)}>
-                           <RemoveCircleOutlineIcon />
-                        </IconButton>
-                     </ListItemSecondaryAction>
-                  </ListItem>
-               )}
-            </List>
-         </Grid>
-         <Grid item align="center" xs={12}>
-            <IconButton aria-label="add" onClick={onAdd}>
-               <AddCircleIcon />
-            </IconButton>
-         </Grid>
-      </Fragment>;
+   if (onDelete) {
+      handleDelete = () => onDelete(initialValues);
    } else {
-      list = <Grid item align="center" xs={12}>
-         <IconButton aria-label="add" onClick={onAdd}>
-            <AddCircleIcon />
-         </IconButton>
-      </Grid>;
+      handleDelete = null;
    }
 
-   return list;
-}
-
-function PaletteEditor({ initialValues, onSave, onDelete }) {
    return <Formik
       onSubmit={onSave}
       initialValues={initialValues}
@@ -84,7 +39,7 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
             <Paper>
                <Grid container spacing={3}>
                   <Grid item xs={12}>
-                     <EditorButtons onDelete={() => onDelete(initialValues)} />
+                     <EditorButtons onDelete={handleDelete} />
                   </Grid>
                   <Grid item xs={12}>
                      <Box m={2}>
@@ -103,7 +58,7 @@ function PaletteEditor({ initialValues, onSave, onDelete }) {
                   <FieldArray
                      name="paints"
                      render={(arrayHelpers) => (
-                        <PaintsList data={values.paints}
+                        <PaintsEditorList data={values.paints}
                            onChange={handleChange}
                            onBlur={handleBlur}
                            errors={errors}
