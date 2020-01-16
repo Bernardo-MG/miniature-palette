@@ -2,19 +2,9 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 
 import { requestFailure } from 'api/actions';
 
-export const crud = (code, api) => {
+export const create = (code, api) => {
 
-   function* read() {
-      let response;
-      try {
-         response = yield call(api.all);
-         yield put({ type: `${code}_RECEIVED`, payload: response });
-      } catch (err) {
-         yield put(requestFailure(err));
-      }
-   }
-
-   function* save(action) {
+   function* gen(action) {
       let response;
       try {
          response = yield call(api.save, action.payload);
@@ -28,7 +18,27 @@ export const crud = (code, api) => {
       }
    }
 
-   function* update(action) {
+   return gen;
+};
+
+export const read = (code, api) => {
+
+   function* gen() {
+      let response;
+      try {
+         response = yield call(api.all);
+         yield put({ type: `${code}_RECEIVED`, payload: response });
+      } catch (err) {
+         yield put(requestFailure(err));
+      }
+   }
+
+   return gen;
+};
+
+export const update = (code, api) => {
+
+   function* gen(action) {
       let response;
       try {
          response = yield call(api.update, action.payload);
@@ -42,7 +52,12 @@ export const crud = (code, api) => {
       }
    }
 
-   function* del(action) {
+   return gen;
+};
+
+export const del = (code, api) => {
+
+   function* gen(action) {
       let response;
       try {
          response = yield call(api.delete, action.payload);
@@ -56,10 +71,15 @@ export const crud = (code, api) => {
       }
    }
 
+   return gen;
+};
+
+export const crud = (code, api) => {
+
    return [
-      takeLatest(`READ_${code}`, read),
-      takeLatest(`SAVE_${code}`, save),
-      takeLatest(`UPDATE_${code}`, update),
-      takeLatest(`DELETE_${code}`, del)
+      takeLatest(`SAVE_${code}`, create(code, api)),
+      takeLatest(`READ_${code}`, read(code, api)),
+      takeLatest(`UPDATE_${code}`, update(code, api)),
+      takeLatest(`DELETE_${code}`, del(code, api))
    ];
 };
