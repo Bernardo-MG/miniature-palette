@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -17,18 +17,14 @@ function PaletteList({ data, onSave, onDelete, onReport }) {
 
    if (editing) {
       // Edited palette
-      paletteData = <Fragment>
-         <PaletteEditor
-            onSave={onSave}
-            onDelete={onDelete}
-            onReturn={() => setEditing(null)}
-            initialValues={editing} />;
-      </Fragment>;
+      paletteData = <PaletteEditor
+         onSave={onSave}
+         onDelete={onDelete}
+         onReturn={() => setEditing(null)}
+         initialValues={editing} />;
    } else if (selected) {
       // Selected palette
-      paletteData = <Fragment>
-         <PaletteData data={selected} onReturn={() => setSelected(null)} onEdit={() => setEditing(selected)} onReport={onReport} />
-      </Fragment>;
+      paletteData = <PaletteData data={selected} onReturn={() => setSelected(null)} onEdit={() => setEditing(selected)} onReport={onReport} />;
    } else {
       // List of palettes
       paletteData = <List>
@@ -40,11 +36,11 @@ function PaletteList({ data, onSave, onDelete, onReport }) {
       </List>;
    }
 
-   return <Fragment>
-      <Grid container spacing={3}>
+   return <Grid container spacing={3}>
+      <Grid item xs={12}>
          { paletteData }
       </Grid>
-   </Fragment>;
+   </Grid>;
 }
 
 PaletteList.propTypes = {
