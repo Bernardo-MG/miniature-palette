@@ -24,7 +24,7 @@ function saveFile(blob, type, filename) {
    }
 }
 
-const fileRequests = {
+export const fileRequests = {
    download: (url, filename) => superagent.get(`${API_ROOT}${url}`).responseType('blob').parse(parse.image)
       .then(
          (response) => {
@@ -33,5 +33,3 @@ const fileRequests = {
          (error) => error.message || 'Request failed'
       )
 };
-
-export default fileRequests;
