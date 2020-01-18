@@ -30,16 +30,16 @@ function normalizePaletteGroup(response) {
 }
 
 const PaletteGroups = {
-   all: () => crudRequests.get('/rest/palette/group').then((response) => response.content).then(normalizePaletteGroup),
-   create: (palette) => crudRequests.post('/rest/palette/group', palette),
-   update: (palette) => crudRequests.put('/rest/palette/group', palette)
+   read: () => crudRequests.read('/rest/palette/group').then((response) => response.content).then(normalizePaletteGroup),
+   create: (palette) => crudRequests.create('/rest/palette/group', palette),
+   update: (palette) => crudRequests.update('/rest/palette/group', palette)
 };
 
 const Palettes = {
-   all: () => crudRequests.get('/rest/palette/').then((response) => response.content).then(normalizePalette),
-   create: (palette) => crudRequests.post('/rest/palette/', palette),
-   update: (palette) => crudRequests.put('/rest/palette/', palette.id, palette),
+   create: (palette) => crudRequests.create('/rest/palette/', palette),
    delete: (id) => crudRequests.delete('/rest/palette/', id),
+   update: (palette) => crudRequests.update('/rest/palette/', palette.id, palette),
+   read: () => crudRequests.read('/rest/palette/').then((response) => response.content).then(normalizePalette),
    report: (id) => fileRequests.download(`/report/palette/${id}`, 'palettes.pdf')
 };
 

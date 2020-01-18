@@ -26,7 +26,7 @@ export const read = (code, api) => {
    function* gen() {
       let response;
       try {
-         response = yield call(api.all);
+         response = yield call(api.read);
          yield put({ type: `${code}_RECEIVED`, payload: response });
       } catch (err) {
          yield put(requestFailure(err));

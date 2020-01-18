@@ -14,7 +14,7 @@ describe('CRUD read requests saga', () => {
       expect(
          gen.next().value
          ).toEqual(
-            call(api.Palettes.all)
+            call(api.Palettes.read)
       )
    }),
 
@@ -33,7 +33,7 @@ describe('CRUD read requests saga', () => {
       expect(
          gen.next().value
          ).toEqual(
-            call(api.Palettes.all)
+            call(api.Palettes.read)
       )
    })
 });
