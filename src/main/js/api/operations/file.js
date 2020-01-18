@@ -1,7 +1,5 @@
 import superagent, { parse } from 'superagent';
 
-const API_ROOT = 'http://localhost:8080';
-
 function saveFile(blob, type, filename) {
    // It is necessary to create a new blob object with mime-type explicitly set
    // otherwise only Chrome works like it should

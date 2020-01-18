@@ -20,6 +20,7 @@
       "es6":true
    },
    "globals":{
+      "API_ROOT":false,
       "APP_VERSION":false,
       "REPO_URL":false,
       "Blob":false,
