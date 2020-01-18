@@ -71,13 +71,13 @@ const requests = {
 
 const PaletteGroups = {
    all: () => requests.get('/rest/palette/group').then((response) => response.content).then(normalizePaletteGroup),
-   save: (palette) => requests.post('/rest/palette/group', palette),
+   create: (palette) => requests.post('/rest/palette/group', palette),
    update: (palette) => requests.put('/rest/palette/group', palette)
 };
 
 const Palettes = {
    all: () => requests.get('/rest/palette/').then((response) => response.content).then(normalizePalette),
-   save: (palette) => requests.post('/rest/palette/', palette),
+   create: (palette) => requests.post('/rest/palette/', palette),
    update: (palette) => requests.put('/rest/palette/', palette.id, palette),
    delete: (id) => requests.delete('/rest/palette/', id),
    report: (id) => requests.download(`/report/palette/${id}`, 'palettes.pdf')

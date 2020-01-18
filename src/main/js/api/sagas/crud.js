@@ -7,7 +7,7 @@ export const create = (code, api) => {
    function* gen(action) {
       let response;
       try {
-         response = yield call(api.save, action.payload);
+         response = yield call(api.create, action.payload);
          if (response.status === 'success') {
             yield put({ type: `${code}_SAVED`, payload: response });
          } else {

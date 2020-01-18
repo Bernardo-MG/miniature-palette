@@ -65,6 +65,23 @@ public class PaletteController {
     }
 
     /**
+     * Saves the received palette.
+     * 
+     * @param palette
+     *            palette to save
+     * @return the new palette
+     */
+    @PostMapping
+    public Response<PaletteData>
+            create(@RequestBody @Valid final PaletteCreationForm palette) {
+        final PaletteData result;
+
+        result = paletteService.savePalette(palette);
+
+        return new DefaultResponse<>(result);
+    }
+
+    /**
      * Deletes the received palette.
      * 
      * @param id
@@ -92,23 +109,6 @@ public class PaletteController {
         read = paletteService.getAllPalettes();
 
         return new DefaultResponse<>(read);
-    }
-
-    /**
-     * Saves the received palette.
-     * 
-     * @param palette
-     *            palette to save
-     * @return the new palette
-     */
-    @PostMapping
-    public Response<PaletteData>
-            save(@RequestBody @Valid final PaletteCreationForm palette) {
-        final PaletteData result;
-
-        result = paletteService.savePalette(palette);
-
-        return new DefaultResponse<>(result);
     }
 
     /**

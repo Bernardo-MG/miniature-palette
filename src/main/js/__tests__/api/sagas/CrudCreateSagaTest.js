@@ -13,7 +13,7 @@ describe('CRUD create requests saga', () => {
       expect(
          gen.next().value
          ).toEqual(
-            call(api.Palettes.save, 'abc')
+            call(api.Palettes.create, 'abc')
       )
    })
 });
