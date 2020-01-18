@@ -8,7 +8,7 @@ const request = (type, operation) => {
       let response;
       try {
          response = yield call(operation, action.payload);
-         if (response.status === 'success') {
+         if ((response) && ((response.status === undefined) || (response.status === 'success'))) {
             yield put({ type, payload: response });
          } else {
             yield put(requestFailure(response));
@@ -25,20 +25,7 @@ const create = (code, api) => request(`${code}_SAVED`, api.create);
 
 const del = (code, api) => request(`${code}_DELETED`, api.delete);
 
-const read = (code, api) => {
-
-   function* gen() {
-      let response;
-      try {
-         response = yield call(api.read);
-         yield put({ type: `${code}_RECEIVED`, payload: response });
-      } catch (err) {
-         yield put(requestFailure(err));
-      }
-   }
-
-   return gen;
-};
+const read = (code, api) => request(`${code}_RECEIVED`, api.read);
 
 const update = (code, api) => request(`${code}_UPDATED`, api.update);
 
