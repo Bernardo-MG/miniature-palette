@@ -21,6 +21,25 @@ export const create = (code, api) => {
    return gen;
 };
 
+export const del = (code, api) => {
+
+   function* gen(action) {
+      let response;
+      try {
+         response = yield call(api.delete, action.payload);
+         if (response.status === 'success') {
+            yield put({ type: `${code}_DELETED`, payload: response });
+         } else {
+            yield put(requestFailure(response));
+         }
+      } catch (err) {
+         yield put(requestFailure(err));
+      }
+   }
+
+   return gen;
+};
+
 export const read = (code, api) => {
 
    function* gen() {
@@ -55,31 +74,12 @@ export const update = (code, api) => {
    return gen;
 };
 
-export const del = (code, api) => {
-
-   function* gen(action) {
-      let response;
-      try {
-         response = yield call(api.delete, action.payload);
-         if (response.status === 'success') {
-            yield put({ type: `${code}_DELETED`, payload: response });
-         } else {
-            yield put(requestFailure(response));
-         }
-      } catch (err) {
-         yield put(requestFailure(err));
-      }
-   }
-
-   return gen;
-};
-
 export const crud = (code, api) => {
 
    return [
-      takeLatest(`SAVE_${code}`, create(code, api)),
+      takeLatest(`CREATE_${code}`, create(code, api)),
+      takeLatest(`DELETE_${code}`, del(code, api)),
       takeLatest(`READ_${code}`, read(code, api)),
-      takeLatest(`UPDATE_${code}`, update(code, api)),
-      takeLatest(`DELETE_${code}`, del(code, api))
+      takeLatest(`UPDATE_${code}`, update(code, api))
    ];
 };

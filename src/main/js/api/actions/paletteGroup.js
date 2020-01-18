@@ -15,7 +15,7 @@ export const paletteGroupsRead = (payload) => {
 
 export const savePaletteGroup = (payload) => {
    return {
-      type: types.SAVE_PALETTE_GROUP,
+      type: types.CREATE_PALETTE_GROUP,
       payload
    };
 };

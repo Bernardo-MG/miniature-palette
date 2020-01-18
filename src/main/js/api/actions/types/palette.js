@@ -1,7 +1,7 @@
 export const READ_PALETTE = 'READ_PALETTE';
 export const PALETTE_RECEIVED = 'PALETTE_RECEIVED';
 
-export const SAVE_PALETTE = 'SAVE_PALETTE';
+export const CREATE_PALETTE = 'CREATE_PALETTE';
 export const PALETTE_SAVED = 'PALETTE_SAVED';
 
 export const UPDATE_PALETTE = 'UPDATE_PALETTE';

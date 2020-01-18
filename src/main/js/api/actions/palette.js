@@ -8,7 +8,7 @@ export const readPalettes = () => {
 
 export const savePalette = (payload) => {
    return {
-      type: types.SAVE_PALETTE,
+      type: types.CREATE_PALETTE,
       payload
    };
 };
