@@ -2,14 +2,14 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 
 import { requestFailure } from 'api/actions';
 
-export const create = (code, api) => {
+const request = (type, operation) => {
 
    function* gen(action) {
       let response;
       try {
-         response = yield call(api.create, action.payload);
+         response = yield call(operation, action.payload);
          if (response.status === 'success') {
-            yield put({ type: `${code}_SAVED`, payload: response });
+            yield put({ type, payload: response });
          } else {
             yield put(requestFailure(response));
          }
@@ -21,26 +21,11 @@ export const create = (code, api) => {
    return gen;
 };
 
-export const del = (code, api) => {
+const create = (code, api) => request(`${code}_SAVED`, api.create);
 
-   function* gen(action) {
-      let response;
-      try {
-         response = yield call(api.delete, action.payload);
-         if (response.status === 'success') {
-            yield put({ type: `${code}_DELETED`, payload: response });
-         } else {
-            yield put(requestFailure(response));
-         }
-      } catch (err) {
-         yield put(requestFailure(err));
-      }
-   }
+const del = (code, api) => request(`${code}_DELETED`, api.delete);
 
-   return gen;
-};
-
-export const read = (code, api) => {
+const read = (code, api) => {
 
    function* gen() {
       let response;
@@ -55,31 +40,21 @@ export const read = (code, api) => {
    return gen;
 };
 
-export const update = (code, api) => {
+const update = (code, api) => request(`${code}_UPDATED`, api.update);
 
-   function* gen(action) {
-      let response;
-      try {
-         response = yield call(api.update, action.payload);
-         if (response.status === 'success') {
-            yield put({ type: `${code}_UPDATED`, payload: response });
-         } else {
-            yield put(requestFailure(response));
-         }
-      } catch (err) {
-         yield put(requestFailure(err));
-      }
-   }
-
-   return gen;
-};
-
-export const crud = (code, api) => {
-
+const crud = (code, api) => {
    return [
       takeLatest(`CREATE_${code}`, create(code, api)),
       takeLatest(`DELETE_${code}`, del(code, api)),
       takeLatest(`READ_${code}`, read(code, api)),
       takeLatest(`UPDATE_${code}`, update(code, api))
    ];
+};
+
+export {
+   create,
+   del,
+   read,
+   update,
+   crud
 };
