@@ -21,6 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,7 +72,8 @@ public class PaletteController {
      *            palette to save
      * @return the new palette
      */
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<PaletteData>
             create(@RequestBody @Valid final PaletteCreationForm palette) {
         final PaletteData result;
@@ -88,7 +90,9 @@ public class PaletteController {
      *            id of the palette to delete
      * @return {@code true} if the palette was deleted, {@code false} otherwise
      */
-    @DeleteMapping(path = "/{id:\\d*}")
+    @DeleteMapping(path = "/{id:\\d*}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<Boolean> delete(@PathVariable final Long id) {
         final Boolean result;
 
@@ -102,7 +106,8 @@ public class PaletteController {
      * 
      * @return all the palettes
      */
-    @GetMapping
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<Iterable<PaletteData>> read() {
         final Iterable<PaletteData> read;
 
@@ -120,7 +125,9 @@ public class PaletteController {
      *            palette to update
      * @return the updated palette
      */
-    @PutMapping(path = "/{id:\\d*}")
+    @PutMapping(path = "/{id:\\d*}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<PaletteData> update(@PathVariable final Long id,
             @RequestBody @Valid final PaletteUpdateForm palette) {
         final PaletteData result;
