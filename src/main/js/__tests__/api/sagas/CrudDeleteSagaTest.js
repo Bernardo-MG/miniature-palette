@@ -2,9 +2,9 @@ import '@babel/polyfill';
 import { del } from 'api/sagas/crud';
 import { call, put } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import api from 'api';
 
-const func = del("TEST", api.Palettes);
+const operation = (input) => input;
+const func = del("TEST", { delete: operation });
 const generator = cloneableGenerator(func)({ payload: 'abc' }, 0);
 
 describe('CRUD delete requests saga', () => {
@@ -12,8 +12,8 @@ describe('CRUD delete requests saga', () => {
       const gen = generator.clone();
       expect(
          gen.next().value
-         ).toEqual(
-            call(api.Palettes.delete, 'abc')
+      ).toEqual(
+         call(operation, 'abc')
       )
    })
 });
