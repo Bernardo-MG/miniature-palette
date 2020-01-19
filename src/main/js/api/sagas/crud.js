@@ -8,8 +8,8 @@ const request = (type, operation) => {
       let response;
       try {
          response = yield call(operation, action.payload);
-         if ((response) && ((response.status === undefined) || (response.status === 'success'))) {
-            yield put({ type, payload: response });
+         if ((response.status) && (response.status === 'success')) {
+            yield put({ type, payload: response.content });
          } else {
             yield put(requestFailure(response));
          }
