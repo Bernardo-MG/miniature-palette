@@ -56,7 +56,6 @@ PaletteList.propTypes = {
          ).isRequired
       })
    ).isRequired,
-   onEdit: PropTypes.func.isRequired,
    onSave: PropTypes.func.isRequired,
    onDelete: PropTypes.func.isRequired,
    onReport: PropTypes.func
