@@ -1,7 +1,7 @@
 import { crudRequests, fileRequests } from 'api/operations';
 
 import { normalize } from 'normalizr';
-import { palette as paletteSchema, paletteGroup as paletteGroupSchema } from 'domain/schema';
+import { palette as paletteSchema } from 'domain/schema';
 
 function normalizePalette(response) {
    const normalized = normalize(response, [paletteSchema]);
@@ -16,25 +16,6 @@ function normalizePalette(response) {
    return result;
 }
 
-function normalizePaletteGroup(response) {
-   const normalized = normalize(response, [paletteGroupSchema]);
-   let result;
-
-   if (normalized.entities.paletteGroups) {
-      result = normalized.entities;
-   } else {
-      result = {};
-   }
-
-   return result;
-}
-
-const PaletteGroups = {
-   read: () => crudRequests.read('/rest/palette/group').then((response) => response.content).then(normalizePaletteGroup),
-   create: (palette) => crudRequests.create('/rest/palette/group', palette),
-   update: (palette) => crudRequests.update('/rest/palette/group', palette)
-};
-
 const Palettes = {
    create: (palette) => crudRequests.create('/rest/palette/', palette),
    delete: (id) => crudRequests.delete('/rest/palette/', id),
@@ -43,7 +24,6 @@ const Palettes = {
    report: (id) => fileRequests.download(`/report/palette/${id}`, 'palettes.pdf')
 };
 
-export default {
-   Palettes,
-   PaletteGroups
+export {
+   Palettes
 };
