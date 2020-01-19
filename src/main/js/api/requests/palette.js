@@ -16,16 +16,16 @@ function normalizePalette(response) {
    return result;
 }
 
-function transformContent(response) {
-   const content = normalizePalette(response.content);
+const transformContent = (func) => (response) => {
+   const content = func(response.content);
    return { ...response, content };
-}
+};
 
 const Palettes = {
    create: (palette) => crudRequests.create('/rest/palette/', palette),
    delete: (id) => crudRequests.delete('/rest/palette/', id),
    update: (palette) => crudRequests.update('/rest/palette/', palette.id, palette),
-   read: () => crudRequests.read('/rest/palette/').then(transformContent),
+   read: () => crudRequests.read('/rest/palette/').then(transformContent(normalizePalette)),
    report: (id) => fileRequests.download(`/report/palette/${id}`, 'palettes.pdf')
 };
 
