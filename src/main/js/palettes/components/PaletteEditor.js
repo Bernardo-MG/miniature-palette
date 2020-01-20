@@ -1,26 +1,18 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
-import { Field, Formik, Form, FieldArray } from 'formik';
+import { Formik, Form, FieldArray } from 'formik';
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 
-import { TextField } from 'formik-material-ui';
+import EditorButtons from 'editor/components/EditorButtons';
 
-import { Autocomplete } from 'material-ui-formik-components/Autocomplete';
-
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
+import PaintsEditorList from 'palettes/components/PaintsEditorList';
 
 const PaletteSchema = Yup.object().shape({
    name: Yup.string()
@@ -29,72 +21,60 @@ const PaletteSchema = Yup.object().shape({
       .required('Required')
 });
 
-function PaletteEditor({ suggestions, onSave }) {
+function PaletteEditor({ initialValues, onSave, onDelete, onReturn }) {
    return <Formik
       onSubmit={onSave}
-      initialValues={{
-         name: '',
-         paints: []
-      }}
+      initialValues={initialValues}
       validationSchema={PaletteSchema}>
-      {({ values }) => (
+      {({ values, errors, touched, handleChange, handleBlur }) => (
          <Form>
-            <Card>
-               <CardHeader
-                  title={
-                     <Field
-                        name="name"
-                        label="palette_name"
-                        component={TextField}
-                     />
-                  }
-                  action={
-                     <IconButton aria-label="save" type="submit">
-                        <SaveIcon />
-                     </IconButton>
-                  }
-               />
-               <CardContent>
+            <Paper>
+               <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                     <EditorButtons onDelete={onDelete} onReturn={onReturn} />
+                  </Grid>
+                  <Grid item xs={12}>
+                     <Box m={2}>
+                        <TextField
+                           fullWidth
+                           name="name"
+                           label="palette_name"
+                           value={values.name}
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           helperText={(errors.name && touched.name) && errors.name}
+                           margin="normal"
+                        />
+                     </Box>
+                  </Grid>
                   <FieldArray
                      name="paints"
                      render={(arrayHelpers) => (
-                        <Fragment>
-                           <List>
-                              {values.paints.map((paint, index) =>
-                                 <ListItem key={index}>
-                                    <ListItemText>
-                                       <Field
-                                          id={`paints.${index}.name`}
-                                          name={`paints.${index}.name`}
-                                          required
-                                          options={suggestions}
-                                          component={Autocomplete}
-                                       />
-                                    </ListItemText>
-                                    <ListItemSecondaryAction>
-                                       <IconButton edge="end" aria-label="delete" onClick={() => arrayHelpers.remove(index)}>
-                                          <DeleteIcon />
-                                       </IconButton>
-                                    </ListItemSecondaryAction>
-                                 </ListItem>
-                              )}
-                           </List>
-                           <IconButton aria-label="add" onClick={() => arrayHelpers.push({ name: '' })}>
-                              <AddCircleIcon />
-                           </IconButton>
-                        </Fragment>
+                        <PaintsEditorList data={values.paints}
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           errors={errors}
+                           touched={touched}
+                           onAdd={() => arrayHelpers.push({ name: '' })}
+                           onRemove={(index) => arrayHelpers.remove(index)} />
                      )}
                   />
-               </CardContent>
-            </Card>
+               </Grid>
+            </Paper>
          </Form>
       )}
    </Formik>;
 }
 
 PaletteEditor.propTypes = {
+   initialValues: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string.isRequired,
+      paints: PropTypes.array.isRequired
+   }),
    onSave: PropTypes.func.isRequired,
-   suggestions: PropTypes.array.isRequired
+   onDelete: PropTypes.func,
+   onReturn: PropTypes.func
 };
 
 export default PaletteEditor;

@@ -42,6 +42,12 @@
    </servlet-mapping>
 
    <servlet-mapping>
+      <!-- Favicon servlet mapping -->
+      <servlet-name>default</servlet-name>
+      <url-pattern>*.ico</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
       <!-- CSS servlet mapping -->
       <servlet-name>default</servlet-name>
       <url-pattern>*.css</url-pattern>

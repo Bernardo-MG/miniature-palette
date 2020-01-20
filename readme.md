@@ -1,6 +1,6 @@
-# Miniature Palette
+# Painting Journal
 
-A small application for handling paint palettes for miniatures
+Create and save paint palettes for your miniatures.
 
 ## Features
 
@@ -118,10 +118,10 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 
 The project has been released under the [MIT License][license].
 
-[issues]: https://github.com/bernardo-mg/miniature-palette/issues
-[javadoc-develop]: http://docs.bernardomg.com/development/maven/miniature-palette/apidocs
-[javadoc-release]: http://docs.bernardomg.com/maven/miniature-palette/apidocs
-[license]: http://www.opensource.org/licenses/mit-license.php
-[scm]: https://github.com/bernardo-mg/miniature-palette
-[site-develop]: http://docs.bernardomg.com/development/maven/miniature-palette
-[site-release]: http://docs.bernardomg.com/maven/miniature-palette
+[issues]: https://github.com/bernardo-mg/painting-journal/issues
+[javadoc-develop]: https://docs.bernardomg.com/development/maven/painting-journal/apidocs
+[javadoc-release]: https://docs.bernardomg.com/maven/painting-journal/apidocs
+[license]: https://www.opensource.org/licenses/mit-license.php
+[scm]: https://github.com/bernardo-mg/painting-journal
+[site-develop]: https://docs.bernardomg.com/development/maven/painting-journal
+[site-release]: https://docs.bernardomg.com/maven/painting-journal

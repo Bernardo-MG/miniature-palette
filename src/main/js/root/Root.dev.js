@@ -12,7 +12,7 @@ import { SnackbarProvider } from 'notistack';
 
 import { DevMonitor } from 'development';
 
-import Notificator from 'notifications/containers/Notificator';
+import Notificator from 'notify/containers/Notificator';
 
 /**
  * Development root application.

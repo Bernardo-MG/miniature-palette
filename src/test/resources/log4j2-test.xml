@@ -17,10 +17,12 @@
    </Appenders>
 
    <Loggers>
+      <!-- Application log -->
       <Logger name="com.bernardomg" level="error" additivity="false">
          <AppenderRef ref="console" />
       </Logger>
 
+      <!-- Jetty -->
       <logger name="org.eclipse.jetty" level="error" additivity="false">
          <AppenderRef ref="console" />
       </logger>
@@ -36,13 +38,17 @@
       </Logger>
 
       <!-- Queries logs -->
-
       <logger name="org.hibernate.SQL" level="off" additivity="false">
+         <AppenderRef ref="console" />
+      </logger>
+      <Logger name="org.hibernate.type.descriptor.sql" level="off" additivity="false">
+         <AppenderRef ref="console" />
+      </Logger>
+      <logger name="log4j.logger.jdbc.sqlonly" level="off" additivity="false">
          <AppenderRef ref="console" />
       </logger>
 
       <!-- Root -->
-
       <Root level="error">
          <AppenderRef ref="console" />
       </Root>
