@@ -2,7 +2,8 @@ import { PALETTE_RECEIVED } from 'api/actions/types';
 
 const defaultState = {
    paints: {},
-   palettes: {}
+   palettes: {},
+   schemes: {}
 };
 
 const domain = (state = defaultState, action) => {

@@ -19,7 +19,7 @@ export const palette = new schema.Entity('palettes', {
 /**
  * Palette group schema.
  */
-export const paletteGroup = new schema.Entity('paletteGroups', {
+export const scheme = new schema.Entity('schemes', {
    palettes: [palette]
 }, {
    idAttribute: 'id'

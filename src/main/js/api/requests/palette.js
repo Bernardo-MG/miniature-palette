@@ -3,6 +3,8 @@ import { crudRequests, fileRequests } from 'api/operations';
 import { normalize } from 'normalizr';
 import { palette as paletteSchema } from 'domain/schema';
 
+const palettePath = '/rest/palette/';
+
 function normalizePalette(response) {
    const normalized = normalize(response, [paletteSchema]);
    let result;
@@ -22,11 +24,11 @@ const transformContent = (func) => (response) => {
 };
 
 const Palettes = {
-   create: (palette) => crudRequests.create('/rest/palette/', palette),
-   delete: (id) => crudRequests.delete('/rest/palette/', id),
-   update: (palette) => crudRequests.update('/rest/palette/', palette.id, palette),
-   read: () => crudRequests.read('/rest/palette/').then(transformContent(normalizePalette)),
-   report: (id) => fileRequests.download(`/report/palette/${id}`, 'palettes.pdf')
+   create: (data) => crudRequests.create(palettePath, data),
+   delete: (id) => crudRequests.delete(palettePath, id),
+   update: (data) => crudRequests.update(palettePath, data.id, data),
+   read: () => crudRequests.read(palettePath).then(transformContent(normalizePalette)),
+   report: (id) => fileRequests.download(`${palettePath}${id}`, 'palettes.pdf')
 };
 
 export {
