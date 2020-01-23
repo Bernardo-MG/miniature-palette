@@ -18,13 +18,13 @@ package com.bernardomg.tabletop.painting.palette.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bernardomg.tabletop.painting.palette.model.persistence.Palette;
+import com.bernardomg.tabletop.painting.palette.model.persistence.PaletteEntity;
 
 /**
- * Spring-JPA repository for {@link Palette}.
+ * Spring-JPA repository for {@link PaletteEntity}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaletteRepository extends JpaRepository<Palette, Long> {
+public interface PaletteRepository extends JpaRepository<PaletteEntity, Long> {
 
 }

@@ -40,7 +40,7 @@ import com.google.common.base.MoreObjects;
  */
 @Entity(name = "Paint")
 @Table(name = "paints")
-public class Paint implements Serializable {
+public class PaintEntity implements Serializable {
 
     /**
      * Serialization ID.
@@ -71,7 +71,7 @@ public class Paint implements Serializable {
     /**
      * Constructs an example entity.
      */
-    public Paint() {
+    public PaintEntity() {
         super();
     }
 
@@ -89,7 +89,7 @@ public class Paint implements Serializable {
             return false;
         }
 
-        final Paint other = (Paint) obj;
+        final PaintEntity other = (PaintEntity) obj;
         return Objects.equals(id, other.id);
     }
 

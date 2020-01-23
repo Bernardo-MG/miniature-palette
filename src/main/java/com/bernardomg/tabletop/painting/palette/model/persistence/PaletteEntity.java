@@ -40,7 +40,7 @@ import com.google.common.base.MoreObjects;
  */
 @Entity(name = "Palette")
 @Table(name = "palettes")
-public class Palette implements Serializable {
+public class PaletteEntity implements Serializable {
 
     /**
      * Serialization ID.
@@ -68,7 +68,7 @@ public class Palette implements Serializable {
     /**
      * Constructs an example entity.
      */
-    public Palette() {
+    public PaletteEntity() {
         super();
     }
 
@@ -86,7 +86,7 @@ public class Palette implements Serializable {
             return false;
         }
 
-        final Palette other = (Palette) obj;
+        final PaletteEntity other = (PaletteEntity) obj;
         return Objects.equals(id, other.id);
     }
 

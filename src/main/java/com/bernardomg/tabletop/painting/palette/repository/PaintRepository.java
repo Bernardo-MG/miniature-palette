@@ -21,19 +21,19 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bernardomg.tabletop.painting.palette.model.persistence.Paint;
+import com.bernardomg.tabletop.painting.palette.model.persistence.PaintEntity;
 
 /**
- * Spring-JPA repository for {@link Paint}.
+ * Spring-JPA repository for {@link PaintEntity}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface PaintRepository extends JpaRepository<Paint, Long> {
+public interface PaintRepository extends JpaRepository<PaintEntity, Long> {
 
     public void deleteByPaletteId(final Long id);
 
-    public List<Paint> findAllByPaletteId(final Long id);
+    public List<PaintEntity> findAllByPaletteId(final Long id);
 
-    public List<Paint> findAllByPaletteIdIn(final Collection<Long> ids);
+    public List<PaintEntity> findAllByPaletteIdIn(final Collection<Long> ids);
 
 }
