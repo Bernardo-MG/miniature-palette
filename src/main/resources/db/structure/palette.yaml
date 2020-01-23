@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: palette_groups
+            tableName: schemes
             columns:
             -  column:
                   name: id
@@ -61,23 +61,19 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: palette_group_palettes
+            tableName: scheme_palettes
             columns:
             -  column:
-                  name: palette_group
+                  name: palette_scheme
                   type: bigint
                   constraints:
-                     foreignKeyName: fk_palette_group_relationship
-                     references: palette_groups(id)
+                     foreignKeyName: fk_palette_scheme_relationship
+                     references: schemes(id)
                      nullable: false
             -  column:
                   name: palette
                   type: bigint
                   constraints:
-                     foreignKeyName: fk_group_palette_relationship
+                     foreignKeyName: fk_scheme_palette_relationship
                      references: palettes(id)
                      nullable: false
-      modifySql:
-      -  append:
-            dbms: mysql
-            value: ' ENGINE=InnoDB DEFAULT CHARSET=latin1'
