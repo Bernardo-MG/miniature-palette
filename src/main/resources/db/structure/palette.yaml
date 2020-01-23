@@ -64,7 +64,7 @@ databaseChangeLog:
             tableName: scheme_palettes
             columns:
             -  column:
-                  name: palette_scheme
+                  name: scheme
                   type: bigint
                   constraints:
                      foreignKeyName: fk_palette_scheme_relationship
