@@ -9,7 +9,7 @@ function normalizeScheme(response) {
    const normalized = normalize(response, [schemeSchema]);
    let result;
 
-   if (normalized.entities.palettes) {
+   if (normalized.entities.schemes) {
       result = normalized.entities;
    } else {
       result = { schemes: [], palettes: [], paints: [] };
