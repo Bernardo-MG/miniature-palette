@@ -14,6 +14,11 @@ const sideLinks = [
       text: 'view_palette',
       link: '/palette/view',
       id: 'view_palette'
+   },
+   {
+      text: 'create_scheme',
+      link: '/scheme/create',
+      id: 'create_scheme'
    }
 ];
 
