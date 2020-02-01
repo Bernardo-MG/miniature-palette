@@ -25,6 +25,63 @@ const SchemeSchema = Yup.object().shape({
       .required('Required')
 });
 
+function SchemeEditorForm({ values, errors, touched, handleChange, handleBlur, onDelete, onReturn, setSelecting }) {
+   return <Form>
+      <Paper>
+         <Grid container spacing={3}>
+            <Grid item xs={12}>
+               <EditorButtons onDelete={onDelete} onReturn={onReturn} />
+            </Grid>
+            <Grid item xs={12}>
+               <Box m={2}>
+                  <TextField
+                     fullWidth
+                     name="name"
+                     label="scheme_name"
+                     value={values.name}
+                     onChange={handleChange}
+                     onBlur={handleBlur}
+                     helperText={(errors.name && touched.name) && errors.name}
+                     margin="normal"
+                  />
+               </Box>
+            </Grid>
+            <FieldArray
+               name="paints"
+               render={() => (
+                  <List>
+                     {values.palettes.map((palette) =>
+                        <ListItem button key={palette.name}>
+                           <ListItemText primary={palette.name}/>
+                        </ListItem>
+                     )}
+                  </List>
+               )}
+            />
+            <Grid item align="center" xs={12}>
+               <IconButton aria-label="add" onClick={() => setSelecting(true)}>
+                  <AddCircleIcon />
+               </IconButton>
+            </Grid>
+         </Grid>
+      </Paper>
+   </Form>;
+}
+
+SchemeEditorForm.propTypes = {
+   values: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      palettes: PropTypes.array.isRequired
+   }).isRequired,
+   errors: PropTypes.object.isRequired,
+   touched: PropTypes.object.isRequired,
+   handleChange: PropTypes.func,
+   handleBlur: PropTypes.func,
+   onDelete: PropTypes.func,
+   onReturn: PropTypes.func,
+   setSelecting: PropTypes.func
+};
+
 function SchemeEditor({ initialValues, palettes, onSave, onDelete, onReturn }) {
    const [selecting, setSelecting] = useState(false);
    let view;
@@ -48,47 +105,8 @@ function SchemeEditor({ initialValues, palettes, onSave, onDelete, onReturn }) {
          onSubmit={onSave}
          initialValues={initialValues}
          validationSchema={SchemeSchema}>
-         {({ values, errors, touched, handleChange, handleBlur }) => (
-            <Form>
-               <Paper>
-                  <Grid container spacing={3}>
-                     <Grid item xs={12}>
-                        <EditorButtons onDelete={onDelete} onReturn={onReturn} />
-                     </Grid>
-                     <Grid item xs={12}>
-                        <Box m={2}>
-                           <TextField
-                              fullWidth
-                              name="name"
-                              label="scheme_name"
-                              value={values.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              helperText={(errors.name && touched.name) && errors.name}
-                              margin="normal"
-                           />
-                        </Box>
-                     </Grid>
-                     <FieldArray
-                        name="paints"
-                        render={(arrayHelpers) => (
-                           <List>
-                              {values.palettes.map((palette) =>
-                                 <ListItem button key={palette.name}>
-                                    <ListItemText primary={palette.name}/>
-                                 </ListItem>
-                              )}
-                           </List>
-                        )}
-                     />
-                     <Grid item align="center" xs={12}>
-                        <IconButton aria-label="add" onClick={() => setSelecting(true)}>
-                           <AddCircleIcon />
-                        </IconButton>
-                     </Grid>
-                  </Grid>
-               </Paper>
-            </Form>
+         {(props) => (
+            <SchemeEditorForm {...props} onDelete={onDelete} onReturn={onReturn} setSelecting={setSelecting} />
          )}
       </Formik>;
    }
@@ -99,8 +117,9 @@ function SchemeEditor({ initialValues, palettes, onSave, onDelete, onReturn }) {
 SchemeEditor.propTypes = {
    initialValues: PropTypes.shape({
       id: PropTypes.number,
-      name: PropTypes.string.isRequired
-   }),
+      name: PropTypes.string.isRequired,
+      palettes: PropTypes.array.isRequired
+   }).isRequired,
    onSave: PropTypes.func.isRequired,
    onDelete: PropTypes.func,
    onReturn: PropTypes.func
