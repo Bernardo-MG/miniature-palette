@@ -6,12 +6,16 @@ import { saveScheme } from 'api/actions';
 
 import SchemeEditor from 'palettes/components/SchemeEditor';
 
+import { usePalettes } from 'domain/hooks';
+
 function SchemeCreateForm() {
+   const palettes = usePalettes();
 
    const dispatch = useDispatch();
 
    const values = {
-      name: ''
+      name: '',
+      palettes: []
    };
 
    function handleSave(form) {
@@ -21,6 +25,7 @@ function SchemeCreateForm() {
    let form;
    if (values) {
       form = <SchemeEditor
+         palettes={palettes}
          onSave={handleSave}
          initialValues={values} />;
    } else {

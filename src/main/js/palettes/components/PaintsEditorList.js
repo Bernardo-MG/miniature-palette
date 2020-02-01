@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
-function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }) {
+function PaintsEditorList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }) {
    let list;
 
    if (data && data.length > 0) {
@@ -60,7 +60,7 @@ function PaintsList({ data, onAdd, onRemove, onChange, onBlur, errors, touched }
    return list;
 }
 
-PaintsList.propTypes = {
+PaintsEditorList.propTypes = {
    data: PropTypes.array.isRequired,
    onAdd: PropTypes.func.isRequired,
    onRemove: PropTypes.func.isRequired,
@@ -69,4 +69,4 @@ PaintsList.propTypes = {
    errors: PropTypes.array.isRequired
 };
 
-export default PaintsList;
+export default PaintsEditorList;
