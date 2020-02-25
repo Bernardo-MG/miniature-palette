@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.painting.palette.model.data.PaintData;
 import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
@@ -69,7 +68,6 @@ public final class DefaultPaletteService implements PaletteService {
                 "The repository is required");
     }
 
-    @Transactional
     @Override
     public final Boolean deletePalette(final Long id) {
         Boolean result;
@@ -85,7 +83,6 @@ public final class DefaultPaletteService implements PaletteService {
         return result;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public final Iterable<PaletteData> getAllPalettes() {
         final List<PaletteEntity> allPalettes;
@@ -104,7 +101,6 @@ public final class DefaultPaletteService implements PaletteService {
         return toPaletteDatas(allPalettes, palettePaintOptions);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public final void getReport(final Long id, final OutputStream output) {
         final PaletteEntity palette;
@@ -118,7 +114,6 @@ public final class DefaultPaletteService implements PaletteService {
         paletteReportPrinter.saveReport(data, output);
     }
 
-    @Transactional
     @Override
     public final PaletteData savePalette(final PaletteCreationForm palette) {
         final PaletteEntity entity;
@@ -152,7 +147,6 @@ public final class DefaultPaletteService implements PaletteService {
         return result;
     }
 
-    @Transactional
     @Override
     public final PaletteData updatePalette(final PaletteUpdateForm palette) {
         final PaletteEntity entity;
@@ -268,7 +262,8 @@ public final class DefaultPaletteService implements PaletteService {
         return option;
     }
 
-    private final List<PaletteData> toPaletteDatas(final List<PaletteEntity> palettes,
+    private final List<PaletteData> toPaletteDatas(
+            final List<PaletteEntity> palettes,
             final Map<Long, List<PaintData>> palettePaintOptions) {
         return palettes.stream()
                 .map((p) -> toPaletteData(p,

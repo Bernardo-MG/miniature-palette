@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.painting.palette.model.data.SchemeData;
 import com.bernardomg.tabletop.painting.palette.model.form.SchemeCreationForm;
@@ -45,7 +44,6 @@ public final class DefaultSchemeService implements SchemeService {
                 "The repository is required");
     }
 
-    @Transactional
     @Override
     public final Boolean deleteScheme(final Long id) {
         Boolean result;
@@ -60,7 +58,6 @@ public final class DefaultSchemeService implements SchemeService {
         return result;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public final Iterable<SchemeData> getAllSchemes() {
         final List<SchemeEntity> allSchemes;
@@ -70,7 +67,6 @@ public final class DefaultSchemeService implements SchemeService {
         return toSchemeDatas(allSchemes);
     }
 
-    @Transactional
     @Override
     public final SchemeData saveScheme(final SchemeCreationForm palette) {
         final SchemeEntity entity;
@@ -91,7 +87,6 @@ public final class DefaultSchemeService implements SchemeService {
         return result;
     }
 
-    @Transactional
     @Override
     public final SchemeData updateScheme(final SchemeUpdateForm palette) {
         final SchemeEntity entity;
