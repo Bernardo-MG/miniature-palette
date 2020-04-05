@@ -39,7 +39,7 @@ import com.google.common.base.MoreObjects;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Entity(name = "Product")
-@Table(name = "products")
+@Table(name = "PRODUCTS")
 public class Product implements Serializable {
 
     /**
