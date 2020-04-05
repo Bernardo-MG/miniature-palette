@@ -1,0 +1,11 @@
+export const READ_SCHEME = 'READ_SCHEME';
+export const SCHEME_RECEIVED = 'SCHEME_RECEIVED';
+
+export const CREATE_SCHEME = 'CREATE_SCHEME';
+export const SCHEME_SAVED = 'SCHEME_SAVED';
+
+export const UPDATE_SCHEME = 'UPDATE_SCHEME';
+export const SCHEME_UPDATED = 'SCHEME_UPDATED';
+
+export const DELETE_SCHEME = 'DELETE_SCHEME';
+export const SCHEME_DELETED = 'SCHEME_DELETED';

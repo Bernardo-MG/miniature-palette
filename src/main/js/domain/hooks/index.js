@@ -1,2 +1,2 @@
 export * from 'domain/hooks/palette';
-export * from 'domain/hooks/paletteGroup';
+export * from 'domain/hooks/scheme';

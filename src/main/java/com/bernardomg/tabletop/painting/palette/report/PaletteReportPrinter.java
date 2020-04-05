@@ -24,8 +24,14 @@ public final class PaletteReportPrinter implements ReportPrinter<PaletteData> {
     /**
      * Chapter font.
      */
-    private final Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA,
-            16, Font.BOLDITALIC);
+    private final Font chapterFont   = FontFactory
+            .getFont(FontFactory.HELVETICA, 16, Font.BOLDITALIC);
+
+    /**
+     * Paragraph font.
+     */
+    private final Font paragraphFont = FontFactory
+            .getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
 
     public PaletteReportPrinter() {
         super();
@@ -59,10 +65,17 @@ public final class PaletteReportPrinter implements ReportPrinter<PaletteData> {
     }
 
     /**
-     * Paragraph font.
+     * Builds the header paragraph.
+     * 
+     * @return the header paragraph
      */
-    private final Font paragraphFont = FontFactory
-            .getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
+    private final Paragraph getHeader(final String title) {
+        final Chunk chunk;
+
+        chunk = new Chunk(title, chapterFont);
+
+        return new Paragraph(chunk);
+    }
 
     /**
      * Builds the affinities paragraph.
@@ -98,19 +111,6 @@ public final class PaletteReportPrinter implements ReportPrinter<PaletteData> {
         });
 
         return paragraph;
-    }
-
-    /**
-     * Builds the header paragraph.
-     * 
-     * @return the header paragraph
-     */
-    private final Paragraph getHeader(final String title) {
-        final Chunk chunk;
-
-        chunk = new Chunk(title, chapterFont);
-
-        return new Paragraph(chunk);
     }
 
 }

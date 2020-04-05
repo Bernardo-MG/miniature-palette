@@ -9,9 +9,9 @@ set -o nounset
 set -e
 
 # MySQL tables
-mysql -e "create database IF NOT EXISTS miniature_palette;" -uroot
+mysql -e "create database IF NOT EXISTS painting_journal;" -uroot
 
 # PostgreSQL tables
-psql -c 'create database miniature_palette;' -U postgres
+psql -c 'create database painting_journal;' -U postgres
 
 exit 0

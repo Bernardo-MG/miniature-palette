@@ -1,7 +1,7 @@
 import { paletteNotificationSagas } from 'notifications/sagas/palette';
-import { paletteGroupNotificationSagas } from 'notifications/sagas/paletteGroup';
+import { schemeNotificationSagas } from 'notifications/sagas/scheme';
 
 export const notificationSagas = [
    ...paletteNotificationSagas,
-   ...paletteGroupNotificationSagas
+   ...schemeNotificationSagas
 ];

@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.3.0</version>
+      <version>1.3.1</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -116,19 +116,6 @@
       <!-- ============= DATABASE PROFILES ============== -->
       <!-- ============================================== -->
       <profile>
-         <!-- Properties-based database profile -->
-         <!-- Sets up the database from properties -->
-         <id>db-properties</id>
-         <activation>
-            <!-- Active by default -->
-            <activeByDefault>true</activeByDefault>
-         </activation>
-         <properties>
-            <!-- Authentication sources for the DB -->
-            <database.auth.source>properties</database.auth.source>
-         </properties>
-      </profile>
-      <profile>
          <!-- H2 database profile -->
          <!-- Prepares the project to make use of an H2 in-memory database -->
          <id>h2</id>
@@ -136,16 +123,6 @@
             <!-- Active by default so it can be installed by CI -->
             <activeByDefault>true</activeByDefault>
          </activation>
-         <properties>
-            <!-- Access data -->
-            <!-- Default values for testing and development -->
-            <!-- Override them for production -->
-            <database.url>jdbc:h2:mem:miniature_palette</database.url>
-            <database.username>sa</database.username>
-            <database.password></database.password>
-            <!-- Spring context -->
-            <database.tag>h2</database.tag>
-         </properties>
          <dependencies>
             <dependency>
                <!-- H2 database -->
@@ -166,14 +143,8 @@
             </property>
          </activation>
          <properties>
-            <!-- Access data -->
-            <!-- Default values for testing and development -->
-            <!-- Override them for production -->
-            <database.url>jdbc:mysql://localhost:3306/miniature_palette</database.url>
-            <database.username>root</database.username>
-            <database.password></database.password>
             <!-- Spring context -->
-            <database.tag>mysql</database.tag>
+            <profile.database>mysql</profile.database>
          </properties>
          <dependencies>
             <dependency>
@@ -195,14 +166,8 @@
             </property>
          </activation>
          <properties>
-            <!-- Access data -->
-            <!-- Default values for testing and development -->
-            <!-- Override them for production -->
-            <database.url>jdbc:postgresql://localhost:5432/miniature_palette</database.url>
-            <database.username>postgres</database.username>
-            <database.password></database.password>
             <!-- Spring context -->
-            <database.tag>postgres</database.tag>
+            <profile.database>postgres</profile.database>
          </properties>
          <dependencies>
             <dependency>
@@ -212,46 +177,6 @@
                <version>${postgresql.version}</version>
             </dependency>
          </dependencies>
-      </profile>
-      <!-- ============================================== -->
-      <!-- ========= EMBEDDED SERVER PROFILES =========== -->
-      <!-- ============================================== -->
-      <profile>
-         <!-- Jetty profile -->
-         <!-- Sets ups Jetty for testing and local deployment -->
-         <id>jetty</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <!-- Jetty -->
-                  <!-- Jetty will run the web service during the integration tests -->
-                  <groupId>org.eclipse.jetty</groupId>
-                  <artifactId>jetty-maven-plugin</artifactId>
-                  <version>${plugin.jetty.version}</version>
-                  <configuration>
-                     <stopKey>STOP</stopKey>
-                     <stopPort>9999</stopPort>
-                     <stopWait>5</stopWait>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-      <profile>
-         <!-- Tomcat 7 profile -->
-         <!-- Sets ups Tomcat 7 for testing and local deployment -->
-         <id>tomcat7</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <!-- Tomcat 7 -->
-                  <!-- Tomcat 7 will run the web service during the integration tests -->
-                  <groupId>org.apache.tomcat.maven</groupId>
-                  <artifactId>tomcat7-maven-plugin</artifactId>
-                  <version>${plugin.tomcat7.version}</version>
-               </plugin>
-            </plugins>
-         </build>
       </profile>
       <!-- ============================================== -->
       <!-- ============ DEPLOYMENT PROFILES ============= -->
@@ -515,48 +440,48 @@
       <node.env.appVersion>v${project.version}</node.env.appVersion>
       <node.env.repoUrl>${project.scm.url}</node.env.repoUrl>
       <node.env.inputPath>./src/main/js/</node.env.inputPath>
-      <node.env.outputPath>./target/generated-ui/</node.env.outputPath>
+      <node.env.outputPath>./target/classes/static/</node.env.outputPath>
       <node.env.modules>./node_modules</node.env.modules>
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
       <aspectj.version>1.9.5</aspectj.version>
-      <apache.commons.version>3.9</apache.commons.version>
-      <atomikos.version>5.0.6</atomikos.version>
-      <byteBuddy.version>1.10.5</byteBuddy.version>
+      <apache.commons.version>3.10</apache.commons.version>
+      <byteBuddy.version>1.10.9</byteBuddy.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el>2.2</glassfish.el>
       <guava.version>28.2-jre</guava.version>
       <h2.version>1.4.200</h2.version>
       <hamcrest.version>2.0.0.0</hamcrest.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <hibernate.version>5.4.10.Final</hibernate.version>
+      <hibernate.version>5.4.13.Final</hibernate.version>
       <hikari.version>3.4.2</hikari.version>
       <itext.version>5.5.13.1</itext.version>
-      <jackson.version>2.10.2</jackson.version>
+      <jackson.version>2.10.3</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
       <jsonpath.version>2.4.0</jsonpath.version>
-      <junit.jupiter.version>5.5.2</junit.jupiter.version>
-      <liquibase.version>3.8.5</liquibase.version>
-      <log4j.version>2.13.0</log4j.version>
-      <mockito.version>3.2.4</mockito.version>
+      <junit.jupiter.version>5.6.0</junit.jupiter.version>
+      <liquibase.version>3.8.8</liquibase.version>
+      <log4j.version>2.13.1</log4j.version>
+      <mockito.version>3.3.3</mockito.version>
       <mysql.version>8.0.18</mysql.version>
       <postgresql.version>42.2.9</postgresql.version>
       <servlet.version>4.0.1</servlet.version>
-      <slf4j.version>1.8.0-beta4</slf4j.version>
-      <snakeyaml.version>1.25</snakeyaml.version>
-      <spring.data.train.version>Moore-SR3</spring.data.train.version>
-      <spring.version>5.2.2.RELEASE</spring.version>
+      <slf4j.version>1.7.30</slf4j.version>
+      <snakeyaml.version>1.26</snakeyaml.version>
+      <spring.boot.version>2.2.6.RELEASE</spring.boot.version>
+      <spring.data.train.version>Moore-SR6</spring.data.train.version>
+      <spring.version>5.2.5.RELEASE</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
       <webappRunner.version>8.5.30.0</webappRunner.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
+      <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
       <plugin.frontend.node.version>v12.3.1</plugin.frontend.node.version>
       <plugin.frontend.npm.version>6.9.0</plugin.frontend.npm.version>
       <plugin.frontend.version>1.8.0</plugin.frontend.version>
-      <plugin.jetty.version>9.4.20.v20190813</plugin.jetty.version>
-      <plugin.tomcat7.version>2.2</plugin.tomcat7.version>
+      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
@@ -578,7 +503,7 @@
             <scope>import</scope>
          </dependency>
          <dependency>
-            <!-- Spring Data Train BOM -->
+            <!-- Spring Data Release Train -->
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-releasetrain</artifactId>
             <version>${spring.data.train.version}</version>
@@ -608,6 +533,11 @@
       <!-- ============================================== -->
       <!-- ================== SPRING ==================== -->
       <!-- ============================================== -->
+      <dependency>
+         <!-- Spring AOP -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-aop</artifactId>
+      </dependency>
       <dependency>
          <!-- Spring beans -->
          <groupId>org.springframework</groupId>
@@ -649,6 +579,11 @@
          <artifactId>spring-tx</artifactId>
       </dependency>
       <dependency>
+         <!-- Spring Web -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-web</artifactId>
+      </dependency>
+      <dependency>
          <!-- Spring Web MVC -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-webmvc</artifactId>
@@ -657,6 +592,47 @@
          <!-- Spring ORM -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-orm</artifactId>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- =============== SPRING BOOT ================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Spring Boot Starter: Thymeleaf -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-thymeleaf</artifactId>
+         <version>${spring.boot.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Web -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: JPA -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-jpa</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Devtools -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-devtools</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>runtime</scope>
+         <optional>true</optional>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: AOP -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-aop</artifactId>
+         <version>${spring.boot.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->
@@ -711,15 +687,6 @@
          <version>${hikari.version}</version>
       </dependency>
       <!-- ============================================== -->
-      <!-- ================ ATOMIKOS ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Atomikos JDBC -->
-         <groupId>com.atomikos</groupId>
-         <artifactId>transactions-jdbc</artifactId>
-         <version>${atomikos.version}</version>
-      </dependency>
-      <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->
       <!-- ============================================== -->
       <dependency>
@@ -727,6 +694,12 @@
          <groupId>org.liquibase</groupId>
          <artifactId>liquibase-core</artifactId>
          <version>${liquibase.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>ch.qos.logback</groupId>
+               <artifactId>logback-classic</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ SNAKEYAML =================== -->
@@ -795,7 +768,7 @@
       <dependency>
          <!-- Log4j SLF4J Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
-         <artifactId>log4j-slf4j18-impl</artifactId>
+         <artifactId>log4j-slf4j-impl</artifactId>
          <version>${log4j.version}</version>
       </dependency>
       <dependency>
@@ -874,6 +847,13 @@
          <groupId>org.junit.platform</groupId>
          <artifactId>junit-platform-runner</artifactId>
          <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <!-- JUnit 3 -->
+               <groupId>junit</groupId>
+               <artifactId>junit</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <!-- Mockito -->
@@ -887,6 +867,19 @@
          <groupId>org.springframework</groupId>
          <artifactId>spring-test</artifactId>
          <scope>test</scope>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Test -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>org.junit.vintage</groupId>
+               <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <!-- Javax EL implementation -->
@@ -973,42 +966,6 @@
                   </goals>
                   <configuration>
                      <failOnError>true</failOnError>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
-            <!-- Enforcer -->
-            <!-- Stops the project from being built if it does not comply with a set of rules. -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <executions>
-               <!-- The enforce goal is bound to the validate phase -->
-               <execution>
-                  <id>enforce-database</id>
-                  <goals>
-                     <goal>enforce</goal>
-                  </goals>
-                  <configuration>
-                     <rules>
-                        <!-- A database should be set. -->
-                        <requireProperty>
-                           <property>database.tag</property>
-                           <message><![CDATA[Give a Spring database profile.]]></message>
-                        </requireProperty>
-                        <requireProperty>
-                           <property>database.url</property>
-                           <message><![CDATA[Give a URL for the database.]]></message>
-                        </requireProperty>
-                        <requireProperty>
-                           <property>database.username</property>
-                           <message><![CDATA[Give a username for the database.]]></message>
-                        </requireProperty>
-                        <requireProperty>
-                           <property>database.password</property>
-                           <message><![CDATA[Give a password for the database.]]></message>
-                        </requireProperty>
-                     </rules>
                   </configuration>
                </execution>
             </executions>
@@ -1105,16 +1062,11 @@
                   <resource>
                      <!-- The UI template is filtered -->
                      <filtering>true</filtering>
-                     <directory>${project.basedir}/src/main/webapp/WEB-INF/templates</directory>
+                     <directory>${project.basedir}/src/main/resources/templates</directory>
                      <targetPath>WEB-INF/templates</targetPath>
                      <includes>
                         <include>index.html</include>
                      </includes>
-                  </resource>
-                  <resource>
-                     <!-- Generated files -->
-                     <directory>${project.build.directory}/generated-ui</directory>
-                     <targetPath>resources/</targetPath>
                   </resource>
                </webResources>
                <!-- Variables to to override will be delimited with a @. -->
@@ -1125,6 +1077,20 @@
                   <delimiter>@</delimiter>
                </delimiters>
             </configuration>
+         </plugin>
+         <plugin>
+            <!-- Spring Boot -->
+            <!-- Takes care of running Spring Boot application -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${plugin.spring.boot.version}</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>repackage</goal>
+                  </goals>
+               </execution>
+            </executions>
          </plugin>
       </plugins>
    </build>

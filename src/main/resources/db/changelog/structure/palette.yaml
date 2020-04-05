@@ -1,0 +1,79 @@
+databaseChangeLog:
+-  changeSet:
+      id: palette_tables
+      author: Bernardo
+      changes:
+      -  createTable:
+            tableName: schemes
+            columns:
+            -  column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+                     nullable: false
+            -  column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                     nullable: false
+      -  createTable:
+            tableName: palettes
+            columns:
+            -  column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+            -  column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                     nullable: false
+      -  createTable:
+            tableName: paints
+            columns:
+            -  column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+                     nullable: false
+            -  column:
+                  name: palette_id
+                  type: bigint
+                  constraints:
+                     foreignKeyName: fk_paint_palette_relationship
+                     references: palettes(id)
+                     nullable: false
+            -  column:
+                  name: name
+                  type: varchar(50)
+      modifySql:
+      -  append:
+            dbms: mysql
+            value: ' ENGINE=InnoDB DEFAULT CHARSET=latin1'
+-  changeSet:
+      id: palette_relationships
+      author: Bernardo
+      changes:
+      -  createTable:
+            tableName: scheme_palettes
+            columns:
+            -  column:
+                  name: scheme
+                  type: bigint
+                  constraints:
+                     foreignKeyName: fk_palette_scheme_relationship
+                     references: schemes(id)
+                     nullable: false
+            -  column:
+                  name: palette
+                  type: bigint
+                  constraints:
+                     foreignKeyName: fk_scheme_palette_relationship
+                     references: palettes(id)
+                     nullable: false
