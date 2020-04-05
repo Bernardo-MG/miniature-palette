@@ -137,14 +137,8 @@
             <activeByDefault>true</activeByDefault>
          </activation>
          <properties>
-            <!-- Access data -->
-            <!-- Default values for testing and development -->
-            <!-- Override them for production -->
-            <database.url>jdbc:h2:mem:miniature_palette</database.url>
-            <database.username>sa</database.username>
-            <database.password></database.password>
             <!-- Spring context -->
-            <database.tag>h2</database.tag>
+            <profile.database>h2</profile.database>
          </properties>
          <dependencies>
             <dependency>
@@ -166,14 +160,8 @@
             </property>
          </activation>
          <properties>
-            <!-- Access data -->
-            <!-- Default values for testing and development -->
-            <!-- Override them for production -->
-            <database.url>jdbc:mysql://localhost:3306/miniature_palette</database.url>
-            <database.username>root</database.username>
-            <database.password></database.password>
             <!-- Spring context -->
-            <database.tag>mysql</database.tag>
+            <profile.database>mysql</profile.database>
          </properties>
          <dependencies>
             <dependency>
@@ -195,14 +183,8 @@
             </property>
          </activation>
          <properties>
-            <!-- Access data -->
-            <!-- Default values for testing and development -->
-            <!-- Override them for production -->
-            <database.url>jdbc:postgresql://localhost:5432/miniature_palette</database.url>
-            <database.username>postgres</database.username>
-            <database.password></database.password>
             <!-- Spring context -->
-            <database.tag>postgres</database.tag>
+            <profile.database>postgres</profile.database>
          </properties>
          <dependencies>
             <dependency>
@@ -1021,20 +1003,8 @@
                      <rules>
                         <!-- A database should be set. -->
                         <requireProperty>
-                           <property>database.tag</property>
+                           <property>profile.database</property>
                            <message><![CDATA[Give a Spring database profile.]]></message>
-                        </requireProperty>
-                        <requireProperty>
-                           <property>database.url</property>
-                           <message><![CDATA[Give a URL for the database.]]></message>
-                        </requireProperty>
-                        <requireProperty>
-                           <property>database.username</property>
-                           <message><![CDATA[Give a username for the database.]]></message>
-                        </requireProperty>
-                        <requireProperty>
-                           <property>database.password</property>
-                           <message><![CDATA[Give a password for the database.]]></message>
                         </requireProperty>
                      </rules>
                   </configuration>
@@ -1162,6 +1132,11 @@
                   </goals>
                </execution>
             </executions>
+            <configuration>
+               <profiles>
+                  <profile>${profile.database}</profile>
+               </profiles>
+            </configuration>
          </plugin>
       </plugins>
    </build>
