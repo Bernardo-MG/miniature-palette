@@ -482,7 +482,6 @@
       <!-- ============================================== -->
       <aspectj.version>1.9.5</aspectj.version>
       <apache.commons.version>3.10</apache.commons.version>
-      <atomikos.version>5.0.6</atomikos.version>
       <byteBuddy.version>1.10.9</byteBuddy.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el>2.2</glassfish.el>
@@ -721,15 +720,6 @@
          <groupId>com.zaxxer</groupId>
          <artifactId>HikariCP</artifactId>
          <version>${hikari.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================ ATOMIKOS ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Atomikos JDBC -->
-         <groupId>com.atomikos</groupId>
-         <artifactId>transactions-jdbc</artifactId>
-         <version>${atomikos.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->
