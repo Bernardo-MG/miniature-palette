@@ -546,8 +546,8 @@
       <slf4j.version>1.7.30</slf4j.version>
       <snakeyaml.version>1.25</snakeyaml.version>
       <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
-      <spring.data.train.version>Moore-SR3</spring.data.train.version>
-      <spring.version>5.2.2.RELEASE</spring.version>
+      <spring.data.train.version>Moore-SR5</spring.data.train.version>
+      <spring.version>5.2.4.RELEASE</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
       <webappRunner.version>8.5.30.0</webappRunner.version>
       <!-- ============================================== -->
