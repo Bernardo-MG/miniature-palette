@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +36,6 @@ import com.google.common.collect.Iterables;
 @Transactional
 @Rollback
 @SpringBootTest(classes = Application.class)
-@ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
 public class ITProductService {
 
     /**
