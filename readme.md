@@ -65,19 +65,13 @@ The project can be installed by creating the war file and deploying it into a se
 
 ### Running
 
-To run the project locally in an embedded server just use the following Maven command for deploying to Jetty with an H2 in-memory database:
+As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
 
 ```
-mvn jetty:run-war -P h2,jetty,db-properties,development
+$ mvn spring-boot:run
 ```
 
-An embedded Tomcat can be used through this other profile:
-
-```
-mvn tomcat7:run-war -P h2,tomcat7,db-properties,development
-```
-
-With this the project will be accessible at [http://localhost:8080/].
+Once running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
 
 ### Running the tests
 
