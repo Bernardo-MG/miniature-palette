@@ -1,4 +1,4 @@
-INSERT INTO products (id, name, code) VALUES
+INSERT INTO PRODUCTS (id, name, code) VALUES
    (1, 'White', '70.951'),
    (2, 'Foundation White', '70.919'),
    (3, 'Gloss White', '70.842'),
