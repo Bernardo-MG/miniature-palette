@@ -21,8 +21,6 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -43,7 +41,6 @@ import com.bernardomg.tabletop.painting.palette.service.PaletteService;
  * the example entities repository, these tests are for verifying everything is
  * set up correctly and working.
  */
-@RunWith(JUnitPlatform.class)
 @SpringJUnitConfig
 @Transactional
 @Rollback
