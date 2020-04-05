@@ -19,25 +19,21 @@ package com.bernardomg.tabletop.painting.test.integration.scheme.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bernardomg.tabletop.painting.Application;
 import com.bernardomg.tabletop.painting.palette.repository.SchemeRepository;
 import com.bernardomg.tabletop.painting.palette.service.SchemeService;
 
-/**
- * Integration tests for the {@link ExampleEntityService}.
- * <p>
- * As this service doesn't contain any actual business logic, and it just wraps
- * the example entities repository, these tests are for verifying everything is
- * set up correctly and working.
- */
 @SpringJUnitConfig
 @Transactional
 @Rollback
+@SpringBootTest(classes = Application.class)
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 public class ITSchemeServiceDelete {

@@ -923,6 +923,19 @@
          <scope>test</scope>
       </dependency>
       <dependency>
+         <!-- Spring Boot Starter: Test -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>org.junit.vintage</groupId>
+               <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
          <!-- Javax EL implementation -->
          <groupId>org.glassfish.web</groupId>
          <artifactId>el-impl</artifactId>
