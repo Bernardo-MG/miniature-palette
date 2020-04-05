@@ -1200,6 +1200,13 @@
                </delimiters>
             </configuration>
          </plugin>
+         <plugin>
+            <!-- Spring Boot -->
+            <!-- Takes care of running Spring Boot application -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${plugin.spring.boot.version}</version>
+         </plugin>
       </plugins>
    </build>
 
