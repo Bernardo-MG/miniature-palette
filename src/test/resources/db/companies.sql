@@ -1,3 +1,3 @@
-INSERT INTO COMPANIES (id, name) VALUES
+INSERT INTO companies (id, name) VALUES
    (1, 'Acrylicos Vallejo'),
    (2, 'MIG');

@@ -39,7 +39,7 @@ import com.google.common.base.MoreObjects;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Entity(name = "Scheme")
-@Table(name = "SCHEMES")
+@Table(name = "schemes")
 public class SchemeEntity implements Serializable {
 
     /**

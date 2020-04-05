@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
         - createTable:
-            tableName: COMPANIES
+            tableName: companies
             columns:
               - column:
                   name: id
@@ -19,7 +19,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
-            tableName: BRANDS
+            tableName: brands
             columns:
               - column:
                   name: id
@@ -35,7 +35,7 @@ databaseChangeLog:
                     nullable: false
                     unique: true
         - createTable:
-            tableName: PRODUCTS
+            tableName: products
             columns:
               - column:
                   name: id
@@ -54,7 +54,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - addUniqueConstraint:
-            tableName: PRODUCTS
+            tableName: products
             columnNames: name, code
             constraintName: products_unique_name_code
   - changeSet:
@@ -62,36 +62,36 @@ databaseChangeLog:
       author: Bernardo
       changes:
         - createTable:
-            tableName: BRAND_PRODUCTS
+            tableName: brand_products
             columns:
               - column:
                   name: brand
                   type: bigint
                   constraints:
                     foreignKeyName: fk_product_brand_relationship
-                    references: BRANDS(id)
+                    references: brands(id)
                     nullable: false
               - column:
                   name: product
                   type: bigint
                   constraints:
                     foreignKeyName: fk_brand_product_relationship
-                    references: PRODUCTS(id)
+                    references: products(id)
                     nullable: false
         - createTable:
-            tableName: COMPANY_BRANDS
+            tableName: company_brands
             columns:
               - column:
                   name: company
                   type: bigint
                   constraints:
                     foreignKeyName: fk_product_company_relationship
-                    references: COMPANIES(id)
+                    references: companies(id)
                     nullable: false
               - column:
                   name: brand
                   type: bigint
                   constraints:
                     foreignKeyName: fk_company_brand_relationship
-                    references: BRANDS(id)
+                    references: brands(id)
                     nullable: false

@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: SCHEMES
+            tableName: schemes
             columns:
             -  column:
                   name: id
@@ -19,7 +19,7 @@ databaseChangeLog:
                   constraints:
                      nullable: false
       -  createTable:
-            tableName: PALETTES
+            tableName: palettes
             columns:
             -  column:
                   name: id
@@ -33,7 +33,7 @@ databaseChangeLog:
                   constraints:
                      nullable: false
       -  createTable:
-            tableName: PAINTS
+            tableName: paints
             columns:
             -  column:
                   name: id
@@ -47,7 +47,7 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                      foreignKeyName: fk_paint_palette_relationship
-                     references: PALETTES(id)
+                     references: palettes(id)
                      nullable: false
             -  column:
                   name: name
@@ -61,19 +61,19 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: SCHEME_PALETTES
+            tableName: scheme_palettes
             columns:
             -  column:
                   name: scheme
                   type: bigint
                   constraints:
                      foreignKeyName: fk_palette_scheme_relationship
-                     references: SCHEMES(id)
+                     references: schemes(id)
                      nullable: false
             -  column:
                   name: palette
                   type: bigint
                   constraints:
                      foreignKeyName: fk_scheme_palette_relationship
-                     references: PALETTES(id)
+                     references: palettes(id)
                      nullable: false
