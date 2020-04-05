@@ -475,7 +475,7 @@
       <node.env.appVersion>v${project.version}</node.env.appVersion>
       <node.env.repoUrl>${project.scm.url}</node.env.repoUrl>
       <node.env.inputPath>./src/main/js/</node.env.inputPath>
-      <node.env.outputPath>./target/generated-ui/</node.env.outputPath>
+      <node.env.outputPath>./target/classes/static/</node.env.outputPath>
       <node.env.modules>./node_modules</node.env.modules>
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
@@ -1145,11 +1145,6 @@
                         <include>index.html</include>
                      </includes>
                   </resource>
-                  <resource>
-                     <!-- Generated files -->
-                     <directory>${project.build.directory}/generated-ui</directory>
-                     <targetPath>resources/</targetPath>
-                  </resource>
                </webResources>
                <!-- Variables to to override will be delimited with a @. -->
                <!-- This avoids collisions with Spring variables. -->
@@ -1166,6 +1161,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <version>${plugin.spring.boot.version}</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>repackage</goal>
+                  </goals>
+               </execution>
+            </executions>
          </plugin>
       </plugins>
    </build>
