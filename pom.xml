@@ -214,46 +214,6 @@
          </dependencies>
       </profile>
       <!-- ============================================== -->
-      <!-- ========= EMBEDDED SERVER PROFILES =========== -->
-      <!-- ============================================== -->
-      <profile>
-         <!-- Jetty profile -->
-         <!-- Sets ups Jetty for testing and local deployment -->
-         <id>jetty</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <!-- Jetty -->
-                  <!-- Jetty will run the web service during the integration tests -->
-                  <groupId>org.eclipse.jetty</groupId>
-                  <artifactId>jetty-maven-plugin</artifactId>
-                  <version>${plugin.jetty.version}</version>
-                  <configuration>
-                     <stopKey>STOP</stopKey>
-                     <stopPort>9999</stopPort>
-                     <stopWait>5</stopWait>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-      <profile>
-         <!-- Tomcat 7 profile -->
-         <!-- Sets ups Tomcat 7 for testing and local deployment -->
-         <id>tomcat7</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <!-- Tomcat 7 -->
-                  <!-- Tomcat 7 will run the web service during the integration tests -->
-                  <groupId>org.apache.tomcat.maven</groupId>
-                  <artifactId>tomcat7-maven-plugin</artifactId>
-                  <version>${plugin.tomcat7.version}</version>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-      <!-- ============================================== -->
       <!-- ============ DEPLOYMENT PROFILES ============= -->
       <!-- ============================================== -->
       <profile>
@@ -557,9 +517,7 @@
       <plugin.frontend.node.version>v12.3.1</plugin.frontend.node.version>
       <plugin.frontend.npm.version>6.9.0</plugin.frontend.npm.version>
       <plugin.frontend.version>1.8.0</plugin.frontend.version>
-      <plugin.jetty.version>9.4.20.v20190813</plugin.jetty.version>
       <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
-      <plugin.tomcat7.version>2.2</plugin.tomcat7.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
