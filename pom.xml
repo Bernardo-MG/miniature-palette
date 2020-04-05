@@ -694,12 +694,6 @@
          <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
-         <!-- Spring Boot Starter: Security -->
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-security</artifactId>
-         <version>${spring.boot.version}</version>
-      </dependency>
-      <dependency>
          <!-- Spring Boot Starter: Devtools -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>
@@ -711,12 +705,6 @@
          <!-- Spring Boot Starter: AOP -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-aop</artifactId>
-         <version>${spring.boot.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Spring Boot Starter: OAUTH2 -->
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-oauth2-client</artifactId>
          <version>${spring.boot.version}</version>
       </dependency>
       <!-- ============================================== -->
