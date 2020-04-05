@@ -912,6 +912,15 @@
          <version>${byteBuddy.version}</version>
       </dependency>
       <!-- ============================================== -->
+      <!-- ================ DATABASE ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- H2 database -->
+         <groupId>com.h2database</groupId>
+         <artifactId>h2</artifactId>
+         <version>${h2.version}</version>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
       <!-- ============================================== -->
       <dependency>
