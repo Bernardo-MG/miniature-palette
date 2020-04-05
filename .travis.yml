@@ -34,7 +34,7 @@ before_script:
   - ./.scripts/create-test-databases.sh
 script:
   # Unit and integration tests are run
-  - mvn clean verify -P $DATABASE,$ENV
+  - mvn clean verify -P $DATABASE,$ENV -Dspring.profiles.active=test,$DATABASE
 after_success:
   # Documentation deployment script
   - ~/.scripts/java/maven/deploy-site.sh $DO_DEPLOY_DOCS $DATABASE,$SERVER,$ENV,deployment

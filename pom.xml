@@ -123,10 +123,6 @@
             <!-- Active by default so it can be installed by CI -->
             <activeByDefault>true</activeByDefault>
          </activation>
-         <properties>
-            <!-- Spring context -->
-            <profile.database>h2</profile.database>
-         </properties>
          <dependencies>
             <dependency>
                <!-- H2 database -->
@@ -975,30 +971,6 @@
             </executions>
          </plugin>
          <plugin>
-            <!-- Enforcer -->
-            <!-- Stops the project from being built if it does not comply with a set of rules. -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <executions>
-               <!-- The enforce goal is bound to the validate phase -->
-               <execution>
-                  <id>enforce-database</id>
-                  <goals>
-                     <goal>enforce</goal>
-                  </goals>
-                  <configuration>
-                     <rules>
-                        <!-- A database should be set. -->
-                        <requireProperty>
-                           <property>profile.database</property>
-                           <message><![CDATA[Give a Spring database profile.]]></message>
-                        </requireProperty>
-                     </rules>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
             <!-- Frontend Plugin -->
             <groupId>com.github.eirslett</groupId>
             <artifactId>frontend-maven-plugin</artifactId>
@@ -1119,11 +1091,6 @@
                   </goals>
                </execution>
             </executions>
-            <configuration>
-               <profiles>
-                  <profile>${profile.database}</profile>
-               </profiles>
-            </configuration>
          </plugin>
       </plugins>
    </build>
