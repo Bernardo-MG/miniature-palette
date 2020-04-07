@@ -7,17 +7,22 @@ services:
   - mysql
   - postgresql
 jdk:
-# JDK 8 is set to deploy the docs and artifacts
-  - openjdk8
+  - openjdk10
+  - openjdk11
 env:
   # Doc deployment
-  - DATABASE=h2 ENV=development DEPLOY_DOCS=true
+  - DATABASE=h2 ENV=development
   # Production build
   - DATABASE=h2 ENV=production
   # MySQL
   - DATABASE=mysql ENV=development
   # Postgres
   - DATABASE=postgres ENV=development
+matrix:
+  include:
+    # Deploys docs
+    - java: openjdk8
+      env: DATABASE=h2 ENV=development DEPLOY_DOCS=true
 
 before_install:
   # Gets scripts
