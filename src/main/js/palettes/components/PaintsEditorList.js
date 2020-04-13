@@ -66,7 +66,7 @@ PaintsEditorList.propTypes = {
    onRemove: PropTypes.func.isRequired,
    onChange: PropTypes.func.isRequired,
    onBlur: PropTypes.func.isRequired,
-   errors: PropTypes.array.isRequired
+   errors: PropTypes.object.isRequired
 };
 
 export default PaintsEditorList;
