@@ -46,7 +46,6 @@ exports[`<PaletteEditor /> renders correctly when there is no data 1`] = `
                   aria-hidden="true"
                   className="MuiSvgIcon-root"
                   focusable="false"
-                  role="presentation"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -125,7 +124,6 @@ exports[`<PaletteEditor /> renders correctly when there is no data 1`] = `
               aria-hidden="true"
               className="MuiSvgIcon-root"
               focusable="false"
-              role="presentation"
               viewBox="0 0 24 24"
             >
               <path
@@ -186,7 +184,6 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
                   aria-hidden="true"
                   className="MuiSvgIcon-root"
                   focusable="false"
-                  role="presentation"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -205,7 +202,7 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
       >
         <div
-          className="MuiBox-root MuiBox-root-224"
+          className="MuiBox-root MuiBox-root-222"
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
@@ -255,7 +252,7 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
                 className="MuiListItemText-root"
               >
                 <span
-                  className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+                  className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                 >
                   <div
                     className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -321,7 +318,6 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
                     aria-hidden="true"
                     className="MuiSvgIcon-root"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -367,7 +363,6 @@ exports[`<PaletteEditor /> renders correctly with full data 1`] = `
               aria-hidden="true"
               className="MuiSvgIcon-root"
               focusable="false"
-              role="presentation"
               viewBox="0 0 24 24"
             >
               <path
@@ -431,7 +426,6 @@ exports[`<PaletteEditor /> renders correctly with full data and delete action 1`
                   aria-hidden="true"
                   className="MuiSvgIcon-root"
                   focusable="false"
-                  role="presentation"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -469,7 +463,6 @@ exports[`<PaletteEditor /> renders correctly with full data and delete action 1`
                   aria-hidden="true"
                   className="MuiSvgIcon-root"
                   focusable="false"
-                  role="presentation"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -508,7 +501,6 @@ exports[`<PaletteEditor /> renders correctly with full data and delete action 1`
                   aria-hidden="true"
                   className="MuiSvgIcon-root"
                   focusable="false"
-                  role="presentation"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -524,7 +516,7 @@ exports[`<PaletteEditor /> renders correctly with full data and delete action 1`
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
       >
         <div
-          className="MuiBox-root MuiBox-root-287"
+          className="MuiBox-root MuiBox-root-285"
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
@@ -574,7 +566,7 @@ exports[`<PaletteEditor /> renders correctly with full data and delete action 1`
                 className="MuiListItemText-root"
               >
                 <span
-                  className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+                  className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                 >
                   <div
                     className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -640,7 +632,6 @@ exports[`<PaletteEditor /> renders correctly with full data and delete action 1`
                     aria-hidden="true"
                     className="MuiSvgIcon-root"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -683,7 +674,6 @@ exports[`<PaletteEditor /> renders correctly with full data and delete action 1`
               aria-hidden="true"
               className="MuiSvgIcon-root"
               focusable="false"
-              role="presentation"
               viewBox="0 0 24 24"
             >
               <path
