@@ -21,7 +21,7 @@ env:
 matrix:
   include:
     # Deploys docs
-    - java: openjdk8
+    - jdk: openjdk8
       env: DATABASE=h2 ENV=development DEPLOY_DOCS=true
 
 before_install:
