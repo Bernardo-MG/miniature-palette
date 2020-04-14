@@ -16,7 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import TextField from '@material-ui/core/TextField';
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddIcon from '@material-ui/icons/Add';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import SaveIcon from '@material-ui/icons/Save';
 
 import { Formik, Form, FieldArray } from 'formik';
@@ -110,9 +111,14 @@ function SchemeCreationView() {
                               <List>
                                  <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
                                     <ListItemIcon>
-                                       <AddCircleIcon />
+                                       <AddIcon />
                                     </ListItemIcon>
                                  </ListItem>
+                                 <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
+                                 <ListItemIcon>
+                                    <FileCopy />
+                                 </ListItemIcon>
+                              </ListItem>
                               </List>
                               <Drawer open={selecting} onClose={() => setSelecting(false)}>
                                  <List>
