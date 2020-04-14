@@ -65,85 +65,72 @@ function SchemeCreationView() {
    }
 
    return <Box className={classes.root} width={1}>
-      <Grid container>
-         <Grid item xs={10}>
-            <Formik onSubmit={handleSave} initialValues={initialValues} validationSchema={SchemeSchema}>
-               {({ values, errors, touched, handleChange, handleBlur }) => (
-                  <Form>
-                     <Grid item xs={3}>
-                        <MenuList>
-                           <MenuItem>
-                              <ListItemIcon>
-                                 <SaveIcon />
-                              </ListItemIcon>
-                           </MenuItem>
-                        </MenuList>
-                     </ Grid>
-                     <Grid item xs={9}>
-                        <Grid item xs={12}>
-                           <Box m={2}>
-                              <TextField
-                                 fullWidth
-                                 name="name"
-                                 label="scheme_name"
-                                 value={values.name}
-                                 onChange={handleChange}
-                                 onBlur={handleBlur}
-                                 helperText={(errors.name && touched.name) && errors.name}
-                                 margin="normal"
-                              />
-                           </Box>
-                        </Grid>
-                        <FieldArray
-                           name="palettes"
-                           render={(arrayHelpers) => (
-                              <Fragment>
+      <Formik onSubmit={handleSave} initialValues={initialValues} validationSchema={SchemeSchema}>
+         {({ values, errors, touched, handleChange, handleBlur }) => (
+            <Form>
+               <Grid container>
+                  <Grid item xs={2}>
+                     <MenuList>
+                        <MenuItem>
+                           <ListItemIcon>
+                              <SaveIcon />
+                           </ListItemIcon>
+                        </MenuItem>
+                     </MenuList>
+                  </ Grid>
+                  <Grid item xs={8}>
+                     <Grid item xs={12}>
+                        <Box m={2}>
+                           <TextField
+                              fullWidth
+                              name="name"
+                              label="scheme_name"
+                              value={values.name}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              helperText={(errors.name && touched.name) && errors.name}
+                              margin="normal"
+                           />
+                        </Box>
+                     </Grid>
+                  </ Grid>
+                  <Grid item xs={2}>
+                     <FieldArray
+                        name="palettes"
+                        render={(arrayHelpers) => (
+                           <Fragment>
+                              <List>
+                                 {values.palettes.map((palette) =>
+                                    <ListItem button key={palette.name}>
+                                       <ListItemText primary={palette.name}/>
+                                    </ListItem>
+                                 )}
+                              </List>
+                              <Divider />
+                              <List>
+                                 <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
+                                    <ListItemIcon>
+                                       <AddCircleIcon />
+                                    </ListItemIcon>
+                                 </ListItem>
+                              </List>
+                              <Drawer open={selecting} onClose={() => setSelecting(false)}>
                                  <List>
-                                    {values.palettes.map((palette) =>
-                                       <ListItem button key={palette.name}>
+                                    {palettes.map((palette) =>
+                                       <ListItem button key={palette.name} onClick={() => handleSelect(arrayHelpers, palette)}>
                                           <ListItemText primary={palette.name}/>
                                        </ListItem>
                                     )}
                                  </List>
-                                 <Drawer open={selecting} onClose={() => setSelecting(false)}>
-                                    <List>
-                                       {palettes.map((palette) =>
-                                          <ListItem button key={palette.name} onClick={() => handleSelect(arrayHelpers, palette)}>
-                                             <ListItemText primary={palette.name}/>
-                                          </ListItem>
-                                       )}
-                                    </List>
-                                 </Drawer>
-                              </Fragment>
-                           )}
-                        />
-                     </ Grid>
-                  </Form>
-               )}
-            </Formik>
-         </ Grid>
-         <Grid item xs={2}>
-            <List>
-               <ListItem button>
-                  <ListItemText primary="Palette 1" />
-               </ListItem>
-               <ListItem button>
-                  <ListItemText primary="Palette 2" />
-               </ListItem>
-               <ListItem button>
-                  <ListItemText primary="Palette 3" />
-               </ListItem>
-            </List>
-            <Divider />
-            <List>
-               <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
-                  <ListItemIcon>
-                     <AddCircleIcon />
-                  </ListItemIcon>
-               </ListItem>
-            </List>
-         </ Grid>
-      </ Grid>
+                              </Drawer>
+                           </Fragment>
+                        )}
+                     />
+                  </ Grid>
+               </ Grid>
+            </Form>
+         )}
+      </Formik>
    </Box>;
 }
 
