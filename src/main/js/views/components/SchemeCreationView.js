@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
+
+import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,11 +14,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
+import TextField from '@material-ui/core/TextField';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import SaveIcon from '@material-ui/icons/Save';
 
-import SchemeEditor from 'palettes/components/SchemeEditor';
+import { Formik, Form, FieldArray } from 'formik';
 
 import { useDispatch } from 'react-redux';
 
@@ -29,14 +33,24 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
+const SchemeSchema = Yup.object().shape({
+   name: Yup.string()
+      .min(0, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required')
+});
+
+
 function SchemeCreationView() {
+   const [selecting, setSelecting] = useState(false);
+
    const palettes = usePalettes();
 
    const classes = useStyles();
 
    const dispatch = useDispatch();
 
-   const values = {
+   const initialValues = {
       name: '',
       palettes: []
    };
@@ -45,22 +59,68 @@ function SchemeCreationView() {
       dispatch(saveScheme(form));
    }
 
+   function handleSelect(values, data) {
+      setSelecting(false);
+      values.push(data);
+   }
+
    return <Box className={classes.root} width={1}>
       <Grid container>
-         <Grid item xs={1}>
-            <MenuList>
-               <MenuItem>
-                  <ListItemIcon>
-                     <SaveIcon />
-                  </ListItemIcon>
-               </MenuItem>
-            </MenuList>
-         </ Grid>
-         <Grid item xs={9}>
-            <SchemeEditor
-               palettes={palettes}
-               onSave={handleSave}
-               initialValues={values} />
+         <Grid item xs={10}>
+            <Formik onSubmit={handleSave} initialValues={initialValues} validationSchema={SchemeSchema}>
+               {({ values, errors, touched, handleChange, handleBlur }) => (
+                  <Form>
+                     <Grid item xs={3}>
+                        <MenuList>
+                           <MenuItem>
+                              <ListItemIcon>
+                                 <SaveIcon />
+                              </ListItemIcon>
+                           </MenuItem>
+                        </MenuList>
+                     </ Grid>
+                     <Grid item xs={9}>
+                        <Grid item xs={12}>
+                           <Box m={2}>
+                              <TextField
+                                 fullWidth
+                                 name="name"
+                                 label="scheme_name"
+                                 value={values.name}
+                                 onChange={handleChange}
+                                 onBlur={handleBlur}
+                                 helperText={(errors.name && touched.name) && errors.name}
+                                 margin="normal"
+                              />
+                           </Box>
+                        </Grid>
+                        <FieldArray
+                           name="palettes"
+                           render={(arrayHelpers) => (
+                              <Fragment>
+                                 <List>
+                                    {values.palettes.map((palette) =>
+                                       <ListItem button key={palette.name}>
+                                          <ListItemText primary={palette.name}/>
+                                       </ListItem>
+                                    )}
+                                 </List>
+                                 <Drawer open={selecting} onClose={() => setSelecting(false)}>
+                                    <List>
+                                       {palettes.map((palette) =>
+                                          <ListItem button key={palette.name} onClick={() => handleSelect(arrayHelpers, palette)}>
+                                             <ListItemText primary={palette.name}/>
+                                          </ListItem>
+                                       )}
+                                    </List>
+                                 </Drawer>
+                              </Fragment>
+                           )}
+                        />
+                     </ Grid>
+                  </Form>
+               )}
+            </Formik>
          </ Grid>
          <Grid item xs={2}>
             <List>
@@ -76,7 +136,7 @@ function SchemeCreationView() {
             </List>
             <Divider />
             <List>
-               <ListItem button>
+               <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
                   <ListItemIcon>
                      <AddCircleIcon />
                   </ListItemIcon>
