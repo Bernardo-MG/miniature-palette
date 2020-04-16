@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
+import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -43,12 +44,26 @@ const SchemeSchema = Yup.object().shape({
       .required('Required')
 });
 
+function PaletteSelectionList({ onSelect }) {
+
+   const palettes = usePalettes();
+
+   return <List>
+      {palettes.map((palette) =>
+         <ListItem button key={palette.name} onClick={() => onSelect(palette)}>
+            <ListItemText primary={palette.name}/>
+         </ListItem>
+      )}
+   </List>;
+}
+
+PaletteSelectionList.propTypes = {
+   onSelect: PropTypes.func
+};
 
 function SchemeCreationView() {
    const [selecting, setSelecting] = useState(false);
    const [creating, setCreating] = useState(false);
-
-   const palettes = usePalettes();
 
    const classes = useStyles();
 
@@ -70,6 +85,14 @@ function SchemeCreationView() {
 
    function handleFinishPaletteCreation() {
       setCreating(false);
+   }
+
+   function handleShowPaletteCreation() {
+      setCreating(true);
+   }
+
+   function handleShowPaletteSelection() {
+      setSelecting(true);
    }
 
    let component;
@@ -121,25 +144,19 @@ function SchemeCreationView() {
                                  </List>
                                  <Divider />
                                  <List>
-                                    <ListItem button aria-label="create" onClick={() => setCreating(true)}>
+                                    <ListItem button aria-label="create" onClick={handleShowPaletteCreation}>
                                        <ListItemIcon>
                                           <AddIcon />
                                        </ListItemIcon>
                                     </ListItem>
-                                    <ListItem button aria-label="copy" onClick={() => setSelecting(true)}>
+                                    <ListItem button aria-label="copy" onClick={handleShowPaletteSelection}>
                                        <ListItemIcon>
                                           <FileCopyIcon />
                                        </ListItemIcon>
                                     </ListItem>
                                  </List>
                                  <Drawer open={selecting} onClose={() => setSelecting(false)}>
-                                    <List>
-                                       {palettes.map((palette) =>
-                                          <ListItem button key={palette.name} onClick={() => handleSelect(arrayHelpers, palette)}>
-                                             <ListItemText primary={palette.name}/>
-                                          </ListItem>
-                                       )}
-                                    </List>
+                                    <PaletteSelectionList onSelect={(palette) => handleSelect(arrayHelpers, palette)} />
                                  </Drawer>
                               </Fragment>
                            )}
