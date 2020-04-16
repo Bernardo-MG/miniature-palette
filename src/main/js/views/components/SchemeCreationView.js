@@ -115,10 +115,10 @@ function SchemeCreationView() {
                                     </ListItemIcon>
                                  </ListItem>
                                  <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
-                                 <ListItemIcon>
-                                    <FileCopy />
-                                 </ListItemIcon>
-                              </ListItem>
+                                    <ListItemIcon>
+                                       <FileCopyIcon />
+                                    </ListItemIcon>
+                                 </ListItem>
                               </List>
                               <Drawer open={selecting} onClose={() => setSelecting(false)}>
                                  <List>
