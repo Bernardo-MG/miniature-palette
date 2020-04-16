@@ -1,12 +1,14 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { useDispatch } from 'react-redux';
 
 import { savePalette } from 'api/actions';
 
 import PaletteEditor from 'palettes/components/PaletteEditor';
 
-function PaletteCreateForm() {
+function PaletteCreateForm({ onReturn }) {
 
    const dispatch = useDispatch();
 
@@ -17,6 +19,7 @@ function PaletteCreateForm() {
 
    function handleSave(form) {
       dispatch(savePalette(form));
+      onReturn();
    }
 
    let form;
@@ -31,6 +34,8 @@ function PaletteCreateForm() {
    return form;
 }
 
-PaletteCreateForm.propTypes = {};
+PaletteCreateForm.propTypes = {
+   onReturn: PropTypes.func.isRequired
+};
 
 export default PaletteCreateForm;

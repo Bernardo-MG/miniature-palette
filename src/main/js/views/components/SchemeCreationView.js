@@ -20,6 +20,8 @@ import AddIcon from '@material-ui/icons/Add';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import SaveIcon from '@material-ui/icons/Save';
 
+import PaletteCreateForm from 'palettes/containers/PaletteCreateForm';
+
 import { Formik, Form, FieldArray } from 'formik';
 
 import { useDispatch } from 'react-redux';
@@ -44,6 +46,7 @@ const SchemeSchema = Yup.object().shape({
 
 function SchemeCreationView() {
    const [selecting, setSelecting] = useState(false);
+   const [creating, setCreating] = useState(false);
 
    const palettes = usePalettes();
 
@@ -65,79 +68,91 @@ function SchemeCreationView() {
       values.push(data);
    }
 
-   return <Box className={classes.root} width={1}>
-      <Formik onSubmit={handleSave} initialValues={initialValues} validationSchema={SchemeSchema}>
-         {({ values, errors, touched, handleChange, handleBlur }) => (
-            <Form>
-               <Grid container>
-                  <Grid item xs={2}>
-                     <MenuList>
-                        <MenuItem>
-                           <ListItemIcon>
-                              <SaveIcon />
-                           </ListItemIcon>
-                        </MenuItem>
-                     </MenuList>
-                  </ Grid>
-                  <Grid item xs={8}>
-                     <Grid item xs={12}>
-                        <Box m={2}>
-                           <TextField
-                              fullWidth
-                              name="name"
-                              label="scheme_name"
-                              value={values.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              helperText={(errors.name && touched.name) && errors.name}
-                              margin="normal"
-                           />
-                        </Box>
-                     </Grid>
-                  </ Grid>
-                  <Grid item xs={2}>
-                     <FieldArray
-                        name="palettes"
-                        render={(arrayHelpers) => (
-                           <Fragment>
-                              <List>
-                                 {values.palettes.map((palette) =>
-                                    <ListItem button key={palette.name}>
-                                       <ListItemText primary={palette.name}/>
-                                    </ListItem>
-                                 )}
-                              </List>
-                              <Divider />
-                              <List>
-                                 <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
-                                    <ListItemIcon>
-                                       <AddIcon />
-                                    </ListItemIcon>
-                                 </ListItem>
-                                 <ListItem button aria-label="add" onClick={() => setSelecting(true)}>
-                                    <ListItemIcon>
-                                       <FileCopyIcon />
-                                    </ListItemIcon>
-                                 </ListItem>
-                              </List>
-                              <Drawer open={selecting} onClose={() => setSelecting(false)}>
+   function handleFinishPaletteCreation() {
+      setCreating(false);
+   }
+
+   let component;
+
+   if (creating) {
+      component = <PaletteCreateForm onReturn={handleFinishPaletteCreation} />;
+   } else {
+      component = <Box className={classes.root} width={1}>
+         <Formik onSubmit={handleSave} initialValues={initialValues} validationSchema={SchemeSchema}>
+            {({ values, errors, touched, handleChange, handleBlur }) => (
+               <Form>
+                  <Grid container>
+                     <Grid item xs={2}>
+                        <MenuList>
+                           <MenuItem>
+                              <ListItemIcon>
+                                 <SaveIcon />
+                              </ListItemIcon>
+                           </MenuItem>
+                        </MenuList>
+                     </ Grid>
+                     <Grid item xs={8}>
+                        <Grid item xs={12}>
+                           <Box m={2}>
+                              <TextField
+                                 fullWidth
+                                 name="name"
+                                 label="scheme_name"
+                                 value={values.name}
+                                 onChange={handleChange}
+                                 onBlur={handleBlur}
+                                 helperText={(errors.name && touched.name) && errors.name}
+                                 margin="normal"
+                              />
+                           </Box>
+                        </Grid>
+                     </ Grid>
+                     <Grid item xs={2}>
+                        <FieldArray
+                           name="palettes"
+                           render={(arrayHelpers) => (
+                              <Fragment>
                                  <List>
-                                    {palettes.map((palette) =>
-                                       <ListItem button key={palette.name} onClick={() => handleSelect(arrayHelpers, palette)}>
+                                    {values.palettes.map((palette) =>
+                                       <ListItem button key={palette.name}>
                                           <ListItemText primary={palette.name}/>
                                        </ListItem>
                                     )}
                                  </List>
-                              </Drawer>
-                           </Fragment>
-                        )}
-                     />
+                                 <Divider />
+                                 <List>
+                                    <ListItem button aria-label="create" onClick={() => setCreating(true)}>
+                                       <ListItemIcon>
+                                          <AddIcon />
+                                       </ListItemIcon>
+                                    </ListItem>
+                                    <ListItem button aria-label="copy" onClick={() => setSelecting(true)}>
+                                       <ListItemIcon>
+                                          <FileCopyIcon />
+                                       </ListItemIcon>
+                                    </ListItem>
+                                 </List>
+                                 <Drawer open={selecting} onClose={() => setSelecting(false)}>
+                                    <List>
+                                       {palettes.map((palette) =>
+                                          <ListItem button key={palette.name} onClick={() => handleSelect(arrayHelpers, palette)}>
+                                             <ListItemText primary={palette.name}/>
+                                          </ListItem>
+                                       )}
+                                    </List>
+                                 </Drawer>
+                              </Fragment>
+                           )}
+                        />
+                     </ Grid>
                   </ Grid>
-               </ Grid>
-            </Form>
-         )}
-      </Formik>
-   </Box>;
+               </Form>
+            )}
+         </Formik>
+      </Box>;
+   }
+
+   return component;
 }
 
 SchemeCreationView.propTypes = {};
