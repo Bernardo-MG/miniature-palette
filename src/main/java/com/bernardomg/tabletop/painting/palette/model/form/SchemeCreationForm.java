@@ -19,8 +19,10 @@ package com.bernardomg.tabletop.painting.palette.model.form;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,11 +30,14 @@ import com.google.common.base.MoreObjects;
 
 public class SchemeCreationForm implements Serializable {
 
-    private static final long serialVersionUID = -7040753038901687866L;
+    private static final long             serialVersionUID = -7040753038901687866L;
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String            name             = "";
+    private String                        name             = "";
+
+    @Valid
+    private Iterable<PaletteCreationForm> palettes         = new ArrayList<>();
 
     public SchemeCreationForm() {
         super();
@@ -60,6 +65,10 @@ public class SchemeCreationForm implements Serializable {
         return name;
     }
 
+    public Iterable<PaletteCreationForm> getPalettes() {
+        return palettes;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hash(name);
@@ -67,6 +76,10 @@ public class SchemeCreationForm implements Serializable {
 
     public void setName(final String value) {
         name = checkNotNull(value, "Received a null pointer as name");
+    }
+
+    public void setPalettes(final Iterable<PaletteCreationForm> palettes) {
+        this.palettes = palettes;
     }
 
     @Override

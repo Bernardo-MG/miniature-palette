@@ -18,30 +18,50 @@ package com.bernardomg.tabletop.painting.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.tabletop.painting.palette.model.data.PaintData;
+import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
 import com.bernardomg.tabletop.painting.palette.model.data.SchemeData;
+import com.bernardomg.tabletop.painting.palette.model.form.PaintCreationForm;
+import com.bernardomg.tabletop.painting.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.painting.palette.model.form.SchemeCreationForm;
 import com.bernardomg.tabletop.painting.palette.model.form.SchemeUpdateForm;
+import com.bernardomg.tabletop.painting.palette.model.persistence.PaintEntity;
+import com.bernardomg.tabletop.painting.palette.model.persistence.PaletteEntity;
 import com.bernardomg.tabletop.painting.palette.model.persistence.SchemeEntity;
+import com.bernardomg.tabletop.painting.palette.repository.PaintRepository;
+import com.bernardomg.tabletop.painting.palette.repository.PaletteRepository;
 import com.bernardomg.tabletop.painting.palette.repository.SchemeRepository;
 
 @Service
 public final class DefaultSchemeService implements SchemeService {
 
-    private final SchemeRepository schemeRepository;
+    private final PaintRepository   paintRepository;
+
+    private final PaletteRepository paletteRepository;
+
+    private final SchemeRepository  schemeRepository;
 
     @Autowired
-    public DefaultSchemeService(final SchemeRepository schemeRepo) {
+    public DefaultSchemeService(final SchemeRepository schemeRepo,
+            final PaletteRepository paletteRepo,
+            final PaintRepository paintRepo) {
         super();
 
         schemeRepository = checkNotNull(schemeRepo,
                 "The repository is required");
+        paletteRepository = checkNotNull(paletteRepo,
+                "The repository is required");
+        paintRepository = checkNotNull(paintRepo, "The repository is required");
     }
 
     @Override
@@ -68,16 +88,22 @@ public final class DefaultSchemeService implements SchemeService {
     }
 
     @Override
-    public final SchemeData saveScheme(final SchemeCreationForm palette) {
+    public final SchemeData saveScheme(final SchemeCreationForm form) {
         final SchemeEntity entity;
         final SchemeEntity saved;
         final SchemeData result;
 
-        if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
+        if ((form.getName() != null) && (!form.getName().isEmpty())) {
             entity = new SchemeEntity();
-            entity.setName(palette.getName());
+            entity.setName(form.getName());
 
             saved = schemeRepository.save(entity);
+
+            // TODO: Save all at once
+            for (final PaletteCreationForm palette : form.getPalettes()) {
+                palette.setScheme(saved.getId());
+                savePalette(palette);
+            }
 
             result = toSchemeDataSimple(saved);
         } else {
@@ -109,6 +135,74 @@ public final class DefaultSchemeService implements SchemeService {
         }
 
         return result;
+    }
+
+    private final PaletteData savePalette(final PaletteCreationForm palette) {
+        final PaletteEntity entity;
+        final PaletteEntity saved;
+        final Collection<PaintEntity> paintEntities;
+        final Collection<PaintEntity> savedPaints;
+        final PaletteData result;
+
+        if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
+            entity = new PaletteEntity();
+            entity.setScheme(palette.getScheme());
+            entity.setName(palette.getName());
+
+            saved = paletteRepository.save(entity);
+
+            // Paints are mapped to entities
+            paintEntities = StreamSupport
+                    .stream(palette.getPaints().spliterator(), false)
+                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
+                    .map(this::toPaint).collect(Collectors.toList());
+            // The palette id is set
+            paintEntities.stream()
+                    .forEach((p) -> p.setPaletteId(saved.getId()));
+
+            savedPaints = paintRepository.saveAll(paintEntities);
+
+            result = toPaletteDataSimple(saved, savedPaints);
+        } else {
+            result = null;
+        }
+
+        return result;
+    }
+
+    private final PaintEntity toPaint(final PaintCreationForm paint) {
+        final PaintEntity entity;
+
+        entity = new PaintEntity();
+        entity.setName(paint.getName());
+
+        return entity;
+    }
+
+    private final PaintData toPaintData(final PaintEntity paint) {
+        final PaintData option;
+
+        option = new PaintData();
+        option.setId(paint.getId());
+        option.setName(paint.getName());
+
+        return option;
+    }
+
+    private final PaletteData toPaletteDataSimple(final PaletteEntity palette,
+            final Collection<PaintEntity> paints) {
+        final PaletteData option;
+        final Iterable<PaintData> paintOptions;
+
+        paintOptions = paints.stream().map(this::toPaintData)
+                .collect(Collectors.toList());
+
+        option = new PaletteData();
+        option.setId(palette.getId());
+        option.setName(palette.getName());
+        option.setPaints(paintOptions);
+
+        return option;
     }
 
     private final SchemeData toSchemeData(final SchemeEntity palette) {

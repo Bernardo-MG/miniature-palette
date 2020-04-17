@@ -34,7 +34,6 @@ public class PaletteCreationForm {
     @Valid
     private Iterable<PaintCreationForm> paints = new ArrayList<>();
 
-    @NotNull
     private Long                        scheme;
 
     public PaletteCreationForm() {
