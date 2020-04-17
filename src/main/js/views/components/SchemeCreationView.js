@@ -12,6 +12,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -83,9 +84,9 @@ function PaletteCreationDialog({ open, onClose, onSelect }) {
       validationSchema={PaletteSchema}>
       {({ values, errors, touched, handleChange, handleBlur }) => (
          <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">add_palette</DialogTitle>
-            <DialogContent>
-               <Form>
+            <Form>
+               <DialogTitle id="form-dialog-title">add_palette</DialogTitle>
+               <DialogContent>
                   <Grid container spacing={3}>
                      <Grid item xs={12}>
                         <Box m={2}>
@@ -114,23 +115,23 @@ function PaletteCreationDialog({ open, onClose, onSelect }) {
                         )}
                      />
                   </Grid>
-               </Form>
-            </DialogContent>
-            <DialogActions>
-               <Button onClick={onClose} color="primary">
-                  cancel
-               </Button>
-               <Button onClick={onSelect} color="primary">
-                  add
-               </Button>
-            </DialogActions>
+               </DialogContent>
+               <DialogActions>
+                  <Button onClick={onClose} color="primary">
+                     cancel
+                  </Button>
+                  <Button aria-label="save" type="submit" color="primary">
+                     add
+                  </Button>
+               </DialogActions>
+            </Form>
          </Dialog>
       )}
    </Formik>;
 }
 
 PaletteCreationDialog.propTypes = {
-   open: PropTypes.boolean,
+   open: PropTypes.bool,
    onClose: PropTypes.func,
    onSelect: PropTypes.func
 };
@@ -169,7 +170,9 @@ function SchemeCreationView() {
                      <MenuList>
                         <MenuItem>
                            <ListItemIcon>
-                              <SaveIcon />
+                              <Fab aria-label="save" type="submit">
+                                 <SaveIcon />
+                              </Fab>
                            </ListItemIcon>
                         </MenuItem>
                      </MenuList>
