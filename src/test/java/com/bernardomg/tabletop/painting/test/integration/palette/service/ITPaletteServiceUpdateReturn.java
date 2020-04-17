@@ -63,12 +63,12 @@ public class ITPaletteServiceUpdateReturn {
         final PaletteData result;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
 
         result = service.updatePalette(palette);
 
-        Assertions.assertEquals(1l, result.getId());
+        Assertions.assertEquals(10l, result.getId());
         Assertions.assertEquals("palette", result.getName());
     }
 
@@ -78,7 +78,7 @@ public class ITPaletteServiceUpdateReturn {
         final PaletteData result;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("abc");
 
         result = service.updatePalette(palette);
@@ -114,7 +114,7 @@ public class ITPaletteServiceUpdateReturn {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -143,13 +143,13 @@ public class ITPaletteServiceUpdateReturn {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
         result = service.updatePalette(palette);
 
-        Assertions.assertEquals(1l, result.getId());
+        Assertions.assertEquals(10l, result.getId());
         Assertions.assertEquals("palette", result.getName());
     }
 

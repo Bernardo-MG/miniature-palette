@@ -79,7 +79,7 @@ public class ITPaletteServiceUpdateNoDataReturn {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -94,7 +94,7 @@ public class ITPaletteServiceUpdateNoDataReturn {
         final PaletteData result;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
 
         result = service.updatePalette(palette);

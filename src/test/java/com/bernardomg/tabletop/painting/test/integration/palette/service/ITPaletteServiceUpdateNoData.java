@@ -79,7 +79,7 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paintB);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -106,7 +106,7 @@ public class ITPaletteServiceUpdateNoData {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("");
 
         service.updatePalette(palette);
@@ -129,7 +129,7 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -152,7 +152,7 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -175,7 +175,7 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("");
         palette.setPaints(paints);
 
@@ -205,7 +205,7 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paintB);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -220,7 +220,7 @@ public class ITPaletteServiceUpdateNoData {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
 
         service.updatePalette(palette);
