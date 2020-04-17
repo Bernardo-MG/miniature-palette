@@ -60,7 +60,8 @@ public class ITPaletteServiceRead {
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+            "/db/paint_simple.sql" })
     public void testRead_Full_Simple() {
         final Iterable<PaletteData> read;
         final PaletteData palette;
@@ -79,7 +80,7 @@ public class ITPaletteServiceRead {
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql" })
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql" })
     public void testRead_NoPaints_Simple() {
         final Iterable<PaletteData> read;
         final PaletteData palette;

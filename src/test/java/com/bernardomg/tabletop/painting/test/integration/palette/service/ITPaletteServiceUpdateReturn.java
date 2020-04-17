@@ -40,7 +40,8 @@ import com.google.common.collect.Iterables;
 @Transactional
 @Rollback
 @SpringBootTest(classes = Application.class)
-@Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
+@Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+        "/db/paint_simple.sql" })
 public class ITPaletteServiceUpdateReturn {
 
     /**

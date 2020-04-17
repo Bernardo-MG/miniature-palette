@@ -85,8 +85,8 @@ public class ITPaletteServiceUpdateNoData {
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(2, paintRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -135,8 +135,8 @@ public class ITPaletteServiceUpdateNoData {
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(1, paintRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -158,7 +158,7 @@ public class ITPaletteServiceUpdateNoData {
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
@@ -211,8 +211,8 @@ public class ITPaletteServiceUpdateNoData {
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(2, paintRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -225,7 +225,7 @@ public class ITPaletteServiceUpdateNoData {
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 

@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -39,6 +40,7 @@ import com.bernardomg.tabletop.painting.palette.service.PaletteService;
 @Transactional
 @Rollback
 @SpringBootTest(classes = Application.class)
+@Sql({ "/db/scheme_simple.sql" })
 public class ITPaletteServiceSave {
 
     @Autowired
@@ -77,6 +79,7 @@ public class ITPaletteServiceSave {
         final PaletteCreationForm palette;
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("");
 
         service.savePalette(palette);
@@ -86,17 +89,29 @@ public class ITPaletteServiceSave {
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql" })
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql" })
     public void testSavePalette_ExistingPaletteName() {
         final PaletteCreationForm palette;
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("palette");
 
         service.savePalette(palette);
 
         Assertions.assertEquals(2, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
+    }
+
+    @Test
+    public void testSavePalette_NoSchemeId() {
+        final PaletteCreationForm palette;
+
+        palette = new PaletteCreationForm();
+        palette.setName("palette");
+
+        Assertions.assertThrows(DataIntegrityViolationException.class,
+                () -> service.savePalette(palette));
     }
 
     @Test
@@ -112,6 +127,7 @@ public class ITPaletteServiceSave {
         paints.add(paint);
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -134,6 +150,7 @@ public class ITPaletteServiceSave {
         paints.add(paint);
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -156,6 +173,7 @@ public class ITPaletteServiceSave {
         paints.add(paint);
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("");
         palette.setPaints(paints);
 
@@ -183,6 +201,7 @@ public class ITPaletteServiceSave {
         paints.add(paintB);
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -197,6 +216,7 @@ public class ITPaletteServiceSave {
         final PaletteCreationForm palette;
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("palette");
 
         service.savePalette(palette);
@@ -211,6 +231,7 @@ public class ITPaletteServiceSave {
         final PaletteCreationForm palette;
 
         palette = new PaletteCreationForm();
+        palette.setScheme(1l);
         palette.setName("palette");
 
         service.savePalette(palette);

@@ -28,12 +28,10 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.painting.Application;
-import com.bernardomg.tabletop.painting.palette.model.data.PaintData;
 import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
 import com.bernardomg.tabletop.painting.palette.model.form.PaintUpdateForm;
 import com.bernardomg.tabletop.painting.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.painting.palette.service.PaletteService;
-import com.google.common.collect.Iterables;
 
 @SpringJUnitConfig
 @Transactional
@@ -67,36 +65,6 @@ public class ITPaletteServiceUpdateNoDataReturn {
     }
 
     @Test
-    public void testUpdatePalette_Paints_ReturnsPaintData() {
-        final PaletteUpdateForm palette;
-        final Collection<PaintUpdateForm> paints;
-        final PaintUpdateForm paint;
-        final PaletteData result;
-        final PaintData resultPaint;
-
-        paint = new PaintUpdateForm();
-        paint.setId(1l);
-        paint.setName("paint");
-
-        paints = new ArrayList<>();
-        paints.add(paint);
-
-        palette = new PaletteUpdateForm();
-        palette.setId(1l);
-        palette.setName("palette");
-        palette.setPaints(paints);
-
-        result = service.updatePalette(palette);
-
-        Assertions.assertEquals(1, Iterables.size(result.getPaints()));
-
-        resultPaint = result.getPaints().iterator().next();
-
-        Assertions.assertNotNull(resultPaint.getId());
-        Assertions.assertEquals("paint", resultPaint.getName());
-    }
-
-    @Test
     public void testUpdatePalette_Paints_ReturnsPaletteData() {
         final PaletteUpdateForm palette;
         final Collection<PaintUpdateForm> paints;
@@ -117,8 +85,7 @@ public class ITPaletteServiceUpdateNoDataReturn {
 
         result = service.updatePalette(palette);
 
-        Assertions.assertNotNull(result.getId());
-        Assertions.assertEquals("palette", result.getName());
+        Assertions.assertNull(result);
     }
 
     @Test
@@ -132,8 +99,7 @@ public class ITPaletteServiceUpdateNoDataReturn {
 
         result = service.updatePalette(palette);
 
-        Assertions.assertNotNull(result.getId());
-        Assertions.assertEquals("palette", result.getName());
+        Assertions.assertNull(result);
     }
 
 }

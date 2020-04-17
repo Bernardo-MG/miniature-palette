@@ -64,7 +64,7 @@ public class ITPaletteServiceDelete {
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql" })
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql" })
     public void testDeletePalette_ExistingPalette() {
         service.deletePalette(1l);
 
@@ -73,7 +73,8 @@ public class ITPaletteServiceDelete {
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+            "/db/paint_simple.sql" })
     public void testDeletePalette_ExistingPalette_ExistingPaints() {
         service.deletePalette(1l);
 

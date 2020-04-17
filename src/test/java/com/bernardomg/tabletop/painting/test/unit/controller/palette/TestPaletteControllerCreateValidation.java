@@ -98,7 +98,7 @@ public final class TestPaletteControllerCreateValidation {
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"\"}");
+                .content("{\"scheme\":\"1\", \"name\":\"\"}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -113,8 +113,8 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
+                .contentType(MediaType.APPLICATION_JSON).content(
+                        "{\"scheme\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -129,8 +129,8 @@ public final class TestPaletteControllerCreateValidation {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"abcd\", \"paints\":[]}");
+                .contentType(MediaType.APPLICATION_JSON).content(
+                        "{\"scheme\":\"1\", \"name\":\"abcd\", \"paints\":[]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -144,7 +144,7 @@ public final class TestPaletteControllerCreateValidation {
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"abcd\"}");
+                .content("{\"scheme\":\"1\", \"name\":\"abcd\"}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -158,7 +158,7 @@ public final class TestPaletteControllerCreateValidation {
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON).content(
-                        "{\"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
+                        "{\"scheme\":\"1\", \"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",

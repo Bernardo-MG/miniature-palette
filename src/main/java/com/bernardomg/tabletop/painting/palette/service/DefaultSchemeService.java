@@ -122,8 +122,8 @@ public final class DefaultSchemeService implements SchemeService {
     }
 
     private final List<SchemeData>
-            toSchemeDatas(final List<SchemeEntity> palettes) {
-        return palettes.stream().map(this::toSchemeData)
+            toSchemeDatas(final List<SchemeEntity> schemes) {
+        return schemes.stream().map(this::toSchemeData)
                 .collect(Collectors.toList());
     }
 

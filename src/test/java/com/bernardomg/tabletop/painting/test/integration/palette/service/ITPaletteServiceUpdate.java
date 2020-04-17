@@ -39,7 +39,8 @@ import com.bernardomg.tabletop.painting.palette.service.PaletteService;
 @Transactional
 @Rollback
 @SpringBootTest(classes = Application.class)
-@Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
+@Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+        "/db/paint_simple.sql" })
 public class ITPaletteServiceUpdate {
 
     @Autowired
@@ -169,7 +170,7 @@ public class ITPaletteServiceUpdate {
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(2, paletteRepository.count());
+        Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(1, paintRepository.count());
     }
 

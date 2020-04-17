@@ -91,7 +91,23 @@ public final class TestValidationException {
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"\"}");
+                .content("{\"scheme\":\"1\", \"name\":\"\"}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.iterableWithSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")));
+    }
+
+    @Test
+    public final void testSendFormData_NoScheme() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"abc\"}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
