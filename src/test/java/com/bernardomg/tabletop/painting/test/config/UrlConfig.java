@@ -39,6 +39,11 @@ public final class UrlConfig {
     public static final String PRODUCT       = "/rest/product";
 
     /**
+     * Palettes REST URL.
+     */
+    public static final String SCHEME        = "/rest/scheme";
+
+    /**
      * Default constructor to avoid initialization.
      */
     private UrlConfig() {

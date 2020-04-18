@@ -19,7 +19,6 @@ package com.bernardomg.tabletop.painting.palette.service;
 import java.io.OutputStream;
 
 import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
-import com.bernardomg.tabletop.painting.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.painting.palette.model.form.PaletteUpdateForm;
 
 /**
@@ -34,8 +33,6 @@ public interface PaletteService {
     public Iterable<PaletteData> getAllPalettes();
 
     public void getReport(final Long id, final OutputStream output);
-
-    public PaletteData savePalette(final PaletteCreationForm palette);
 
     public PaletteData updatePalette(final PaletteUpdateForm palette);
 

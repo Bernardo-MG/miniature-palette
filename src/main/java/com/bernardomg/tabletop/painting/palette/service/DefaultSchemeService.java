@@ -18,6 +18,7 @@ package com.bernardomg.tabletop.painting.palette.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,6 +93,8 @@ public final class DefaultSchemeService implements SchemeService {
         final SchemeEntity entity;
         final SchemeEntity saved;
         final SchemeData result;
+        final Collection<PaletteData> savedPalettes;
+        PaletteData savePalette;
 
         if ((form.getName() != null) && (!form.getName().isEmpty())) {
             entity = new SchemeEntity();
@@ -99,13 +102,17 @@ public final class DefaultSchemeService implements SchemeService {
 
             saved = schemeRepository.save(entity);
 
+            savedPalettes = new ArrayList<>();
+
             // TODO: Save all at once
             for (final PaletteCreationForm palette : form.getPalettes()) {
                 palette.setScheme(saved.getId());
-                savePalette(palette);
+                savePalette = savePalette(palette);
+                savedPalettes.add(savePalette);
             }
 
             result = toSchemeDataSimple(saved);
+            result.setPalettes(savedPalettes);
         } else {
             result = null;
         }
