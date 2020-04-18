@@ -30,9 +30,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.painting.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.painting.palette.controller.PaletteController;
-import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
-import com.bernardomg.tabletop.painting.palette.service.PaletteService;
+import com.bernardomg.tabletop.painting.palette.controller.SchemeController;
+import com.bernardomg.tabletop.painting.palette.model.data.SchemeData;
+import com.bernardomg.tabletop.painting.palette.service.SchemeService;
 import com.bernardomg.tabletop.painting.test.config.UrlConfig;
 
 /**
@@ -41,24 +41,24 @@ import com.bernardomg.tabletop.painting.test.config.UrlConfig;
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public final class TestPaletteControllerCreateValidation {
+public final class TestSchemeControllerCreateValidation {
 
     /**
      * Mocked MVC context.
      */
-    private MockMvc              mockMvc;
+    private MockMvc             mockMvc;
 
-    private final PaletteService service;
+    private final SchemeService service;
 
     /**
      * Default constructor.
      */
-    public TestPaletteControllerCreateValidation() {
+    public TestSchemeControllerCreateValidation() {
         super();
 
-        service = Mockito.mock(PaletteService.class);
-        Mockito.when(service.savePalette(ArgumentMatchers.any()))
-                .thenReturn(new PaletteData());
+        service = Mockito.mock(SchemeService.class);
+        Mockito.when(service.saveScheme(ArgumentMatchers.any()))
+                .thenReturn(new SchemeData());
     }
 
     /**
@@ -81,7 +81,7 @@ public final class TestPaletteControllerCreateValidation {
     public final void testCreate_Empty() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
                 .contentType(MediaType.APPLICATION_JSON).content("{}");
 
         mockMvc.perform(request)
@@ -96,7 +96,7 @@ public final class TestPaletteControllerCreateValidation {
     public final void testCreate_EmptyName() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"\"}");
 
@@ -109,12 +109,70 @@ public final class TestPaletteControllerCreateValidation {
     }
 
     @Test
+    public final void testCreate_EmptyPaletteName() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"abcd\", \"palettes\":[{\"name\":\"\"}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("warning")))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
+                        Matchers.hasSize(1)));
+    }
+
+    @Test
+    public final void testCreate_Minimal() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"abcd\"}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testCreate_MinimalPaint() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
+                .contentType(MediaType.APPLICATION_JSON).content(
+                        "{\"name\":\"abcd\", \"palettes\":[{\"name\":\"palette\", \"paints\":[{ \"name\":\"paint\" }]}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testCreate_MinimalPalette() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
+                .contentType(MediaType.APPLICATION_JSON).content(
+                        "{\"name\":\"abcd\", \"palettes\":[{\"name\":\"palette\"}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
     public final void testCreate_ValidName_EmptyPaintName() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"abcd\", \"paints\":[{\"name\":\"\"}]}");
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
+                .contentType(MediaType.APPLICATION_JSON).content(
+                        "{\"name\":\"abcd\", \"palettes\":[{\"name\":\"palette\", \"paints\":[{\"name\":\"\"}]}]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -128,37 +186,23 @@ public final class TestPaletteControllerCreateValidation {
     public final void testCreate_ValidName_EmptyPaints() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"abcd\", \"paints\":[]}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public final void testCreate_ValidName_NoPaints() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"abcd\"}");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("success")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public final void testCreate_ValidName_ValidPaint() throws Exception {
-        final RequestBuilder request;
-
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
                 .contentType(MediaType.APPLICATION_JSON).content(
-                        "{\"name\":\"abcd\", \"paints\":[{\"name\":\"abcd\"}]}");
+                        "{\"name\":\"abcd\", \"palettes\":[{\"name\":\"palette\", \"paints\":[]}]}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
+                        Matchers.equalTo("success")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public final void testCreate_ValidName_EmptyPalettes() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"abcd\", \"palettes\":[]}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",
@@ -171,8 +215,8 @@ public final class TestPaletteControllerCreateValidation {
      * 
      * @return a mocked controller
      */
-    private final PaletteController getController() {
-        return new PaletteController(service);
+    private final SchemeController getController() {
+        return new SchemeController(service);
     }
 
 }

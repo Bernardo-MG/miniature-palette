@@ -57,25 +57,26 @@ public class ITPaletteServiceDelete {
 
     @Test
     public void testDeletePalette_Empty() {
-        service.deletePalette(1l);
+        service.deletePalette(10l);
 
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql" })
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql" })
     public void testDeletePalette_ExistingPalette() {
-        service.deletePalette(1l);
+        service.deletePalette(10l);
 
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
-    @Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+            "/db/paint_simple.sql" })
     public void testDeletePalette_ExistingPalette_ExistingPaints() {
-        service.deletePalette(1l);
+        service.deletePalette(10l);
 
         Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());

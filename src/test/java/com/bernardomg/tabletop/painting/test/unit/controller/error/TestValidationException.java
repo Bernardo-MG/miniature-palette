@@ -19,6 +19,7 @@ package com.bernardomg.tabletop.painting.test.unit.controller.error;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
@@ -29,8 +30,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.painting.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.painting.palette.controller.PaletteController;
-import com.bernardomg.tabletop.painting.palette.service.PaletteService;
+import com.bernardomg.tabletop.painting.palette.controller.SchemeController;
+import com.bernardomg.tabletop.painting.palette.model.data.SchemeData;
+import com.bernardomg.tabletop.painting.palette.service.SchemeService;
 import com.bernardomg.tabletop.painting.test.config.UrlConfig;
 
 /**
@@ -76,7 +78,7 @@ public final class TestValidationException {
     public final void testSendFormData_NoBody() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
                 .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
@@ -89,9 +91,9 @@ public final class TestValidationException {
     public final void testSendFormData_NoName() throws Exception {
         final RequestBuilder request;
 
-        request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"\"}");
+                .content("{\"scheme\":\"1\", \"name\":\"\"}");
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
@@ -101,17 +103,31 @@ public final class TestValidationException {
                         Matchers.equalTo("warning")));
     }
 
+    @Test
+    public final void testSendFormData_Valid() throws Exception {
+        final RequestBuilder request;
+
+        request = MockMvcRequestBuilders.post(UrlConfig.SCHEME)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"abc\"}");
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+    }
+
     /**
      * Returns a controller with mocked dependencies.
      * 
      * @return a mocked controller
      */
-    private final PaletteController getController() {
-        final PaletteService service; // Mocked service
+    private final SchemeController getController() {
+        final SchemeService service; // Mocked service
 
-        service = Mockito.mock(PaletteService.class);
+        service = Mockito.mock(SchemeService.class);
+        Mockito.when(service.saveScheme(ArgumentMatchers.any()))
+                .thenReturn(new SchemeData());
 
-        return new PaletteController(service);
+        return new SchemeController(service);
     }
 
 }

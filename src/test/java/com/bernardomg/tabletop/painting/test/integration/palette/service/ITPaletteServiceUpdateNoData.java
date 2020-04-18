@@ -79,14 +79,14 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paintB);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(2, paintRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class ITPaletteServiceUpdateNoData {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("");
 
         service.updatePalette(palette);
@@ -129,14 +129,14 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(1, paintRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -152,13 +152,13 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 
@@ -175,7 +175,7 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("");
         palette.setPaints(paints);
 
@@ -205,14 +205,14 @@ public class ITPaletteServiceUpdateNoData {
         paints.add(paintB);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
-        Assertions.assertEquals(2, paintRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
+        Assertions.assertEquals(0, paintRepository.count());
     }
 
     @Test
@@ -220,12 +220,12 @@ public class ITPaletteServiceUpdateNoData {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(1, paletteRepository.count());
+        Assertions.assertEquals(0, paletteRepository.count());
         Assertions.assertEquals(0, paintRepository.count());
     }
 

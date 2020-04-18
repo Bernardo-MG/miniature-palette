@@ -1,2 +1,2 @@
-INSERT INTO palettes (id, name) VALUES
-   (1, 'Palette1');
+INSERT INTO palettes (id, scheme_id, name) VALUES
+   (10, 1, 'Palette1');

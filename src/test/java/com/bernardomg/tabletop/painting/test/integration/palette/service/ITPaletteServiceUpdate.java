@@ -39,7 +39,8 @@ import com.bernardomg.tabletop.painting.palette.service.PaletteService;
 @Transactional
 @Rollback
 @SpringBootTest(classes = Application.class)
-@Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
+@Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+        "/db/paint_simple.sql" })
 public class ITPaletteServiceUpdate {
 
     @Autowired
@@ -69,11 +70,11 @@ public class ITPaletteServiceUpdate {
         final PaintUpdateForm paintB;
 
         paintA = new PaintUpdateForm();
-        paintA.setId(1l);
+        paintA.setId(10l);
         paintA.setName("paint");
 
         paintB = new PaintUpdateForm();
-        paintB.setId(2l);
+        paintB.setId(20l);
         paintB.setName("paint2");
 
         paints = new ArrayList<>();
@@ -81,7 +82,7 @@ public class ITPaletteServiceUpdate {
         paints.add(paintB);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -99,7 +100,7 @@ public class ITPaletteServiceUpdate {
         final PaintUpdateForm paintB;
 
         paintA = new PaintUpdateForm();
-        paintA.setId(1l);
+        paintA.setId(10l);
         paintA.setName("paint");
 
         paintB = new PaintUpdateForm();
@@ -111,7 +112,7 @@ public class ITPaletteServiceUpdate {
         paints.add(paintB);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -126,7 +127,7 @@ public class ITPaletteServiceUpdate {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("abc");
 
         service.updatePalette(palette);
@@ -142,14 +143,14 @@ public class ITPaletteServiceUpdate {
         final PaintUpdateForm paint;
 
         paint = new PaintUpdateForm();
-        paint.setId(1l);
+        paint.setId(10l);
         paint.setName("abc");
 
         paints = new ArrayList<>();
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -164,12 +165,12 @@ public class ITPaletteServiceUpdate {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(2l);
+        palette.setId(20l);
         palette.setName("palette2");
 
         service.updatePalette(palette);
 
-        Assertions.assertEquals(2, paletteRepository.count());
+        Assertions.assertEquals(1, paletteRepository.count());
         Assertions.assertEquals(1, paintRepository.count());
     }
 
@@ -178,7 +179,7 @@ public class ITPaletteServiceUpdate {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
 
         service.updatePalette(palette);

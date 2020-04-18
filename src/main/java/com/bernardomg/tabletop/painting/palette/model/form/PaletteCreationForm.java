@@ -34,6 +34,8 @@ public class PaletteCreationForm {
     @Valid
     private Iterable<PaintCreationForm> paints = new ArrayList<>();
 
+    private Long                        scheme;
+
     public PaletteCreationForm() {
         super();
     }
@@ -64,6 +66,10 @@ public class PaletteCreationForm {
         return paints;
     }
 
+    public Long getScheme() {
+        return scheme;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hash(name);
@@ -75,6 +81,10 @@ public class PaletteCreationForm {
 
     public void setPaints(final Iterable<PaintCreationForm> paints) {
         this.paints = paints;
+    }
+
+    public void setScheme(final Long scheme) {
+        this.scheme = scheme;
     }
 
     @Override

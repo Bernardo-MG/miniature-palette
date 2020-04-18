@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -35,9 +36,7 @@ import org.springframework.stereotype.Service;
 
 import com.bernardomg.tabletop.painting.palette.model.data.PaintData;
 import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
-import com.bernardomg.tabletop.painting.palette.model.form.PaintCreationForm;
 import com.bernardomg.tabletop.painting.palette.model.form.PaintUpdateForm;
-import com.bernardomg.tabletop.painting.palette.model.form.PaletteCreationForm;
 import com.bernardomg.tabletop.painting.palette.model.form.PaletteUpdateForm;
 import com.bernardomg.tabletop.painting.palette.model.persistence.PaintEntity;
 import com.bernardomg.tabletop.painting.palette.model.persistence.PaletteEntity;
@@ -115,41 +114,9 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final PaletteData savePalette(final PaletteCreationForm palette) {
-        final PaletteEntity entity;
-        final PaletteEntity saved;
-        final Collection<PaintEntity> paintEntities;
-        final Collection<PaintEntity> savedPaints;
-        final PaletteData result;
-
-        if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
-            entity = new PaletteEntity();
-            entity.setName(palette.getName());
-
-            saved = paletteRepository.save(entity);
-
-            // Paints are mapped to entities
-            paintEntities = StreamSupport
-                    .stream(palette.getPaints().spliterator(), false)
-                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                    .map(this::toPaint).collect(Collectors.toList());
-            // The palette id is set
-            paintEntities.stream()
-                    .forEach((p) -> p.setPaletteId(saved.getId()));
-
-            savedPaints = paintRepository.saveAll(paintEntities);
-
-            result = toPaletteDataSimple(saved, savedPaints);
-        } else {
-            result = null;
-        }
-
-        return result;
-    }
-
-    @Override
     public final PaletteData updatePalette(final PaletteUpdateForm palette) {
         final PaletteEntity entity;
+        final Optional<PaletteEntity> read;
         final PaletteEntity saved;
         final Collection<PaintEntity> deletedPaints;
         final Collection<PaintEntity> paintEntities;
@@ -161,29 +128,32 @@ public final class DefaultPaletteService implements PaletteService {
 
         if ((palette.getName() != null) && (!palette.getName().isEmpty())
                 && (palette.getId() != null)) {
-            entity = new PaletteEntity();
-            entity.setId(palette.getId());
-            entity.setName(palette.getName());
+            read = paletteRepository.findById(palette.getId());
+            if (read.isPresent()) {
+                entity = read.get();
+                entity.setName(palette.getName());
+                saved = paletteRepository.save(entity);
 
-            saved = paletteRepository.save(entity);
+                deletedPaints = deletedPaints(palette);
+                paintRepository.deleteAll(deletedPaints);
 
-            deletedPaints = deletedPaints(palette);
-            paintRepository.deleteAll(deletedPaints);
+                // Paints are mapped to entities
+                paintEntities = StreamSupport
+                        .stream(palette.getPaints().spliterator(), false)
+                        .filter((p) -> StringUtils.isNotBlank(p.getName()))
+                        .map(this::toPaint).collect(Collectors.toList());
+                // The palette id is set
+                paintEntities.stream()
+                        .forEach((p) -> p.setPaletteId(saved.getId()));
 
-            // Paints are mapped to entities
-            paintEntities = StreamSupport
-                    .stream(palette.getPaints().spliterator(), false)
-                    .filter((p) -> StringUtils.isNotBlank(p.getName()))
-                    .map(this::toPaint).collect(Collectors.toList());
-            // The palette id is set
-            paintEntities.stream()
-                    .forEach((p) -> p.setPaletteId(saved.getId()));
+                savedPaints = paintRepository.saveAll(paintEntities);
 
-            savedPaints = paintRepository.saveAll(paintEntities);
-
-            palettePaintOptions = savedPaints.stream().map(this::toPaintData)
-                    .collect(Collectors.toList());
-            result = toPaletteData(saved, palettePaintOptions);
+                palettePaintOptions = savedPaints.stream()
+                        .map(this::toPaintData).collect(Collectors.toList());
+                result = toPaletteData(saved, palettePaintOptions);
+            } else {
+                result = null;
+            }
         } else {
             result = null;
         }
@@ -214,15 +184,6 @@ public final class DefaultPaletteService implements PaletteService {
                 .collect(Collectors.groupingBy(PaintEntity::getPaletteId));
         return palettePaints.entrySet().stream().collect(Collectors
                 .toMap(Map.Entry::getKey, e -> toPaintDatas(e.getValue())));
-    }
-
-    private final PaintEntity toPaint(final PaintCreationForm paint) {
-        final PaintEntity entity;
-
-        entity = new PaintEntity();
-        entity.setName(paint.getName());
-
-        return entity;
     }
 
     private final PaintEntity toPaint(final PaintUpdateForm paint) {

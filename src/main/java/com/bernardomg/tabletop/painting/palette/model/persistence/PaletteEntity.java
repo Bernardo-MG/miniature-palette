@@ -66,6 +66,12 @@ public class PaletteEntity implements Serializable {
     private String            name             = "";
 
     /**
+     * Schema which owns this palette.
+     */
+    @Column(name = "scheme_id", nullable = false)
+    private Long              scheme           = -1l;
+
+    /**
      * Constructs an example entity.
      */
     public PaletteEntity() {
@@ -106,6 +112,10 @@ public class PaletteEntity implements Serializable {
         return name;
     }
 
+    public Long getScheme() {
+        return scheme;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hash(id);
@@ -117,6 +127,10 @@ public class PaletteEntity implements Serializable {
 
     public void setName(final String value) {
         name = checkNotNull(value, "Received a null pointer as name");
+    }
+
+    public void setScheme(final Long scheme) {
+        this.scheme = scheme;
     }
 
     @Override

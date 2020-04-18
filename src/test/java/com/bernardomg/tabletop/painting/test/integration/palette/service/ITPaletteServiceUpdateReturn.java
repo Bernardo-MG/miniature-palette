@@ -40,7 +40,8 @@ import com.google.common.collect.Iterables;
 @Transactional
 @Rollback
 @SpringBootTest(classes = Application.class)
-@Sql({ "/db/palette_simple.sql", "/db/paint_simple.sql" })
+@Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+        "/db/paint_simple.sql" })
 public class ITPaletteServiceUpdateReturn {
 
     /**
@@ -62,12 +63,12 @@ public class ITPaletteServiceUpdateReturn {
         final PaletteData result;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
 
         result = service.updatePalette(palette);
 
-        Assertions.assertEquals(1l, result.getId());
+        Assertions.assertEquals(10l, result.getId());
         Assertions.assertEquals("palette", result.getName());
     }
 
@@ -77,7 +78,7 @@ public class ITPaletteServiceUpdateReturn {
         final PaletteData result;
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("abc");
 
         result = service.updatePalette(palette);
@@ -106,14 +107,14 @@ public class ITPaletteServiceUpdateReturn {
         final PaintData resultPaint;
 
         paint = new PaintUpdateForm();
-        paint.setId(1l);
+        paint.setId(10l);
         paint.setName("paint");
 
         paints = new ArrayList<>();
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
@@ -123,7 +124,7 @@ public class ITPaletteServiceUpdateReturn {
 
         resultPaint = result.getPaints().iterator().next();
 
-        Assertions.assertEquals(1l, resultPaint.getId());
+        Assertions.assertEquals(10l, resultPaint.getId());
         Assertions.assertEquals("paint", resultPaint.getName());
     }
 
@@ -135,20 +136,20 @@ public class ITPaletteServiceUpdateReturn {
         final PaletteData result;
 
         paint = new PaintUpdateForm();
-        paint.setId(1l);
+        paint.setId(10l);
         paint.setName("paint");
 
         paints = new ArrayList<>();
         paints.add(paint);
 
         palette = new PaletteUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
         palette.setPaints(paints);
 
         result = service.updatePalette(palette);
 
-        Assertions.assertEquals(1l, result.getId());
+        Assertions.assertEquals(10l, result.getId());
         Assertions.assertEquals("palette", result.getName());
     }
 

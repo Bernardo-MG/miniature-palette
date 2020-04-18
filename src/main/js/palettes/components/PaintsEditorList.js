@@ -61,12 +61,17 @@ function PaintsEditorList({ data, onAdd, onRemove, onChange, onBlur, errors, tou
 }
 
 PaintsEditorList.propTypes = {
-   data: PropTypes.array.isRequired,
+   data: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired
+   })).isRequired,
    onAdd: PropTypes.func.isRequired,
    onRemove: PropTypes.func.isRequired,
    onChange: PropTypes.func.isRequired,
    onBlur: PropTypes.func.isRequired,
-   errors: PropTypes.object.isRequired
+   errors: PropTypes.object.isRequired,
+   initialValues: PropTypes.shape({
+      name: PropTypes.string.isRequired
+   })
 };
 
 export default PaintsEditorList;
