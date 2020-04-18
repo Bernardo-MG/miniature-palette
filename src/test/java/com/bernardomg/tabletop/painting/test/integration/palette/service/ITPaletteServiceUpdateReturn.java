@@ -107,7 +107,7 @@ public class ITPaletteServiceUpdateReturn {
         final PaintData resultPaint;
 
         paint = new PaintUpdateForm();
-        paint.setId(1l);
+        paint.setId(10l);
         paint.setName("paint");
 
         paints = new ArrayList<>();
@@ -124,7 +124,7 @@ public class ITPaletteServiceUpdateReturn {
 
         resultPaint = result.getPaints().iterator().next();
 
-        Assertions.assertEquals(1l, resultPaint.getId());
+        Assertions.assertEquals(10l, resultPaint.getId());
         Assertions.assertEquals("paint", resultPaint.getName());
     }
 
@@ -136,7 +136,7 @@ public class ITPaletteServiceUpdateReturn {
         final PaletteData result;
 
         paint = new PaintUpdateForm();
-        paint.setId(1l);
+        paint.setId(10l);
         paint.setName("paint");
 
         paints = new ArrayList<>();

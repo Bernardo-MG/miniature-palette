@@ -70,11 +70,11 @@ public class ITPaletteServiceUpdate {
         final PaintUpdateForm paintB;
 
         paintA = new PaintUpdateForm();
-        paintA.setId(1l);
+        paintA.setId(10l);
         paintA.setName("paint");
 
         paintB = new PaintUpdateForm();
-        paintB.setId(2l);
+        paintB.setId(20l);
         paintB.setName("paint2");
 
         paints = new ArrayList<>();
@@ -100,7 +100,7 @@ public class ITPaletteServiceUpdate {
         final PaintUpdateForm paintB;
 
         paintA = new PaintUpdateForm();
-        paintA.setId(1l);
+        paintA.setId(10l);
         paintA.setName("paint");
 
         paintB = new PaintUpdateForm();
@@ -143,7 +143,7 @@ public class ITPaletteServiceUpdate {
         final PaintUpdateForm paint;
 
         paint = new PaintUpdateForm();
-        paint.setId(1l);
+        paint.setId(10l);
         paint.setName("abc");
 
         paints = new ArrayList<>();
@@ -165,7 +165,7 @@ public class ITPaletteServiceUpdate {
         final PaletteUpdateForm palette;
 
         palette = new PaletteUpdateForm();
-        palette.setId(2l);
+        palette.setId(20l);
         palette.setName("palette2");
 
         service.updatePalette(palette);
