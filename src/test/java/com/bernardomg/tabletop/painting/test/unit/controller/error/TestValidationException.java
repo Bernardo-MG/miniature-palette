@@ -30,6 +30,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.painting.controller.GlobalExceptionHandler;
 import com.bernardomg.tabletop.painting.palette.controller.PaletteController;
+import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
 import com.bernardomg.tabletop.painting.palette.service.PaletteService;
 import com.bernardomg.tabletop.painting.test.config.UrlConfig;
 
@@ -102,7 +103,7 @@ public final class TestValidationException {
     }
 
     @Test
-    public final void testSendFormData_NoScheme() throws Exception {
+    public final void testSendFormData_Valid() throws Exception {
         final RequestBuilder request;
 
         request = MockMvcRequestBuilders.post(UrlConfig.PALETTE)
@@ -110,11 +111,7 @@ public final class TestValidationException {
                 .content("{\"name\":\"abc\"}");
 
         mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content",
-                        Matchers.iterableWithSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status",
-                        Matchers.equalTo("warning")));
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     }
 
     /**
@@ -126,6 +123,8 @@ public final class TestValidationException {
         final PaletteService service; // Mocked service
 
         service = Mockito.mock(PaletteService.class);
+        Mockito.when(service.savePalette(Mockito.any()))
+                .thenReturn(new PaletteData());
 
         return new PaletteController(service);
     }
