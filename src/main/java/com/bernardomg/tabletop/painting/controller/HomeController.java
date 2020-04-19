@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/(?!static)**")
 public class HomeController {
 
     /**
