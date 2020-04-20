@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
@@ -60,7 +60,7 @@ function SchemeEditor({ initialValues, palettes, onSave, onDelete, onReturn }) {
                <FieldArray
                   name="palettes"
                   render={(arrayHelpers) => (
-                     <div>
+                     <Fragment>
                         <List>
                            {values.palettes.map((palette) =>
                               <ListItem button key={palette.name}>
@@ -77,7 +77,7 @@ function SchemeEditor({ initialValues, palettes, onSave, onDelete, onReturn }) {
                               )}
                            </List>
                         </Drawer>
-                     </div>
+                     </Fragment>
                   )}
                />
                <Grid item align="center" xs={12}>
