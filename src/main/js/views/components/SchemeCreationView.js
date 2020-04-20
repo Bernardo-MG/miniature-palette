@@ -33,8 +33,6 @@ import { useDispatch } from 'react-redux';
 
 import { saveScheme } from 'api/actions';
 
-import { usePalettes } from 'domain/hooks';
-
 const useStyles = makeStyles((theme) => ({
    root: {
       padding: theme.spacing(3, 2)
@@ -54,23 +52,6 @@ const PaletteSchema = Yup.object().shape({
       .max(50, 'Too Long!')
       .required('Required')
 });
-
-function PaletteSelectionList({ onSelect }) {
-
-   const palettes = usePalettes();
-
-   return <List>
-      {palettes.map((palette) =>
-         <ListItem button key={palette.name} onClick={() => onSelect(palette)}>
-            <ListItemText primary={palette.name}/>
-         </ListItem>
-      )}
-   </List>;
-}
-
-PaletteSelectionList.propTypes = {
-   onSelect: PropTypes.func
-};
 
 function PaletteCreationDialog({ open, onClose, onSelect }) {
    const initialValues = {
