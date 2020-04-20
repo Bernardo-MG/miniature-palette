@@ -91,7 +91,6 @@ public class SchemeController {
      * @return {@code true} if the palette was deleted, {@code false} otherwise
      */
     @DeleteMapping(path = "/{id:\\d*}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<Boolean> delete(@PathVariable final Long id) {
         final Boolean result;
@@ -106,8 +105,7 @@ public class SchemeController {
      * 
      * @return all the palettes
      */
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<Iterable<SchemeData>> read() {
         final Iterable<SchemeData> read;
 
@@ -126,7 +124,6 @@ public class SchemeController {
      * @return the updated palette
      */
     @PutMapping(path = "/{id:\\d*}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<SchemeData> update(@PathVariable final Long id,
             @RequestBody @Valid final SchemeUpdateForm palette) {

@@ -1,7 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: structure/palette.yaml
-      relativeToChangelogFile: true
-  - include:
-      file: structure/products.yaml
-      relativeToChangelogFile: true

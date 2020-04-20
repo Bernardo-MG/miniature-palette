@@ -29,8 +29,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.tabletop.painting.controller.GlobalExceptionHandler;
-import com.bernardomg.tabletop.painting.product.controller.ProductController;
-import com.bernardomg.tabletop.painting.product.service.ProductService;
+import com.bernardomg.tabletop.painting.palette.controller.SchemeController;
+import com.bernardomg.tabletop.painting.palette.service.SchemeService;
 import com.bernardomg.tabletop.painting.test.config.UrlConfig;
 
 /**
@@ -89,14 +89,14 @@ public final class TestGlobalExceptionHandler {
      * 
      * @return a mocked controller
      */
-    private final ProductController getController() {
-        final ProductService service; // Mocked service
+    private final SchemeController getController() {
+        final SchemeService service; // Mocked service
 
-        service = Mockito.mock(ProductService.class);
+        service = Mockito.mock(SchemeService.class);
 
-        Mockito.when(service.getAll()).thenThrow(RuntimeException.class);
+        Mockito.when(service.getAllSchemes()).thenThrow(RuntimeException.class);
 
-        return new ProductController(service);
+        return new SchemeController(service);
     }
 
     /**
@@ -109,7 +109,7 @@ public final class TestGlobalExceptionHandler {
      * @return a request builder for posting the form data
      */
     private final RequestBuilder getFormRequest() {
-        return MockMvcRequestBuilders.get(UrlConfig.PRODUCT);
+        return MockMvcRequestBuilders.get(UrlConfig.SCHEME);
     }
 
 }
