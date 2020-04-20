@@ -19,6 +19,8 @@ package com.bernardomg.tabletop.painting.palette.model.persistence;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -26,6 +28,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -46,7 +51,7 @@ public class PaletteEntity implements Serializable {
      * Serialization ID.
      */
     @Transient
-    private static final long serialVersionUID = -9102550009091675104L;
+    private static final long             serialVersionUID = -9102550009091675104L;
 
     /**
      * Entity's ID.
@@ -54,7 +59,7 @@ public class PaletteEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long              id               = -1l;
+    private Long                          id               = -1l;
 
     /**
      * Name of the entity.
@@ -63,13 +68,15 @@ public class PaletteEntity implements Serializable {
      * tests.
      */
     @Column(name = "name", nullable = false, unique = true)
-    private String            name             = "";
+    private String                        name             = "";
 
-    /**
-     * Schema which owns this palette.
-     */
-    @Column(name = "scheme_id", nullable = false)
-    private Long              scheme           = -1l;
+    @OneToMany(mappedBy = "palette")
+    private final Collection<PaintEntity> paints           = Collections
+            .emptyList();
+
+    @ManyToOne
+    @JoinColumn(name = "scheme_id")
+    private SchemeEntity                  scheme;
 
     /**
      * Constructs an example entity.
@@ -112,7 +119,11 @@ public class PaletteEntity implements Serializable {
         return name;
     }
 
-    public Long getScheme() {
+    public Collection<PaintEntity> getPaints() {
+        return paints;
+    }
+
+    public SchemeEntity getScheme() {
         return scheme;
     }
 
@@ -129,7 +140,7 @@ public class PaletteEntity implements Serializable {
         name = checkNotNull(value, "Received a null pointer as name");
     }
 
-    public void setScheme(final Long scheme) {
+    public void setScheme(final SchemeEntity scheme) {
         this.scheme = scheme;
     }
 

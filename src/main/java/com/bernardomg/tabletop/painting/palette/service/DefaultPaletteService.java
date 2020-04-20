@@ -20,9 +20,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.OutputStream;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -83,24 +80,6 @@ public final class DefaultPaletteService implements PaletteService {
     }
 
     @Override
-    public final Iterable<PaletteData> getAllPalettes() {
-        final List<PaletteEntity> allPalettes;
-        final Collection<Long> paletteIds;
-        final Collection<PaintEntity> allPaints;
-        final Map<Long, List<PaintData>> palettePaintOptions;
-
-        allPalettes = paletteRepository.findAll();
-        paletteIds = allPalettes.stream().map(PaletteEntity::getId)
-                .collect(Collectors.toList());
-
-        allPaints = paintRepository.findAllByPaletteIdIn(paletteIds);
-
-        palettePaintOptions = getPaintData(allPaints);
-
-        return toPaletteDatas(allPalettes, palettePaintOptions);
-    }
-
-    @Override
     public final void getReport(final Long id, final OutputStream output) {
         final PaletteEntity palette;
         final PaletteData data;
@@ -143,8 +122,7 @@ public final class DefaultPaletteService implements PaletteService {
                         .filter((p) -> StringUtils.isNotBlank(p.getName()))
                         .map(this::toPaint).collect(Collectors.toList());
                 // The palette id is set
-                paintEntities.stream()
-                        .forEach((p) -> p.setPaletteId(saved.getId()));
+                paintEntities.stream().forEach((p) -> p.setPalette(saved));
 
                 savedPaints = paintRepository.saveAll(paintEntities);
 
@@ -176,16 +154,6 @@ public final class DefaultPaletteService implements PaletteService {
                 .collect(Collectors.toList());
     }
 
-    private final Map<Long, List<PaintData>>
-            getPaintData(final Collection<PaintEntity> paints) {
-        final Map<Long, List<PaintEntity>> palettePaints;
-
-        palettePaints = paints.stream()
-                .collect(Collectors.groupingBy(PaintEntity::getPaletteId));
-        return palettePaints.entrySet().stream().collect(Collectors
-                .toMap(Map.Entry::getKey, e -> toPaintDatas(e.getValue())));
-    }
-
     private final PaintEntity toPaint(final PaintUpdateForm paint) {
         final PaintEntity entity;
 
@@ -206,11 +174,6 @@ public final class DefaultPaletteService implements PaletteService {
         return option;
     }
 
-    private final List<PaintData> toPaintDatas(final List<PaintEntity> paints) {
-        return paints.stream().map(this::toPaintData)
-                .collect(Collectors.toList());
-    }
-
     private final PaletteData toPaletteData(final PaletteEntity palette,
             final Iterable<PaintData> paintOptions) {
         final PaletteData option;
@@ -221,16 +184,6 @@ public final class DefaultPaletteService implements PaletteService {
         option.setPaints(paintOptions);
 
         return option;
-    }
-
-    private final List<PaletteData> toPaletteDatas(
-            final List<PaletteEntity> palettes,
-            final Map<Long, List<PaintData>> palettePaintOptions) {
-        return palettes.stream()
-                .map((p) -> toPaletteData(p,
-                        palettePaintOptions.getOrDefault(p.getId(),
-                                Collections.emptyList())))
-                .collect(Collectors.toList());
     }
 
     private final PaletteData toPaletteDataSimple(final PaletteEntity palette,

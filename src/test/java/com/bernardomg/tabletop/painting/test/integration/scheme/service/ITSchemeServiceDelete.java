@@ -53,7 +53,7 @@ public class ITSchemeServiceDelete {
 
     @Test
     public void testDeleteScheme_Empty() {
-        service.deleteScheme(1l);
+        service.deleteScheme(10l);
 
         Assertions.assertEquals(0, schemeRepository.count());
     }
@@ -61,7 +61,7 @@ public class ITSchemeServiceDelete {
     @Test
     @Sql({ "/db/scheme_simple.sql" })
     public void testDeleteScheme_ExistingScheme() {
-        service.deleteScheme(1l);
+        service.deleteScheme(10l);
 
         Assertions.assertEquals(0, schemeRepository.count());
     }

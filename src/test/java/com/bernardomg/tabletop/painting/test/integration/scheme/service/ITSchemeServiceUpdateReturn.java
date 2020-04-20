@@ -56,12 +56,12 @@ public class ITSchemeServiceUpdateReturn {
         final SchemeData result;
 
         palette = new SchemeUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("palette");
 
         result = service.updateScheme(palette);
 
-        Assertions.assertEquals(1l, result.getId());
+        Assertions.assertEquals(10l, result.getId());
         Assertions.assertEquals("palette", result.getName());
     }
 
@@ -71,7 +71,7 @@ public class ITSchemeServiceUpdateReturn {
         final SchemeData result;
 
         palette = new SchemeUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("abc");
 
         result = service.updateScheme(palette);

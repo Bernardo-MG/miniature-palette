@@ -26,6 +26,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -65,8 +67,9 @@ public class PaintEntity implements Serializable {
     @Column(name = "name", nullable = false, unique = true)
     private String            name             = "";
 
-    @Column(name = "palette_id", nullable = false)
-    private Long              paletteId;
+    @ManyToOne
+    @JoinColumn(name = "palette_id")
+    private PaletteEntity     palette;
 
     /**
      * Constructs an example entity.
@@ -109,8 +112,8 @@ public class PaintEntity implements Serializable {
         return name;
     }
 
-    public Long getPaletteId() {
-        return paletteId;
+    public PaletteEntity getPalette() {
+        return palette;
     }
 
     @Override
@@ -126,8 +129,8 @@ public class PaintEntity implements Serializable {
         name = checkNotNull(value, "Received a null pointer as name");
     }
 
-    public void setPaletteId(final Long id) {
-        paletteId = id;
+    public void setPalette(final PaletteEntity palette) {
+        this.palette = palette;
     }
 
     @Override

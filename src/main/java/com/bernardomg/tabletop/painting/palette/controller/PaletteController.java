@@ -23,7 +23,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,21 +78,6 @@ public class PaletteController {
         result = paletteService.deletePalette(id);
 
         return new DefaultResponse<>(result);
-    }
-
-    /**
-     * Returns all the palettes stored.
-     * 
-     * @return all the palettes
-     */
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response<Iterable<PaletteData>> read() {
-        final Iterable<PaletteData> read;
-
-        read = paletteService.getAllPalettes();
-
-        return new DefaultResponse<>(read);
     }
 
     /**

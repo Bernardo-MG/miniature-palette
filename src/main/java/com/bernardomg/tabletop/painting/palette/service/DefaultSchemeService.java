@@ -107,7 +107,7 @@ public final class DefaultSchemeService implements SchemeService {
             // TODO: Save all at once
             for (final PaletteCreationForm palette : form.getPalettes()) {
                 palette.setScheme(saved.getId());
-                savePalette = savePalette(palette);
+                savePalette = savePalette(saved, palette);
                 savedPalettes.add(savePalette);
             }
 
@@ -144,7 +144,8 @@ public final class DefaultSchemeService implements SchemeService {
         return result;
     }
 
-    private final PaletteData savePalette(final PaletteCreationForm palette) {
+    private final PaletteData savePalette(final SchemeEntity scheme,
+            final PaletteCreationForm palette) {
         final PaletteEntity entity;
         final PaletteEntity saved;
         final Collection<PaintEntity> paintEntities;
@@ -153,7 +154,7 @@ public final class DefaultSchemeService implements SchemeService {
 
         if ((palette.getName() != null) && (!palette.getName().isEmpty())) {
             entity = new PaletteEntity();
-            entity.setScheme(palette.getScheme());
+            entity.setScheme(scheme);
             entity.setName(palette.getName());
 
             saved = paletteRepository.save(entity);
@@ -164,8 +165,7 @@ public final class DefaultSchemeService implements SchemeService {
                     .filter((p) -> StringUtils.isNotBlank(p.getName()))
                     .map(this::toPaint).collect(Collectors.toList());
             // The palette id is set
-            paintEntities.stream()
-                    .forEach((p) -> p.setPaletteId(saved.getId()));
+            paintEntities.stream().forEach((p) -> p.setPalette(saved));
 
             savedPaints = paintRepository.saveAll(paintEntities);
 
@@ -196,6 +196,21 @@ public final class DefaultSchemeService implements SchemeService {
         return option;
     }
 
+    private final PaletteData toPaletteDataSimple(final PaletteEntity palette) {
+        final PaletteData option;
+        final Iterable<PaintData> paintOptions;
+
+        paintOptions = palette.getPaints().stream().map(this::toPaintData)
+                .collect(Collectors.toList());
+
+        option = new PaletteData();
+        option.setId(palette.getId());
+        option.setName(palette.getName());
+        option.setPaints(paintOptions);
+
+        return option;
+    }
+
     private final PaletteData toPaletteDataSimple(final PaletteEntity palette,
             final Collection<PaintEntity> paints) {
         final PaletteData option;
@@ -212,12 +227,18 @@ public final class DefaultSchemeService implements SchemeService {
         return option;
     }
 
-    private final SchemeData toSchemeData(final SchemeEntity palette) {
+    private final SchemeData toSchemeData(final SchemeEntity scheme) {
         final SchemeData option;
+        final Iterable<PaletteData> palettes;
 
         option = new SchemeData();
-        option.setId(palette.getId());
-        option.setName(palette.getName());
+        option.setId(scheme.getId());
+        option.setName(scheme.getName());
+
+        palettes = scheme.getPalettes().stream().map(this::toPaletteDataSimple)
+                .collect(Collectors.toList());
+
+        option.setPalettes(palettes);
 
         return option;
     }

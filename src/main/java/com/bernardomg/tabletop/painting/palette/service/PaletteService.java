@@ -30,8 +30,6 @@ public interface PaletteService {
 
     public Boolean deletePalette(final Long id);
 
-    public Iterable<PaletteData> getAllPalettes();
-
     public void getReport(final Long id, final OutputStream output);
 
     public PaletteData updatePalette(final PaletteUpdateForm palette);

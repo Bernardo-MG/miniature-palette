@@ -1,2 +1,2 @@
 INSERT INTO schemes (id, name) VALUES
-   (1, 'Scheme1');
+   (10, 'Scheme1');

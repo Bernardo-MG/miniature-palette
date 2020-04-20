@@ -26,6 +26,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.tabletop.painting.Application;
+import com.bernardomg.tabletop.painting.palette.model.data.PaintData;
+import com.bernardomg.tabletop.painting.palette.model.data.PaletteData;
 import com.bernardomg.tabletop.painting.palette.model.data.SchemeData;
 import com.bernardomg.tabletop.painting.palette.service.SchemeService;
 import com.google.common.collect.Iterables;
@@ -59,17 +61,68 @@ public class ITSchemeServiceRead {
     }
 
     @Test
-    @Sql({ "/db/scheme_simple.sql" })
-    public void testRead_Full_Simple() {
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql" })
+    public void testRead_Palette() {
         final Iterable<SchemeData> read;
-        final SchemeData palette;
+        final SchemeData scheme;
+        final PaletteData palette;
 
         read = service.getAllSchemes();
 
         Assertions.assertEquals(1, Iterables.size(read));
 
-        palette = read.iterator().next();
-        Assertions.assertEquals("Scheme1", palette.getName());
+        scheme = read.iterator().next();
+        Assertions.assertEquals("Scheme1", scheme.getName());
+
+        Assertions.assertEquals(1, Iterables.size(scheme.getPalettes()));
+
+        palette = scheme.getPalettes().iterator().next();
+        Assertions.assertEquals("Palette1", palette.getName());
+
+        Assertions.assertEquals(0, Iterables.size(palette.getPaints()));
+    }
+
+    @Test
+    @Sql({ "/db/scheme_simple.sql", "/db/palette_simple.sql",
+            "/db/paint_simple.sql" })
+    public void testRead_Palette_Paint() {
+        final Iterable<SchemeData> read;
+        final SchemeData scheme;
+        final PaletteData palette;
+        final PaintData paint;
+
+        read = service.getAllSchemes();
+
+        Assertions.assertEquals(1, Iterables.size(read));
+
+        scheme = read.iterator().next();
+        Assertions.assertEquals("Scheme1", scheme.getName());
+
+        Assertions.assertEquals(1, Iterables.size(scheme.getPalettes()));
+
+        palette = scheme.getPalettes().iterator().next();
+        Assertions.assertEquals("Palette1", palette.getName());
+
+        Assertions.assertEquals(1, Iterables.size(palette.getPaints()));
+
+        paint = palette.getPaints().iterator().next();
+        Assertions.assertEquals("Paint1", paint.getName());
+    }
+
+    @Test
+    @Sql({ "/db/scheme_simple.sql" })
+    public void testRead_Simple() {
+        final Iterable<SchemeData> read;
+        final SchemeData scheme;
+
+        read = service.getAllSchemes();
+
+        Assertions.assertEquals(1, Iterables.size(read));
+
+        scheme = read.iterator().next();
+        Assertions.assertEquals("Scheme1", scheme.getName());
+
+        Assertions.assertEquals(0, Iterables.size(scheme.getPalettes()));
     }
 
 }

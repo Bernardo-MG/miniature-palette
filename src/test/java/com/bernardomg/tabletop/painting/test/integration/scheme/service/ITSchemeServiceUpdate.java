@@ -58,7 +58,7 @@ public class ITSchemeServiceUpdate {
         final SchemeUpdateForm palette;
 
         palette = new SchemeUpdateForm();
-        palette.setId(1l);
+        palette.setId(10l);
         palette.setName("abc");
 
         service.updateScheme(palette);
@@ -71,7 +71,7 @@ public class ITSchemeServiceUpdate {
         final SchemeUpdateForm palette;
 
         palette = new SchemeUpdateForm();
-        palette.setId(2l);
+        palette.setId(20l);
         palette.setName("palette2");
 
         service.updateScheme(palette);

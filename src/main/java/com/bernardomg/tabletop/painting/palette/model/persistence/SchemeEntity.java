@@ -19,6 +19,8 @@ package com.bernardomg.tabletop.painting.palette.model.persistence;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -26,6 +28,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -46,7 +49,7 @@ public class SchemeEntity implements Serializable {
      * Serialization ID.
      */
     @Transient
-    private static final long serialVersionUID = -9102550009091675104L;
+    private static final long         serialVersionUID = -9102550009091675104L;
 
     /**
      * Entity's ID.
@@ -54,7 +57,7 @@ public class SchemeEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long              id               = -1l;
+    private Long                      id               = -1l;
 
     /**
      * Name of the entity.
@@ -63,7 +66,11 @@ public class SchemeEntity implements Serializable {
      * tests.
      */
     @Column(name = "name", nullable = false, unique = true)
-    private String            name             = "";
+    private String                    name             = "";
+
+    @OneToMany(mappedBy = "scheme")
+    private Collection<PaletteEntity> palettes         = Collections
+            .emptyList();
 
     /**
      * Constructs an example entity.
@@ -106,6 +113,10 @@ public class SchemeEntity implements Serializable {
         return name;
     }
 
+    public Collection<PaletteEntity> getPalettes() {
+        return palettes;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hash(id);
@@ -117,6 +128,10 @@ public class SchemeEntity implements Serializable {
 
     public void setName(final String value) {
         name = checkNotNull(value, "Received a null pointer as name");
+    }
+
+    public void setPalettes(final Collection<PaletteEntity> palettes) {
+        this.palettes = palettes;
     }
 
     @Override
