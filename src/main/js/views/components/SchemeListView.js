@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 function SchemeListView() {
    const classes = useStyles();
 
-   const palettes = useSchemes();
+   const data = useSchemes();
 
    const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ function SchemeListView() {
    }
 
    return <Box className={classes.root}>
-      <SchemeList data={palettes}
+      <SchemeList data={data}
          onReport={handleReport}
          onSave={handleSave}
          onDelete={handleDelete} />

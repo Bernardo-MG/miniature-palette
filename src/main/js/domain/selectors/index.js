@@ -12,6 +12,18 @@ function loadPaint(palette, paints) {
    return result;
 }
 
+function loadPalette(scheme, palettes) {
+   let result;
+
+   if (scheme) {
+      result = { ...scheme, palettes: scheme.palettes.map((id) => palettes[id]) };
+   } else {
+      result = { name: '', palettes: [] };
+   }
+
+   return result;
+}
+
 const selectDomain = (state) => state.domain;
 
 const selectPaintsMap = (state) => selectDomain(state).paints;
@@ -25,8 +37,13 @@ export const selectPalettes = createSelector(
    }
 );
 
-export const selectPaletteGroups = (state) => Object.values(selectDomain(state).paletteGroups);
+const selectPalettesMap = (state) => selectDomain(state).palettes;
 
-export const selectPaletteGroupById = (id) => (state) => selectDomain(state).paletteGroups[id];
+const selectSchemesValues = (state) => Object.values(selectDomain(state).schemes);
 
-export const selectSchemes = (state) => Object.values(selectDomain(state).schemes);
+export const selectSchemes = createSelector(
+   [selectSchemesValues, selectPalettesMap],
+   (schemes, palettes) => {
+      return schemes.map((scheme) => loadPalette(scheme, palettes));
+   }
+);
