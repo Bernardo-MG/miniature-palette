@@ -8,6 +8,36 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
+function PaletteData({ data }) {
+   return <Grid container spacing={3}>
+      <Grid item xs={12}>
+         <Typography variant="h2" component="h3">
+            { data.name }
+         </Typography>
+      </Grid>
+      <Grid item xs={12}>
+         <List>
+            {data.paints.map((paint) =>
+               <ListItem button key={paint.id}>
+                  <ListItemText primary={paint.name}/>
+               </ListItem>
+            )}
+         </List>
+      </Grid>
+   </Grid>;
+}
+
+PaletteData.propTypes = {
+   data: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      paints: PropTypes.arrayOf(PropTypes.shape({
+         id: PropTypes.number.isRequired,
+         name: PropTypes.string.isRequired
+      })).isRequired
+   }).isRequired
+};
+
 function SchemeData({ data }) {
    return <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -18,9 +48,7 @@ function SchemeData({ data }) {
       <Grid item xs={12}>
          <List>
             {data.palettes.map((palette) =>
-               <ListItem button key={palette.name}>
-                  <ListItemText primary={palette.name}/>
-               </ListItem>
+               <PaletteData key={palette.id} data={palette} />
             )}
          </List>
       </Grid>
@@ -33,7 +61,11 @@ SchemeData.propTypes = {
       name: PropTypes.string.isRequired,
       palettes: PropTypes.arrayOf(PropTypes.shape({
          id: PropTypes.number.isRequired,
-         name: PropTypes.string.isRequired
+         name: PropTypes.string.isRequired,
+         paints: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired
+         })).isRequired
       })).isRequired
    }).isRequired
 };
